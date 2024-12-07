@@ -1,5 +1,9 @@
-import Button from '@/components/Button';
 import Input from '@/components/Input';
+import {
+  validateCertNo,
+  validateEmail,
+  validatePassword,
+} from '@/utils/sign-up/validation';
 import axios from 'axios';
 import React, { useState } from 'react';
 
@@ -50,39 +54,40 @@ export default function SignUpToEmail() {
   return (
     <div>
       <form style={style} onSubmit={handleSubmit}>
-        <div style={{ ...style, flexDirection: 'row' }}>
-          <Input label="이메일" type="email" id="email" name="email" required />
-          <Button
-            type="button"
-            text="인증번호 발송"
-            onClick={handleSendBtnClick}
-          />
-        </div>
+        <Input
+          label="이메일"
+          type="email"
+          id="email"
+          name="email"
+          validate={validateEmail}
+          buttonText="인증번호 발송"
+          buttonClick={handleSendBtnClick}
+          required
+        />
         {isCertNoSended && (
-          <div style={{ ...style, flexDirection: 'row' }}>
-            <Input
-              label="인증번호"
-              type="number"
-              id="certno"
-              name="certno"
-              required
-            />
-            <Button
-              type="button"
-              text="인증번호 확인"
-              onClick={handleConfirmBtnClick}
-            />
-          </div>
-        )}
-        <div>
           <Input
-            label="비밀번호"
-            type="password"
-            id="password"
-            name="password"
+            label="인증번호"
+            type="text"
+            id="certno"
+            name="certno"
+            validate={validateCertNo}
+            buttonText="인증하기"
+            buttonClick={handleConfirmBtnClick}
+            maxLength={6}
             required
           />
-        </div>
+        )}
+        <Input
+          label="비밀번호"
+          type="password"
+          id="password"
+          name="password"
+          validate={validatePassword}
+          descrption="비밀번호는 8~20자 길이로 만들어주세요! 알파벳 소문자, 숫자, 특수문자를 각각 하나 이상 꼭 포함해야 해요 😊"
+          required
+          minLength={8}
+          maxLength={20}
+        />
         <button>회원가입</button>
       </form>
     </div>
