@@ -1,4 +1,5 @@
 import Input from '@/components/Input';
+import { signupAtom } from '@/recoil/signup';
 import {
   validateCertNo,
   validateEmail,
@@ -6,6 +7,7 @@ import {
 } from '@/utils/sign-up/validation';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 const style: React.CSSProperties = {
   display: 'flex',
@@ -15,6 +17,16 @@ const style: React.CSSProperties = {
 
 export default function SignUpToEmail() {
   const [isCertNoSended, setIsCertNoSended] = useState(false);
+
+  const setSignupState = useSetRecoilState(signupAtom);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setSignupState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   // 사용자 이메일로 인증번호 발송
   const handleSendBtnClick = async () => {
@@ -63,6 +75,7 @@ export default function SignUpToEmail() {
           buttonText="인증번호 발송"
           buttonClick={handleSendBtnClick}
           required
+          change={handleInputChange}
         />
         {isCertNoSended && (
           <Input
@@ -75,6 +88,7 @@ export default function SignUpToEmail() {
             buttonClick={handleConfirmBtnClick}
             maxLength={6}
             required
+            change={handleInputChange}
           />
         )}
         <Input
@@ -87,6 +101,7 @@ export default function SignUpToEmail() {
           required
           minLength={8}
           maxLength={20}
+          change={handleInputChange}
         />
         <button>회원가입</button>
       </form>

@@ -4,7 +4,7 @@ import Button from '../Button';
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   id?: string;
-  change?: () => boolean;
+  change: (e: React.ChangeEvent<HTMLInputElement>) => void;
   blur?: () => boolean;
   isError?: boolean;
   error?: string;
@@ -39,7 +39,10 @@ export default function Input({
         <input
           id={id}
           value={value}
-          onChange={handleInputChange}
+          onChange={(e) => {
+            handleInputChange(e);
+            change(e);
+          }}
           onBlur={handleInputBlur}
           style={{ outline: 'none' }}
           {...props}
