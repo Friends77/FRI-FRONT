@@ -1,7 +1,12 @@
-import './App.css';
+import { Outlet } from "react-router";
+import "./App.css";
 
 function App() {
-  return <>안녕</>;
+  return (
+    <>
+      <Outlet />
+    </>
+  );
 }
 
 export default App;
