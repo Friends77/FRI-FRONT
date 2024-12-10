@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
-import { ROOT_PATH } from "../constants/common/path";
-import App from "./../App";
+import App from "../App";
+import { ROOT_PATH } from "../constants/routes";
 
 export default function AppRouter() {
   const router = createBrowserRouter([
