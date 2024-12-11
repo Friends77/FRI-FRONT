@@ -1,5 +1,6 @@
 import { login } from "@/apis/auth";
 import { ROOT_PATH } from "@/constants/routes";
+import { setCookie } from "@/utils/cookie";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 
@@ -8,7 +9,10 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: login,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const { accessToken } = data;
+
+      setCookie("accessToken", accessToken);
       navigate(ROOT_PATH.ROOT);
     },
     onError: () => {
