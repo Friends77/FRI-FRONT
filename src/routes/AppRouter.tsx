@@ -1,13 +1,19 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "../App";
-import { ROOT_PATH } from "@/constants/routes";
+import { AUTH_PATH, ROOT_PATH } from "@/constants/routes";
+import LoginPage from "@/pages/login";
 
 export default function AppRouter() {
   const router = createBrowserRouter([
     {
       path: ROOT_PATH.ROOT,
       element: <App />,
-      children: [],
+      children: [
+        {
+          path: AUTH_PATH.LOGIN,
+          element: <LoginPage />,
+        },
+      ],
     },
   ]);
 
