@@ -1,21 +1,18 @@
+import { LoginDataType } from "@/types/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { AUTH_PATTERN } from "@/constants/pattern";
+import { useLogin } from "@/hooks/auth";
 
-type LoginType = {
-  email: string;
-  password: string;
-};
-
-const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-export default function LoginPage() {
+const LoginPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginType>();
+  } = useForm<LoginDataType>();
+  const { mutate } = useLogin();
 
-  const onSubmit: SubmitHandler<LoginType> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<LoginDataType> = (data) => {
+    mutate(data);
   };
   return (
     <main>
@@ -26,7 +23,7 @@ export default function LoginPage() {
           {...register("email", {
             required: "이메일을 입력해주세요.",
             pattern: {
-              value: EMAIL_PATTERN,
+              value: AUTH_PATTERN.EMAIL_PATTERN,
               message: "이메일 형식이 아닙니다.",
             },
           })}
@@ -43,4 +40,6 @@ export default function LoginPage() {
       </form>
     </main>
   );
-}
+};
+
+export default LoginPage;
