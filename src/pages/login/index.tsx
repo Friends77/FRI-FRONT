@@ -2,15 +2,21 @@ import { LoginDataType } from "@/types/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AUTH_PATTERN } from "@/constants/pattern";
 import { useLogin } from "@/hooks/auth";
+import { AUTH_ERROR_MSG } from "@/constants/message";
 
 const LoginPage = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<LoginDataType>();
-  const { mutate } = useLogin();
 
+  const { mutate } = useLogin({
+    loginErrorHandler: (name, message) => {
+      setError(name, { message }, { shouldFocus: true });
+    },
+  });
   const onSubmit: SubmitHandler<LoginDataType> = (data) => {
     mutate(data);
   };
@@ -21,10 +27,10 @@ const LoginPage = () => {
           type="email"
           placeholder="이메일"
           {...register("email", {
-            required: "이메일을 입력해주세요.",
+            required: AUTH_ERROR_MSG.EMAIL_REQUIRED,
             pattern: {
               value: AUTH_PATTERN.EMAIL,
-              message: "이메일 형식이 아닙니다.",
+              message: AUTH_ERROR_MSG.EMAIL_PATTERN,
             },
           })}
         />
@@ -33,9 +39,10 @@ const LoginPage = () => {
           type="password"
           placeholder="비밀번호"
           {...register("password", {
-            required: "비밀번호를 입력해주세요.",
+            required: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
           })}
         />
+        {errors.password && <span>{errors.password.message}</span>}
         <button type="submit">제출</button>
       </form>
     </main>
