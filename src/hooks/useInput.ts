@@ -2,13 +2,13 @@ import { useState } from "react";
 
 export function useInput(
   defaultValue: string,
-  validationFn: (value: string) => boolean
+  validationFn?: (value: string) => boolean
 ) {
   const [enteredValue, setEnteredValue] = useState(defaultValue);
 
   const [isDidEdit, setIsDidEdit] = useState(true);
 
-  const valueIsValid = validationFn(enteredValue);
+  const valueIsValid = validationFn ? validationFn(enteredValue) : true;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredValue(e.target.value);

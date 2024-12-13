@@ -52,7 +52,7 @@ const Input = ({
     handleInputChange: inputChange,
     handleInputBlur,
     hasError,
-  } = useInput("", validate ? (value: string) => validate(value) : () => true);
+  } = useInput("", validate);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     inputChange(e);
