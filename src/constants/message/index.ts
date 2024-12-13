@@ -2,7 +2,7 @@
 export const AUTH_ERROR_MSG = {
   EMAIL_REQUIRED: "이메일을 입력해주세요.",
   EMAIL_PATTERN: "이메일 형식이 아닙니다.",
-  EMAIL_NOT_EXIST: "존재하지 않는 이메일입니다.",
   PASSWORD_REQUIRED: "비밀번호를 입력해주세요.",
-  PASSWORD_INCORRECT: "비밀번호가 일치하지 않습니다.",
+  INCORRECT_EMAIL_OR_PASSWORD:
+    "아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 정확히 입력해 주세요.",
 };

@@ -13,8 +13,12 @@ const LoginPage = () => {
   } = useForm<LoginDataType>();
 
   const { mutate } = useLogin({
-    loginErrorHandler: (name, message) => {
-      setError(name, { message }, { shouldFocus: true });
+    loginErrorHandler: () => {
+      setError(
+        "password",
+        { message: AUTH_ERROR_MSG.INCORRECT_EMAIL_OR_PASSWORD },
+        { shouldFocus: true }
+      );
     },
   });
   const onSubmit: SubmitHandler<LoginDataType> = (data) => {
