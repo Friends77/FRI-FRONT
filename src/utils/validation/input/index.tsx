@@ -1,10 +1,11 @@
+import { AUTH_PATTERN } from "@/constants/pattern";
+
 export function validateEmpty(value: string) {
   return value.trim() !== "";
 }
 
 export function validateEmail(value: string) {
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return emailRegex.test(value);
+  return AUTH_PATTERN.EMAIL.test(value);
 }
 
 export function validatePassword(value: string) {
