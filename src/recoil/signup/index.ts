@@ -1,3 +1,3 @@
-import signUpAtom from "./atom";
+import signUpFormData from "./atom";
 
-export default signUpAtom;
+export default signUpFormData;

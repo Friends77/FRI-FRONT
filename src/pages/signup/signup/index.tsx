@@ -2,7 +2,7 @@ import { sendVerifyCode, sendVerifyEmail } from "@/apis/auth";
 import Button from "@/components/@common/Button/Button";
 import Input from "@/components/@common/Input/Input";
 import Timer from "@/components/signup/Timer/Timer";
-import signUpAtom from "@/recoil/signup";
+import signUpFormData from "@/recoil/signup";
 import {
   validateCertNo,
   validateEmail,
@@ -11,15 +11,19 @@ import {
 } from "@/utils/validation/input";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 const SignUpPage = () => {
+  // 인증 번호 발송 여부 상태
   const [isCertNoSended, setIsCertNoSended] = useState(false);
-  const [isVerifiedCode, setIsVerifyCode] = useState(false);
+
+  // 인증 번호 일치 여부 상태
+  const [isVerifiedCode, setIsVerifiedCode] = useState(false);
+
+  // 비밀번호 일치 여부 상태
   const [passwordsAreNotEqual, setPasswordsAreNotEqual] = useState(false);
 
-  const setSignUpState = useSetRecoilState(signUpAtom);
-  const signUpValue = useRecoilValue(signUpAtom);
+  const [signUpValue, setSignUpState] = useRecoilState(signUpFormData);
 
   const { mutate: sendEmail, isPending: isEmailSending } = useMutation({
     mutationFn: sendVerifyEmail,
@@ -36,7 +40,7 @@ const SignUpPage = () => {
     mutationFn: sendVerifyCode,
     onSuccess: () => {
       alert("이메일 인증에 성공했어요!");
-      setIsVerifyCode(true);
+      setIsVerifiedCode(true);
     },
     onError: () => {
       alert("이메일 인증에 실패했어요.");
@@ -120,7 +124,7 @@ const SignUpPage = () => {
           <Timer
             timeout={180000}
             onTimeout={() => {
-              setIsVerifyCode(false);
+              setIsVerifiedCode(false);
             }}
           />
         )}
@@ -149,6 +153,57 @@ const SignUpPage = () => {
           maxLength={20}
           change={handleInputChange}
         />
+        <fieldset>
+          <div>
+            <input
+              type="checkbox"
+              id="agreement-all"
+              name="acquisition"
+              value="all"
+            />
+            <label htmlFor="agreement-all">본인인증 약관 전체동의(필수)</label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              id="privacy-policy"
+              name="acquisition"
+              value="privacy-policy"
+            />
+            <label htmlFor="privacy-policy">개인정보 수집 이용 동의</label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              id="identity-info"
+              name="acquisition"
+              value="identity-info"
+            />
+            <label htmlFor="identity-info">고유식별 정보처리 동의</label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              id="carrier-terms"
+              name="acquisition"
+              value="carrier-terms"
+            />
+            <label htmlFor="carrier-terms">통신사 이용약관 동의</label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              id="location-sharing"
+              name="acquisition"
+              value="location-sharing"
+            />
+            <label htmlFor="location-sharing">위치정보 공유 동의</label>
+          </div>
+        </fieldset>
         <Button
           disable={
             !validateEmpty(signUpValue.email) ||
