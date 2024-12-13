@@ -21,6 +21,10 @@ export interface IInputProps
   disabledInput?: boolean;
   /** disabledButton: 버튼의 비활성화 여부를 제어하는 property, default: false */
   disabledButton?: boolean;
+  /** error: input 요소의 값이 유효성 검사에 맞지 않을 때, 오류 메시지 표시 여부를 제어하는 property, default: false */
+  error?: boolean;
+  /** errorMsg: 표시할 오류 메시지 */
+  errorMsg?: string;
 }
 
 /**
@@ -45,6 +49,8 @@ const Input = ({
   validate,
   disabledInput,
   disabledButton,
+  error,
+  errorMsg,
   ...rest
 }: IInputProps) => {
   const {
@@ -73,6 +79,7 @@ const Input = ({
           disabled={disabledInput}
           {...rest}
         />
+        {error && hasError && <p>{errorMsg}</p>}
         {buttonText && (
           <Button
             type="button"

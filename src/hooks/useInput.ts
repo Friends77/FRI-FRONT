@@ -23,6 +23,6 @@ export function useInput(
     value: enteredValue,
     handleInputBlur,
     handleInputChange,
-    hasError: isDidEdit && !valueIsValid,
+    hasError: enteredValue && isDidEdit && !valueIsValid,
   };
 }
