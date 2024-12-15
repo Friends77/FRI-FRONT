@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 const signUpFormData = atom({
-  key: "signUpFormData",
+  key: "signUp",
   default: {
     authToken: "",
     email: "",
