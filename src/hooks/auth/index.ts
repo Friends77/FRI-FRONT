@@ -2,6 +2,7 @@ import { login } from "@/apis/auth";
 import { ROOT_PATH } from "@/constants/routes";
 import isLoggedInAtom from "@/recoil/isLoggedIn/atom";
 import { setCookie } from "@/utils/cookie";
+import { getTokenExpDate } from "@/utils/token";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -20,6 +21,11 @@ export const useLogin = ({ loginErrorHandler }: UseLoginParams) => {
     mutationFn: login,
     onSuccess: (data) => {
       const { accessToken } = data;
+      const expirationDate = getTokenExpDate(accessToken);
+
+      setCookie("accessToken", accessToken, {
+        expires: expirationDate,
+      });
 
       setCookie("accessToken", accessToken);
       setIsLoggedIn(true);

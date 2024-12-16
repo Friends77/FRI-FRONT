@@ -2,7 +2,7 @@ import { getCookie, setCookie } from "@/utils/cookie";
 import axios, { AxiosInstance } from "axios";
 import { refresh } from "@/apis/auth";
 import { AUTH_PATH } from "@/constants/routes";
-import { getTokenPayload } from "@/utils/token";
+import { getTokenExpDate } from "@/utils/token";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -34,11 +34,9 @@ authInstance.interceptors.response.use(
     if (status === 401) {
       try {
         const { accessToken } = await refresh();
-        const payload = getTokenPayload(accessToken);
-        const expirationDate = new Date(payload.exp * 1000);
+        const expirationDate = getTokenExpDate(accessToken);
 
         setCookie("accessToken", accessToken, {
-          path: "/",
           expires: expirationDate,
         });
         config.headers.Authorization = `Bearer ${accessToken}`;
