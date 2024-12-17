@@ -1,4 +1,4 @@
-import { login } from "@/apis/auth";
+import { login, refresh } from "@/apis/auth";
 import { ROOT_PATH } from "@/constants/routes";
 import isLoggedInAtom from "@/recoil/isLoggedIn/atom";
 import { setCookie } from "@/utils/cookie";
@@ -26,8 +26,6 @@ export const useLogin = ({ loginErrorHandler }: UseLoginParams) => {
       setCookie("accessToken", accessToken, {
         expires: expirationDate,
       });
-
-      setCookie("accessToken", accessToken);
       setIsLoggedIn(true);
       navigate(ROOT_PATH.ROOT);
     },
@@ -39,6 +37,26 @@ export const useLogin = ({ loginErrorHandler }: UseLoginParams) => {
           loginErrorHandler();
         }
       }
+    },
+  });
+};
+
+export const useRefresh = () => {
+  const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
+
+  return useMutation({
+    mutationFn: () => {
+      console.log("refresh");
+      return refresh();
+    },
+    onSuccess: (data) => {
+      const { accessToken } = data;
+      const expirationDate = getTokenExpDate(accessToken);
+
+      setCookie("accessToken", accessToken, {
+        expires: expirationDate,
+      });
+      setIsLoggedIn(true);
     },
   });
 };

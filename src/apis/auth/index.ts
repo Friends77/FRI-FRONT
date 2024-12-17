@@ -1,6 +1,6 @@
 import Axios from "@/apis/@core/instance";
+import AuthAxios from "@/apis/@core/authInstance";
 import { LoginDataType, LoginResponse } from "@/types/auth";
-import { getCookie } from "@/utils/cookie";
 
 export async function login({
   email,
@@ -15,7 +15,7 @@ export async function login({
 }
 
 export async function refresh() {
-  const response = await Axios.post("/api/auth/refresh");
+  const response = await AuthAxios.post("/api/auth/refresh");
 
   return response.data;
 }
