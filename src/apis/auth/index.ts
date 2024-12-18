@@ -1,11 +1,8 @@
 import Axios from "@/apis/@core/instance";
 import AuthAxios from "@/apis/@core/authInstance";
-import { LoginDataType, LoginResponse } from "@/types/auth";
+import { LoginDataType } from "@/types/auth";
 
-export async function login({
-  email,
-  password,
-}: LoginDataType): Promise<LoginResponse> {
+export async function login({ email, password }: LoginDataType) {
   const response = await Axios.post("/api/auth/login", {
     email,
     password,
