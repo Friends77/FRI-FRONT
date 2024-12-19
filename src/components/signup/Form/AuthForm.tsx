@@ -148,8 +148,7 @@ const AuthForm = () => {
             message: AUTH_ERROR_MSG.PASSWORD_PATTERN_BELOW,
           },
           pattern: {
-            value:
-              /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])(?=\S{8,20}$).*/,
+            value: AUTH_PATTERN.PASSWORD,
             message: AUTH_ERROR_MSG.PASSWORD_PATTERN,
           },
         }}
