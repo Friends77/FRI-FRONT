@@ -1,9 +1,9 @@
 import { AUTH_PATH, ROOT_PATH } from "@/constants/routes";
 import LoginPage from "@/pages/login";
-import SignUpRootLayout from "@/pages/signup/root";
-import SignUpPage from "@/pages/signup/signup";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "../App";
+import SignUpRootLayout from "@/pages/auth/signUpRoot";
+import SignUpPage from "@/pages/auth/signUp";
 
 export default function AppRouter() {
   const router = createBrowserRouter([
