@@ -48,6 +48,7 @@ authInstance.interceptors.response.use(
 
           // 리프레시 요청에서도 에러가 발생하는 경우는 로그인 페이지로 이동
           if (status === 400 || status === 401) {
+            alert("세션이 만료되었습니다. 다시 로그인해 주세요.");
             window.location.href = AUTH_PATH.LOGIN;
             return;
           }
