@@ -1,9 +1,3 @@
-export interface IButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** disable: 버튼의 비활성화 여부를 제어하는 property, default: false */
-  disable?: boolean;
-}
-
 /**
  *  @Button
  *    @사용목적
@@ -14,12 +8,11 @@ export interface IButtonProps
  *      1) 클릭 이벤트 처리: 버튼 클릭 시 특정 작업(이벤트 핸들러 실행)을 수행
  */
 
-const Button = ({ disable, children, ...rest }: IButtonProps) => {
-  return (
-    <button disabled={disable} {...rest}>
-      {children}
-    </button>
-  );
+const Button = ({
+  children,
+  ...rest
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+  return <button {...rest}>{children}</button>;
 };
 
 export default Button;
