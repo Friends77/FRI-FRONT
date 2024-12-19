@@ -1,6 +1,6 @@
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 
-export interface IInputProps
+export interface IInputFieldProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   id?: string;
@@ -8,7 +8,7 @@ export interface IInputProps
   rules?: RegisterOptions;
 }
 
-const InputField = ({ label, id, name, rules, ...rest }: IInputProps) => {
+const InputField = ({ label, id, name, rules, ...rest }: IInputFieldProps) => {
   const {
     register,
     formState: { errors },
