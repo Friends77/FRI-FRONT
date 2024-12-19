@@ -1,19 +1,27 @@
-import { useFormContext, useWatch } from "react-hook-form";
-import InputField from "../Input/InputField";
-import { useEffect, useState } from "react";
-import Button from "@/components/@common/Button/Button";
-import { useMutation } from "@tanstack/react-query";
 import { sendVerifyCode, sendVerifyEmail } from "@/apis/auth";
+import Button from "@/components/@common/Button/Button";
+import { AUTH_PATTERN } from "@/constants/pattern";
+import signUpStepAtom from "@/recoil/auth/signUp/atom";
+import { moveToStep } from "@/utils/step/moveSteps";
+import { useMutation } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useFormContext, useWatch } from "react-hook-form";
+import { useSetRecoilState } from "recoil";
+import { AUTH_ERROR_MSG } from "@/constants/message";
 import Timer from "../Timer/Timer";
+import InputField from "../Input/InputField";
 
 const AuthForm = () => {
-  const [isTImerActive, setIsTimerActive] = useState(false);
+  const setSignUpStep = useSetRecoilState(signUpStepAtom);
+  const [isTimerActive, setIsTimerActive] = useState(false);
+  const [isVerifedSuccess, setIsVerifiedSuccess] = useState(false);
 
   const {
     control,
     setError,
     clearErrors,
-    formState: { errors },
+    resetField,
+    formState: { errors, isValid },
   } = useFormContext();
 
   const email = useWatch({ name: "email", control });
@@ -47,17 +55,23 @@ const AuthForm = () => {
   // 사용자 이메일로 인증 코드 발송
   const handleSendEmail = () => {
     sendEmail(email);
+    setIsVerifiedSuccess(false);
+    resetField("certno");
   };
 
   // 인증 코드 일치 여부 검사
   const { mutate: sendCode } = useMutation({
     mutationFn: sendVerifyCode,
     onSuccess: () => {
-      alert("이메일 인증에 성공했어요!");
       setIsTimerActive(false);
+      setIsVerifiedSuccess(true);
+      clearErrors("certno");
     },
     onError: () => {
-      alert("이메일 인증에 실패했어요.");
+      setError("certno", {
+        type: "manual",
+        message: "인증코드를 다시 확인해주세요.",
+      });
     },
   });
 
@@ -68,15 +82,15 @@ const AuthForm = () => {
         label="이메일 인증"
         id="email"
         name="email"
-        placeholder="이메일을 입력해주세요"
+        placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
         rules={{
           required: {
             value: true,
-            message: "이메일은 필수 입력 사항입니다.",
+            message: AUTH_ERROR_MSG.EMAIL_REQUIRED,
           },
           pattern: {
-            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            message: "이메일 형식이 올바르지 않습니다.",
+            value: AUTH_PATTERN.EMAIL,
+            message: AUTH_ERROR_MSG.EMAIL_PATTERN,
           },
         }}
       />
@@ -90,50 +104,53 @@ const AuthForm = () => {
       <InputField
         type="text"
         name="certno"
-        placeholder="인증코드를 입력해주세요"
+        placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
         maxLength={6}
+        disabled={isVerifedSuccess}
         rules={{
           required: {
             value: true,
-            message: "인증코드를 입력해주세요.",
+            message: AUTH_ERROR_MSG.CERTNO_REQUIRED,
           },
           validate: (value) => {
-            try {
-              sendCode({ email, code: value });
-              return true;
-            } catch {
-              return "인증코드가 올바르지 않습니다.";
+            if (value.length === 6) {
+              try {
+                sendCode({ email, code: value });
+                return true;
+              } catch (error) {
+                return AUTH_ERROR_MSG.CERTNO_PATTERN;
+              }
             }
           },
         }}
       />
-      {isTImerActive && (
+      {isTimerActive && (
         <Timer timeout={180000} onTimeout={() => setIsTimerActive(false)} />
       )}
+      {isVerifedSuccess && <p>인증에 성공하였습니다.</p>}
       <InputField
         label="비밀번호"
         id="password"
         type="password"
         name="password"
-        placeholder="비밀번호를 입력해주세요"
+        placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
         rules={{
           required: {
             value: true,
-            message: "비밀번호는 필수 입력 사항입니다.",
+            message: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
           },
           minLength: {
             value: 8,
-            message: "비밀번호는 8자 이상 입력해야 합니다.",
+            message: AUTH_ERROR_MSG.PASSWORD_PATTERN_MORE,
           },
           maxLength: {
             value: 20,
-            message: "비밀번호는 20자 이하로 입력해야 합니다",
+            message: AUTH_ERROR_MSG.PASSWORD_PATTERN_BELOW,
           },
           pattern: {
             value:
               /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])(?=\S{8,20}$).*/,
-            message:
-              "비밀번호는 공백을 제외하고 알파벳 소문자, 숫자, 특수문자를 각각 1개 이상 포함해야 합니다.",
+            message: AUTH_ERROR_MSG.PASSWORD_PATTERN,
           },
         }}
       />
@@ -142,16 +159,22 @@ const AuthForm = () => {
         id="confirm-password"
         type="password"
         name="confirm-password"
-        placeholder="비밀번호를 입력해주세요"
+        placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
         rules={{
           required: true,
           validate: (value) => {
             if (value !== password) {
-              return "비밀번호가 일치하지 않습니다";
+              return AUTH_ERROR_MSG.PASSWORD_NOT_MATCH;
             }
           },
         }}
       />
+      <Button
+        disabled={!isValid}
+        onClick={() => moveToStep("next", setSignUpStep)}
+      >
+        다음
+      </Button>
     </>
   );
 };
