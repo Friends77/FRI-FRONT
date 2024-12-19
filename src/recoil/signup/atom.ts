@@ -1,21 +1,8 @@
 import { atom } from "recoil";
 
-const signUpFormData = atom({
-  key: "signUp",
-  default: {
-    authToken: "",
-    email: "",
-    password: "",
-    "confirm-password": "",
-    nickname: "",
-    birth: "",
-    gender: "",
-    selfDescription: "",
-    MBTI: "",
-    interestTag: "",
-    imageUrl: "",
-    certNo: "",
-  },
+const signUpStepAtom = atom({
+  key: "signUpStep",
+  default: 1,
 });
 
-export default signUpFormData;
+export default signUpStepAtom;
