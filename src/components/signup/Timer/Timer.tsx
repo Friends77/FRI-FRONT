@@ -16,7 +16,7 @@ const Timer = ({ timeout, onTimeout }: ITimerProps) => {
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  }, [timeout, onTimeout]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,7 +37,7 @@ const Timer = ({ timeout, onTimeout }: ITimerProps) => {
 
   return (
     <div>
-      <p>{formattedTime(remainingTime)} 안에 인증 코드를 입력해주세요!</p>
+      <p>{formattedTime(remainingTime)}</p>
     </div>
   );
 };
