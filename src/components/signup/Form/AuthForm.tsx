@@ -33,7 +33,7 @@ const AuthForm = () => {
     if (confirmPassword && password !== confirmPassword) {
       setError("confirm-password", {
         type: "manual",
-        message: "비밀번호가 일치하지 않습니다.",
+        message: AUTH_ERROR_MSG.PASSWORD_NOT_MATCH,
       });
     } else {
       clearErrors("confirm-password");
@@ -70,7 +70,7 @@ const AuthForm = () => {
     onError: () => {
       setError("certno", {
         type: "manual",
-        message: "인증코드를 다시 확인해주세요.",
+        message: AUTH_ERROR_MSG.CERTNO_PATTERN,
       });
     },
   });
