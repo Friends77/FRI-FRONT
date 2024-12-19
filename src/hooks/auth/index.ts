@@ -1,8 +1,6 @@
 import { login, refresh } from "@/apis/auth";
 import { ROOT_PATH } from "@/constants/routes";
-import isLoggedInAtom from "@/recoil/isLoggedIn/atom";
-import { setCookie } from "@/utils/cookie";
-import { getTokenExpDate } from "@/utils/token";
+import authAtom from "@/recoil/user";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -15,18 +13,17 @@ interface UseLoginParams {
 
 export const useLogin = ({ loginErrorHandler }: UseLoginParams) => {
   const navigate = useNavigate();
-  const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
+  const setAuth = useSetRecoilState(authAtom);
 
   return useMutation({
     mutationFn: login,
     onSuccess: (data) => {
       const { accessToken } = data;
-      const expirationDate = getTokenExpDate(accessToken);
 
-      setCookie("accessToken", accessToken, {
-        expires: expirationDate,
+      setAuth({
+        isLoggedIn: true,
+        accessToken,
       });
-      setIsLoggedIn(true);
       navigate(ROOT_PATH.ROOT);
     },
     onError: (err) => {
@@ -42,21 +39,19 @@ export const useLogin = ({ loginErrorHandler }: UseLoginParams) => {
 };
 
 export const useRefresh = () => {
-  const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
+  const setAuth = useSetRecoilState(authAtom);
 
   return useMutation({
     mutationFn: () => {
-      console.log("refresh");
       return refresh();
     },
     onSuccess: (data) => {
       const { accessToken } = data;
-      const expirationDate = getTokenExpDate(accessToken);
 
-      setCookie("accessToken", accessToken, {
-        expires: expirationDate,
+      setAuth({
+        isLoggedIn: true,
+        accessToken,
       });
-      setIsLoggedIn(true);
     },
   });
 };

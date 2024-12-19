@@ -1,12 +1,15 @@
 import { Outlet } from "react-router";
 import "./App.css";
-import AppInitializer from "@/components/appInitializer/AppInitializer";
+import AuthInterceptor from "@/components/authInterceptor/AuthInterceptor";
+import TokenRefresher from "@/components/tokenRefresher/tokenRefresher";
 
 function App() {
   return (
-    <AppInitializer>
-      <Outlet />
-    </AppInitializer>
+    <AuthInterceptor>
+      <TokenRefresher>
+        <Outlet />
+      </TokenRefresher>
+    </AuthInterceptor>
   );
 }
 
