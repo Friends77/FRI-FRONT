@@ -1,7 +1,7 @@
 import AuthAxios from "@/apis/@core/authInstance";
 import { refresh } from "@/apis/auth";
 import { AUTH_PATH } from "@/constants/routes";
-import authAtom from "@/recoil/user";
+import accessTokenAtom from "@/recoil/accessToken";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
@@ -21,11 +21,9 @@ interface IAuthInterceptorProps {
  */
 const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
   const navigate = useNavigate();
-  const [auth, setAuth] = useRecoilState(authAtom);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
 
   const responseInterceptor = AuthAxios.interceptors.request.use((config) => {
-    const accessToken = auth.accessToken;
-
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -46,10 +44,7 @@ const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
         try {
           const { accessToken } = await refresh();
 
-          setAuth({
-            isLoggedIn: true,
-            accessToken,
-          });
+          setAccessToken(accessToken);
           config.headers.Authorization = `Bearer ${accessToken}`;
 
           return axios(config);

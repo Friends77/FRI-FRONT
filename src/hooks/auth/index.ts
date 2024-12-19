@@ -1,6 +1,6 @@
 import { login, refresh } from "@/apis/auth";
 import { ROOT_PATH } from "@/constants/routes";
-import authAtom from "@/recoil/user";
+import accessTokenAtom from "@/recoil/accessToken";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -13,17 +13,12 @@ interface UseLoginParams {
 
 export const useLogin = ({ loginErrorHandler }: UseLoginParams) => {
   const navigate = useNavigate();
-  const setAuth = useSetRecoilState(authAtom);
+  const setAccessToken = useSetRecoilState(accessTokenAtom);
 
   return useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      const { accessToken } = data;
-
-      setAuth({
-        isLoggedIn: true,
-        accessToken,
-      });
+      setAccessToken(data.accessToken);
       navigate(ROOT_PATH.ROOT);
     },
     onError: (err) => {
@@ -39,19 +34,14 @@ export const useLogin = ({ loginErrorHandler }: UseLoginParams) => {
 };
 
 export const useRefresh = () => {
-  const setAuth = useSetRecoilState(authAtom);
+  const setAccessToken = useSetRecoilState(accessTokenAtom);
 
   return useMutation({
     mutationFn: () => {
       return refresh();
     },
     onSuccess: (data) => {
-      const { accessToken } = data;
-
-      setAuth({
-        isLoggedIn: true,
-        accessToken,
-      });
+      setAccessToken(data.accessToken);
     },
   });
 };
