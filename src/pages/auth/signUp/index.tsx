@@ -22,11 +22,7 @@ const SignUpPage = () => {
   const renderPage = () => {
     switch (signUpStep) {
       case 1:
-        return (
-          <>
-            <AuthForm />
-          </>
-        );
+        return <AuthForm />;
       case 2:
         return <ProfileForm />;
       default:
