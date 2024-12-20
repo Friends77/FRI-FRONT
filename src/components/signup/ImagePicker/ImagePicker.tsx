@@ -12,7 +12,7 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
 
   const imageInput = useRef<HTMLInputElement>(null);
 
-  const buttonClickHandler = () => {
+  const handleButtonClick = () => {
     imageInput.current?.click();
   };
 
@@ -55,7 +55,7 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
         style={{ display: "none" }}
         onChange={handleImageChange}
       />
-      <button type="button" onClick={buttonClickHandler}>
+      <button type="button" onClick={handleButtonClick}>
         이미지 변경
       </button>
     </div>
