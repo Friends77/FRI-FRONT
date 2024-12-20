@@ -52,8 +52,8 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
         type="file"
         {...register(name)}
         ref={imageInput}
-        style={{ display: "none" }}
         onChange={handleImageChange}
+        hidden
       />
       <button type="button" onClick={handleButtonClick}>
         이미지 변경

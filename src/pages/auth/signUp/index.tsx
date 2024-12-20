@@ -1,5 +1,5 @@
-import AuthForm from "@/components/signUp/Form/AuthForm";
-import ProfileForm from "@/components/signUp/Form/ProfileForm";
+import AuthForm from "@/components/auth/Form/AuthForm";
+import ProfileForm from "@/components/auth/Form/ProfileForm";
 import signUpStepAtom from "@/recoil/auth/signUp/atom";
 import { SignUpDataType } from "@/types/auth";
 import { FormProvider, useForm } from "react-hook-form";
@@ -19,6 +19,12 @@ const SignUpPage = () => {
     },
   });
 
+  const { handleSubmit } = methods;
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   const renderPage = () => {
     switch (signUpStep) {
       case 1:
@@ -33,7 +39,7 @@ const SignUpPage = () => {
   return (
     <>
       <FormProvider {...methods}>
-        <form>{renderPage()}</form>
+        <form onSubmit={handleSubmit(onSubmit)}>{renderPage()}</form>
       </FormProvider>
     </>
   );
