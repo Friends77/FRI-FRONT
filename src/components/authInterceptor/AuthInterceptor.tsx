@@ -1,7 +1,7 @@
 import AuthAxios from "@/apis/@core/authInstance";
 import { refresh } from "@/apis/auth";
 import { AUTH_PATH } from "@/constants/routes";
-import accessTokenAtom from "@/recoil/accessToken";
+import accessTokenAtom from "@/recoil/auth/accessToken";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";

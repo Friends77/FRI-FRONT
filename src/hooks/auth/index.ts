@@ -1,6 +1,6 @@
 import { login, refresh } from "@/apis/auth";
 import { ROOT_PATH } from "@/constants/routes";
-import accessTokenAtom from "@/recoil/accessToken";
+import accessTokenAtom from "@/recoil/auth/accessToken";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router";
