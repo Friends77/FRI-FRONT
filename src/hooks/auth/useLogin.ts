@@ -1,7 +1,6 @@
 import { login } from "@/apis/auth";
 import { ROOT_PATH } from "@/constants/routes";
-import isLoggedInAtom from "@/recoil/isLoggedIn/atom";
-import { setCookie } from "@/utils/cookie";
+import accessTokenAtom from "@/recoil/auth/accessToken";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -14,15 +13,12 @@ interface UseLoginParams {
 
 export const useLogin = ({ loginErrorHandler }: UseLoginParams) => {
   const navigate = useNavigate();
-  const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
+  const setAccessToken = useSetRecoilState(accessTokenAtom);
 
   return useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      const { accessToken } = data;
-
-      setCookie("accessToken", accessToken);
-      setIsLoggedIn(true);
+      setAccessToken(data.accessToken);
       navigate(ROOT_PATH.ROOT);
     },
     onError: (err) => {

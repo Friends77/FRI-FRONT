@@ -1,8 +1,8 @@
 import { LoginDataType } from "@/types/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AUTH_PATTERN } from "@/constants/pattern";
-import { useLogin } from "@/hooks/auth";
 import { AUTH_ERROR_MSG } from "@/constants/message";
+import { useLogin } from "@/hooks/auth/useLogin";
 
 const LoginPage = () => {
   const {
