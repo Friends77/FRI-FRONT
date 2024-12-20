@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 export interface IImagePickerProps {
@@ -10,54 +10,51 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
 
   const [pickedImage, setPickedImage] = useState<string | null>(null);
 
-  const imageInput = useRef<HTMLInputElement>(null);
-
-  const handleButtonClick = () => {
-    imageInput.current?.click();
+  const handleImageDelete = () => {
+    setPickedImage(null);
+    setValue(name, null);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
-    if (!file) {
-      setPickedImage(null);
-      setValue(name, null);
-      return;
+    if (file) {
+      const fileReader = new FileReader();
+
+      fileReader.onload = () => {
+        if (typeof fileReader.result === "string") {
+          setPickedImage(fileReader.result);
+        }
+      };
+
+      fileReader.readAsDataURL(file);
+
+      setValue(name, file);
     }
-
-    const fileReader = new FileReader();
-
-    fileReader.onload = () => {
-      if (typeof fileReader.result === "string") {
-        setPickedImage(fileReader.result);
-      }
-    };
-
-    fileReader.readAsDataURL(file);
-
-    setValue(name, file);
   };
 
   return (
     <div>
-      <div>
+      <label>
         {pickedImage ? (
           <img src={pickedImage} alt={`${name} preview`} />
         ) : (
           <p>기본 이미지</p>
         )}
-      </div>
-      <input
-        id={name}
-        type="file"
-        {...register(name)}
-        ref={imageInput}
-        onChange={handleImageChange}
-        hidden
-      />
-      <button type="button" onClick={handleButtonClick}>
-        이미지 변경
-      </button>
+        <input
+          id={name}
+          type="file"
+          {...register(name)}
+          onChange={handleImageChange}
+          hidden
+        />
+        <p>이미지</p>
+      </label>
+      {pickedImage && (
+        <button type="button" onClick={handleImageDelete}>
+          이미지 삭제
+        </button>
+      )}
     </div>
   );
 };
