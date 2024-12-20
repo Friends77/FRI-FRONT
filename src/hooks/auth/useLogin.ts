@@ -1,4 +1,4 @@
-import { login, refresh } from "@/apis/auth";
+import { login } from "@/apis/auth";
 import { ROOT_PATH } from "@/constants/routes";
 import accessTokenAtom from "@/recoil/auth/accessToken";
 import { useMutation } from "@tanstack/react-query";
@@ -29,19 +29,6 @@ export const useLogin = ({ loginErrorHandler }: UseLoginParams) => {
           loginErrorHandler();
         }
       }
-    },
-  });
-};
-
-export const useRefresh = () => {
-  const setAccessToken = useSetRecoilState(accessTokenAtom);
-
-  return useMutation({
-    mutationFn: () => {
-      return refresh();
-    },
-    onSuccess: (data) => {
-      setAccessToken(data.accessToken);
     },
   });
 };

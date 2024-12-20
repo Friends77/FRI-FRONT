@@ -1,4 +1,4 @@
-import { useRefresh } from "@/hooks/auth";
+import { useRefresh } from "@/hooks/auth/useRefresh";
 import { useEffect, useState } from "react";
 
 interface ITokenRefresherProps {
