@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import "./App.css";
-import AuthInterceptor from "./components/AuthInterceptor";
-import TokenRefresher from "./components/TokenRefresher";
+import AuthInterceptor from "./components/auth/AuthInterceptor";
+import TokenRefresher from "./components/auth/TokenRefresher";
 
 function App() {
   return (
