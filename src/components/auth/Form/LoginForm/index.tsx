@@ -3,7 +3,7 @@ import { AUTH_PATTERN } from "@/constants/pattern";
 import { useLogin } from "@/hooks/auth/useLogin";
 import { LoginDataType } from "@/types/auth";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import InputField from "@/components/auth/Input/InputField";
+import InputField from "@/components/auth/Input";
 
 const LoginForm = () => {
   const methods = useForm<LoginDataType>({
