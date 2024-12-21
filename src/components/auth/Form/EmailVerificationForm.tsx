@@ -10,15 +10,17 @@ import { AUTH_PATTERN } from "@/constants/pattern";
 import Timer from "../Timer/Timer";
 import { useVerifyCode } from "@/hooks/auth/useVerifyCode";
 import { useSendCodeToEmail } from "@/hooks/auth/useSendCodeToEmail";
+import emailAuthTokenAtom from "@/recoil/auth/emailAuthToken";
 
 const CODE_EXPIRATION_TIME = 180000;
 
 const EmailVerificationForm = () => {
   const setResetPasswordStep = useSetRecoilState(resetPasswordStepAtom);
+  const setEmailAuthToken = useSetRecoilState(emailAuthTokenAtom);
   const [isTimerActive, setIsTimerActive] = useState(false);
   // 이메일로 코드 전송을 성공하면 이후로는 수정하지 못하게 하기 위한 state
-  const [isEmailSended, setIsEmailSended] = useState(false);
-  const [isVerifed, setIsVerified] = useState(false);
+  const [isCodeSended, setIsCodeSended] = useState(false);
+  const [isEmailVerifed, setIsEmailVerified] = useState(false);
 
   const {
     trigger,
@@ -35,9 +37,9 @@ const EmailVerificationForm = () => {
     useSendCodeToEmail({
       onSuccessHandler: () => {
         setIsTimerActive(true);
-        setIsVerified(false);
+        setIsEmailVerified(false);
         resetField("certno");
-        setIsEmailSended(true);
+        setIsCodeSended(true);
       },
     });
   const handleSendEmail = async () => {
@@ -49,10 +51,10 @@ const EmailVerificationForm = () => {
     sendCodeToEmail(email);
   };
 
-  const { mutate: verifyCode } = useVerifyCode({
+  const { mutateAsync: verifyCode } = useVerifyCode({
     onSuccessHandler: () => {
       setIsTimerActive(false);
-      setIsVerified(true);
+      setIsEmailVerified(true);
       clearErrors("certno");
     },
     onErrorHandler: () => {
@@ -62,6 +64,17 @@ const EmailVerificationForm = () => {
       });
     },
   });
+  const handleVerifyCodeValidate = async (value: string) => {
+    if (value.length === 6) {
+      try {
+        const { emailAuthToken } = await verifyCode({ email, code: value });
+        setEmailAuthToken(emailAuthToken);
+        return true;
+      } catch (error) {
+        return AUTH_ERROR_MSG.CERTNO_PATTERN;
+      }
+    }
+  };
 
   useEffect(() => {
     if (errors.email) {
@@ -69,13 +82,13 @@ const EmailVerificationForm = () => {
     }
   }, [email, errors]);
   return (
-    <div>
+    <>
       <InputField
         type="email"
         label="이메일 인증"
         id="email"
         name="email"
-        disabled={isEmailSended}
+        disabled={isCodeSended}
         placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
         rules={{
           required: {
@@ -91,7 +104,7 @@ const EmailVerificationForm = () => {
       <Button
         type="button"
         onClick={handleSendEmail}
-        disabled={!email || !!errors.email || isEmailSending || isEmailSended}
+        disabled={!email || !!errors.email || isEmailSending || isCodeSended}
       >
         인증 요청
       </Button>
@@ -100,22 +113,13 @@ const EmailVerificationForm = () => {
         name="certno"
         placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
         maxLength={6}
-        disabled={isVerifed}
+        disabled={isEmailVerifed}
         rules={{
           required: {
             value: true,
             message: AUTH_ERROR_MSG.CERTNO_REQUIRED,
           },
-          validate: (value) => {
-            if (value.length === 6) {
-              try {
-                verifyCode({ email, code: value });
-                return true;
-              } catch (error) {
-                return AUTH_ERROR_MSG.CERTNO_PATTERN;
-              }
-            }
-          },
+          validate: handleVerifyCodeValidate,
         }}
       />
       {isTimerActive && (
@@ -124,14 +128,15 @@ const EmailVerificationForm = () => {
           onTimeout={() => setIsTimerActive(false)}
         />
       )}
-      {isVerifed && <p>인증에 성공하였습니다.</p>}
+      {isEmailVerifed && <p>인증에 성공하였습니다.</p>}
       <Button
+        type="button"
         disabled={!isValid}
         onClick={() => moveToStep("next", setResetPasswordStep)}
       >
         다음
       </Button>
-    </div>
+    </>
   );
 };
 

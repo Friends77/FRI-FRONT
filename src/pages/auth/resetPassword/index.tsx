@@ -10,6 +10,8 @@ const ResetPasswordPage = () => {
     defaultValues: {
       email: "",
       certno: "",
+      password: "",
+      "confirm-password": "",
     },
   });
 
@@ -25,7 +27,9 @@ const ResetPasswordPage = () => {
   };
   return (
     <main>
-      <FormProvider {...methods}>{renderPage()}</FormProvider>
+      <FormProvider {...methods}>
+        <form>{renderPage()}</form>
+      </FormProvider>
     </main>
   );
 };
