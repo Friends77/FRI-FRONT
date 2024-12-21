@@ -1,19 +1,10 @@
 import EmailVerificationForm from "@/components/auth/Form/EmailVerificationForm";
 import ResetPasswordForm from "@/components/auth/Form/ResetPasswordForm";
 import resetPasswordStepAtom from "@/recoil/auth/resetPassword";
-import { FormProvider, useForm } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 
 const ResetPasswordPage = () => {
   const resetPasswordStep = useRecoilValue(resetPasswordStepAtom);
-  const methods = useForm({
-    defaultValues: {
-      email: "",
-      certno: "",
-      password: "",
-      "confirm-password": "",
-    },
-  });
 
   const renderPage = () => {
     switch (resetPasswordStep) {
@@ -25,13 +16,7 @@ const ResetPasswordPage = () => {
         return; // TO-DO: 에러 페이지 추가
     }
   };
-  return (
-    <main>
-      <FormProvider {...methods}>
-        <form>{renderPage()}</form>
-      </FormProvider>
-    </main>
-  );
+  return <main>{renderPage()}</main>;
 };
 
 export default ResetPasswordPage;

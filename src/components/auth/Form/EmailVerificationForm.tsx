@@ -2,7 +2,7 @@ import Button from "@/components/@common/Button/Button";
 import resetPasswordStepAtom from "@/recoil/auth/resetPassword";
 import { moveToStep } from "@/utils/step/moveSteps";
 import { useEffect, useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import InputField from "../Input/InputField";
 import { AUTH_ERROR_MSG } from "@/constants/message";
@@ -22,6 +22,12 @@ const EmailVerificationForm = () => {
   const [isCodeSended, setIsCodeSended] = useState(false);
   const [isEmailVerifed, setIsEmailVerified] = useState(false);
 
+  const methods = useForm({
+    defaultValues: {
+      email: "",
+      certno: "",
+    },
+  });
   const {
     trigger,
     setError,
@@ -29,7 +35,7 @@ const EmailVerificationForm = () => {
     clearErrors,
     resetField,
     formState: { errors, isValid },
-  } = useFormContext();
+  } = methods;
 
   const email = watch("email");
 
@@ -82,61 +88,63 @@ const EmailVerificationForm = () => {
     }
   }, [email, errors]);
   return (
-    <>
-      <InputField
-        type="email"
-        label="이메일 인증"
-        id="email"
-        name="email"
-        disabled={isCodeSended}
-        placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
-        rules={{
-          required: {
-            value: true,
-            message: AUTH_ERROR_MSG.EMAIL_REQUIRED,
-          },
-          pattern: {
-            value: AUTH_PATTERN.EMAIL,
-            message: AUTH_ERROR_MSG.EMAIL_PATTERN,
-          },
-        }}
-      />
-      <Button
-        type="button"
-        onClick={handleSendEmail}
-        disabled={!email || !!errors.email || isEmailSending || isCodeSended}
-      >
-        인증 요청
-      </Button>
-      <InputField
-        type="text"
-        name="certno"
-        placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
-        maxLength={6}
-        disabled={isEmailVerifed}
-        rules={{
-          required: {
-            value: true,
-            message: AUTH_ERROR_MSG.CERTNO_REQUIRED,
-          },
-          validate: handleVerifyCodeValidate,
-        }}
-      />
-      {isTimerActive && (
-        <Timer
-          timeout={CODE_EXPIRATION_TIME}
-          onTimeout={() => setIsTimerActive(false)}
+    <FormProvider {...methods}>
+      <form>
+        <InputField
+          type="email"
+          label="이메일 인증"
+          id="email"
+          name="email"
+          disabled={isCodeSended}
+          placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
+          rules={{
+            required: {
+              value: true,
+              message: AUTH_ERROR_MSG.EMAIL_REQUIRED,
+            },
+            pattern: {
+              value: AUTH_PATTERN.EMAIL,
+              message: AUTH_ERROR_MSG.EMAIL_PATTERN,
+            },
+          }}
         />
-      )}
-      {isEmailVerifed && <p>인증에 성공하였습니다.</p>}
-      <Button
-        type="button"
-        disabled={!isValid}
-        onClick={() => moveToStep("next", setResetPasswordStep)}
-      >
-        다음
-      </Button>
-    </>
+        <Button
+          type="button"
+          onClick={handleSendEmail}
+          disabled={!email || !!errors.email || isEmailSending || isCodeSended}
+        >
+          인증 요청
+        </Button>
+        <InputField
+          type="text"
+          name="certno"
+          placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
+          maxLength={6}
+          disabled={isEmailVerifed}
+          rules={{
+            required: {
+              value: true,
+              message: AUTH_ERROR_MSG.CERTNO_REQUIRED,
+            },
+            validate: handleVerifyCodeValidate,
+          }}
+        />
+        {isTimerActive && (
+          <Timer
+            timeout={CODE_EXPIRATION_TIME}
+            onTimeout={() => setIsTimerActive(false)}
+          />
+        )}
+        {isEmailVerifed && <p>인증에 성공하였습니다.</p>}
+        <Button
+          type="button"
+          disabled={!isValid}
+          onClick={() => moveToStep("next", setResetPasswordStep)}
+        >
+          다음
+        </Button>
+      </form>
+    </FormProvider>
   );
 };
 

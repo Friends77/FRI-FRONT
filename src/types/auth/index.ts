@@ -3,14 +3,19 @@ export type LoginDataType = {
   password: string;
 };
 
-export type LoginResponse = {
-  memberId: number;
-  accessToken: string;
-};
-
 export type SignUpDataType = {
   email: string;
   certno: string;
   password: string;
   "confirm-password": string;
 };
+
+export type EmailVerificationDataType = Pick<
+  SignUpDataType,
+  "email" | "certno"
+>;
+
+export type ResetPasswordDataType = Pick<
+  SignUpDataType,
+  "password" | "confirm-password"
+>;
