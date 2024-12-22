@@ -2,7 +2,7 @@ import AuthForm from "@/components/auth/Form/AuthForm";
 import ProfileForm from "@/components/auth/Form/ProfileForm";
 import signUpStepAtom from "@/recoil/auth/signUp/atom";
 import { SignUpDataType } from "@/types/auth";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 
 const SignUpPage = () => {
@@ -19,6 +19,12 @@ const SignUpPage = () => {
     },
   });
 
+  const { handleSubmit } = methods;
+
+  const onSubmit: SubmitHandler<SignUpDataType> = (data) => {
+    console.log(data);
+  };
+
   const renderPage = () => {
     switch (signUpStep) {
       case 1:
@@ -33,7 +39,7 @@ const SignUpPage = () => {
   return (
     <>
       <FormProvider {...methods}>
-        <form>{renderPage()}</form>
+        <form onSubmit={handleSubmit(onSubmit)}>{renderPage()}</form>
       </FormProvider>
     </>
   );

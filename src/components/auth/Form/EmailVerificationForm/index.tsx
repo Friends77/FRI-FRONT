@@ -4,13 +4,13 @@ import { moveToStep } from "@/utils/step/moveSteps";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
-import InputField from "../../Input/InputField";
 import { AUTH_ERROR_MSG } from "@/constants/message";
 import { AUTH_PATTERN } from "@/constants/pattern";
-import Timer from "../../Timer/Timer";
 import { useVerifyCode } from "@/hooks/auth/useVerifyCode";
 import { useSendCodeToEmail } from "@/hooks/auth/useSendCodeToEmail";
 import emailAuthTokenAtom from "@/recoil/auth/emailAuthToken";
+import InputField from "@/components/auth/Input";
+import Timer from "@/components/auth/Timer";
 
 const CODE_EXPIRATION_TIME = 180000;
 
