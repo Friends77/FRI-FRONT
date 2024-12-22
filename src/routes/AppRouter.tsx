@@ -1,5 +1,5 @@
 import { AUTH_PATH, ROOT_PATH } from "@/constants/routes";
-import LoginPage from "@/pages/login";
+import LoginPage from "@/pages/auth/login";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "../App";
 import SignUpRootLayout from "@/pages/auth/signUpRoot";
