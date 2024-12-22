@@ -4,10 +4,10 @@ import { moveToStep } from "@/utils/step/moveSteps";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
-import InputField from "../Input/InputField";
+import InputField from "../../Input/InputField";
 import { AUTH_ERROR_MSG } from "@/constants/message";
 import { AUTH_PATTERN } from "@/constants/pattern";
-import Timer from "../Timer/Timer";
+import Timer from "../../Timer/Timer";
 import { useVerifyCode } from "@/hooks/auth/useVerifyCode";
 import { useSendCodeToEmail } from "@/hooks/auth/useSendCodeToEmail";
 import emailAuthTokenAtom from "@/recoil/auth/emailAuthToken";
@@ -83,6 +83,7 @@ const EmailVerificationForm = () => {
   };
 
   useEffect(() => {
+    // handleSendEmail의 trigger 이후 email 입력란에 변화가 생기면 다시 유효성 검사를 진행
     if (errors.email) {
       clearErrors("email");
     }
