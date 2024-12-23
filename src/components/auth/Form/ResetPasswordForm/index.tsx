@@ -1,5 +1,4 @@
 import { AUTH_ERROR_MSG } from "@/constants/message";
-import { useEffect } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import InputField from "@/components/auth/Input";
 import { AUTH_PATTERN } from "@/constants/pattern";
@@ -19,11 +18,9 @@ const ResetPasswordForm = () => {
       "confirm-password": "",
     },
   });
-  const { watch, handleSubmit, setError, clearErrors } = methods;
+  const { watch, handleSubmit } = methods;
 
   const password = watch("password");
-  const confirmPassword = watch("confirm-password");
-  const isPasswordEqual = password === confirmPassword;
 
   const { mutate } = useResetPassword();
   const onSubmit: SubmitHandler<ResetPasswordDataType> = (data) => {
@@ -32,18 +29,6 @@ const ResetPasswordForm = () => {
       newPassword: data.password,
     });
   };
-
-  // 비밀번호 일치 여부 확인
-  useEffect(() => {
-    if (confirmPassword && !isPasswordEqual) {
-      setError("confirm-password", {
-        type: "manual",
-        message: AUTH_ERROR_MSG.PASSWORD_NOT_MATCH,
-      });
-    } else {
-      clearErrors("confirm-password");
-    }
-  }, [confirmPassword, password, setError, clearErrors]);
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,7 +72,7 @@ const ResetPasswordForm = () => {
             },
           }}
         />
-        <Button disabled={!isPasswordEqual}>확인</Button>
+        <Button>확인</Button>
       </form>
     </FormProvider>
   );
