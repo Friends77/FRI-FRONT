@@ -18,7 +18,11 @@ const ResetPasswordForm = () => {
       "confirm-password": "",
     },
   });
-  const { watch, handleSubmit } = methods;
+  const {
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
 
   const password = watch("password");
 
@@ -72,7 +76,7 @@ const ResetPasswordForm = () => {
             },
           }}
         />
-        <Button>확인</Button>
+        <Button disabled={!!errors["confirm-password"]}>확인</Button>
       </form>
     </FormProvider>
   );
