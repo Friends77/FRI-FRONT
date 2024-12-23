@@ -121,11 +121,15 @@ const EmailVerificationForm = () => {
           name="certno"
           placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
           maxLength={6}
-          disabled={isEmailVerifed}
+          disabled={isEmailVerifed || !isCodeSended}
           rules={{
             required: {
               value: true,
               message: AUTH_ERROR_MSG.CERTNO_REQUIRED,
+            },
+            minLength: {
+              value: 6,
+              message: AUTH_ERROR_MSG.CERTNO_PATTERN,
             },
             validate: handleVerifyCodeValidate,
           }}
