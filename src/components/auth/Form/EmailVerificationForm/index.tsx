@@ -1,7 +1,7 @@
 import Button from "@/components/@common/Button/Button";
 import resetPasswordStepAtom from "@/recoil/auth/resetPassword";
 import { moveToStep } from "@/utils/step/moveSteps";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import { AUTH_ERROR_MSG } from "@/constants/message";
@@ -23,13 +23,13 @@ const EmailVerificationForm = () => {
   const [isCodeVerifed, setIsCodeVerified] = useState(false);
 
   const methods = useForm({
+    mode: "onChange",
     defaultValues: {
       email: "",
       certno: "",
     },
   });
   const {
-    trigger,
     setError,
     watch,
     clearErrors,
@@ -51,11 +51,6 @@ const EmailVerificationForm = () => {
       },
     });
   const handleSendEmail = async () => {
-    const result = await trigger("email", { shouldFocus: true });
-
-    // 인증 요청 전 유효성 검사
-    if (!result) return;
-
     setIsCodeSended(true);
     sendCodeToEmail(email);
   };
@@ -84,13 +79,6 @@ const EmailVerificationForm = () => {
       }
     }
   };
-
-  useEffect(() => {
-    // handleSendEmail의 trigger 이후 email 입력란에 변화가 생기면 다시 유효성 검사를 진행
-    if (errors.email) {
-      clearErrors("email");
-    }
-  }, [email, errors]);
   return (
     <FormProvider {...methods}>
       <form>
