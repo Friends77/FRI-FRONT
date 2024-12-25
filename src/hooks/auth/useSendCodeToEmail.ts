@@ -3,10 +3,12 @@ import { useMutation } from "@tanstack/react-query";
 
 interface UseSendCodeToEmailParams {
   onSuccessHandler: () => void;
+  onErrorHandler: () => void;
 }
 
 export const useSendCodeToEmail = ({
   onSuccessHandler,
+  onErrorHandler,
 }: UseSendCodeToEmailParams) => {
   return useMutation({
     mutationFn: sendVerifyEmail,
@@ -16,6 +18,7 @@ export const useSendCodeToEmail = ({
     },
     onError: () => {
       alert("이메일 발송에 실패했어요.");
+      onErrorHandler();
     },
   });
 };

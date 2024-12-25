@@ -20,7 +20,7 @@ const EmailVerificationForm = () => {
   const [isTimerActive, setIsTimerActive] = useState(false);
   // 이메일로 코드 전송을 성공하면 이후로는 수정하지 못하게 하기 위한 state
   const [isCodeSended, setIsCodeSended] = useState(false);
-  const [isEmailVerifed, setIsEmailVerified] = useState(false);
+  const [isCodeVerifed, setIsCodeVerified] = useState(false);
 
   const methods = useForm({
     defaultValues: {
@@ -43,9 +43,11 @@ const EmailVerificationForm = () => {
     useSendCodeToEmail({
       onSuccessHandler: () => {
         setIsTimerActive(true);
-        setIsEmailVerified(false);
+        setIsCodeVerified(false);
         resetField("certno");
-        setIsCodeSended(true);
+      },
+      onErrorHandler: () => {
+        setIsCodeSended(false);
       },
     });
   const handleSendEmail = async () => {
@@ -54,13 +56,14 @@ const EmailVerificationForm = () => {
     // 인증 요청 전 유효성 검사
     if (!result) return;
 
+    setIsCodeSended(true);
     sendCodeToEmail(email);
   };
 
   const { mutateAsync: verifyCode } = useVerifyCode({
     onSuccessHandler: () => {
       setIsTimerActive(false);
-      setIsEmailVerified(true);
+      setIsCodeVerified(true);
       clearErrors("certno");
     },
     onErrorHandler: () => {
@@ -121,7 +124,7 @@ const EmailVerificationForm = () => {
           name="certno"
           placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
           maxLength={6}
-          disabled={isEmailVerifed || !isCodeSended}
+          disabled={isCodeVerifed || !isCodeSended}
           rules={{
             required: {
               value: true,
@@ -140,7 +143,7 @@ const EmailVerificationForm = () => {
             onTimeout={() => setIsTimerActive(false)}
           />
         )}
-        {isEmailVerifed && <p>인증에 성공하였습니다.</p>}
+        {isCodeVerifed && <p>인증에 성공하였습니다.</p>}
         <Button
           type="button"
           disabled={!isValid}
