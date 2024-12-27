@@ -4,7 +4,7 @@ import { useLogin } from "@/hooks/auth/useLogin";
 import { LoginDataType } from "@/types/auth";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import InputField from "@/components/auth/Input";
-import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import { useSocialLogin } from "@/hooks/auth/useSocialLogin";
 import { useId } from "react";
 
@@ -36,14 +36,15 @@ const LoginForm = () => {
 
   const { mutate: sendSocialToken } = useSocialLogin({ socialType: "GOOGLE" });
 
-  const handleGoogleLogin = (credentialResponse: CredentialResponse) => {
-    if (credentialResponse.credential) {
+  const handleGoogleLogin = useGoogleLogin({
+    flow: "auth-code",
+    onSuccess: (tokenResponse) => {
       sendSocialToken({
-        code: credentialResponse.credential,
+        code: tokenResponse.code,
         provider: "GOOGLE",
       });
-    }
-  };
+    },
+  });
 
   const handleNaverLogin = () => {
     const naverClientId = import.meta.env.VITE_NAVER_CLIENT_ID;
@@ -84,12 +85,9 @@ const LoginForm = () => {
           <button type="submit">로그인</button>
         </form>
       </FormProvider>
-      <GoogleLogin
-        onSuccess={handleGoogleLogin}
-        onError={() => {
-          alert("다시 로그인해 주세요.");
-        }}
-      />
+      <button type="button" onClick={handleGoogleLogin}>
+        구글 로그인
+      </button>
       <button type="button" onClick={handleNaverLogin}>
         네이버 로그인
       </button>

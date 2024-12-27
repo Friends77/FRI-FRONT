@@ -22,8 +22,26 @@ export const useSocialLogin = ({ socialType }: ISocialLogin) => {
 
   return useMutation({
     mutationFn: sendSocialLoginToken,
-    onSuccess: ({ accessToken }) => {
-      if (accessToken) {
+    onSuccess: ({
+      isRegistered,
+      authToken,
+      nickname,
+      email,
+      imageUrl,
+      accessToken,
+    }) => {
+      if (!isRegistered && authToken && nickname && email && imageUrl) {
+        setSocialAuthInfo({
+          authToken,
+          nickname,
+          email,
+          imageUrl,
+        });
+        moveToStep("next", setSignUpStep);
+        navigate(AUTH_PATH.SIGN_UP);
+      }
+
+      if (isRegistered && accessToken) {
         setAccessToken(accessToken);
         navigate(ROOT_PATH.ROOT);
       }
@@ -41,14 +59,7 @@ export const useSocialLogin = ({ socialType }: ISocialLogin) => {
         }
 
         if (status === 409) {
-          alert("다른 소셜 서비스에 가입되어 있습니다.");
-        }
-
-        if (status === 422) {
-          // 가입X, 가입정보 저장, 프로필 설정 페이지로 이동
-          setSocialAuthInfo(error.response?.data);
-          moveToStep("next", setSignUpStep);
-          navigate(AUTH_PATH.SIGN_UP);
+          alert("해당 계정은 다른 소셜 서비스에 가입되어 있습니다.");
         }
       }
     },

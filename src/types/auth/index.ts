@@ -31,7 +31,6 @@ export interface ISocialLoginResponse {
 }
 
 export interface ISocialAuthInfo {
-  isRegistered: boolean;
   authToken: string;
   nickname: string;
   email: string;
