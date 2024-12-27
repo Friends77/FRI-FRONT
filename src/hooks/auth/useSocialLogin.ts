@@ -1,16 +1,17 @@
-import { sendSocialLoginToken } from "@/apis/auth";
-import { AUTH_PATH, ROOT_PATH } from "@/constants/routes";
-import accessTokenAtom from "@/recoil/auth/accessToken";
-import signUpStepAtom from "@/recoil/auth/signUp/atom";
-import socialAuthInfoAtom from "@/recoil/auth/socialLogin/atom";
-import { moveToStep } from "@/utils/step/moveSteps";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useNavigate } from "react-router";
-import { useSetRecoilState } from "recoil";
+import { sendSocialLoginToken } from '@/apis/auth';
+import { AUTH_CONSTANTS } from '@/constants/auth';
+import { AUTH_PATH, ROOT_PATH } from '@/constants/routes';
+import accessTokenAtom from '@/recoil/auth/accessToken';
+import signUpStepAtom from '@/recoil/auth/signUp/atom';
+import socialAuthInfoAtom from '@/recoil/auth/socialLogin/atom';
+import { moveToStep } from '@/utils/step/moveSteps';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
+import { useSetRecoilState } from 'recoil';
 
 interface ISocialLogin {
-  socialType: "GOOGLE" | "NAVER";
+  socialType: 'GOOGLE' | 'NAVER';
 }
 
 export const useSocialLogin = ({ socialType }: ISocialLogin) => {
@@ -37,7 +38,7 @@ export const useSocialLogin = ({ socialType }: ISocialLogin) => {
           email,
           imageUrl,
         });
-        moveToStep("next", setSignUpStep);
+        setSignUpStep(AUTH_CONSTANTS.PROFILE_STEP);
         navigate(AUTH_PATH.SIGN_UP);
       }
 
@@ -51,15 +52,15 @@ export const useSocialLogin = ({ socialType }: ISocialLogin) => {
         const { status } = error;
 
         if (status === 401) {
-          alert("다시 로그인해 주세요.");
+          alert('다시 로그인해 주세요.');
 
-          if (socialType === "NAVER") {
+          if (socialType === 'NAVER') {
             navigate(AUTH_PATH.LOGIN);
           }
         }
 
         if (status === 409) {
-          alert("해당 계정은 다른 소셜 서비스에 가입되어 있습니다.");
+          alert('해당 계정은 다른 소셜 서비스에 가입되어 있습니다.');
         }
       }
     },
