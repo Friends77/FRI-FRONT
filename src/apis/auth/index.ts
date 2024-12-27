@@ -52,6 +52,20 @@ export async function sendSocialLoginToken({
     code,
     provider,
   });
+  return response.data;
+}
+
+export async function resetPassword({
+  emailAuthToken,
+  newPassword,
+}: {
+  emailAuthToken: string;
+  newPassword: string;
+}) {
+  const response = await AuthAxios.post("/api/auth/reset-password", {
+    emailAuthToken,
+    newPassword,
+  });
 
   return response.data;
 }

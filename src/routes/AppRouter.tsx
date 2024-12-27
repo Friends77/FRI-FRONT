@@ -5,6 +5,7 @@ import App from "../App";
 import SignUpRootLayout from "@/pages/auth/signUpRoot";
 import SignUpPage from "@/pages/auth/signUp";
 import NaverLoginCallbackPage from "@/pages/auth/callback/naver";
+import ResetPasswordPage from "@/pages/auth/resetPassword";
 
 export default function AppRouter() {
   const router = createBrowserRouter([
@@ -29,6 +30,10 @@ export default function AppRouter() {
         {
           path: AUTH_PATH.NAVER_LOGIN_CALLBACK,
           element: <NaverLoginCallbackPage />,
+        },
+        {
+          path: AUTH_PATH.RESET_PASSWORD,
+          element: <ResetPasswordPage />,
         },
       ],
     },
