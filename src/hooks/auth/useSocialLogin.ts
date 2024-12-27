@@ -4,7 +4,6 @@ import { AUTH_PATH, ROOT_PATH } from '@/constants/routes';
 import accessTokenAtom from '@/recoil/auth/accessToken';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import socialAuthInfoAtom from '@/recoil/auth/socialLogin/atom';
-import { moveToStep } from '@/utils/step/moveSteps';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
