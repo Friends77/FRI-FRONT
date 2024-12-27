@@ -14,3 +14,26 @@ export type SignUpDataType = {
   password: string;
   "confirm-password": string;
 };
+
+export type SocialLoginTokenType = {
+  code: string;
+  provider: "GOOGLE" | "NAVER";
+};
+
+export interface ISocialLoginResponse {
+  nickname?: string;
+  email?: string;
+  imageUrl?: string;
+  authToken?: string;
+  isRegistered: boolean;
+  accessToken?: string;
+  memberId?: string;
+}
+
+export interface ISocialAuthInfo {
+  isRegistered: boolean;
+  authToken: string;
+  nickname: string;
+  email: string;
+  imageUrl: string;
+}

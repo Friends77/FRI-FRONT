@@ -4,14 +4,20 @@ import { useLogin } from "@/hooks/auth/useLogin";
 import { LoginDataType } from "@/types/auth";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import InputField from "@/components/auth/Input";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import { useSocialLogin } from "@/hooks/auth/useSocialLogin";
+import { useId } from "react";
 
 const LoginForm = () => {
+  const stateId = useId();
+
   const methods = useForm<LoginDataType>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
+
   const { handleSubmit, setError } = methods;
 
   const { mutate } = useLogin({
@@ -23,39 +29,71 @@ const LoginForm = () => {
       );
     },
   });
+
   const onSubmit: SubmitHandler<LoginDataType> = (data) => {
     mutate(data);
   };
+
+  const { mutate: sendSocialToken } = useSocialLogin({ socialType: "GOOGLE" });
+
+  const handleGoogleLogin = (credentialResponse: CredentialResponse) => {
+    if (credentialResponse.credential) {
+      sendSocialToken({
+        code: credentialResponse.credential,
+        provider: "GOOGLE",
+      });
+    }
+  };
+
+  const handleNaverLogin = () => {
+    const naverClientId = import.meta.env.VITE_NAVER_CLIENT_ID;
+    const naverCallbackURL = import.meta.env.VITE_NAVER_CALLBACK_URL;
+    const naverLoginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${naverClientId}&state=${stateId}&redirect_uri=${naverCallbackURL}`;
+
+    window.location.href = naverLoginUrl;
+  };
+
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <InputField
-          type="email"
-          label="이메일"
-          id="email"
-          name="email"
-          placeholder="이메일"
-          rules={{
-            required: AUTH_ERROR_MSG.EMAIL_REQUIRED,
-            pattern: {
-              value: AUTH_PATTERN.EMAIL,
-              message: AUTH_ERROR_MSG.EMAIL_PATTERN,
-            },
-          }}
-        />
-        <InputField
-          type="password"
-          label="비밀번호"
-          id="password"
-          name="password"
-          placeholder="비밀번호"
-          rules={{
-            required: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
-          }}
-        />
-        <button type="submit">로그인</button>
-      </form>
-    </FormProvider>
+    <>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <InputField
+            type="email"
+            label="이메일"
+            id="email"
+            name="email"
+            placeholder="이메일"
+            rules={{
+              required: AUTH_ERROR_MSG.EMAIL_REQUIRED,
+              pattern: {
+                value: AUTH_PATTERN.EMAIL,
+                message: AUTH_ERROR_MSG.EMAIL_PATTERN,
+              },
+            }}
+          />
+          <InputField
+            type="password"
+            label="비밀번호"
+            id="password"
+            name="password"
+            placeholder="비밀번호"
+            rules={{
+              required: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
+            }}
+          />
+          <button type="submit">로그인</button>
+        </form>
+      </FormProvider>
+      <GoogleLogin
+        onSuccess={handleGoogleLogin}
+        onError={() => {
+          alert("다시 로그인해 주세요.");
+        }}
+      />
+      <button type="button" onClick={handleNaverLogin}>
+        네이버 로그인
+      </button>
+    </>
   );
 };
 

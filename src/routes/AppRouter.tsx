@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "../App";
 import SignUpRootLayout from "@/pages/auth/signUpRoot";
 import SignUpPage from "@/pages/auth/signUp";
+import NaverLoginCallbackPage from "@/pages/auth/callback/naver";
 
 export default function AppRouter() {
   const router = createBrowserRouter([
@@ -24,6 +25,10 @@ export default function AppRouter() {
               element: <SignUpPage />,
             },
           ],
+        },
+        {
+          path: AUTH_PATH.NAVER_LOGIN_CALLBACK,
+          element: <NaverLoginCallbackPage />,
         },
       ],
     },

@@ -1,6 +1,10 @@
 import Axios from "@/apis/@core/instance";
 import AuthAxios from "@/apis/@core/authInstance";
-import { LoginDataType } from "@/types/auth";
+import {
+  ISocialLoginResponse,
+  LoginDataType,
+  SocialLoginTokenType,
+} from "@/types/auth";
 
 export async function login({ email, password }: LoginDataType) {
   const response = await Axios.post("/api/auth/login", {
@@ -35,6 +39,18 @@ export async function sendVerifyCode({
   const response = await Axios.post("/api/auth/verify-email", {
     email,
     code,
+  });
+
+  return response.data;
+}
+
+export async function sendSocialLoginToken({
+  code,
+  provider,
+}: SocialLoginTokenType) {
+  const response = await Axios.post<ISocialLoginResponse>("/api/auth/oauth2", {
+    code,
+    provider,
   });
 
   return response.data;
