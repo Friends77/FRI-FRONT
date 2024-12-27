@@ -1,9 +1,11 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
-import PretendardBold from '@/assets/fonts/Pretendard-Bold.woff';
-import PretendardRegular from '@/assets/fonts/Pretendard-Regular.woff';
+import PretendardBold from "@/assets/fonts/Pretendard-Bold.woff";
+import PretendardRegular from "@/assets/fonts/Pretendard-Regular.woff";
+import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
+    ${reset}
     @font-face {
         font-family: Pretendard-Bold;
         src: url(${PretendardBold}) format('woff');
