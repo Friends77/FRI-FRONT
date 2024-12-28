@@ -3,7 +3,7 @@ import { AUTH_CONSTANTS } from '@/constants/auth';
 import { AUTH_PATH, ROOT_PATH } from '@/constants/routes';
 import accessTokenAtom from '@/recoil/auth/accessToken';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
-import socialAuthInfoAtom from '@/recoil/auth/socialLogin/atom';
+import socialAuthInfoAtom from '@/recoil/auth/socialLogin';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
