@@ -9,11 +9,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { useSetRecoilState } from 'recoil';
 
-interface ISocialLogin {
-  socialType: 'GOOGLE' | 'NAVER';
-}
-
-export const useSocialLogin = ({ socialType }: ISocialLogin) => {
+export const useSocialLogin = () => {
   const navigate = useNavigate();
 
   const setAccessToken = useSetRecoilState(accessTokenAtom);
@@ -52,10 +48,7 @@ export const useSocialLogin = ({ socialType }: ISocialLogin) => {
 
         if (status === 401) {
           alert('다시 로그인해 주세요.');
-
-          if (socialType === 'NAVER') {
-            navigate(AUTH_PATH.LOGIN);
-          }
+          navigate(AUTH_PATH.LOGIN);
         }
 
         if (status === 409) {

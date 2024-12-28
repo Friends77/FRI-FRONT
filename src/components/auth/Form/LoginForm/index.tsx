@@ -1,20 +1,20 @@
-import { AUTH_ERROR_MSG } from "@/constants/message";
-import { AUTH_PATTERN } from "@/constants/pattern";
-import { useLogin } from "@/hooks/auth/useLogin";
-import { LoginDataType } from "@/types/auth";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import InputField from "@/components/auth/Input";
-import { useGoogleLogin } from "@react-oauth/google";
-import { useSocialLogin } from "@/hooks/auth/useSocialLogin";
-import { useId } from "react";
+import { AUTH_ERROR_MSG } from '@/constants/message';
+import { AUTH_PATTERN } from '@/constants/pattern';
+import { useLogin } from '@/hooks/auth/useLogin';
+import { LoginDataType } from '@/types/auth';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import InputField from '@/components/auth/Input';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useId } from 'react';
 
 const LoginForm = () => {
   const stateId = useId();
+  const googleCallbackURL = import.meta.env.VITE_GOOGLE_CALLBACK_URL;
 
   const methods = useForm<LoginDataType>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
@@ -23,9 +23,9 @@ const LoginForm = () => {
   const { mutate } = useLogin({
     loginErrorHandler: () => {
       setError(
-        "password",
+        'password',
         { message: AUTH_ERROR_MSG.INCORRECT_EMAIL_OR_PASSWORD },
-        { shouldFocus: true }
+        { shouldFocus: true },
       );
     },
   });
@@ -34,16 +34,10 @@ const LoginForm = () => {
     mutate(data);
   };
 
-  const { mutate: sendSocialToken } = useSocialLogin({ socialType: "GOOGLE" });
-
   const handleGoogleLogin = useGoogleLogin({
-    flow: "auth-code",
-    onSuccess: (tokenResponse) => {
-      sendSocialToken({
-        code: tokenResponse.code,
-        provider: "GOOGLE",
-      });
-    },
+    flow: 'auth-code',
+    ux_mode: 'redirect',
+    redirect_uri: googleCallbackURL,
   });
 
   const handleNaverLogin = () => {
