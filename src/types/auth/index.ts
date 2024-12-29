@@ -10,6 +10,28 @@ export type SignUpDataType = {
   "confirm-password": string;
 };
 
+export type SocialLoginTokenType = {
+  code: string;
+  provider: "GOOGLE" | "NAVER";
+};
+
+export interface ISocialLoginResponse {
+  nickname?: string;
+  email?: string;
+  imageUrl?: string;
+  authToken?: string;
+  isRegistered: boolean;
+  accessToken?: string;
+  memberId?: string;
+}
+
+export interface ISocialAuthInfo {
+  authToken: string;
+  nickname: string;
+  email: string;
+  imageUrl: string;
+}
+
 export type EmailVerificationDataType = Pick<
   SignUpDataType,
   "email" | "certno"
