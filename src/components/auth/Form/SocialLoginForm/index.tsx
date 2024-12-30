@@ -23,7 +23,7 @@ const SocialLoginForm = () => {
   };
 
   return (
-    <Styled.SocialLoginFormContainer>
+    <>
       <Styled.SocialLoginFormHeader>
         SNS 연동 로그인
       </Styled.SocialLoginFormHeader>
@@ -39,7 +39,7 @@ const SocialLoginForm = () => {
           </button>
         </li>
       </Styled.SocialLoginFormContent>
-    </Styled.SocialLoginFormContainer>
+    </>
   );
 };
 

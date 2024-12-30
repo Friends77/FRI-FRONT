@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-export const SocialLoginFormContainer = styled.section``;
-
 export const SocialLoginFormHeader = styled.h3`
   display: flex;
   align-items: center;
