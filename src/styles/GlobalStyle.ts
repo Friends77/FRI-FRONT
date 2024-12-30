@@ -17,6 +17,10 @@ const GlobalStyle = createGlobalStyle`
     src: url(${PretendardRegular}) format('woff');
   }
 
+  * {
+    box-sizing: border-box
+  }
+
   button {
     outline: 0;
     border: 0;
