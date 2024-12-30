@@ -1,5 +1,8 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { useId } from 'react';
+import * as Styled from './SocialLoginForm.styled';
+import GoogleLogin from '@/components/@common/SVG/Icon/GoogleLogin';
+import NaverLogin from '@/components/@common/SVG/Icon/NaverLogin';
 
 const SocialLoginForm = () => {
   const stateId = useId();
@@ -21,12 +24,21 @@ const SocialLoginForm = () => {
 
   return (
     <>
-      <button type="button" onClick={handleGoogleLogin}>
-        구글 로그인
-      </button>
-      <button type="button" onClick={handleNaverLogin}>
-        네이버 로그인
-      </button>
+      <Styled.SocialLoginFormHeader>
+        SNS 연동 로그인
+      </Styled.SocialLoginFormHeader>
+      <Styled.SocialLoginFormContent>
+        <li>
+          <button type="button" onClick={handleGoogleLogin}>
+            <GoogleLogin title="구글 로그인" width="48" height="48" />
+          </button>
+        </li>
+        <li>
+          <button type="button" onClick={handleNaverLogin}>
+            <NaverLogin title="네이버 로그인" width="48" height="48" />
+          </button>
+        </li>
+      </Styled.SocialLoginFormContent>
     </>
   );
 };
