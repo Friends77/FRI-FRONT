@@ -20,10 +20,10 @@ const GlobalStyle = createGlobalStyle`
   button {
     outline: 0;
     border: 0;
-	padding: 0;
-	user-select: none;
-	background-color: transparent;
-	cursor: pointer;
+	  padding: 0;
+	  user-select: none;
+	  background-color: transparent;
+	  cursor: pointer;
   }
 `;
 
