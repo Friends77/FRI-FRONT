@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const SocialLoginFormHeader = styled.h3`
   display: flex;
   align-items: center;
+  color: ${({ theme }) => theme.colors.Gray_800};
   ${({ theme }) => theme.typo.B1_B};
 
   &::before,
