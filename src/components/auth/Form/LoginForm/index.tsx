@@ -1,31 +1,34 @@
-import { AUTH_ERROR_MSG } from "@/constants/message";
-import { AUTH_PATTERN } from "@/constants/pattern";
-import { useLogin } from "@/hooks/auth/useLogin";
-import { LoginDataType } from "@/types/auth";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import InputField from "@/components/auth/Input";
+import { AUTH_ERROR_MSG } from '@/constants/message';
+import { AUTH_PATTERN } from '@/constants/pattern';
+import { useLogin } from '@/hooks/auth/useLogin';
+import { LoginDataType } from '@/types/auth';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import InputField from '@/components/auth/Input';
 
 const LoginForm = () => {
   const methods = useForm<LoginDataType>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
+
   const { handleSubmit, setError } = methods;
 
   const { mutate } = useLogin({
     loginErrorHandler: () => {
       setError(
-        "password",
+        'password',
         { message: AUTH_ERROR_MSG.INCORRECT_EMAIL_OR_PASSWORD },
-        { shouldFocus: true }
+        { shouldFocus: true },
       );
     },
   });
+
   const onSubmit: SubmitHandler<LoginDataType> = (data) => {
     mutate(data);
   };
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
