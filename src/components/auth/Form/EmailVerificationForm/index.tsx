@@ -1,6 +1,4 @@
 import Button from '@/components/@common/Button/Button';
-import resetPasswordStepAtom from '@/recoil/auth/resetPassword';
-import { moveToStep } from '@/utils/step/moveSteps';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
@@ -15,8 +13,13 @@ import * as Styled from './EmailVerificationForm.styled';
 
 const CODE_EXPIRATION_TIME = 180000;
 
-const EmailVerificationForm = () => {
-  const setResetPasswordStep = useSetRecoilState(resetPasswordStepAtom);
+interface IEmailVerificationFormProps {
+  onNextStepClick: () => void;
+}
+
+const EmailVerificationForm = ({
+  onNextStepClick,
+}: IEmailVerificationFormProps) => {
   const setEmailAuthToken = useSetRecoilState(emailAuthTokenAtom);
   const [isTimerActive, setIsTimerActive] = useState(false);
   // 이메일로 코드 전송을 성공하면 이후로는 수정하지 못하게 하기 위한 state
@@ -143,11 +146,7 @@ const EmailVerificationForm = () => {
             </Styled.Time>
           )}
         </Styled.CodeContent>
-        <Button
-          type="button"
-          disabled={!isValid}
-          onClick={() => moveToStep('next', setResetPasswordStep)}
-        >
+        <Button type="button" disabled={!isValid} onClick={onNextStepClick}>
           다음
         </Button>
       </form>

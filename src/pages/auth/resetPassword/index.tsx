@@ -1,16 +1,18 @@
 import EmailVerificationForm from '@/components/auth/Form/EmailVerificationForm';
 import ResetPasswordForm from '@/components/auth/Form/ResetPasswordForm';
-import resetPasswordStepAtom from '@/recoil/auth/resetPassword';
-import { useRecoilValue } from 'recoil';
 import * as Styled from './ResetPasswordPage.styled';
+import { useState } from 'react';
 
 const ResetPasswordPage = () => {
-  const resetPasswordStep = useRecoilValue(resetPasswordStepAtom);
+  const [step, setStep] = useState(1);
 
+  const handleNextStepClick = () => {
+    setStep((prev) => prev + 1);
+  };
   const renderPage = () => {
-    switch (resetPasswordStep) {
+    switch (step) {
       case 1:
-        return <EmailVerificationForm />;
+        return <EmailVerificationForm onNextStepClick={handleNextStepClick} />;
       case 2:
         return <ResetPasswordForm />;
       default:
@@ -20,7 +22,7 @@ const ResetPasswordPage = () => {
   return (
     <Styled.Main>
       <Styled.Header>
-        {resetPasswordStep === 1 ? '비밀번호 찾기' : '비밀번호 변경하기'}
+        {step === 1 ? '비밀번호 찾기' : '비밀번호 변경하기'}
       </Styled.Header>
       {renderPage()}
     </Styled.Main>
