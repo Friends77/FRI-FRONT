@@ -5,6 +5,10 @@ import Cancel from '@/components/@common/SVG/Icon/Cancel';
 export interface IInputFieldProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  /** label의 typo 타입을 지정하기 위함. (true: T2_B, false: B1_B) */
+  boldLabel?: boolean;
+  /** input 요소가 필수값인지 확인하기 위함 */
+  isMandatory?: boolean;
   id?: string;
   name: string;
   rules?: RegisterOptions;
@@ -13,6 +17,8 @@ export interface IInputFieldProps
 
 const InputField = ({
   label,
+  boldLabel,
+  isMandatory,
   id,
   name,
   rules,
@@ -21,7 +27,7 @@ const InputField = ({
 }: IInputFieldProps) => {
   const {
     watch,
-    setValue,
+    resetField,
     setFocus,
     register,
     formState: { errors },
@@ -31,12 +37,18 @@ const InputField = ({
   const error = errors[name] as FieldError;
 
   const handleCancleClick = () => {
-    setValue(name, '', { shouldValidate: true });
+    resetField(name);
     setFocus(name);
   };
   return (
     <Styled.Wrapper $width={width}>
-      <Styled.Label htmlFor={id}>{label}</Styled.Label>
+      <Styled.Label
+        htmlFor={id}
+        $bold={!!boldLabel}
+        $isMandatory={!!isMandatory}
+      >
+        {label}
+      </Styled.Label>
       <Styled.InputContainer>
         <Styled.Input
           id={id}

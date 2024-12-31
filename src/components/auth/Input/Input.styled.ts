@@ -7,10 +7,19 @@ export const Wrapper = styled.div<{ $width?: string }>`
   width: ${({ $width }) => $width || '20rem'};
 `;
 
-export const Label = styled.label`
+export const Label = styled.label<{ $bold: boolean; $isMandatory: boolean }>`
+  ${({ theme, $bold }) => ($bold ? theme.typo.T2_B : theme.typo.B1_B)};
+  position: relative;
   align-self: flex-start;
-  ${({ theme }) => theme.typo.B1_B};
   color: ${({ theme }) => theme.colors.Gray_800};
+
+  &::after {
+    display: ${({ $isMandatory }) => ($isMandatory ? 'inline' : 'none')};
+    content: '*';
+    position: absolute;
+    right: -16px;
+    color: ${({ theme }) => theme.colors.Alter_error};
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -35,7 +44,7 @@ export const Input = styled.input<{ $isError?: boolean }>`
       $isError ? theme.colors.Alter_error : theme.colors.Blue_400};
   }
 
-  ::placeholder {
+  &::placeholder {
     color: ${({ theme }) => theme.colors.Gray_800};
   }
 `;
