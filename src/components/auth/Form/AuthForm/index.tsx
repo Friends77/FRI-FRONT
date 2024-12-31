@@ -1,15 +1,15 @@
-import { sendVerifyCode, sendVerifyEmail } from "@/apis/auth";
-import Button from "@/components/@common/Button/Button";
-import { AUTH_PATTERN } from "@/constants/pattern";
-import signUpStepAtom from "@/recoil/auth/signUp/atom";
-import { moveToStep } from "@/utils/step/moveSteps";
-import { useMutation } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { useFormContext, useWatch } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
-import { AUTH_ERROR_MSG } from "@/constants/message";
-import Timer from "@/components/auth/Timer";
-import InputField from "@/components/auth/Input";
+import { sendVerifyCode, sendVerifyEmail } from '@/apis/auth';
+import Button from '@/components/@common/Button';
+import { AUTH_PATTERN } from '@/constants/pattern';
+import signUpStepAtom from '@/recoil/auth/signUp/atom';
+import { moveToStep } from '@/utils/step/moveSteps';
+import { useMutation } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { useSetRecoilState } from 'recoil';
+import { AUTH_ERROR_MSG } from '@/constants/message';
+import Timer from '@/components/auth/Timer';
+import InputField from '@/components/auth/Input';
 
 const AuthForm = () => {
   const setSignUpStep = useSetRecoilState(signUpStepAtom);
@@ -24,19 +24,19 @@ const AuthForm = () => {
     formState: { errors, isValid },
   } = useFormContext();
 
-  const email = useWatch({ name: "email", control });
-  const password = useWatch({ name: "password", control });
-  const confirmPassword = useWatch({ name: "confirm-password", control });
+  const email = useWatch({ name: 'email', control });
+  const password = useWatch({ name: 'password', control });
+  const confirmPassword = useWatch({ name: 'confirm-password', control });
 
   // 비밀번호 일치 여부 확인
   useEffect(() => {
     if (confirmPassword && password !== confirmPassword) {
-      setError("confirm-password", {
-        type: "manual",
+      setError('confirm-password', {
+        type: 'manual',
         message: AUTH_ERROR_MSG.PASSWORD_NOT_MATCH,
       });
     } else {
-      clearErrors("confirm-password");
+      clearErrors('confirm-password');
     }
   }, [confirmPassword, password, setError, clearErrors]);
 
@@ -44,11 +44,11 @@ const AuthForm = () => {
   const { mutate: sendEmail, isPending: isEmailSending } = useMutation({
     mutationFn: sendVerifyEmail,
     onSuccess: () => {
-      alert("메일을 보냈어요! 메일함을 확인해주세요.");
+      alert('메일을 보냈어요! 메일함을 확인해주세요.');
       setIsTimerActive(true);
     },
     onError: () => {
-      alert("이메일 발송에 실패했어요.");
+      alert('이메일 발송에 실패했어요.');
     },
   });
 
@@ -56,7 +56,7 @@ const AuthForm = () => {
   const handleSendEmail = () => {
     sendEmail(email);
     setIsVerifiedSuccess(false);
-    resetField("certno");
+    resetField('certno');
   };
 
   // 인증 코드 일치 여부 검사
@@ -65,11 +65,11 @@ const AuthForm = () => {
     onSuccess: () => {
       setIsTimerActive(false);
       setIsVerifiedSuccess(true);
-      clearErrors("certno");
+      clearErrors('certno');
     },
     onError: () => {
-      setError("certno", {
-        type: "manual",
+      setError('certno', {
+        type: 'manual',
         message: AUTH_ERROR_MSG.CERTNO_PATTERN,
       });
     },
@@ -170,7 +170,7 @@ const AuthForm = () => {
       />
       <Button
         disabled={!isValid}
-        onClick={() => moveToStep("next", setSignUpStep)}
+        onClick={() => moveToStep('next', setSignUpStep)}
       >
         다음
       </Button>

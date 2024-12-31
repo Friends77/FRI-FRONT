@@ -1,16 +1,16 @@
-import Button from "@/components/@common/Button/Button";
-import resetPasswordStepAtom from "@/recoil/auth/resetPassword";
-import { moveToStep } from "@/utils/step/moveSteps";
-import { useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
-import { AUTH_ERROR_MSG } from "@/constants/message";
-import { AUTH_PATTERN } from "@/constants/pattern";
-import { useVerifyCode } from "@/hooks/auth/useVerifyCode";
-import { useSendCodeToEmail } from "@/hooks/auth/useSendCodeToEmail";
-import emailAuthTokenAtom from "@/recoil/auth/emailAuthToken";
-import InputField from "@/components/auth/Input";
-import Timer from "@/components/auth/Timer";
+import Button from '@/components/@common/Button';
+import resetPasswordStepAtom from '@/recoil/auth/resetPassword';
+import { moveToStep } from '@/utils/step/moveSteps';
+import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useSetRecoilState } from 'recoil';
+import { AUTH_ERROR_MSG } from '@/constants/message';
+import { AUTH_PATTERN } from '@/constants/pattern';
+import { useVerifyCode } from '@/hooks/auth/useVerifyCode';
+import { useSendCodeToEmail } from '@/hooks/auth/useSendCodeToEmail';
+import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
+import InputField from '@/components/auth/Input';
+import Timer from '@/components/auth/Timer';
 
 const CODE_EXPIRATION_TIME = 180000;
 
@@ -23,10 +23,10 @@ const EmailVerificationForm = () => {
   const [isCodeVerifed, setIsCodeVerified] = useState(false);
 
   const methods = useForm({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      email: "",
-      certno: "",
+      email: '',
+      certno: '',
     },
   });
   const {
@@ -37,14 +37,14 @@ const EmailVerificationForm = () => {
     formState: { errors, isValid },
   } = methods;
 
-  const email = watch("email");
+  const email = watch('email');
 
   const { mutate: sendCodeToEmail, isPending: isEmailSending } =
     useSendCodeToEmail({
       onSuccessHandler: () => {
         setIsTimerActive(true);
         setIsCodeVerified(false);
-        resetField("certno");
+        resetField('certno');
       },
       onErrorHandler: () => {
         setIsCodeSended(false);
@@ -59,11 +59,11 @@ const EmailVerificationForm = () => {
     onSuccessHandler: () => {
       setIsTimerActive(false);
       setIsCodeVerified(true);
-      clearErrors("certno");
+      clearErrors('certno');
     },
     onErrorHandler: () => {
-      setError("certno", {
-        type: "manual",
+      setError('certno', {
+        type: 'manual',
         message: AUTH_ERROR_MSG.CERTNO_PATTERN,
       });
     },
@@ -135,7 +135,7 @@ const EmailVerificationForm = () => {
         <Button
           type="button"
           disabled={!isValid}
-          onClick={() => moveToStep("next", setResetPasswordStep)}
+          onClick={() => moveToStep('next', setResetPasswordStep)}
         >
           다음
         </Button>

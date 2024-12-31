@@ -21,6 +21,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box
   }
 
+  a {
+    text-decoration: none;
+  }
+
   button {
     outline: 0;
     border: 0;

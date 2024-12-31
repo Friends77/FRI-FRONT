@@ -1,12 +1,12 @@
-import { AUTH_ERROR_MSG } from "@/constants/message";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import InputField from "@/components/auth/Input";
-import { AUTH_PATTERN } from "@/constants/pattern";
-import { useRecoilValue } from "recoil";
-import emailAuthTokenAtom from "@/recoil/auth/emailAuthToken";
-import Button from "@/components/@common/Button/Button";
-import { useResetPassword } from "@/hooks/auth/useResetPassword";
-import { ResetPasswordDataType } from "@/types/auth";
+import { AUTH_ERROR_MSG } from '@/constants/message';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import InputField from '@/components/auth/Input';
+import { AUTH_PATTERN } from '@/constants/pattern';
+import { useRecoilValue } from 'recoil';
+import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
+import Button from '@/components/@common/Button';
+import { useResetPassword } from '@/hooks/auth/useResetPassword';
+import { ResetPasswordDataType } from '@/types/auth';
 
 const ResetPasswordForm = () => {
   // emailAuthToken이 없는 경우 2단계(비밀번호 변경)로 넘어올 수 없기 때문에 string으로 타입 단언
@@ -14,8 +14,8 @@ const ResetPasswordForm = () => {
 
   const methods = useForm<ResetPasswordDataType>({
     defaultValues: {
-      password: "",
-      "confirm-password": "",
+      password: '',
+      'confirm-password': '',
     },
   });
   const {
@@ -24,7 +24,7 @@ const ResetPasswordForm = () => {
     formState: { errors },
   } = methods;
 
-  const password = watch("password");
+  const password = watch('password');
 
   const { mutate } = useResetPassword();
   const onSubmit: SubmitHandler<ResetPasswordDataType> = (data) => {
@@ -76,7 +76,7 @@ const ResetPasswordForm = () => {
             },
           }}
         />
-        <Button disabled={!!errors["confirm-password"]}>확인</Button>
+        <Button disabled={!!errors['confirm-password']}>확인</Button>
       </form>
     </FormProvider>
   );
