@@ -1,9 +1,7 @@
 import * as Styled from './Button.styled';
 
 export interface IButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  width?: string;
-}
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 /**
  *  @Button
@@ -15,12 +13,8 @@ export interface IButtonProps
  *      1) 클릭 이벤트 처리: 버튼 클릭 시 특정 작업(이벤트 핸들러 실행)을 수행
  */
 
-const Button = ({ children, width, ...rest }: IButtonProps) => {
-  return (
-    <Styled.Button $width={width} {...rest}>
-      {children}
-    </Styled.Button>
-  );
+const Button = ({ children, ...rest }: IButtonProps) => {
+  return <Styled.Button {...rest}>{children}</Styled.Button>;
 };
 
 export default Button;

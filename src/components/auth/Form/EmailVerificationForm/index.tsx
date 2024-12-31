@@ -1,4 +1,4 @@
-import Button from '@/components/@common/Button';
+import Button from '@/components/@common/Button/Button';
 import resetPasswordStepAtom from '@/recoil/auth/resetPassword';
 import { moveToStep } from '@/utils/step/moveSteps';
 import { useState } from 'react';
@@ -11,6 +11,7 @@ import { useSendCodeToEmail } from '@/hooks/auth/useSendCodeToEmail';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
 import InputField from '@/components/auth/Input';
 import Timer from '@/components/auth/Timer';
+import * as Styled from './EmailVerificationForm.styled';
 
 const CODE_EXPIRATION_TIME = 180000;
 
@@ -38,6 +39,7 @@ const EmailVerificationForm = () => {
   } = methods;
 
   const email = watch('email');
+  const certno = watch('certno');
 
   const { mutate: sendCodeToEmail, isPending: isEmailSending } =
     useSendCodeToEmail({
@@ -82,56 +84,65 @@ const EmailVerificationForm = () => {
   return (
     <FormProvider {...methods}>
       <form>
-        <InputField
-          type="email"
-          label="이메일 인증"
-          id="email"
-          name="email"
-          disabled={isCodeSended}
-          placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
-          rules={{
-            required: {
-              value: true,
-              message: AUTH_ERROR_MSG.EMAIL_REQUIRED,
-            },
-            pattern: {
-              value: AUTH_PATTERN.EMAIL,
-              message: AUTH_ERROR_MSG.EMAIL_PATTERN,
-            },
-          }}
-        />
-        <Button
-          type="button"
-          onClick={handleSendEmail}
-          disabled={!email || !!errors.email || isEmailSending || isCodeSended}
-        >
-          인증 요청
-        </Button>
-        <InputField
-          type="text"
-          name="certno"
-          placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
-          maxLength={6}
-          disabled={isCodeVerifed || !isCodeSended}
-          rules={{
-            required: {
-              value: true,
-              message: AUTH_ERROR_MSG.CERTNO_REQUIRED,
-            },
-            minLength: {
-              value: 6,
-              message: AUTH_ERROR_MSG.CERTNO_PATTERN,
-            },
-            validate: handleVerifyCodeValidate,
-          }}
-        />
-        {isTimerActive && (
-          <Timer
-            timeout={CODE_EXPIRATION_TIME}
-            onTimeout={() => setIsTimerActive(false)}
+        <Styled.SendCodeContent>
+          <InputField
+            type="email"
+            label="이메일 인증"
+            boldLabel
+            id="email"
+            name="email"
+            width="210px"
+            disabled={isCodeSended}
+            placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
+            rules={{
+              required: {
+                value: true,
+                message: AUTH_ERROR_MSG.EMAIL_REQUIRED,
+              },
+              pattern: {
+                value: AUTH_PATTERN.EMAIL,
+                message: AUTH_ERROR_MSG.EMAIL_PATTERN,
+              },
+            }}
           />
-        )}
-        {isCodeVerifed && <p>인증에 성공하였습니다.</p>}
+          <Styled.SendCodeBtn
+            type="button"
+            onClick={handleSendEmail}
+            disabled={
+              !email || !!errors.email || isEmailSending || isCodeSended
+            }
+          >
+            인증 요청
+          </Styled.SendCodeBtn>
+        </Styled.SendCodeContent>
+        <Styled.CodeContent>
+          <InputField
+            type="text"
+            name="certno"
+            placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
+            maxLength={6}
+            disabled={isCodeVerifed || !isCodeSended}
+            rules={{
+              required: {
+                value: true,
+                message: AUTH_ERROR_MSG.CERTNO_REQUIRED,
+              },
+              minLength: {
+                value: 6,
+                message: AUTH_ERROR_MSG.CERTNO_PATTERN,
+              },
+              validate: handleVerifyCodeValidate,
+            }}
+          />
+          {isTimerActive && (
+            <Styled.Time $text={certno}>
+              <Timer
+                timeout={CODE_EXPIRATION_TIME}
+                onTimeout={() => setIsTimerActive(false)}
+              />
+            </Styled.Time>
+          )}
+        </Styled.CodeContent>
         <Button
           type="button"
           disabled={!isValid}

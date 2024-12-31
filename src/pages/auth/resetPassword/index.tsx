@@ -1,7 +1,8 @@
-import EmailVerificationForm from "@/components/auth/Form/EmailVerificationForm";
-import ResetPasswordForm from "@/components/auth/Form/ResetPasswordForm";
-import resetPasswordStepAtom from "@/recoil/auth/resetPassword";
-import { useRecoilValue } from "recoil";
+import EmailVerificationForm from '@/components/auth/Form/EmailVerificationForm';
+import ResetPasswordForm from '@/components/auth/Form/ResetPasswordForm';
+import resetPasswordStepAtom from '@/recoil/auth/resetPassword';
+import { useRecoilValue } from 'recoil';
+import * as Styled from './ResetPasswordPage.styled';
 
 const ResetPasswordPage = () => {
   const resetPasswordStep = useRecoilValue(resetPasswordStepAtom);
@@ -16,7 +17,14 @@ const ResetPasswordPage = () => {
         return; // TO-DO: 에러 페이지 추가
     }
   };
-  return <main>{renderPage()}</main>;
+  return (
+    <Styled.Main>
+      <Styled.Header>
+        {resetPasswordStep === 1 ? '비밀번호 찾기' : '비밀번호 변경하기'}
+      </Styled.Header>
+      {renderPage()}
+    </Styled.Main>
+  );
 };
 
 export default ResetPasswordPage;

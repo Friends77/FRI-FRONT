@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-export const Button = styled.button<{ $width?: string }>`
+export const Button = styled.button`
   ${({ theme }) => theme.typo.B1_R};
-  padding: 1rem;
-  width: ${({ $width }) => $width || '20rem'};
+  padding: 16px;
+  width: 320px;
   color: ${({ theme }) => theme.colors.White};
   background-color: ${({ theme }) => theme.colors.Blue_500};
-  border-radius: 0.5rem;
+  border-radius: 8px;
   transition: color 0.3s ease;
 
   &:disabled {

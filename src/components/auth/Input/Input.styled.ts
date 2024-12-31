@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const Wrapper = styled.div<{ $width?: string }>`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  width: ${({ $width }) => $width || '20rem'};
+  gap: 16px;
+  width: ${({ $width }) => $width || '320px'};
 `;
 
 export const Label = styled.label<{ $bold: boolean; $isMandatory: boolean }>`
@@ -24,12 +24,12 @@ export const Label = styled.label<{ $bold: boolean; $isMandatory: boolean }>`
 
 export const InputContainer = styled.div`
   position: relative;
-  margin-bottom: 2.5rem;
+  margin-bottom: 40px;
 `;
 
-export const Input = styled.input<{ $isError?: boolean }>`
+export const Input = styled.input<{ $isError?: boolean; $text?: string }>`
   ${({ theme }) => theme.typo.B1_R};
-  padding: 1rem;
+  padding: ${({ $text }) => ($text ? '16px 36px 16px 16px' : '16px')};
   width: 100%;
   color: ${({ theme }) => theme.colors.Gray_1000};
   border: 1px solid
@@ -37,6 +37,7 @@ export const Input = styled.input<{ $isError?: boolean }>`
       $isError ? theme.colors.Alter_error : theme.colors.Gray_400};
   border-radius: 6px;
   outline: none;
+  line-height: 21px;
   transition: border 0.3s ease;
 
   &:focus {
@@ -53,11 +54,11 @@ export const CancelBtn = styled.button`
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 1rem;
+  right: 16px;
   margin: auto;
   padding: 0;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 20px;
+  height: 20px;
   border: none;
   background-color: transparent;
 `;

@@ -13,6 +13,7 @@ export interface IInputFieldProps
   name: string;
   rules?: RegisterOptions;
   width?: string;
+  disabled?: boolean;
 }
 
 const InputField = ({
@@ -23,6 +24,7 @@ const InputField = ({
   name,
   rules,
   width,
+  disabled,
   ...rest
 }: IInputFieldProps) => {
   const {
@@ -53,10 +55,12 @@ const InputField = ({
         <Styled.Input
           id={id}
           $isError={!!error}
+          $text={text}
+          disabled={disabled}
           {...register(name, rules)}
           {...rest}
         />
-        {text && (
+        {text && !disabled && (
           <Styled.CancelBtn type="button" onClick={handleCancleClick}>
             <Cancel title="취소" width="20" height="20" />
           </Styled.CancelBtn>

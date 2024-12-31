@@ -1,4 +1,4 @@
-import Button from '@/components/@common/Button';
+import Button from '@/components/@common/Button/Button';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { moveToStep } from '@/utils/step/moveSteps';
 import { useSetRecoilState } from 'recoil';

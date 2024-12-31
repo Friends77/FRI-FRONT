@@ -4,7 +4,7 @@ import { useLogin } from '@/hooks/auth/useLogin';
 import { LoginDataType } from '@/types/auth';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import InputField from '@/components/auth/Input';
-import Button from '@/components/@common/Button';
+import Button from '@/components/@common/Button/Button';
 import * as Styled from './LoginForm.styled';
 
 const LoginForm = () => {
