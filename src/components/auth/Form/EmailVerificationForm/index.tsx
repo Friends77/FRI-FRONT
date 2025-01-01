@@ -1,4 +1,4 @@
-import Button from '@/components/@common/Button/Button';
+import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
@@ -146,9 +146,13 @@ const EmailVerificationForm = ({
             </Styled.Time>
           )}
         </Styled.CodeContent>
-        <Button type="button" disabled={!isValid} onClick={onNextStepClick}>
+        <PrimaryButton
+          type="button"
+          disabled={!isValid}
+          onClick={onNextStepClick}
+        >
           다음
-        </Button>
+        </PrimaryButton>
       </form>
     </FormProvider>
   );

@@ -1,11 +1,11 @@
-import SmallButton from '@/components/@common/Button/SmallButton';
+import SecondaryButton from '@/components/@common/Button/SecondaryButton';
 import styled from 'styled-components';
 
 export const SendCodeContent = styled.div`
   position: relative;
 `;
 
-export const SendCodeBtn = styled(SmallButton)`
+export const SendCodeBtn = styled(SecondaryButton)`
   position: absolute;
   top: 47px;
   right: 0;

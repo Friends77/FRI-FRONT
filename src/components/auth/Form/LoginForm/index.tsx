@@ -4,7 +4,7 @@ import { useLogin } from '@/hooks/auth/useLogin';
 import { LoginDataType } from '@/types/auth';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import InputField from '@/components/auth/Input';
-import Button from '@/components/@common/Button/Button';
+import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import * as Styled from './LoginForm.styled';
 
 const LoginForm = () => {
@@ -60,7 +60,7 @@ const LoginForm = () => {
             }}
           />
         </Styled.InputFields>
-        <Button>로그인</Button>
+        <PrimaryButton>로그인</PrimaryButton>
       </Styled.LoginForm>
     </FormProvider>
   );

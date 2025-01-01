@@ -1,10 +1,10 @@
-import * as Styled from './SmallButton.styled';
+import * as Styled from './SecondaryButton.styled';
 
 export interface ISmallButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-const SmallButton = ({ children, ...rest }: ISmallButtonProps) => {
+const SecondaryButton = ({ children, ...rest }: ISmallButtonProps) => {
   return <Styled.Button {...rest}>{children}</Styled.Button>;
 };
 
-export default SmallButton;
+export default SecondaryButton;

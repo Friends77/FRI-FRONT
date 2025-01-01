@@ -1,5 +1,5 @@
 import { sendVerifyCode, sendVerifyEmail } from '@/apis/auth';
-import Button from '@/components/@common/Button/Button';
+import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { moveToStep } from '@/utils/step/moveSteps';
@@ -94,13 +94,13 @@ const AuthForm = () => {
           },
         }}
       />
-      <Button
+      <PrimaryButton
         type="button"
         onClick={handleSendEmail}
         disabled={!email || !!errors.email || isEmailSending}
       >
         인증 요청
-      </Button>
+      </PrimaryButton>
       <InputField
         type="text"
         name="certno"
@@ -168,12 +168,12 @@ const AuthForm = () => {
           },
         }}
       />
-      <Button
+      <PrimaryButton
         disabled={!isValid}
         onClick={() => moveToStep('next', setSignUpStep)}
       >
         다음
-      </Button>
+      </PrimaryButton>
     </>
   );
 };

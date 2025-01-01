@@ -4,7 +4,7 @@ import InputField from '@/components/auth/Input';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useRecoilValue } from 'recoil';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
-import Button from '@/components/@common/Button/Button';
+import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import { useResetPassword } from '@/hooks/auth/useResetPassword';
 import { ResetPasswordDataType } from '@/types/auth';
 import * as Styled from './ResetPasswordForm.styled';
@@ -80,9 +80,11 @@ const ResetPasswordForm = () => {
             }}
           />
         </Styled.PasswordContent>
-        <Button disabled={!!errors.password || password !== confirmPassword}>
+        <PrimaryButton
+          disabled={!!errors.password || password !== confirmPassword}
+        >
           확인
-        </Button>
+        </PrimaryButton>
       </form>
     </FormProvider>
   );
