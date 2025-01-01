@@ -7,14 +7,14 @@ export const Wrapper = styled.div<{ $width?: string }>`
   width: ${({ $width }) => $width || '320px'};
 `;
 
-export const Label = styled.label<{ $bold: boolean; $isMandatory: boolean }>`
+export const Label = styled.label<{ $bold: boolean; $isRequired: boolean }>`
   ${({ theme, $bold }) => ($bold ? theme.typo.T2_B : theme.typo.B1_B)};
   position: relative;
   align-self: flex-start;
   color: ${({ theme }) => theme.colors.Gray_800};
 
   &::after {
-    display: ${({ $isMandatory }) => ($isMandatory ? 'inline' : 'none')};
+    display: ${({ $isRequired }) => ($isRequired ? 'inline' : 'none')};
     content: '*';
     position: absolute;
     right: -16px;

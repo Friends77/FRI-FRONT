@@ -8,7 +8,7 @@ export interface IInputFieldProps
   /** label의 typo 타입을 지정하기 위함. (true: T2_B, false: B1_B) */
   boldLabel?: boolean;
   /** input 요소가 필수값인지 확인하기 위함 */
-  isMandatory?: boolean;
+  isRequired?: boolean;
   id?: string;
   name: string;
   rules?: RegisterOptions;
@@ -19,7 +19,7 @@ export interface IInputFieldProps
 const InputField = ({
   label,
   boldLabel,
-  isMandatory,
+  isRequired,
   id,
   name,
   rules,
@@ -38,17 +38,13 @@ const InputField = ({
   const text = watch(name);
   const error = errors[name] as FieldError;
 
-  const handleCancleClick = () => {
+  const handleCancelClick = () => {
     resetField(name);
     setFocus(name);
   };
   return (
     <Styled.Wrapper $width={width}>
-      <Styled.Label
-        htmlFor={id}
-        $bold={!!boldLabel}
-        $isMandatory={!!isMandatory}
-      >
+      <Styled.Label htmlFor={id} $bold={!!boldLabel} $isRequired={!!isRequired}>
         {label}
       </Styled.Label>
       <Styled.InputContainer>
@@ -61,7 +57,7 @@ const InputField = ({
           {...rest}
         />
         {text && !disabled && (
-          <Styled.CancelBtn type="button" onClick={handleCancleClick}>
+          <Styled.CancelBtn type="button" onClick={handleCancelClick}>
             <Cancel title="취소" width="20" height="20" />
           </Styled.CancelBtn>
         )}
