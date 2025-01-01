@@ -12,6 +12,7 @@ export interface IInputFieldProps
   id?: string;
   name: string;
   rules?: RegisterOptions;
+  /** 입력란 너비 */
   width?: string;
   disabled?: boolean;
 }

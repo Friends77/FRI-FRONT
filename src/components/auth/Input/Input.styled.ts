@@ -27,7 +27,12 @@ export const InputContainer = styled.div`
   margin-bottom: 40px;
 `;
 
-export const Input = styled.input<{ $isError?: boolean; $text?: string }>`
+export const Input = styled.input<{
+  /** 입력란에 에러가 있는 경우 스타일 지정을 위함 */
+  $isError?: boolean;
+  /** 입력된 텍스트가 있는 경우 입력란의 padding을 적절하게 설정해주기 위함 */
+  $text?: string;
+}>`
   ${({ theme }) => theme.typo.B1_R};
   padding: ${({ $text }) => ($text ? '16px 36px 16px 16px' : '16px')};
   width: 100%;

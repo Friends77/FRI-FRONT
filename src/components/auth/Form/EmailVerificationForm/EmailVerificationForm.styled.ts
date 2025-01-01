@@ -16,7 +16,10 @@ export const CodeContent = styled.div`
   padding-bottom: 20px;
 `;
 
-export const Time = styled.div<{ $text?: string }>`
+export const Time = styled.div<{
+  /** 입력란에 입력된 값이 있는 경우 생기는 취소(x) 버튼을 고려하여 위치를 지정하기 위함 */
+  $text?: string;
+}>`
   position: absolute;
   top: 34px;
   right: ${({ $text }) => ($text ? '36px' : '16px')};
