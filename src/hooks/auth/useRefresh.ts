@@ -31,7 +31,6 @@ export const useRefresh = () => {
         if (status === 400 || status === 401) {
           alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
           navigate(AUTH_PATH.LOGIN);
-          return;
         }
       }
     },
