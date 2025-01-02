@@ -29,6 +29,16 @@ export const Dropdown = styled(Select)<{ $isMulti?: boolean }>`
     min-height: 56px;
     border-radius: 6px;
     border: 1px solid ${({ theme }) => theme.colors.Gray_500};
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid ${({ theme }) => theme.colors.Blue_400};
+    }
+  }
+
+  .dropdown__control--is-focused {
+    border: 1px solid ${({ theme }) => theme.colors.Blue_400};
+    box-shadow: none;
   }
 
   .dropdown__value-container {
@@ -47,10 +57,6 @@ export const Dropdown = styled(Select)<{ $isMulti?: boolean }>`
 
   .dropdown__multi-value__remove:hover {
     background-color: ${({ theme }) => theme.colors.Gray_100};
-  }
-
-  .dropdown__dropdown-indicator {
-    display: ${({ $isMulti }) => ($isMulti ? 'inline' : 'none')};
   }
 
   .dropdown__indicator-separator {

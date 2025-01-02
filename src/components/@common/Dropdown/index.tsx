@@ -67,9 +67,15 @@ export interface IDropdownProps {
 }
 
 const DropdownIndicator = (props: DropdownIndicatorProps) => {
+  const { isMulti } = props.selectProps;
+
+  if (isMulti) {
+    return null;
+  }
+
   return (
     <components.DropdownIndicator {...props}>
-      <ArrowDown title="arrowDown" width="24px" height="24px" />
+      <ArrowDown title="드롭다운 메뉴 열기" width="24px" height="24px" />
     </components.DropdownIndicator>
   );
 };
@@ -77,7 +83,7 @@ const DropdownIndicator = (props: DropdownIndicatorProps) => {
 const ClearIndicator = (props: ClearIndicatorProps) => {
   return (
     <components.ClearIndicator {...props}>
-      <Close title="close" width="24px" height="24px" />
+      <Close title="선택 항목 초기화" width="24px" height="24px" />
     </components.ClearIndicator>
   );
 };
@@ -85,7 +91,7 @@ const ClearIndicator = (props: ClearIndicatorProps) => {
 const MultiValueRemove = (props: MultiValueRemoveProps) => {
   return (
     <components.MultiValueRemove {...props}>
-      <Close title="remove" width="14px" height="14px" />
+      <Close title="선택 항목 삭제" width="14px" height="14px" />
     </components.MultiValueRemove>
   );
 };
