@@ -1,5 +1,6 @@
-import { formattedTime } from "@/utils/formatter/time";
-import { useEffect, useState } from "react";
+import { formattedTime } from '@/utils/formatter/time';
+import { useEffect, useState } from 'react';
+import * as Styled from './Timer.styled';
 
 export interface ITimerProps {
   timeout: number;
@@ -35,11 +36,7 @@ const Timer = ({ timeout, onTimeout }: ITimerProps) => {
     };
   }, []);
 
-  return (
-    <div>
-      <p>{formattedTime(remainingTime)}</p>
-    </div>
-  );
+  return <Styled.Time>{formattedTime(remainingTime)}</Styled.Time>;
 };
 
 export default Timer;

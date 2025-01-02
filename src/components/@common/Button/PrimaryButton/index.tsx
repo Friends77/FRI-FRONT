@@ -1,3 +1,11 @@
+import * as Styled from './PrimaryButton.styled';
+
+export interface IButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** 버튼 너비 */
+  width?: string;
+}
+
 /**
  *  @Button
  *    @사용목적
@@ -8,11 +16,12 @@
  *      1) 클릭 이벤트 처리: 버튼 클릭 시 특정 작업(이벤트 핸들러 실행)을 수행
  */
 
-const Button = ({
-  children,
-  ...rest
-}: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
-  return <button {...rest}>{children}</button>;
+const PrimaryButton = ({ children, width, ...rest }: IButtonProps) => {
+  return (
+    <Styled.Button $width={width} {...rest}>
+      {children}
+    </Styled.Button>
+  );
 };
 
-export default Button;
+export default PrimaryButton;
