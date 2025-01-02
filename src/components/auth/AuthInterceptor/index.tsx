@@ -21,7 +21,7 @@ const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const { mutateAsync } = useRefresh();
 
-  const responseInterceptor = AuthAxios.interceptors.request.use((config) => {
+  const requestInterceptor = AuthAxios.interceptors.request.use((config) => {
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -29,7 +29,7 @@ const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
     return config;
   });
 
-  const requestInterceptor = AuthAxios.interceptors.response.use(
+  const responseInterceptor = AuthAxios.interceptors.response.use(
     (response) => response,
     async (err) => {
       const {
@@ -42,7 +42,7 @@ const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
         try {
           const { accessToken } = await mutateAsync();
           config.headers.Authorization = `Bearer ${accessToken}`;
-          
+
           return axios(config);
         } catch (err) {
           return Promise.reject(err);
