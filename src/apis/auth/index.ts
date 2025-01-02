@@ -18,6 +18,14 @@ export async function login({ email, password }: LoginDataType) {
   return response.data;
 }
 
+export async function logout(accessToken: string) {
+  const response = await AuthAxios.post('/api/auth/logout', {
+    accessToken,
+  });
+
+  return response.data;
+}
+
 export async function refresh() {
   const response = await AuthAxios.post<IRefreshResponse>('/api/auth/refresh');
 
