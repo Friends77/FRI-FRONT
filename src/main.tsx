@@ -7,16 +7,19 @@ import { queryClient } from '@/apis/@core/queryClient.ts';
 import { ThemeProvider } from 'styled-components';
 import { Theme } from './styles/theme.ts';
 import GlobalStyle from './styles/GlobalStyle.ts';
+import { CookiesProvider } from 'react-cookie';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={Theme}>
-          <GlobalStyle />
-          <AppRouter />
-        </ThemeProvider>
-      </QueryClientProvider>
-    </RecoilRoot>
+    <CookiesProvider defaultSetOptions={{ path: '/' }}>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider theme={Theme}>
+            <GlobalStyle />
+            <AppRouter />
+          </ThemeProvider>
+        </QueryClientProvider>
+      </RecoilRoot>
+    </CookiesProvider>
   </StrictMode>,
 );
