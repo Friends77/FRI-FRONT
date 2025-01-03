@@ -21,6 +21,6 @@ export const Time = styled.div<{
   $text?: string;
 }>`
   position: absolute;
-  top: 34px;
+  top: 18px;
   right: ${({ $text }) => ($text ? '36px' : '16px')};
 `;
