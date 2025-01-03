@@ -24,7 +24,7 @@ const EmailVerificationForm = ({
   const [isTimerActive, setIsTimerActive] = useState(false);
   // 이메일로 코드 전송을 성공하면 이후로는 수정하지 못하게 하기 위한 state
   const [isCodeSended, setIsCodeSended] = useState(false);
-  const [isCodeVerifed, setIsCodeVerified] = useState(false);
+  const [isCodeVerified, setIsCodeVerified] = useState(false);
 
   const methods = useForm({
     mode: 'onChange',
@@ -125,7 +125,7 @@ const EmailVerificationForm = ({
             name="certno"
             placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
             maxLength={6}
-            disabled={isCodeVerifed || !isCodeSended}
+            disabled={isCodeVerified || !isCodeSended}
             rules={{
               required: {
                 value: true,
