@@ -77,5 +77,6 @@ export const ErrorMsg = styled.p<{ $isErrorMsgRelative?: boolean }>`
   position: ${({ $isErrorMsgRelative }) => !$isErrorMsgRelative && 'absolute'};
   transform: translateY(11px);
   text-align: start;
+  margin-bottom: ${({ $isErrorMsgRelative }) => $isErrorMsgRelative && '8px'};
   color: ${({ theme }) => theme.colors.Alter_error};
 `;
