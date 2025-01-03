@@ -17,6 +17,8 @@ export interface IInputFieldProps
   /** 입력란 너비 */
   width?: string;
   disabled?: boolean;
+  /** 에러 메세지를 위치를 absolute/relative 로 결정하기 위함 */
+  isErrorMsgRelative?: boolean;
 }
 
 const InputField = ({
@@ -29,6 +31,7 @@ const InputField = ({
   rules,
   width,
   disabled,
+  isErrorMsgRelative,
   ...rest
 }: IInputFieldProps) => {
   const {
@@ -48,15 +51,17 @@ const InputField = ({
   };
   return (
     <Styled.Wrapper $width={width}>
-      <Styled.Label
-        htmlFor={id}
-        $bold={!!boldLabel}
-        $isRequired={!!isRequired}
-        $color={labelColor}
-      >
-        {label}
-      </Styled.Label>
-      <Styled.InputContainer>
+      {label && (
+        <Styled.Label
+          htmlFor={id}
+          $bold={!!boldLabel}
+          $isRequired={!!isRequired}
+          $color={labelColor}
+        >
+          {label}
+        </Styled.Label>
+      )}
+      <Styled.InputContainer $isErrorMsgRelative={isErrorMsgRelative}>
         <Styled.Input
           id={id}
           $isError={!!error}
@@ -70,7 +75,11 @@ const InputField = ({
             <Cancel title="취소" width="20" height="20" />
           </Styled.CancelBtn>
         )}
-        {error && <Styled.ErrorMsg>{error.message}</Styled.ErrorMsg>}
+        {error && (
+          <Styled.ErrorMsg $isErrorMsgRelative={isErrorMsgRelative}>
+            {error.message}
+          </Styled.ErrorMsg>
+        )}
       </Styled.InputContainer>
     </Styled.Wrapper>
   );

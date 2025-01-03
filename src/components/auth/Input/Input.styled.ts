@@ -27,9 +27,10 @@ export const Label = styled.label<{
   }
 `;
 
-export const InputContainer = styled.div`
+export const InputContainer = styled.div<{ $isErrorMsgRelative?: boolean }>`
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: ${({ $isErrorMsgRelative }) =>
+    $isErrorMsgRelative ? '8px' : '40px'};
 `;
 
 export const Input = styled.input<{
@@ -62,10 +63,8 @@ export const Input = styled.input<{
 
 export const CancelBtn = styled.button`
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 18px;
   right: 16px;
-  margin: auto;
   padding: 0;
   width: 20px;
   height: 20px;
@@ -73,9 +72,9 @@ export const CancelBtn = styled.button`
   background-color: transparent;
 `;
 
-export const ErrorMsg = styled.p`
+export const ErrorMsg = styled.p<{ $isErrorMsgRelative?: boolean }>`
   ${({ theme }) => theme.typo.B2_R};
-  position: absolute;
+  position: ${({ $isErrorMsgRelative }) => !$isErrorMsgRelative && 'absolute'};
   transform: translateY(11px);
   text-align: start;
   color: ${({ theme }) => theme.colors.Alter_error};

@@ -97,6 +97,7 @@ const EmailVerificationForm = ({
             width="210px"
             disabled={isCodeSended}
             placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
+            isErrorMsgRelative
             rules={{
               required: {
                 value: true,
