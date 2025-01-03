@@ -1,5 +1,5 @@
 import { FieldError, RegisterOptions, useFormContext } from 'react-hook-form';
-import * as Styled from './Input.styled';
+import * as Styled from './InputField.styled';
 import Cancel from '@/components/@common/SVG/Icon/Cancel';
 
 export interface IInputFieldProps
