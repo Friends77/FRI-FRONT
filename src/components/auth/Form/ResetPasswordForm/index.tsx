@@ -1,6 +1,6 @@
 import { AUTH_ERROR_MSG } from '@/constants/message';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import InputField from '@/components/auth/Input';
+import InputField from '@/components/auth/InputField';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useRecoilValue } from 'recoil';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';

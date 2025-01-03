@@ -7,7 +7,7 @@ import { AUTH_PATTERN } from '@/constants/pattern';
 import { useVerifyCode } from '@/hooks/auth/useVerifyCode';
 import { useSendCodeToEmail } from '@/hooks/auth/useSendCodeToEmail';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
-import InputField from '@/components/auth/Input';
+import InputField from '@/components/auth/InputField';
 import Timer from '@/components/auth/Timer';
 import * as Styled from './EmailVerificationForm.styled';
 
@@ -24,7 +24,7 @@ const EmailVerificationForm = ({
   const [isTimerActive, setIsTimerActive] = useState(false);
   // 이메일로 코드 전송을 성공하면 이후로는 수정하지 못하게 하기 위한 state
   const [isCodeSended, setIsCodeSended] = useState(false);
-  const [isCodeVerifed, setIsCodeVerified] = useState(false);
+  const [isCodeVerified, setIsCodeVerified] = useState(false);
 
   const methods = useForm({
     mode: 'onChange',
@@ -97,6 +97,7 @@ const EmailVerificationForm = ({
             width="210px"
             disabled={isCodeSended}
             placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
+            isErrorMsgRelative
             rules={{
               required: {
                 value: true,
@@ -124,7 +125,7 @@ const EmailVerificationForm = ({
             name="certno"
             placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
             maxLength={6}
-            disabled={isCodeVerifed || !isCodeSended}
+            disabled={isCodeVerified || !isCodeSended}
             rules={{
               required: {
                 value: true,

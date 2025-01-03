@@ -9,7 +9,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 import { AUTH_ERROR_MSG } from '@/constants/message';
 import Timer from '@/components/auth/Timer';
-import InputField from '@/components/auth/Input';
+import InputField from '@/components/auth/InputField';
 
 const AuthForm = () => {
   const setSignUpStep = useSetRecoilState(signUpStepAtom);

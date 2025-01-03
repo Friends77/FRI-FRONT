@@ -13,7 +13,6 @@ export const SendCodeBtn = styled(SecondaryButton)`
 
 export const CodeContent = styled.div`
   position: relative;
-  padding-bottom: 20px;
 `;
 
 export const Time = styled.div<{
@@ -21,6 +20,6 @@ export const Time = styled.div<{
   $text?: string;
 }>`
   position: absolute;
-  top: 34px;
+  top: 18px;
   right: ${({ $text }) => ($text ? '36px' : '16px')};
 `;

@@ -1,11 +1,13 @@
 import { FieldError, RegisterOptions, useFormContext } from 'react-hook-form';
-import * as Styled from './Input.styled';
+import * as Styled from './InputField.styled';
 import Cancel from '@/components/@common/SVG/Icon/Cancel';
 
 export interface IInputFieldProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  /** label의 typo 타입을 지정하기 위함. (true: T2_B, false: B1_B) */
+  /** label의 색상을 지정하기 위함 (default: Gray_800) */
+  labelColor?: string;
+  /** label의 typo 타입을 지정하기 위함 (true: T2_B, false: B1_B) */
   boldLabel?: boolean;
   /** input 요소가 필수값인지 확인하기 위함 */
   isRequired?: boolean;
@@ -15,10 +17,13 @@ export interface IInputFieldProps
   /** 입력란 너비 */
   width?: string;
   disabled?: boolean;
+  /** 에러 메세지를 위치를 absolute/relative 로 결정하기 위함 */
+  isErrorMsgRelative?: boolean;
 }
 
 const InputField = ({
   label,
+  labelColor,
   boldLabel,
   isRequired,
   id,
@@ -26,6 +31,7 @@ const InputField = ({
   rules,
   width,
   disabled,
+  isErrorMsgRelative,
   ...rest
 }: IInputFieldProps) => {
   const {
@@ -45,10 +51,17 @@ const InputField = ({
   };
   return (
     <Styled.Wrapper $width={width}>
-      <Styled.Label htmlFor={id} $bold={!!boldLabel} $isRequired={!!isRequired}>
-        {label}
-      </Styled.Label>
-      <Styled.InputContainer>
+      {label && (
+        <Styled.Label
+          htmlFor={id}
+          $bold={!!boldLabel}
+          $isRequired={!!isRequired}
+          $color={labelColor}
+        >
+          {label}
+        </Styled.Label>
+      )}
+      <Styled.InputContainer $isErrorMsgRelative={isErrorMsgRelative}>
         <Styled.Input
           id={id}
           $isError={!!error}
@@ -62,7 +75,11 @@ const InputField = ({
             <Cancel title="취소" width="20" height="20" />
           </Styled.CancelBtn>
         )}
-        {error && <Styled.ErrorMsg>{error.message}</Styled.ErrorMsg>}
+        {error && (
+          <Styled.ErrorMsg $isErrorMsgRelative={isErrorMsgRelative}>
+            {error.message}
+          </Styled.ErrorMsg>
+        )}
       </Styled.InputContainer>
     </Styled.Wrapper>
   );
