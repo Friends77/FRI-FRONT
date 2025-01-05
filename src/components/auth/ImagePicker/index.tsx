@@ -1,23 +1,17 @@
-import { useRef, useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import * as Styled from './ImagePicker.styled';
-import defaultProfileImg from '@/assets/images/defaultProfile.png';
 import camera from '@/assets/images/camera.png';
+import defaultProfileImg from '@/assets/images/defaultProfile.png';
+import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import * as Styled from './ImagePicker.styled';
 
 export interface IImagePickerProps {
   name: string;
 }
 
 const ImagePicker = ({ name }: IImagePickerProps) => {
-  const { control, register, setValue } = useFormContext();
+  const { register, setValue } = useFormContext();
 
   const [pickedImage, setPickedImage] = useState<string | null>(null);
-
-  const imageInput = useRef<HTMLInputElement | null>(null);
-
-  const handlePickClick = () => {
-    imageInput.current?.click();
-  };
 
   const handleImageDelete = () => {
     setPickedImage(null);
@@ -45,33 +39,20 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
   return (
     <Styled.ImagePickerWrapper>
       <Styled.ImagePickerImageSection>
-        <Styled.ImagePickerImagePreivew
+        <Styled.ImagePickerImagePreview
           src={pickedImage ? pickedImage : defaultProfileImg}
         />
-        <Controller
-          control={control}
-          name={name}
-          render={({ field: { ref } }) => (
-            <input
-              id={name}
-              type="file"
-              accept="image/*"
-              {...register(name)}
-              onChange={(e) => {
-                handleImageChange(e);
-              }}
-              ref={(el) => {
-                ref(el);
-                imageInput.current = el;
-              }}
-              hidden
-            />
-          )}
-        />
-        <Styled.ImagePickerAddImageButton
-          src={camera}
-          onClick={handlePickClick}
-        />
+        <label>
+          <input
+            type="file"
+            accept="image/*"
+            id={name}
+            {...register(name)}
+            onChange={handleImageChange}
+            hidden
+          />
+          <Styled.ImagePickerAddImageButton src={camera} />
+        </label>
       </Styled.ImagePickerImageSection>
       {pickedImage && (
         <Styled.ImagePickerRemoveImageButton onClick={handleImageDelete}>

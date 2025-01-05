@@ -12,13 +12,14 @@ export const ImagePickerWrapper = styled.div`
 export const ImagePickerImageSection = styled.section`
   position: relative;
 `;
-export const ImagePickerImagePreivew = styled.img`
+export const ImagePickerImagePreview = styled.img`
   width: 88px;
   height: 88px;
   border-radius: 999px;
 `;
 export const ImagePickerAddImageButton = styled.img`
   position: absolute;
+  cursor: pointer;
   bottom: 5px;
   right: 0;
   width: 32px;

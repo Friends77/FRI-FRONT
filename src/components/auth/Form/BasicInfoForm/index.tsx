@@ -55,7 +55,7 @@ const BasicInfoForm = () => {
           placeholder="닉네임을 입력해주세요"
           isErrorMsgRelative={true}
         />
-        <Styled.BasicInfoFormBirthSetion>
+        <Styled.BasicInfoFormBirthSection>
           <Controller
             name="birth"
             control={control}
@@ -80,7 +80,7 @@ const BasicInfoForm = () => {
               />
             )}
           />
-        </Styled.BasicInfoFormBirthSetion>
+        </Styled.BasicInfoFormBirthSection>
         <Styled.BasicInfoFormGenderSection>
           <Styled.BasicInfoFormLabel>성별&nbsp;</Styled.BasicInfoFormLabel>
           <Controller

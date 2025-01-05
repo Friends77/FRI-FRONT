@@ -5,6 +5,7 @@ export const BasicInfoFormWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 120px;
+  margin-bottom: 120px;
 `;
 
 export const BasicInfoFormHeader = styled.section`
@@ -25,7 +26,7 @@ export const BasicInfoFormImagePickerSection = styled.section`
   justify-content: center;
 `;
 
-export const BasicInfoFormBirthSetion = styled.section`
+export const BasicInfoFormBirthSection = styled.section`
   position: relative;
 `;
 
