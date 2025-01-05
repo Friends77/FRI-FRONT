@@ -41,10 +41,6 @@ export const AuthFormButtonContainer = styled.section`
   right: 0;
 `;
 
-export const AuthFormPWSection = styled.section``;
-
-export const AuthFormButtonSection = styled.section``;
-
 export const Time = styled.div<{
   /** 입력란에 입력된 값이 있는 경우 생기는 취소(x) 버튼을 고려하여 위치를 지정하기 위함 */
   $text?: string;

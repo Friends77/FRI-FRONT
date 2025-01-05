@@ -20,7 +20,7 @@ const AuthForm = () => {
   // 메일 발송 여부
   const [isSendedMail, setIsSendedMail] = useState(false);
   // 인증 성공 여부
-  const [isVerifedSuccess, setIsVerifiedSuccess] = useState(false);
+  const [isVerifiedSuccess, setIsVerifiedSuccess] = useState(false);
 
   const {
     control,
@@ -83,10 +83,10 @@ const AuthForm = () => {
     },
   });
 
-  const handleVerifyCodeValidate = async (value: string) => {
+  const handleVerifyCodeValidate = (value: string) => {
     if (value.length === 6) {
       try {
-        await sendCode({ email, code: value });
+        sendCode({ email, code: value });
         return true;
       } catch (error) {
         return AUTH_ERROR_MSG.CERTNO_PATTERN;
@@ -126,7 +126,6 @@ const AuthForm = () => {
                 type="button"
                 onClick={handleSendEmail}
                 disabled={!email || !!errors.email || isEmailSending}
-                style={{ height: '53px' }}
               >
                 인증 요청
               </SecondaryButton>
@@ -139,7 +138,7 @@ const AuthForm = () => {
                 name="certno"
                 placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
                 maxLength={6}
-                disabled={isVerifedSuccess}
+                disabled={isVerifiedSuccess}
                 rules={{
                   required: {
                     value: true,
@@ -170,65 +169,59 @@ const AuthForm = () => {
             )}
           </Styled.AuthFormCertNoInputSection>
         </Styled.AuthFormEmailSection>
-        <Styled.AuthFormPWSection>
-          <InputField
-            label="비밀번호"
-            id="password"
-            type="password"
-            name="password"
-            placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
-            rules={{
-              required: {
-                value: true,
-                message: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
-              },
-              minLength: {
-                value: 8,
-                message: AUTH_ERROR_MSG.PASSWORD_PATTERN_MORE,
-              },
-              maxLength: {
-                value: 20,
-                message: AUTH_ERROR_MSG.PASSWORD_PATTERN_BELOW,
-              },
-              pattern: {
-                value: AUTH_PATTERN.PASSWORD,
-                message: AUTH_ERROR_MSG.PASSWORD_PATTERN,
-              },
-            }}
-            boldLabel={true}
-            isErrorMsgRelative={true}
-            labelColor="Gray_1000"
-          />
-        </Styled.AuthFormPWSection>
-        <Styled.AuthFormPWSection>
-          <InputField
-            label="비밀번호 확인"
-            id="confirm-password"
-            type="password"
-            name="confirm-password"
-            placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
-            rules={{
-              required: true,
-              validate: (value) => {
-                if (value !== password) {
-                  return AUTH_ERROR_MSG.PASSWORD_NOT_MATCH;
-                }
-              },
-            }}
-            boldLabel={true}
-            isErrorMsgRelative={true}
-            labelColor="Gray_1000"
-          />
-        </Styled.AuthFormPWSection>
-        <Styled.AuthFormButtonSection>
-          <PrimaryButton
-            type="button"
-            disabled={!isValid || isVerifying}
-            onClick={() => moveToStep('next', setSignUpStep)}
-          >
-            다음
-          </PrimaryButton>
-        </Styled.AuthFormButtonSection>
+        <InputField
+          label="비밀번호"
+          id="password"
+          type="password"
+          name="password"
+          placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
+          rules={{
+            required: {
+              value: true,
+              message: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
+            },
+            minLength: {
+              value: 8,
+              message: AUTH_ERROR_MSG.PASSWORD_PATTERN_MORE,
+            },
+            maxLength: {
+              value: 20,
+              message: AUTH_ERROR_MSG.PASSWORD_PATTERN_BELOW,
+            },
+            pattern: {
+              value: AUTH_PATTERN.PASSWORD,
+              message: AUTH_ERROR_MSG.PASSWORD_PATTERN,
+            },
+          }}
+          boldLabel={true}
+          isErrorMsgRelative={true}
+          labelColor="Gray_1000"
+        />
+        <InputField
+          label="비밀번호 확인"
+          id="confirm-password"
+          type="password"
+          name="confirm-password"
+          placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
+          rules={{
+            required: true,
+            validate: (value) => {
+              if (value !== password) {
+                return AUTH_ERROR_MSG.PASSWORD_NOT_MATCH;
+              }
+            },
+          }}
+          boldLabel={true}
+          isErrorMsgRelative={true}
+          labelColor="Gray_1000"
+        />
+        <PrimaryButton
+          type="button"
+          disabled={!isValid || isVerifying}
+          onClick={() => moveToStep('next', setSignUpStep)}
+        >
+          다음
+        </PrimaryButton>
       </Styled.AuthFormContentSection>
     </Styled.AuthFormWrapper>
   );
