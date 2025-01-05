@@ -1,14 +1,23 @@
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { useRef, useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import * as Styled from './ImagePicker.styled';
+import defaultProfileImg from '@/assets/images/defaultProfile.png';
+import camera from '@/assets/images/camera.png';
 
 export interface IImagePickerProps {
   name: string;
 }
 
 const ImagePicker = ({ name }: IImagePickerProps) => {
-  const { register, setValue } = useFormContext();
+  const { control, register, setValue } = useFormContext();
 
   const [pickedImage, setPickedImage] = useState<string | null>(null);
+
+  const imageInput = useRef<HTMLInputElement | null>(null);
+
+  const handlePickClick = () => {
+    imageInput.current?.click();
+  };
 
   const handleImageDelete = () => {
     setPickedImage(null);
@@ -22,40 +31,54 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
       const fileReader = new FileReader();
 
       fileReader.onload = () => {
-        if (typeof fileReader.result === "string") {
+        if (typeof fileReader.result === 'string') {
           setPickedImage(fileReader.result);
         }
       };
 
       fileReader.readAsDataURL(file);
 
-      setValue(name, file);
+      setValue('imageUrl', e.target.value);
     }
   };
 
   return (
-    <div>
-      <label>
-        {pickedImage ? (
-          <img src={pickedImage} alt={`${name} preview`} />
-        ) : (
-          <p>기본 이미지</p>
-        )}
-        <input
-          id={name}
-          type="file"
-          {...register(name)}
-          onChange={handleImageChange}
-          hidden
+    <Styled.ImagePickerWrapper>
+      <Styled.ImagePickerImageSection>
+        <Styled.ImagePickerImagePreivew
+          src={pickedImage ? pickedImage : defaultProfileImg}
         />
-        <p>이미지</p>
-      </label>
+        <Controller
+          control={control}
+          name={name}
+          render={({ field: { ref } }) => (
+            <input
+              id={name}
+              type="file"
+              accept="image/*"
+              {...register(name)}
+              onChange={(e) => {
+                handleImageChange(e);
+              }}
+              ref={(el) => {
+                ref(el);
+                imageInput.current = el;
+              }}
+              hidden
+            />
+          )}
+        />
+        <Styled.ImagePickerAddImageButton
+          src={camera}
+          onClick={handlePickClick}
+        />
+      </Styled.ImagePickerImageSection>
       {pickedImage && (
-        <button type="button" onClick={handleImageDelete}>
-          이미지 삭제
-        </button>
+        <Styled.ImagePickerRemoveImageButton onClick={handleImageDelete}>
+          삭제
+        </Styled.ImagePickerRemoveImageButton>
       )}
-    </div>
+    </Styled.ImagePickerWrapper>
   );
 };
 
