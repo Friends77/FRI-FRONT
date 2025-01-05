@@ -8,6 +8,7 @@ import {
 import ArrowDown from '../SVG/Icon/ArrowDown';
 import Close from '../SVG/Icon/Close';
 import * as Styled from './Dropdown.styled';
+import { FieldError, useFormContext } from 'react-hook-form';
 
 /**
  *  @Dropdown
@@ -62,6 +63,8 @@ export interface IDropdownProps {
   /** react-hook-form의 Controller로부터 전달된 현재 값 */
   value?: { value: number | string; label: string };
 
+  name: string;
+
   /** react-hook-form의 Controller로부터 전달된 onChange Handler */
   onChange?: (value: any) => void;
 }
@@ -105,12 +108,19 @@ const Dropdown = forwardRef<any, IDropdownProps>(
       placeholder,
       isRequired,
       isMulti,
+      name,
       value,
       onChange,
       ...rest
     },
     ref,
   ) => {
+    const {
+      formState: { errors },
+    } = useFormContext();
+
+    const error = errors[name] as FieldError;
+
     return (
       <Styled.Wrapper $width={width}>
         <Styled.Label $isRequired={isRequired}>{label}</Styled.Label>
@@ -124,6 +134,7 @@ const Dropdown = forwardRef<any, IDropdownProps>(
           isSearchable={false}
           isMulti={isMulti}
           value={value}
+          $isError={!!error}
           onChange={onChange}
           components={{
             DropdownIndicator,
@@ -132,6 +143,7 @@ const Dropdown = forwardRef<any, IDropdownProps>(
           }}
           {...rest}
         />
+        {error && <Styled.ErrorMsg>{error.message}</Styled.ErrorMsg>}
       </Styled.Wrapper>
     );
   },
