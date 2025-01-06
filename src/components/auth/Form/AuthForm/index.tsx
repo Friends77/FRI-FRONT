@@ -74,6 +74,7 @@ const AuthForm = () => {
       setIsTimerActive(false);
       setIsVerifiedSuccess(true);
       clearErrors('certno');
+      return true;
     },
     onError: () => {
       setError('certno', {
