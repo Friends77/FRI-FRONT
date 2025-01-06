@@ -2,8 +2,9 @@ import { NavLink } from 'react-router';
 import styled from 'styled-components';
 
 export const Wrapper = styled.nav`
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -12,6 +13,7 @@ export const Wrapper = styled.nav`
   width: 72px;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.Gray_200};
+  z-index: 999;
 `;
 
 export const NavMenuList = styled.ul`

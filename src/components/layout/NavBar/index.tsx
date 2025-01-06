@@ -19,6 +19,9 @@ import HomeFill from '@/components/@common/SVG/Icon/HomeFill';
 import AssignmentFill from '@/components/@common/SVG/Icon/AssignmentFill';
 import ProfileFill from '@/components/@common/SVG/Icon/ProfileFill';
 import SettingFill from '@/components/@common/SVG/Icon/SettingFill';
+import { useRecoilState } from 'recoil';
+import isSideBarOpenAtom from '@/recoil/layout/isSideBarOpen';
+import Expand from '@/components/@common/SVG/Icon/Expand';
 
 const navMenus = [
   {
@@ -55,6 +58,11 @@ const navMenus = [
 ];
 
 const NavBar = () => {
+  const [isSideBarOpen, setIsSideBarOpen] = useRecoilState(isSideBarOpenAtom);
+
+  const handleSideBarToggle = () => {
+    setIsSideBarOpen((prev) => !prev);
+  };
   return (
     <Styled.Wrapper>
       <Link to={ROOT_PATH.ROOT}>
@@ -82,9 +90,18 @@ const NavBar = () => {
           </Styled.NavMenu>
         ))}
         <Styled.NavMenu>
-          <Styled.CollapseBtn>
-            <Collapse title="collapse sidebar" width="32px" height="32px" />
-            <Styled.NavMenuText>숨기기</Styled.NavMenuText>
+          <Styled.CollapseBtn onClick={handleSideBarToggle}>
+            {isSideBarOpen ? (
+              <>
+                <Collapse title="collapse sidebar" width="32px" height="32px" />
+                <Styled.NavMenuText>숨기기</Styled.NavMenuText>
+              </>
+            ) : (
+              <>
+                <Expand title="expand sidebar" width="32px" height="32px" />
+                <Styled.NavMenuText>펼치기</Styled.NavMenuText>
+              </>
+            )}
           </Styled.CollapseBtn>
         </Styled.NavMenu>
       </Styled.NavMenuList>

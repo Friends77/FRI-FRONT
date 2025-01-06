@@ -14,12 +14,12 @@ import SignUpPage from '@/pages/auth/signUp';
 import NaverLoginCallbackPage from '@/pages/auth/callback/naver';
 import ResetPasswordPage from '@/pages/auth/resetPassword';
 import GoogleLoginCallback from '@/pages/auth/callback/google';
-import WithNavBarLayout from '@/layouts/withNavBar';
 import HomePage from '@/pages/common/home';
 import ProfilePage from '@/pages/user/profile';
 import BoardPage from '@/pages/board/board';
 import SettingPage from '@/pages/user/setting';
 import SearchPage from '@/pages/common/search';
+import WithNavBarLayout from '@/components/layout/WithNavBarLayout';
 
 export default function AppRouter() {
   const router = createBrowserRouter([
