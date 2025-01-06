@@ -7,6 +7,7 @@ export const Label = styled.label`
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 `;
 
 export const CheckBox = styled.input`
@@ -15,6 +16,7 @@ export const CheckBox = styled.input`
   border-radius: 2px;
   width: 16px;
   height: 16px;
+  cursor: pointer;
 
   &:checked {
     border-color: transparent;

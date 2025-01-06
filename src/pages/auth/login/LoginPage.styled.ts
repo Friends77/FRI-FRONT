@@ -6,18 +6,14 @@ export const Main = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 64px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 120px auto;
   width: 440px;
 `;
 
 export const LoginHeader = styled.h1`
-  ${({ theme }) => theme.typo.T1_B}
+  ${({ theme }) => theme.typo.D1_B}
   margin-bottom: 64px;
   color: ${({ theme }) => theme.colors.Gray_1000};
-  font-size: 30px;
-  line-height: 38px;
 `;
 
 export const LoginOptions = styled.ul`
@@ -31,7 +27,6 @@ export const LoginOption = styled(Link)`
   ${({ theme }) => theme.typo.B1_R};
   position: relative;
   color: ${({ theme }) => theme.colors.Gray_800};
-  line-height: 20px;
 
   &::after {
     content: '';
