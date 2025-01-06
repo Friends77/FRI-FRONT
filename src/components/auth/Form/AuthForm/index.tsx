@@ -74,6 +74,7 @@ const AuthForm = () => {
       setIsTimerActive(false);
       setIsVerifiedSuccess(true);
       clearErrors('certno');
+      return true;
     },
     onError: () => {
       setError('certno', {
@@ -85,12 +86,7 @@ const AuthForm = () => {
 
   const handleVerifyCodeValidate = (value: string) => {
     if (value.length === 6) {
-      try {
-        sendCode({ email, code: value });
-        return true;
-      } catch (error) {
-        return AUTH_ERROR_MSG.CERTNO_PATTERN;
-      }
+      sendCode({ email, code: value });
     }
   };
 
