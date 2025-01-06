@@ -16,6 +16,7 @@ export const CheckBox = styled.input`
   border-radius: 2px;
   width: 16px;
   height: 16px;
+  cursor: pointer;
 
   &:checked {
     border-color: transparent;
