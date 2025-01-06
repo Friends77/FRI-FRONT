@@ -1,8 +1,8 @@
-import { ISVG } from '..';
+import SVG, { ISVG } from '..';
 
 const Home = ({ width, height, ...rest }: ISVG) => {
   return (
-    <svg
+    <SVG
       width={width}
       height={height}
       viewBox="0 0 24 24"
@@ -27,7 +27,7 @@ const Home = ({ width, height, ...rest }: ISVG) => {
           fill="#1A1A1A"
         />
       </g>
-    </svg>
+    </SVG>
   );
 };
 
