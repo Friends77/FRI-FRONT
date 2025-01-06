@@ -6,7 +6,7 @@ export const AuthFormWrapper = styled.div`
   align-items: center;
 `;
 
-export const AuthFormHeaderSection = styled.header`
+export const AuthFormHeader = styled.h1`
   margin-top: 120px;
   ${({ theme }) => theme.typo.D1_B}
   color: ${({ theme }) => theme.colors.Gray_1000};

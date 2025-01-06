@@ -96,7 +96,7 @@ const AuthForm = () => {
 
   return (
     <Styled.AuthFormWrapper>
-      <Styled.AuthFormHeaderSection>회원가입</Styled.AuthFormHeaderSection>
+      <Styled.AuthFormHeader>회원가입</Styled.AuthFormHeader>
       <Styled.AuthFormContentSection>
         <Styled.AuthFormEmailSection>
           <Styled.AuthFormInputWithBtn>
