@@ -40,7 +40,7 @@ export const Input = styled.input<{
   $text?: string;
 }>`
   ${({ theme }) => theme.typo.B1_R};
-  padding: ${({ $text }) => ($text ? '16px 36px 16px 16px' : '16px')};
+  padding: ${({ $text }) => ($text ? '15px 36px 15px 16px' : '15px 16px')};
   width: 100%;
   color: ${({ theme }) => theme.colors.Gray_1000};
   border: 1px solid
@@ -63,7 +63,7 @@ export const Input = styled.input<{
 
 export const CancelBtn = styled.button`
   position: absolute;
-  top: 18px;
+  top: 16.5px;
   right: 16px;
   padding: 0;
   width: 20px;
