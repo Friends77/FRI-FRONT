@@ -7,6 +7,7 @@ export const Label = styled.label`
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 `;
 
 export const CheckBox = styled.input`

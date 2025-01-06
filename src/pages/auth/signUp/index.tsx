@@ -3,12 +3,18 @@ import AuthForm from '@/components/auth/Form/AuthForm';
 import BasicInfoForm from '@/components/auth/Form/BasicInfoForm';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { SignUpDataType } from '@/types/auth';
+import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 
 const SignUpPage = () => {
   // 회원가입 단계를 전역 상태로 관리
-  const [signUpStep] = useRecoilState(signUpStepAtom);
+  const [signUpStep, setSignUpStep] = useRecoilState(signUpStepAtom);
+
+  // 회원가입 페이지 이동 시, signUpStep 값을 1로 초기화
+  useEffect(() => {
+    setSignUpStep(1);
+  }, []);
 
   const methods = useForm<SignUpDataType>({
     mode: 'onChange',

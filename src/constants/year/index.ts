@@ -7,4 +7,4 @@ export const BIRTH_YEAR = Array.from(
     const year: number = startYear + index;
     return { value: year, label: `${year}` };
   },
-);
+).reverse();
