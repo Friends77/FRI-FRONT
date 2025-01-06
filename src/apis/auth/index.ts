@@ -1,11 +1,12 @@
-import Axios from '@/apis/@core/instance';
 import AuthAxios from '@/apis/@core/authInstance';
+import Axios from '@/apis/@core/instance';
 import {
   ILoginResponse,
   IRefreshResponse,
   ISendVerifyCodeResponse,
   ISocialLoginResponse,
   LoginDataType,
+  NicknameCheckResponse,
   SocialLoginTokenType,
 } from '@/types/auth';
 
@@ -80,6 +81,14 @@ export async function resetPassword({
     emailAuthToken,
     newPassword,
   });
+
+  return response.data;
+}
+
+export async function checkNickname(nickname: string) {
+  const response = await AuthAxios.get<NicknameCheckResponse>(
+    `/api/auth/check-nickname?nickname=${nickname}`,
+  );
 
   return response.data;
 }

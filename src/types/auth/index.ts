@@ -23,6 +23,13 @@ export type SignUpDataType = {
   certno: string;
   password: string;
   'confirm-password': string;
+  nickname: string;
+  birth: number;
+  gender: string;
+  EI: string;
+  NS: string;
+  FT: string;
+  JP: string;
 };
 
 export type SocialLoginTokenType = {
@@ -57,3 +64,8 @@ export type ResetPasswordDataType = Pick<
   SignUpDataType,
   'password' | 'confirm-password'
 >;
+
+export type NicknameCheckResponse = {
+  isValid: true;
+  message: 'string';
+};

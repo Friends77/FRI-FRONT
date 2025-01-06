@@ -1,5 +1,8 @@
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import camera from '@/assets/images/camera.png';
+import defaultProfileImg from '@/assets/images/defaultProfile.png';
+import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import * as Styled from './ImagePicker.styled';
 
 export interface IImagePickerProps {
   name: string;
@@ -22,40 +25,41 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
       const fileReader = new FileReader();
 
       fileReader.onload = () => {
-        if (typeof fileReader.result === "string") {
+        if (typeof fileReader.result === 'string') {
           setPickedImage(fileReader.result);
         }
       };
 
       fileReader.readAsDataURL(file);
 
-      setValue(name, file);
+      setValue('imageUrl', e.target.value);
     }
   };
 
   return (
-    <div>
-      <label>
-        {pickedImage ? (
-          <img src={pickedImage} alt={`${name} preview`} />
-        ) : (
-          <p>기본 이미지</p>
-        )}
-        <input
-          id={name}
-          type="file"
-          {...register(name)}
-          onChange={handleImageChange}
-          hidden
+    <Styled.ImagePickerWrapper>
+      <Styled.ImagePickerImageSection>
+        <Styled.ImagePickerImagePreview
+          src={pickedImage ? pickedImage : defaultProfileImg}
         />
-        <p>이미지</p>
-      </label>
+        <label>
+          <input
+            type="file"
+            accept="image/*"
+            id={name}
+            {...register(name)}
+            onChange={handleImageChange}
+            hidden
+          />
+          <Styled.ImagePickerAddImageButton src={camera} />
+        </label>
+      </Styled.ImagePickerImageSection>
       {pickedImage && (
-        <button type="button" onClick={handleImageDelete}>
-          이미지 삭제
-        </button>
+        <Styled.ImagePickerRemoveImageButton onClick={handleImageDelete}>
+          삭제
+        </Styled.ImagePickerRemoveImageButton>
       )}
-    </div>
+    </Styled.ImagePickerWrapper>
   );
 };
 
