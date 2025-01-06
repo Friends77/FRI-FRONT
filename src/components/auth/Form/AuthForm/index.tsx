@@ -83,15 +83,16 @@ const AuthForm = () => {
     },
   });
 
-  const handleVerifyCodeValidate = (value: string) => {
-    if (value.length === 6) {
-      try {
-        sendCode({ email, code: value });
-        return true;
-      } catch (error) {
-        return AUTH_ERROR_MSG.CERTNO_PATTERN;
-      }
-    }
+  const handleVerifyCodeValidate = async (value: string) => {
+    return new Promise<boolean | string>((resolve) => {
+      sendCode(
+        { email, code: value },
+        {
+          onSuccess: () => resolve(true),
+          onError: () => resolve(AUTH_ERROR_MSG.CERTNO_PATTERN),
+        },
+      );
+    });
   };
 
   return (
