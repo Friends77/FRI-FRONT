@@ -22,6 +22,7 @@ import SettingFill from '@/components/@common/SVG/Icon/SettingFill';
 import { useRecoilState } from 'recoil';
 import isSideBarOpenAtom from '@/recoil/layout/isSideBarOpen';
 import Expand from '@/components/@common/SVG/Icon/Expand';
+import SearchFill from '@/components/@common/SVG/Icon/SearchFill';
 
 const navMenus = [
   {
@@ -32,8 +33,7 @@ const navMenus = [
   },
   {
     Icon: Search,
-    // 아이콘 수정
-    ActiveIcon: HomeFill,
+    ActiveIcon: SearchFill,
     title: '검색',
     path: SEARCH_PATH.ROOT,
   },
