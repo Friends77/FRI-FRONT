@@ -18,19 +18,31 @@ export interface ISendVerifyCodeResponse {
   emailAuthToken: string;
 }
 
-export type SignUpDataType = {
+export interface SignUpDataType {
+  authToken: string;
   email: string;
-  certno: string;
   password: string;
-  'confirm-password': string;
   nickname: string;
   birth: number;
-  gender: string;
+  gender: 'MAN' | 'WOMAN';
+  selfDescription: string;
+  mbti: string;
+  interestTag: number[];
+  imageUrl: string;
+  location: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
+export interface SignUpFormDataType extends SignUpDataType {
+  certno: string;
+  'confirm-password': string;
   EI: string;
   NS: string;
   FT: string;
   JP: string;
-};
+}
 
 export type SocialLoginTokenType = {
   code: string;
@@ -56,16 +68,23 @@ export interface ISocialAuthInfo {
 }
 
 export type EmailVerificationDataType = Pick<
-  SignUpDataType,
+  SignUpFormDataType,
   'email' | 'certno'
 >;
 
 export type ResetPasswordDataType = Pick<
-  SignUpDataType,
+  SignUpFormDataType,
   'password' | 'confirm-password'
 >;
 
-export type NicknameCheckResponse = {
-  isValid: true;
-  message: 'string';
+export type CheckAvailabilityResponse = {
+  isValid: boolean;
+  message: string;
 };
+
+export type CategoryRespose = {
+  id: number;
+  name: string;
+  type: 'SUBJECT' | 'REGION';
+  image: string | null;
+}[];
