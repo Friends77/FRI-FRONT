@@ -2,20 +2,20 @@
  * 프로필 사진, 닉네임, 출생년도, 성별 입력 폼
  */
 
-import { checkNickname } from '@/apis/auth';
+import { checkAvailability } from '@/apis/auth';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import Dropdown from '@/components/@common/Dropdown';
 import Radio from '@/components/@common/Radio';
+import { GENDER } from '@/constants/gender';
 import { AUTH_ERROR_MSG } from '@/constants/message';
 import { BIRTH_YEAR } from '@/constants/year';
+import signUpStepAtom from '@/recoil/auth/signUp/atom';
+import { moveToStep } from '@/utils/step/moveSteps';
 import { Controller, useFormContext } from 'react-hook-form';
+import { useSetRecoilState } from 'recoil';
 import ImagePicker from '../../ImagePicker';
 import InputField from '../../InputField';
 import * as Styled from './BasicInfoForm.styled';
-import { GENDER } from '@/constants/gender';
-import { moveToStep } from '@/utils/step/moveSteps';
-import { useSetRecoilState } from 'recoil';
-import signUpStepAtom from '@/recoil/auth/signUp/atom';
 
 const BasicInfoForm = () => {
   const setSignUpStep = useSetRecoilState(signUpStepAtom);
@@ -26,7 +26,7 @@ const BasicInfoForm = () => {
 
   // 닉네임 유효성 검사
   const handleIsValidNickname = async (value: string) => {
-    const result = await checkNickname(value);
+    const result = await checkAvailability('nickname', value);
     if (!result.isValid) {
       return result.message;
     }

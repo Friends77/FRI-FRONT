@@ -1,5 +1,12 @@
-import { sendVerifyCode, sendVerifyEmail } from '@/apis/auth';
+import {
+  checkAvailability,
+  sendVerifyCode,
+  sendVerifyEmail,
+} from '@/apis/auth';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
+import InputField from '@/components/auth/InputField';
+import Timer from '@/components/auth/Timer';
+import { AUTH_ERROR_MSG } from '@/constants/message';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { moveToStep } from '@/utils/step/moveSteps';
@@ -7,14 +14,13 @@ import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
-import { AUTH_ERROR_MSG } from '@/constants/message';
-import Timer from '@/components/auth/Timer';
-import InputField from '@/components/auth/InputField';
 
-import * as Styled from './AuthForm.styled';
 import SecondaryButton from '@/components/@common/Button/SecondaryButton';
+import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
+import * as Styled from './AuthForm.styled';
 
 const AuthForm = () => {
+  const setEmailAuthToken = useSetRecoilState(emailAuthTokenAtom);
   const setSignUpStep = useSetRecoilState(signUpStepAtom);
   const [isTimerActive, setIsTimerActive] = useState(false);
   // 메일 발송 여부
@@ -47,6 +53,14 @@ const AuthForm = () => {
     }
   }, [confirmPassword, password, setError, clearErrors]);
 
+  // 이메일 유효성 검사
+  const handleIsValidEmail = async (value: string) => {
+    const result = await checkAvailability('email', value);
+    if (!result.isValid) {
+      return result.message;
+    }
+  };
+
   // 사용자 이메일로 인증 코드 발송
   const { mutate: sendEmail, isPending: isEmailSending } = useMutation({
     mutationFn: sendVerifyEmail,
@@ -67,7 +81,7 @@ const AuthForm = () => {
     resetField('certno');
   };
 
-  // 인증 코드 일치 여부 검사
+  // 서버로 사용자 입력 코드 발송
   const { mutate: sendCode, isPending: isVerifying } = useMutation({
     mutationFn: sendVerifyCode,
     onSuccess: () => {
@@ -88,7 +102,10 @@ const AuthForm = () => {
       sendCode(
         { email, code: value },
         {
-          onSuccess: () => resolve(true),
+          onSuccess: (response) => {
+            setEmailAuthToken(response.emailAuthToken);
+            resolve(true);
+          },
           onError: () => resolve(AUTH_ERROR_MSG.CERTNO_PATTERN),
         },
       );
@@ -116,6 +133,7 @@ const AuthForm = () => {
                   value: AUTH_PATTERN.EMAIL,
                   message: AUTH_ERROR_MSG.EMAIL_PATTERN,
                 },
+                validate: handleIsValidEmail,
               }}
               width="210px"
               isErrorMsgRelative={true}
