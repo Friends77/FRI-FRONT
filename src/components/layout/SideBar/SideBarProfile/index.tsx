@@ -18,7 +18,7 @@ const SideBarProfile = () => {
     }
   }, [data, setProfile]);
   return (
-    <Styled.Header>
+    <Styled.Wrapper>
       {profile ? (
         <Styled.ProfileContent>
           <Styled.ProfileImg src={profile?.imageUrl} alt="profile image" />
@@ -34,7 +34,7 @@ const SideBarProfile = () => {
         {/* 알림이 있는 경우 && <Styled.NotificationBadge /> */}
         <Notification title="알림" width="32px" height="32px" />
       </Styled.NotificationBtn>
-    </Styled.Header>
+    </Styled.Wrapper>
   );
 };
 

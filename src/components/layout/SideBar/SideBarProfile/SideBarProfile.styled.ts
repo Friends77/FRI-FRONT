@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const Header = styled.section`
+export const Wrapper = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 24px 14px;
+  margin: 18px 0 14px;
 `;
 
 export const ProfileContent = styled.div`

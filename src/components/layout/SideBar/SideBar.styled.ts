@@ -4,6 +4,9 @@ export const Wrapper = styled.aside<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
   left: 72px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
   width: 400px;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.Gray_100};

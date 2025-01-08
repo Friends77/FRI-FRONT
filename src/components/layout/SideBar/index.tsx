@@ -3,6 +3,7 @@ import * as Styled from './SideBar.styled';
 import isSideBarOpenAtom from '@/recoil/layout/isSideBarOpen';
 import SideBarProfile from './SideBarProfile';
 import { useLogout } from '@/hooks/auth/useLogout';
+import SideBarSearchInput from './SideBarSearchInput';
 
 const SideBar = () => {
   const isSideBarOpen = useRecoilValue(isSideBarOpenAtom);
@@ -12,6 +13,7 @@ const SideBar = () => {
   return (
     <Styled.Wrapper $isOpen={isSideBarOpen}>
       <SideBarProfile />
+      <SideBarSearchInput />
       <button
         onClick={() => {
           mutate();
