@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.nav`
   position: fixed;
@@ -27,7 +27,7 @@ export const NavMenu = styled.li`
   width: fit-content;
 `;
 
-const NavMenuContentStyle = `
+const NavMenuContentStyle = css`
   display: flex;
   flex-direction: column;
   gap: 4px;
