@@ -93,12 +93,12 @@ const NavBar = () => {
           <Styled.CollapseBtn onClick={handleSideBarToggle}>
             {isSideBarOpen ? (
               <>
-                <Collapse title="collapse sidebar" width="32px" height="32px" />
+                <Collapse title="사이드바 숨기기" width="32px" height="32px" />
                 <Styled.NavMenuText>숨기기</Styled.NavMenuText>
               </>
             ) : (
               <>
-                <Expand title="expand sidebar" width="32px" height="32px" />
+                <Expand title="사이드바 펼치기" width="32px" height="32px" />
                 <Styled.NavMenuText>펼치기</Styled.NavMenuText>
               </>
             )}
