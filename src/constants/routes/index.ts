@@ -9,3 +9,19 @@ export const AUTH_PATH = Object.freeze({
   GOOGLE_LOGIN_CALLBACK: '/oauth/google/callback',
   RESET_PASSWORD: '/reset-password',
 });
+
+export const USER_PATH = Object.freeze({
+  PROFILE: '/profile',
+});
+
+export const BOARD_PATH = Object.freeze({
+  ROOT: '/board',
+});
+
+export const SEARCH_PATH = Object.freeze({
+  ROOT: '/search',
+});
+
+export const SETTING_PATH = Object.freeze({
+  ROOT: '/setting',
+});
