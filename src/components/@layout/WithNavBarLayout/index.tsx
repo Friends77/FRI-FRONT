@@ -1,4 +1,4 @@
-import NavBar from '@/components/layout/NavBar';
+import NavBar from '@/components/@layout/NavBar';
 import { Outlet } from 'react-router';
 import * as Styled from './WithNavBarLayout.styled';
 import SideBar from '../SideBar';
