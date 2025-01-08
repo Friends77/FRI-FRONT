@@ -2,7 +2,7 @@ import { useProfile } from '@/hooks/user/useProfile';
 import * as Styled from './SideBarProfile.styled';
 import { useRecoilState } from 'recoil';
 import profileAtom from '@/recoil/user/profile';
-import { useEffect } from 'react';
+import { ReactEventHandler, useEffect } from 'react';
 import defaultProfileImg from '@/assets/images/defaultProfile.png';
 import Notification from '@/components/@common/SVG/Icon/Notification';
 
@@ -10,7 +10,9 @@ const SideBarProfile = () => {
   const { data } = useProfile();
   const [profile, setProfile] = useRecoilState(profileAtom);
 
-  console.log(data);
+  const handleImgError: ReactEventHandler<HTMLImageElement> = (e) => {
+    e.currentTarget.src = defaultProfileImg;
+  };
 
   useEffect(() => {
     if (data) {
@@ -21,8 +23,12 @@ const SideBarProfile = () => {
     <Styled.Wrapper>
       {profile ? (
         <Styled.ProfileContent>
-          <Styled.ProfileImg src={profile?.imageUrl} alt="profile image" />
-          <Styled.Nickname>{profile?.nickname}</Styled.Nickname>
+          <Styled.ProfileImg
+            src={profile.imageUrl}
+            alt="profile image"
+            onError={handleImgError}
+          />
+          <Styled.Nickname>{profile.nickname}</Styled.Nickname>
         </Styled.ProfileContent>
       ) : (
         <Styled.ProfileContent>
