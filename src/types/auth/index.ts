@@ -88,3 +88,5 @@ export type CategoryRespose = {
   type: 'SUBJECT' | 'REGION';
   image: string | null;
 }[];
+
+export type AvailabilityType = 'email' | 'nickname';

@@ -1,6 +1,7 @@
 import AuthAxios from '@/apis/@core/authInstance';
 import Axios from '@/apis/@core/instance';
 import {
+  AvailabilityType,
   CategoryRespose,
   CheckAvailabilityResponse,
   ILoginResponse,
@@ -87,19 +88,28 @@ export async function resetPassword({
   return response.data;
 }
 
-export const checkAvailability = async (type: string, value: string) => {
-  const response = await AuthAxios.get<CheckAvailabilityResponse>(
+export const checkAvailability = async ({
+  type,
+  value,
+}: {
+  type: AvailabilityType;
+  value: string;
+}) => {
+  const response = await Axios.get<CheckAvailabilityResponse>(
     `/api/auth/check-${type}?${type}=${value}`,
   );
+
   return response.data;
 };
 
 export const fetchCategory = async () => {
-  const response = await AuthAxios.get<CategoryRespose>(`/api/global/category`);
+  const response = await Axios.get<CategoryRespose>(`/api/global/category`);
+
   return response.data;
 };
 
 export const signUp = async (formData: SignUpDataType) => {
-  const response = await AuthAxios.post('/api/auth/register', formData);
+  const response = await Axios.post('/api/auth/register', formData);
+
   return response.data;
 };

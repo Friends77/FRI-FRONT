@@ -1,8 +1,3 @@
-import {
-  checkAvailability,
-  sendVerifyCode,
-  sendVerifyEmail,
-} from '@/apis/auth';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import InputField from '@/components/auth/InputField';
 import Timer from '@/components/auth/Timer';
@@ -10,12 +5,14 @@ import { AUTH_ERROR_MSG } from '@/constants/message';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { moveToStep } from '@/utils/step/moveSteps';
-import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 
 import SecondaryButton from '@/components/@common/Button/SecondaryButton';
+import { useCheckAvailabilty } from '@/hooks/auth/useCheckAvailabilty';
+import { useSendCodeToEmail } from '@/hooks/auth/useSendCodeToEmail';
+import { useVerifyCode } from '@/hooks/auth/useVerifyCode';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
 import * as Styled from './AuthForm.styled';
 
@@ -53,43 +50,33 @@ const AuthForm = () => {
     }
   }, [confirmPassword, password, setError, clearErrors]);
 
-  // 이메일 유효성 검사
-  const handleIsValidEmail = async (value: string) => {
-    const result = await checkAvailability('email', value);
-    if (!result.isValid) {
-      return result.message;
-    }
-  };
-
   // 사용자 이메일로 인증 코드 발송
-  const { mutate: sendEmail, isPending: isEmailSending } = useMutation({
-    mutationFn: sendVerifyEmail,
-    onSuccess: () => {
+  const { mutate: sendEmail, isPending: isEmailSending } = useSendCodeToEmail({
+    onSuccessHandler: () => {
       setIsSendedMail(true);
       setIsTimerActive(true);
-      alert('메일을 보냈어요! 메일함을 확인해주세요.');
+      setIsVerifiedSuccess(false);
     },
-    onError: () => {
-      alert('이메일 발송에 실패했어요.');
+    onErrorHandler: () => {
+      setIsSendedMail(false);
     },
   });
 
-  // 사용자 이메일로 인증 코드 발송
-  const handleSendEmail = () => {
+  const handleSendEmail = async () => {
     sendEmail(email);
-    setIsVerifiedSuccess(false);
+    setIsTimerActive(false);
     resetField('certno');
+    setIsVerifiedSuccess(false);
   };
 
   // 서버로 사용자 입력 코드 발송
-  const { mutate: sendCode, isPending: isVerifying } = useMutation({
-    mutationFn: sendVerifyCode,
-    onSuccess: () => {
+  const { mutateAsync: sendCode, isPending: isVerifying } = useVerifyCode({
+    onSuccessHandler: () => {
       setIsTimerActive(false);
       setIsVerifiedSuccess(true);
       clearErrors('certno');
     },
-    onError: () => {
+    onErrorHandler: () => {
       setError('certno', {
         type: 'manual',
         message: AUTH_ERROR_MSG.CERTNO_PATTERN,
@@ -97,19 +84,29 @@ const AuthForm = () => {
     },
   });
 
+  // 이메일 유효성 검사
+  const { mutateAsync: verifyEmail } = useCheckAvailabilty();
+
+  const handleVerifyEmailValidate = async (value: string) => {
+    const { isValid, message } = await verifyEmail({ type: 'email', value });
+
+    if (!isValid) {
+      return message;
+    }
+
+    return true;
+  };
+
+  // 인증 코드 유효성 검사
   const handleVerifyCodeValidate = async (value: string) => {
-    return new Promise<boolean | string>((resolve) => {
-      sendCode(
-        { email, code: value },
-        {
-          onSuccess: (response) => {
-            setEmailAuthToken(response.emailAuthToken);
-            resolve(true);
-          },
-          onError: () => resolve(AUTH_ERROR_MSG.CERTNO_PATTERN),
-        },
-      );
-    });
+    const { emailAuthToken } = await sendCode({ email, code: value });
+
+    if (emailAuthToken) {
+      setEmailAuthToken(emailAuthToken);
+      return true;
+    } else {
+      return AUTH_ERROR_MSG.CERTNO_PATTERN;
+    }
   };
 
   return (
@@ -133,7 +130,7 @@ const AuthForm = () => {
                   value: AUTH_PATTERN.EMAIL,
                   message: AUTH_ERROR_MSG.EMAIL_PATTERN,
                 },
-                validate: handleIsValidEmail,
+                validate: handleVerifyEmailValidate,
               }}
               width="210px"
               isErrorMsgRelative={true}

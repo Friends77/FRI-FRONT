@@ -74,8 +74,8 @@ const SignUpPage = () => {
       mbti: `${EI}${NS}${FT}${JP}`,
       imageUrl: '',
       location: {
-        latitude: latitude,
-        longitude: longitude,
+        latitude,
+        longitude,
       },
     };
 

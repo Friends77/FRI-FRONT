@@ -2,16 +2,15 @@
  * MBTI, 한 줄 소개, 관심사 입력 폼
  */
 
-import { fetchCategory } from '@/apis/auth';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import CheckBox from '@/components/@common/Checkbox';
 import Radio from '@/components/@common/Radio';
 import { EI, FT, JP, NS } from '@/constants/mbti';
+import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
 import { useGeoLocation } from '@/hooks/auth/useGeoLocation';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { Theme } from '@/styles/theme';
 import { moveToStep } from '@/utils/step/moveSteps';
-import { useQuery } from '@tanstack/react-query';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 import InputField from '../../InputField';
@@ -29,10 +28,7 @@ const AdditionalInfoForm = () => {
   useGeoLocation(geolocationOptions);
 
   // 관심사 조회
-  const { data: categorys } = useQuery({
-    queryKey: ['categorys'],
-    queryFn: fetchCategory,
-  });
+  const { data: categorys } = useFetchCategory();
 
   const {
     control,
@@ -153,8 +149,11 @@ const AdditionalInfoForm = () => {
                             <CheckBox
                               key={category.id}
                               name="interestTag"
-                              text={`${category.image}${category.name}`}
-                              value={+category.id}
+                              text={`${category.image}  ${category.name}`}
+                              value={category.id}
+                              rules={{
+                                required: true,
+                              }}
                             />
                           );
                         }
@@ -178,7 +177,7 @@ const AdditionalInfoForm = () => {
                               key={category.id}
                               name="interestTag"
                               text={category.name}
-                              value={+category.id}
+                              value={category.id}
                             />
                           );
                         }
