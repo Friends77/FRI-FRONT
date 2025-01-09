@@ -1,50 +1,72 @@
-# React + TypeScript + Vite
+## 프로젝트 소개
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <img src="./public/logo.png" alt="프렌즈" width="100"/>
+</p>
 
-Currently, two official plugins are available:
+<p>
+  비슷한 관심사를 가진 사람들과 쉽게 소통할 수 있는 플랫폼을 제공합니다. 실시간 채팅과 커뮤니티를 통해 사용자들이 자유롭게 의견을 나눌 수 있는 공간을 통해 친구를 추천해 드립니다.
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔑 주요 기능
 
-## Expanding the ESLint configuration
+- 추후 작성
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🛠️ 기술 스택
 
-- Configure the top-level `parserOptions` property like this:
+<p align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" alt="Styled Components" />
+  <img src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=React_Query&logoColor=white" alt="React Query" />
+  <img src="https://img.shields.io/badge/Recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white" alt="Recoil" />
+  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
+</p>
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 👥 컨트리뷰터
+
+<ul style="display: flex; gap: 10px; padding:0">
+  <li style="list-style: none;">
+    <a href="https://github.com/iamkjw77" style="display:flex;align-items: center;gap:10px">
+      <img src="https://avatars.githubusercontent.com/u/45993668?v=4" width="30" style="border-radius: 50%;" alt="Contributor 1"/>
+      <p style="padding:0; margin:0">지원</p>
+    </a>
+  </li>
+
+  <li style="list-style: none;">
+    <a href="https://github.com/itsmesunky" style="display:flex;align-items: center;gap:10px">
+      <img src="https://avatars.githubusercontent.com/u/99164690?v=4" width="30" style="border-radius: 50%;" alt="Contributor 1"/>
+      <p style="padding:0; margin:0">선우</p>
+    </a>
+  </li>
+
+  <li style="list-style: none;">
+    <a href="https://github.com/GangHub1970" style="display:flex;align-items: center;gap:10px">
+      <img src="https://avatars.githubusercontent.com/u/104193739?v=4" width="30" style="border-radius: 50%;" alt="Contributor 1"/>
+      <p style="padding:0; margin:0">윤강</p>
+    </a>
+  </li>
+</ul>
+
+## 🚀 시작하기
+
+프로젝트를 로컬 환경에서 실행하는 방법입니다.
+
+**1. 프로젝트 클론**
+
+```shell
+git clone https://github.com/Friends77/FRI-FRONT.git
+cd FRI-FRONT
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+**2. 의존성 설치**
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```shell
+npm install
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+**3. 개발 서버 실행**
+
+```shell
+npm run dev
 ```
