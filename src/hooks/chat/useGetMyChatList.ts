@@ -1,23 +1,14 @@
 import { getChatList } from '@/apis/chat';
-import { IMyChatItem } from '@/types/chat';
-import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
+import { CHAT_KEYS } from '@/constants/@queryKeys';
+import { useQuery } from '@tanstack/react-query';
 
 const useGetMyChatList = () => {
-  const [chatList, setChatList] = useState<IMyChatItem[] | null>();
-
-  const { mutate } = useMutation({
-    mutationFn: getChatList,
-    onSuccess: ({ content }) => {
-      setChatList(content);
-    },
-    onError: (error) => {
-      console.error(error);
-      alert('내 채팅 목록 불러오기 실패!');
-    },
+  const { data } = useQuery({
+    queryKey: CHAT_KEYS.CHAT_LIST(),
+    queryFn: getChatList,
   });
 
-  return { mutate, chatList };
+  return { data };
 };
 
 export default useGetMyChatList;

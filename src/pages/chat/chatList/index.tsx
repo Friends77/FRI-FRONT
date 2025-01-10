@@ -1,12 +1,15 @@
 import { useCreateChatRoom } from '@/hooks/chat/useCreateChatRoom';
 import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
-import { FormEvent, useEffect } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import useEnterChatRoom from '../../../hooks/chat/useEnterChatRoom';
+import { IMyChatItem } from '@/types/chat';
 
 const ChatListPage = () => {
+  const [chatList, setChatList] = useState<IMyChatItem[] | null>();
+
   const { mutate: createChatRoom } = useCreateChatRoom();
-  const { chatList, mutate: getMyChatList } = useGetMyChatList();
+  const { data } = useGetMyChatList();
 
   const {
     mutate: enterChatRoom,
@@ -15,8 +18,10 @@ const ChatListPage = () => {
   } = useEnterChatRoom();
 
   useEffect(() => {
-    getMyChatList();
-  }, []);
+    if (data) {
+      setChatList(data.content);
+    }
+  }, [data]);
 
   const handleCreateChat = () => {
     createChatRoom({ title: '테스트', categoryIdList: [1] });

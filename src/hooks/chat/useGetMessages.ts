@@ -1,29 +1,13 @@
 import { getChatMessages } from '@/apis/chat';
-import messageAtom from '@/recoil/chat/message';
-import { useMutation } from '@tanstack/react-query';
-import { useRecoilState } from 'recoil';
+import { CHAT_KEYS } from '@/constants/@queryKeys';
+import { useQuery } from '@tanstack/react-query';
 
-export const useGetMessages = () => {
-  const [messageList, setMessageList] = useRecoilState(messageAtom);
-
-  const { mutate } = useMutation({
-    mutationFn: getChatMessages,
-    onSuccess: ({ content }) => {
-      setMessageList(
-        content.map(({ type, content, senderId, createdAt }) => ({
-          type,
-          status: 'success',
-          message: content,
-          senderId,
-          senderName: '테스트',
-          sendTime: createdAt,
-        })),
-      );
-    },
-    onError: (error) => {
-      console.log(error);
-    },
+export const useGetMessages = (roomId: string) => {
+  const { data } = useQuery({
+    queryKey: CHAT_KEYS.CHAT_MESSAGES(roomId),
+    queryFn: () => getChatMessages({ roomId }),
+    enabled: !!roomId,
   });
 
-  return { messageList, setMessageList, mutate };
+  return { data };
 };

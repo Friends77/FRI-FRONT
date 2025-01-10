@@ -1,39 +1,51 @@
 import { useGetMessages } from '@/hooks/chat/useGetMessages';
 import { useGetSecondaryToken } from '@/hooks/chat/useGetSecondaryToken';
+import messageAtom from '@/recoil/chat/message';
 import { IChatMessageItem } from '@/types/chat';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
+import { useRecoilState } from 'recoil';
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
 
 const ChatRoomPage = () => {
+  const { roomId } = useParams();
+  const ws = useRef<WebSocket | null>(null);
+
   const [socketConnected, setSocketConnected] = useState(false);
+  const [secondaryToken, setSecondaryToken] = useState<string | null>(null);
   const [pongTimer, setPongTimer] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
   const [myMessageContent, setMyMessageContent] = useState('');
-  const { secondaryToken, mutate: getSecondaryToken } = useGetSecondaryToken();
-
-  const { roomId } = useParams();
-  const ws = useRef<WebSocket | null>(null);
-
-  const {
-    messageList,
-    setMessageList,
-    mutate: getChatMessages,
-  } = useGetMessages();
+  const [messageList, setMessageList] = useRecoilState(messageAtom);
+  const { data: tokenResponse } = useGetSecondaryToken();
+  const { data: messagesResponse } = useGetMessages(roomId as string);
 
   const webSocketUrl = `${websocketURL}/chat?token=${secondaryToken}`;
 
   useEffect(() => {
-    getSecondaryToken();
-  }, []);
+    if (tokenResponse) {
+      setSecondaryToken(tokenResponse.secondaryToken);
+    }
+  }, [tokenResponse]);
 
   useEffect(() => {
-    if (roomId) {
-      getChatMessages({ roomId });
+    if (messagesResponse) {
+      setMessageList(
+        messagesResponse.content.map(
+          ({ type, content, senderId, createdAt }) => ({
+            type,
+            status: 'success',
+            message: content,
+            senderId,
+            senderName: '테스트',
+            sendTime: createdAt,
+          }),
+        ),
+      );
     }
-  }, []);
+  }, [messagesResponse]);
 
   useEffect(() => {
     if (secondaryToken) {
