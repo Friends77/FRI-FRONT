@@ -10,7 +10,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 
 import SecondaryButton from '@/components/@common/Button/SecondaryButton';
-import { useCheckAvailability } from '@/hooks/auth/useCheckAvailabilty';
+import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
 import { useSendCodeToEmail } from '@/hooks/auth/useSendCodeToEmail';
 import { useVerifyCode } from '@/hooks/auth/useVerifyCode';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';

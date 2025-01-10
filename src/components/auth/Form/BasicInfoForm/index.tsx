@@ -16,7 +16,7 @@ import { useSetRecoilState } from 'recoil';
 import ImagePicker from '../../ImagePicker';
 import InputField from '../../InputField';
 import * as Styled from './BasicInfoForm.styled';
-import { useCheckAvailability } from '@/hooks/auth/useCheckAvailabilty';
+import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
 
 const BasicInfoForm = () => {
   const setSignUpStep = useSetRecoilState(signUpStepAtom);
