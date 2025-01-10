@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export const useFetchCategory = () => {
   return useQuery({
-    queryKey: ['categorys'],
+    queryKey: ['categories'],
     queryFn: fetchCategory,
   });
 };

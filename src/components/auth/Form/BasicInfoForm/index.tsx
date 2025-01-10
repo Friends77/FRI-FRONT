@@ -9,7 +9,6 @@ import { GENDER } from '@/constants/gender';
 import { AUTH_ERROR_MSG } from '@/constants/message';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { BIRTH_YEAR } from '@/constants/year';
-import { useCheckAvailabilty } from '@/hooks/auth/useCheckAvailabilty';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { moveToStep } from '@/utils/step/moveSteps';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -17,6 +16,7 @@ import { useSetRecoilState } from 'recoil';
 import ImagePicker from '../../ImagePicker';
 import InputField from '../../InputField';
 import * as Styled from './BasicInfoForm.styled';
+import { useCheckAvailability } from '@/hooks/auth/useCheckAvailabilty';
 
 const BasicInfoForm = () => {
   const setSignUpStep = useSetRecoilState(signUpStepAtom);
@@ -26,7 +26,7 @@ const BasicInfoForm = () => {
   } = useFormContext();
 
   // 닉네임 유효성 검사
-  const { mutateAsync: verifyNickname } = useCheckAvailabilty();
+  const { mutateAsync: verifyNickname } = useCheckAvailability();
 
   const handleVerifyNicknameValidate = async (value: string) => {
     const { isValid, message } = await verifyNickname({

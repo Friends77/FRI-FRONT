@@ -82,7 +82,7 @@ export type CheckAvailabilityResponse = {
   message: string;
 };
 
-export type CategoryRespose = {
+export type CategoryResponse = {
   id: number;
   name: string;
   type: 'SUBJECT' | 'REGION';

@@ -2,7 +2,7 @@ import AuthAxios from '@/apis/@core/authInstance';
 import Axios from '@/apis/@core/instance';
 import {
   AvailabilityType,
-  CategoryRespose,
+  CategoryResponse,
   CheckAvailabilityResponse,
   ILoginResponse,
   IRefreshResponse,
@@ -103,7 +103,7 @@ export const checkAvailability = async ({
 };
 
 export const fetchCategory = async () => {
-  const response = await Axios.get<CategoryRespose>(`/api/global/category`);
+  const response = await Axios.get<CategoryResponse>(`/api/global/category`);
 
   return response.data;
 };

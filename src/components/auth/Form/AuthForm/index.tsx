@@ -10,7 +10,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 
 import SecondaryButton from '@/components/@common/Button/SecondaryButton';
-import { useCheckAvailabilty } from '@/hooks/auth/useCheckAvailabilty';
+import { useCheckAvailability } from '@/hooks/auth/useCheckAvailabilty';
 import { useSendCodeToEmail } from '@/hooks/auth/useSendCodeToEmail';
 import { useVerifyCode } from '@/hooks/auth/useVerifyCode';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
@@ -85,7 +85,7 @@ const AuthForm = () => {
   });
 
   // 이메일 유효성 검사
-  const { mutateAsync: verifyEmail } = useCheckAvailabilty();
+  const { mutateAsync: verifyEmail } = useCheckAvailability();
 
   const handleVerifyEmailValidate = async (value: string) => {
     const { isValid, message } = await verifyEmail({ type: 'email', value });

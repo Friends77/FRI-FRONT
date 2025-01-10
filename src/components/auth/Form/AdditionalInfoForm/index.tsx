@@ -28,7 +28,7 @@ const AdditionalInfoForm = () => {
   useGeoLocation(geolocationOptions);
 
   // 관심사 조회
-  const { data: categorys } = useFetchCategory();
+  const { data: categories } = useFetchCategory();
 
   const {
     control,
@@ -138,12 +138,12 @@ const AdditionalInfoForm = () => {
           <Styled.AIFormCheckBoxSection>
             <Styled.AIFormColumnSection>
               {/* 관심사 영역 */}
-              {categorys && (
+              {categories && (
                 <Controller
                   name="interestTag"
                   render={() => (
                     <>
-                      {categorys.map((category) => {
+                      {categories.map((category) => {
                         if (category.type === 'SUBJECT') {
                           return (
                             <CheckBox
@@ -165,12 +165,12 @@ const AdditionalInfoForm = () => {
             </Styled.AIFormColumnSection>
             <Styled.AIFormColumnSection>
               {/* 지역 영역 */}
-              {categorys && (
+              {categories && (
                 <Controller
                   name="interestTag"
                   render={() => (
                     <>
-                      {categorys.map((category) => {
+                      {categories.map((category) => {
                         if (category.type === 'REGION') {
                           return (
                             <CheckBox
@@ -191,6 +191,7 @@ const AdditionalInfoForm = () => {
         </Styled.AIFormTagSection>
         <Styled.AIFormButtonSection>
           <PrimaryButton
+            type="button"
             width="160px"
             style={{
               backgroundColor: Theme.colors.Gray_200,
@@ -200,7 +201,9 @@ const AdditionalInfoForm = () => {
           >
             이전
           </PrimaryButton>
-          <PrimaryButton disabled={!isValid}>확인</PrimaryButton>
+          <PrimaryButton type="submit" disabled={!isValid}>
+            확인
+          </PrimaryButton>
         </Styled.AIFormButtonSection>
       </Styled.AIFormContentSection>
     </Styled.AIFormWrapper>
