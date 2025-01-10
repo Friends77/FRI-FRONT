@@ -1,9 +1,9 @@
 import NavBar from '@/components/@layout/NavBar';
 import { Outlet } from 'react-router';
 import * as Styled from './WithNavBarLayout.styled';
-import SideBar from '../SideBar';
 import { useRecoilValue } from 'recoil';
 import isSideBarOpenAtom from '@/recoil/layout/isSideBarOpen';
+import SideBar from '../SideBar';
 
 const WithNavBarLayout = () => {
   const isSideBarOpen = useRecoilValue(isSideBarOpenAtom);
