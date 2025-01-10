@@ -1,4 +1,4 @@
-import { AUTH_PATH, ROOT_PATH } from '@/constants/routes';
+import { AUTH_PATH, CHAT_PATH, ROOT_PATH } from '@/constants/routes';
 import LoginPage from '@/pages/auth/login';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import App from '../App';
@@ -7,6 +7,8 @@ import SignUpPage from '@/pages/auth/signUp';
 import NaverLoginCallbackPage from '@/pages/auth/callback/naver';
 import ResetPasswordPage from '@/pages/auth/resetPassword';
 import GoogleLoginCallback from '@/pages/auth/callback/google';
+import ChatRoomPage from '@/pages/chat/chatRoom';
+import ChatListPage from '@/pages/chat/chatList';
 
 export default function AppRouter() {
   const router = createBrowserRouter([
@@ -39,6 +41,15 @@ export default function AppRouter() {
         {
           path: AUTH_PATH.RESET_PASSWORD,
           element: <ResetPasswordPage />,
+        },
+        // TODO: 테스트 후, 삭제 예정
+        {
+          path: CHAT_PATH.CHAT_LIST,
+          element: <ChatListPage />,
+        },
+        {
+          path: CHAT_PATH.CHAT_ROOM,
+          element: <ChatRoomPage />,
         },
       ],
     },

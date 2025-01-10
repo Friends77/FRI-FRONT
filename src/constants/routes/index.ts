@@ -9,3 +9,8 @@ export const AUTH_PATH = Object.freeze({
   GOOGLE_LOGIN_CALLBACK: '/oauth/google/callback',
   RESET_PASSWORD: '/reset-password',
 });
+
+export const CHAT_PATH = Object.freeze({
+  CHAT_LIST: '/chat',
+  CHAT_ROOM: '/chat/room/:roomId',
+});
