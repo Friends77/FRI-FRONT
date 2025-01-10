@@ -15,6 +15,7 @@ export const ImagePickerImageSection = styled.section`
 export const ImagePickerImagePreview = styled.img`
   width: 88px;
   height: 88px;
+  object-fit: cover;
   border-radius: 999px;
 `;
 export const ImagePickerAddImageButton = styled.img`
