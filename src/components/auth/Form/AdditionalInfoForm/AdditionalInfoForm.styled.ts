@@ -60,6 +60,7 @@ export const AIFormCheckBoxSection = styled.section`
   display: flex;
   justify-content: space-between;
 `;
+
 export const AIFormColumnSection = styled.section`
   display: flex;
   flex-direction: column;
