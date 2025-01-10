@@ -14,3 +14,19 @@ export const CHAT_PATH = Object.freeze({
   CHAT_LIST: '/chat',
   CHAT_ROOM: '/chat/room/:roomId',
 });
+
+export const USER_PATH = Object.freeze({
+  PROFILE: '/profile',
+});
+
+export const BOARD_PATH = Object.freeze({
+  ROOT: '/board',
+});
+
+export const SEARCH_PATH = Object.freeze({
+  ROOT: '/search',
+});
+
+export const SETTING_PATH = Object.freeze({
+  ROOT: '/setting',
+});

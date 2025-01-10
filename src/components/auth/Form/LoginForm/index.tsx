@@ -3,7 +3,9 @@ import { AUTH_PATTERN } from '@/constants/pattern';
 import { useLogin } from '@/hooks/auth/useLogin';
 import { LoginDataType } from '@/types/auth';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import InputField from '@/components/auth/Input';
+import InputField from '@/components/auth/InputField';
+import PrimaryButton from '@/components/@common/Button/PrimaryButton';
+import * as Styled from './LoginForm.styled';
 
 const LoginForm = () => {
   const methods = useForm<LoginDataType>({
@@ -31,33 +33,35 @@ const LoginForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <InputField
-          type="email"
-          label="이메일"
-          id="email"
-          name="email"
-          placeholder="이메일"
-          rules={{
-            required: AUTH_ERROR_MSG.EMAIL_REQUIRED,
-            pattern: {
-              value: AUTH_PATTERN.EMAIL,
-              message: AUTH_ERROR_MSG.EMAIL_PATTERN,
-            },
-          }}
-        />
-        <InputField
-          type="password"
-          label="비밀번호"
-          id="password"
-          name="password"
-          placeholder="비밀번호"
-          rules={{
-            required: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
-          }}
-        />
-        <button type="submit">로그인</button>
-      </form>
+      <Styled.LoginForm onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Styled.InputFields>
+          <InputField
+            type="email"
+            label="이메일"
+            id="email"
+            name="email"
+            placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
+            rules={{
+              required: AUTH_ERROR_MSG.EMAIL_REQUIRED,
+              pattern: {
+                value: AUTH_PATTERN.EMAIL,
+                message: AUTH_ERROR_MSG.EMAIL_PATTERN,
+              },
+            }}
+          />
+          <InputField
+            type="password"
+            label="비밀번호"
+            id="password"
+            name="password"
+            placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
+            rules={{
+              required: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
+            }}
+          />
+        </Styled.InputFields>
+        <PrimaryButton>로그인</PrimaryButton>
+      </Styled.LoginForm>
     </FormProvider>
   );
 };

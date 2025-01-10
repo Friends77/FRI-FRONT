@@ -1,5 +1,3 @@
-import accessTokenAtom from "./atom";
-import isLoggedInWithAT from "./withIsLoggedIn";
+import accessTokenAtom from './atom';
 
-export { isLoggedInWithAT };
 export default accessTokenAtom;

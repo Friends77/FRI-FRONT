@@ -1,7 +1,7 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 const signUpStepAtom = atom({
-  key: "signUpStep",
+  key: 'signUpStep',
   default: 1,
 });
 

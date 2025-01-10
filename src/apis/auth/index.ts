@@ -1,13 +1,17 @@
-import Axios from '@/apis/@core/instance';
 import AuthAxios from '@/apis/@core/authInstance';
+import Axios from '@/apis/@core/instance';
 import {
+  ILoginResponse,
+  IRefreshResponse,
+  ISendVerifyCodeResponse,
   ISocialLoginResponse,
   LoginDataType,
+  NicknameCheckResponse,
   SocialLoginTokenType,
 } from '@/types/auth';
 
 export async function login({ email, password }: LoginDataType) {
-  const response = await Axios.post('/api/auth/login', {
+  const response = await Axios.post<ILoginResponse>('/api/auth/login', {
     email,
     password,
   });
@@ -15,8 +19,16 @@ export async function login({ email, password }: LoginDataType) {
   return response.data;
 }
 
+export async function logout(accessToken: string) {
+  const response = await AuthAxios.post('/api/auth/logout', {
+    accessToken,
+  });
+
+  return response.data;
+}
+
 export async function refresh() {
-  const response = await AuthAxios.post('/api/auth/refresh');
+  const response = await AuthAxios.post<IRefreshResponse>('/api/auth/refresh');
 
   return response.data;
 }
@@ -36,10 +48,13 @@ export async function sendVerifyCode({
   email: string;
   code: string;
 }) {
-  const response = await Axios.post('/api/auth/verify-email', {
-    email,
-    code,
-  });
+  const response = await Axios.post<ISendVerifyCodeResponse>(
+    '/api/auth/verify-email',
+    {
+      email,
+      code,
+    },
+  );
 
   return response.data;
 }
@@ -66,6 +81,14 @@ export async function resetPassword({
     emailAuthToken,
     newPassword,
   });
+
+  return response.data;
+}
+
+export async function checkNickname(nickname: string) {
+  const response = await AuthAxios.get<NicknameCheckResponse>(
+    `/api/auth/check-nickname?nickname=${nickname}`,
+  );
 
   return response.data;
 }

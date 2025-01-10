@@ -3,16 +3,38 @@ export type LoginDataType = {
   password: string;
 };
 
+export interface ILoginResponse {
+  memberId: number;
+  accessToken: string;
+  refreshTokenExpiration: string;
+}
+
+export interface IRefreshResponse {
+  accessToken: string;
+  refreshTokenExpiration: string;
+}
+
+export interface ISendVerifyCodeResponse {
+  emailAuthToken: string;
+}
+
 export type SignUpDataType = {
   email: string;
   certno: string;
   password: string;
-  "confirm-password": string;
+  'confirm-password': string;
+  nickname: string;
+  birth: number;
+  gender: string;
+  EI: string;
+  NS: string;
+  FT: string;
+  JP: string;
 };
 
 export type SocialLoginTokenType = {
   code: string;
-  provider: "GOOGLE" | "NAVER";
+  provider: 'GOOGLE' | 'NAVER';
 };
 
 export interface ISocialLoginResponse {
@@ -23,6 +45,7 @@ export interface ISocialLoginResponse {
   isRegistered: boolean;
   accessToken?: string;
   memberId?: string;
+  refreshTokenExpiration?: string;
 }
 
 export interface ISocialAuthInfo {
@@ -34,10 +57,15 @@ export interface ISocialAuthInfo {
 
 export type EmailVerificationDataType = Pick<
   SignUpDataType,
-  "email" | "certno"
+  'email' | 'certno'
 >;
 
 export type ResetPasswordDataType = Pick<
   SignUpDataType,
-  "password" | "confirm-password"
+  'password' | 'confirm-password'
 >;
+
+export type NicknameCheckResponse = {
+  isValid: true;
+  message: 'string';
+};

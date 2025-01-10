@@ -7,6 +7,7 @@ export const Label = styled.label`
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 `;
 
 export const Radio = styled.input`
@@ -15,6 +16,7 @@ export const Radio = styled.input`
   border-radius: 50%;
   width: 18px;
   height: 18px;
+  cursor: pointer;
 
   &:checked {
     border-color: transparent;
