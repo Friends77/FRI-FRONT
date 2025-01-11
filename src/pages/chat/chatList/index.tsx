@@ -23,7 +23,7 @@ const ChatListPage = () => {
     }
   }, [data]);
 
-  const handleCreateChat = () => {
+  const handleCreateChatRoom = () => {
     createChatRoom({ title: '테스트', categoryIdList: [1] });
   };
 
@@ -38,7 +38,7 @@ const ChatListPage = () => {
 
   return (
     <>
-      <button onClick={handleCreateChat}>채팅방 생성</button>
+      <button onClick={handleCreateChatRoom}>채팅방 생성</button>
       <form onSubmit={handleEnterChatRoom}>
         <input type="text" onChange={handleRoomIdChange} />
         <button type="submit">채팅방 입장</button>

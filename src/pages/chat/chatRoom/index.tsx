@@ -1,4 +1,4 @@
-import { useGetMessages } from '@/hooks/chat/useGetMessages';
+import useGetMessages from '@/hooks/chat/useGetMessages';
 import { useGetSecondaryToken } from '@/hooks/chat/useGetSecondaryToken';
 import messageAtom from '@/recoil/chat/message';
 import { IChatMessageItem } from '@/types/chat';
