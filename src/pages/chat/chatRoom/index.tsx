@@ -2,17 +2,16 @@ import MessageInput from '@/components/chat/MessageInput';
 import MessageList from '@/components/chat/MessageList';
 import useMessageList from '@/hooks/chat/useMessageList';
 import useWebSocket from '@/hooks/chat/useWebSocket';
-import messageAtom from '@/recoil/chat/message';
+import { IChatMessageItem } from '@/types/chat';
 import { useState } from 'react';
 import { useParams } from 'react-router';
-import { useRecoilState } from 'recoil';
 
 const ChatRoomPage = () => {
   const { roomId } = useParams();
 
   const [socketConnected, setSocketConnected] = useState(false);
   const [myMessageContent, setMyMessageContent] = useState('');
-  const [messageList, setMessageList] = useRecoilState(messageAtom);
+  const [messageList, setMessageList] = useState<IChatMessageItem[]>([]);
 
   const { sendMessageToServer } = useWebSocket({
     setSocketConnected,

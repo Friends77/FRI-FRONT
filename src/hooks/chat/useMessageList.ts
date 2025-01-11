@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import useGetMessages from './useGetMessages';
-import { SetterOrUpdater } from 'recoil';
 import { IChatMessageItem } from '@/types/chat';
 
 interface IUseMessageListProps {
   roomId: string;
-  setMessageList: SetterOrUpdater<IChatMessageItem[]>;
+  setMessageList: React.Dispatch<React.SetStateAction<IChatMessageItem[]>>;
 }
 
 const useMessageList = ({ roomId, setMessageList }: IUseMessageListProps) => {

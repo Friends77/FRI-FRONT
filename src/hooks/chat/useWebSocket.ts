@@ -1,11 +1,10 @@
 import { IChatMessageItem } from '@/types/chat';
 import { useEffect, useRef, useState } from 'react';
-import { SetterOrUpdater } from 'recoil';
 import { useGetSecondaryToken } from './useGetSecondaryToken';
 
 interface IUseWebSocketProps {
   setSocketConnected: (connected: boolean) => void;
-  setMessageList: SetterOrUpdater<IChatMessageItem[]>;
+  setMessageList: React.Dispatch<React.SetStateAction<IChatMessageItem[]>>;
 }
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
