@@ -43,10 +43,10 @@ const LoginForm = () => {
             placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
             rules={{
               required: AUTH_ERROR_MSG.EMAIL_REQUIRED,
-              pattern: {
-                value: AUTH_PATTERN.EMAIL,
-                message: AUTH_ERROR_MSG.EMAIL_PATTERN,
-              },
+              // pattern: {
+              //   value: AUTH_PATTERN.EMAIL,
+              //   message: AUTH_ERROR_MSG.EMAIL_PATTERN,
+              // },
             }}
           />
           <InputField
