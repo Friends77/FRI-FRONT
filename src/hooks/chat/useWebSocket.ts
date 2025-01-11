@@ -15,21 +15,15 @@ const useWebSocket = ({
 }: IUseWebSocketProps) => {
   const { data: tokenResponse } = useGetSecondaryToken();
 
-  const [secondaryToken, setSecondaryToken] = useState<string | null>(null);
   const ws = useRef<WebSocket | null>(null);
   const [pongTimer, setPongTimer] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
-  const webSocketUrl = `${websocketURL}/chat?token=${secondaryToken}`;
 
   useEffect(() => {
     if (tokenResponse) {
-      setSecondaryToken(tokenResponse.secondaryToken);
-    }
-  }, [tokenResponse]);
+      const webSocketUrl = `${websocketURL}/chat?token=${tokenResponse.secondaryToken}`;
 
-  useEffect(() => {
-    if (secondaryToken) {
       ws.current = new WebSocket(webSocketUrl);
 
       ws.current.onopen = () => {
@@ -53,7 +47,7 @@ const useWebSocket = ({
     return () => {
       ws.current?.close();
     };
-  }, [secondaryToken]);
+  }, [tokenResponse]);
 
   const runPongTimer = () => {
     const timer = setTimeout(() => {
