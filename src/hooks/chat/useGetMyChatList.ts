@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const useGetMyChatList = () => {
   return useQuery({
-    queryKey: [CHAT_KEYS.CHAT_LIST],
+    queryKey: CHAT_KEYS.CHAT_LIST,
     queryFn: getChatList,
   });
 };

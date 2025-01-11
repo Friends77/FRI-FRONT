@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export const useGetSecondaryToken = () => {
   return useQuery({
-    queryKey: [CHAT_KEYS.SECONDARY_TOKEN],
+    queryKey: CHAT_KEYS.SECONDARY_TOKEN,
     queryFn: getSecondaryToken,
   });
 };
