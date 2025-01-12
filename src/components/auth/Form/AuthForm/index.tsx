@@ -143,7 +143,7 @@ const AuthForm = () => {
                 onClick={handleSendEmail}
                 disabled={!email || !!errors.email || isEmailSending}
               >
-                인증 요청
+                {isSendedMail ? `재요청` : `인증 요청`}
               </SecondaryButton>
             </Styled.AuthFormButtonContainer>
           </Styled.AuthFormInputWithBtn>
