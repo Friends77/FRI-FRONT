@@ -26,7 +26,6 @@ const useWebSocket = ({
       ws.current = new WebSocket(webSocketUrl);
 
       ws.current.onopen = () => {
-        console.log(ws.current?.readyState);
         runPongTimer();
         setSocketConnected(true);
       };
