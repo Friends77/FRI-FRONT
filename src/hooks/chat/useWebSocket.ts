@@ -1,16 +1,15 @@
-import { IChatMessageItem } from '@/types/chat';
 import { useEffect, useRef, useState } from 'react';
 import { useGetSecondaryToken } from './useGetSecondaryToken';
 
 interface IUseWebSocketProps {
   setSocketConnected: (connected: boolean) => void;
-  setMessageList: React.Dispatch<React.SetStateAction<IChatMessageItem[]>>;
+  onReceivedMessage: (data: string) => void;
 }
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
 
 const useWebSocket = ({
-  setMessageList,
+  onReceivedMessage,
   setSocketConnected,
 }: IUseWebSocketProps) => {
   const { data: tokenResponse } = useGetSecondaryToken();
@@ -33,7 +32,7 @@ const useWebSocket = ({
       };
 
       ws.current.onmessage = (event) => {
-        handleReceivedMessage(event.data);
+        onReceivedMessage(event.data);
       };
 
       ws.current.onclose = () => {
@@ -66,26 +65,6 @@ const useWebSocket = ({
       clearTimeout(pongTimer);
       setPongTimer(null);
     }
-  };
-
-  const handleReceivedMessage = (data: string) => {
-    const message: IChatMessageItem = JSON.parse(data);
-
-    // TODO: 프로필 조회가 완성되면 주석 해제
-    // 내 메세지 수신인 경우
-    // if (memberId === senderId) {
-    //   setMessageList((prevList) =>
-    //     prevList.map((message) =>
-    //       message.sendTime === sendTime
-    //         ? { ...message, status: 'success' }
-    //         : message,
-    //     ),
-    //   );
-    //   return;
-    // }
-
-    // 상대 메세지 수신인 경우
-    setMessageList((prevList) => [...prevList, message]);
   };
 
   const sendMessageToServer = (data: { [key: string]: string | number }) => {

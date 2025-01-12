@@ -2,23 +2,49 @@ import MessageInput from '@/components/chat/MessageInput';
 import MessageList from '@/components/chat/MessageList';
 import useMessageList from '@/hooks/chat/useMessageList';
 import useWebSocket from '@/hooks/chat/useWebSocket';
+import socketConnectedAtom from '@/recoil/chat/socketConnected';
 import { IChatMessageItem } from '@/types/chat';
 import { useState } from 'react';
 import { useParams } from 'react-router';
+import { useRecoilState } from 'recoil';
 
 const ChatRoomPage = () => {
-  const { roomId } = useParams();
+  const { roomId: roomIdQuery } = useParams();
+  const roomId = Number(roomIdQuery);
 
-  const [socketConnected, setSocketConnected] = useState(false);
+  const [socketConnected, setSocketConnected] =
+    useRecoilState(socketConnectedAtom);
   const [myMessageContent, setMyMessageContent] = useState('');
   const [messageList, setMessageList] = useState<IChatMessageItem[]>([]);
 
+  const onReceivedMessage = (data: string) => {
+    const message: IChatMessageItem = JSON.parse(data);
+
+    // TODO: 프로필 조회가 완성되면 주석 해제
+    // 내 메세지 수신인 경우
+    // if (message.chatRoomId === roomId && memberId === senderId) {
+    //   setMessageList((prevList) =>
+    //     prevList.map((message) =>
+    //       message.sendTime === sendTime
+    //         ? { ...message, status: 'success' }
+    //         : message,
+    //     ),
+    //   );
+    //   return;
+    // }
+
+    // 상대 메세지 수신인 경우
+    if (message.chatRoomId === roomId) {
+      setMessageList((prevList) => [...prevList, message]);
+    }
+  };
+
   const { sendMessageToServer } = useWebSocket({
     setSocketConnected,
-    setMessageList,
+    onReceivedMessage,
   });
 
-  useMessageList({ roomId: roomId as string, setMessageList });
+  useMessageList({ roomId, setMessageList });
 
   const onMyMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMyMessageContent(e.target.value);

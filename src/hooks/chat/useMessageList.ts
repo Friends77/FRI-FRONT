@@ -3,7 +3,7 @@ import useGetMessages from './useGetMessages';
 import { IChatMessageItem } from '@/types/chat';
 
 interface IUseMessageListProps {
-  roomId: string;
+  roomId: number;
   setMessageList: React.Dispatch<React.SetStateAction<IChatMessageItem[]>>;
 }
 

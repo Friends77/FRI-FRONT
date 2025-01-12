@@ -31,6 +31,7 @@ export interface IMyChatListResponse extends IPaginationResponse {
 }
 
 export interface IChatMessageItem {
+  chatRoomId?: number;
   type: 'TEXT' | 'IMAGE' | 'SYSTEM';
   status: 'loading' | 'success';
   message: string;
@@ -60,7 +61,7 @@ export interface IChatRoomInfo {
 }
 
 export interface IGetChatMessagesType extends IPaginationParams {
-  roomId: string;
+  roomId: number;
   lastMessageId?: number;
 }
 
