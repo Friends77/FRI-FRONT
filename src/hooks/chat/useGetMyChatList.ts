@@ -2,7 +2,7 @@ import { getChatList } from '@/apis/chat';
 import { CHAT_KEYS } from '@/constants/@queryKeys';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
-const PAGE_SIZE = 7;
+export const PAGE_SIZE = 7;
 
 const useGetMyChatList = () => {
   return useSuspenseInfiniteQuery({
