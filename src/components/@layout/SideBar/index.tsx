@@ -4,6 +4,7 @@ import isSideBarOpenAtom from '@/recoil/layout/isSideBarOpen';
 import SideBarHeader from './SideBarHeader';
 import SideBarSearchInput from './SideBarSearchInput';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
+import SideBarChatList from './SideBarChatList';
 
 const SideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
@@ -15,7 +16,7 @@ const SideBar = () => {
       {isLoggedIn && (
         <>
           <SideBarSearchInput />
-          {/* 친구, 채팅방 목록 */}
+          <SideBarChatList />
         </>
       )}
     </Styled.Wrapper>

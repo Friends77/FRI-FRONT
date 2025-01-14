@@ -5,6 +5,7 @@ export const Wrapper = styled.section`
   justify-content: space-between;
   align-items: center;
   margin: 18px 0 14px;
+  padding: 0 24px;
 `;
 
 export const ProfileContent = styled.div`
