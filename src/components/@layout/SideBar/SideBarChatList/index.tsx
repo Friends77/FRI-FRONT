@@ -3,13 +3,21 @@ import SideBarListWrapper from '../SideBarListWrapper';
 import { formatToHHMM } from '@/utils/formatter/time';
 import { v4 as uuidv4 } from 'uuid';
 import * as Styled from './SideBarChatList.styled';
+import InfiniteScrollObserver from '@/components/@common/InfiniteScrollObserver';
 
 const SideBarChatList = () => {
-  const { data } = useGetMyChatList();
+  const {
+    data: contents,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+  } = useGetMyChatList();
+  const chatRoomList = contents.flat();
+  const isObserverActive = hasNextPage && !isFetching;
 
   return (
-    <SideBarListWrapper title="채팅방" count={data.content.length}>
-      {data.content.map(
+    <SideBarListWrapper title="채팅방" count={chatRoomList.length}>
+      {chatRoomList.map(
         ({
           id,
           imageUrl,
@@ -64,6 +72,14 @@ const SideBarChatList = () => {
             </Styled.Wrapper>
           );
         },
+      )}
+      {isObserverActive && (
+        <InfiniteScrollObserver
+          callback={() => {
+            fetchNextPage();
+            console.log('asdf');
+          }}
+        />
       )}
     </SideBarListWrapper>
   );

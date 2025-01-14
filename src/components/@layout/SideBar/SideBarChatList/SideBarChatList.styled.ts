@@ -93,3 +93,7 @@ export const UnreadCountContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.Alter_error};
   border-radius: 999px;
 `;
+
+export const Loader = styled.div`
+  margin: 0 auto;
+`;

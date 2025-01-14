@@ -17,3 +17,8 @@ export interface IMyChatItem {
 export interface IMyChatListResponse extends IPaginationResponse {
   content: IMyChatItem[];
 }
+
+export type ChatListParamsType = {
+  size: number;
+  lastChatRoomMemberId: number | null;
+};
