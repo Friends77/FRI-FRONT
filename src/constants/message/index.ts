@@ -13,5 +13,5 @@ export const AUTH_ERROR_MSG = Object.freeze({
   PASSWORD_PATTERN_BELOW: '비밀번호는 20자 이하로 입력해야 합니다.',
   PASSWORD_NOT_MATCH: '비밀번호가 일치하지 않습니다.',
   NICKNAME_REQUIRED: '닉네임을 입력해주세요.',
-  GENDER_REQUIRED: '성별을 선택해주세요.',
+  NICKNAME_PATTERN: '2~20자의 한글, 영문, 숫자만 사용 가능합니다.',
 });
