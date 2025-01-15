@@ -12,11 +12,12 @@ export const createChatRoom = async ({
   title,
   categoryIdList,
 }: ICreateChatRoomRequest) => {
-  // TODO: categoryIdList 타입 수정 필요
+  // TODO: UI 완성되면 수정 필요
   const formData = new FormData();
 
   const chatRoomData = {
     title,
+    // categoryIdList,
     categoryIdList: [1],
   };
 

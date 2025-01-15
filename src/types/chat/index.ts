@@ -2,8 +2,7 @@ import { IPaginationParams, IPaginationResponse } from '../@common';
 
 export interface ICreateChatRoomRequest {
   title: string;
-  // TODO: 카테고리 타입 import
-  categoryIdList: any;
+  categoryIdList: number[];
 }
 
 export interface ICreateChatRoomResponse {
@@ -19,8 +18,7 @@ export interface IMyChatItem {
   id: number;
   title: string;
   imageUrl: string;
-  // TODO: 카테고리 타입 import
-  categoryIdList: any;
+  categoryIdList: number[];
   participantCount: number;
   lastMessageTime: string;
   unreadMessageCount: number;
@@ -54,8 +52,7 @@ export interface IChatRoomInfo {
   id: number;
   title: string;
   imageUrl: string;
-  // TODO: 카테고리 타입 import
-  categoryIdList: any;
+  categoryIdList: number[];
   participantCount: number;
   likeCount: number;
   isLike: boolean;
