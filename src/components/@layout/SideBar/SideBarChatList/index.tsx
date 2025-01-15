@@ -4,6 +4,9 @@ import { formatToHHMM } from '@/utils/formatter/time';
 import { v4 as uuidv4 } from 'uuid';
 import * as Styled from './SideBarChatList.styled';
 import InfiniteScrollObserver from '@/components/@common/InfiniteScrollObserver';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import chatRoomListAtom from '@/recoil/user/chatRoomList';
 
 const SideBarChatList = () => {
   const {
@@ -12,9 +15,21 @@ const SideBarChatList = () => {
     hasNextPage,
     isFetching,
   } = useGetMyChatList();
-  const chatRoomList = contents.flat();
   const isObserverActive = hasNextPage && !isFetching;
 
+  const [chatRoomList, setChatRoomList] = useRecoilState(chatRoomListAtom);
+
+  useEffect(() => {
+    if (contents) {
+      const newChatRoomList = contents[contents.length - 1];
+
+      setChatRoomList((prevChatRoomList) =>
+        contents.flat().length === prevChatRoomList.length
+          ? prevChatRoomList
+          : [...prevChatRoomList, ...newChatRoomList],
+      );
+    }
+  }, [contents, setChatRoomList]);
   return (
     <SideBarListWrapper title="채팅방" count={chatRoomList.length}>
       {chatRoomList.map(
@@ -73,14 +88,7 @@ const SideBarChatList = () => {
           );
         },
       )}
-      {isObserverActive && (
-        <InfiniteScrollObserver
-          callback={() => {
-            fetchNextPage();
-            console.log('asdf');
-          }}
-        />
-      )}
+      {isObserverActive && <InfiniteScrollObserver callback={fetchNextPage} />}
     </SideBarListWrapper>
   );
 };

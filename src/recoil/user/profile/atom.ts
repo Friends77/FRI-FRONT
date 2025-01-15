@@ -1,7 +1,7 @@
-import { Profile } from '@/types/user';
+import { ProfileType } from '@/types/user';
 import { atom } from 'recoil';
 
-const profileAtom = atom<null | Profile>({
+const profileAtom = atom<null | ProfileType>({
   key: 'profile',
   default: null,
 });

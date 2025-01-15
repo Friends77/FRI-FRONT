@@ -38,4 +38,4 @@ export interface IProfileResponse {
   imageUrl: 'string';
 }
 
-export type Profile = IProfileResponse;
+export type ProfileType = IProfileResponse;
