@@ -1,12 +1,15 @@
 import AuthAxios from '@/apis/@core/authInstance';
 import Axios from '@/apis/@core/instance';
 import {
+  AvailabilityType,
+  CategoryResponse,
+  CheckAvailabilityResponse,
   ILoginResponse,
   IRefreshResponse,
   ISendVerifyCodeResponse,
   ISocialLoginResponse,
   LoginDataType,
-  NicknameCheckResponse,
+  SignUpDataType,
   SocialLoginTokenType,
 } from '@/types/auth';
 
@@ -85,10 +88,28 @@ export async function resetPassword({
   return response.data;
 }
 
-export async function checkNickname(nickname: string) {
-  const response = await AuthAxios.get<NicknameCheckResponse>(
-    `/api/auth/check-nickname?nickname=${nickname}`,
+export const checkAvailability = async ({
+  type,
+  value,
+}: {
+  type: AvailabilityType;
+  value: string;
+}) => {
+  const response = await Axios.get<CheckAvailabilityResponse>(
+    `/api/auth/check-${type}?${type}=${value}`,
   );
 
   return response.data;
-}
+};
+
+export const fetchCategory = async () => {
+  const response = await Axios.get<CategoryResponse>(`/api/global/category`);
+
+  return response.data;
+};
+
+export const signUp = async (formData: SignUpDataType) => {
+  const response = await Axios.post('/api/auth/register', formData);
+
+  return response.data;
+};

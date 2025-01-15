@@ -2,20 +2,34 @@
  * MBTI, 한 줄 소개, 관심사 입력 폼
  */
 
-import { Controller, useFormContext } from 'react-hook-form';
-import * as Styled from './AdditionalInfoForm.styled';
-import { EI, FT, JP, NS } from '@/constants/mbti';
-import Radio from '@/components/@common/Radio';
-import InputField from '../../InputField';
-import CheckBox from '@/components/@common/Checkbox';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
+import CheckBox from '@/components/@common/Checkbox';
+import Radio from '@/components/@common/Radio';
+import { EI, FT, JP, NS } from '@/constants/mbti';
+import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
+import { useGeoLocation } from '@/hooks/auth/useGeoLocation';
+import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { Theme } from '@/styles/theme';
 import { moveToStep } from '@/utils/step/moveSteps';
+import { Controller, useFormContext } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
-import signUpStepAtom from '@/recoil/auth/signUp/atom';
+import InputField from '../../InputField';
+import * as Styled from './AdditionalInfoForm.styled';
+
+const geolocationOptions = {
+  enableHighAccuracy: true,
+  timeout: 1000 * 10,
+  maximumAge: 1000 * 3600 * 24,
+};
 
 const AdditionalInfoForm = () => {
   const setSignUpStep = useSetRecoilState(signUpStepAtom);
+
+  useGeoLocation(geolocationOptions);
+
+  // 관심사 조회
+  const { data: categories } = useFetchCategory();
+
   const {
     control,
     formState: { isValid },
@@ -25,7 +39,7 @@ const AdditionalInfoForm = () => {
       <Styled.AIFormHeader>프로필 작성</Styled.AIFormHeader>
       <Styled.AIFormContentSection>
         <Styled.AIFormMBTISection>
-          <Styled.AIFormMBTILabel>MBTI</Styled.AIFormMBTILabel>
+          <Styled.AIFormLabel>MBTI</Styled.AIFormLabel>
           <Styled.AIFormMBTIOption>
             <Controller
               name="EI"
@@ -118,13 +132,66 @@ const AdditionalInfoForm = () => {
           labelColor="Gray_1000"
         />
         <Styled.AIFormTagSection>
-          <Styled.AIFormMBTILabel>
+          <Styled.AIFormLabel>
             관심사 (1개 이상 선택해주세요)
-          </Styled.AIFormMBTILabel>
-          <CheckBox name="interestTag" text="관심사1" value="관심사1" />
+          </Styled.AIFormLabel>
+          <Styled.AIFormCheckBoxSection>
+            <Styled.AIFormColumnSection>
+              {/* 관심사 영역 */}
+              {categories && (
+                <Controller
+                  name="interestTag"
+                  render={() => (
+                    <>
+                      {categories.map((category) => {
+                        if (category.type === 'SUBJECT') {
+                          return (
+                            <CheckBox
+                              key={category.id}
+                              name="interestTag"
+                              text={`${category.image}  ${category.name}`}
+                              value={category.id}
+                              rules={{
+                                required: true,
+                              }}
+                            />
+                          );
+                        }
+                      })}
+                    </>
+                  )}
+                />
+              )}
+            </Styled.AIFormColumnSection>
+            <Styled.AIFormColumnSection>
+              {/* 지역 영역 */}
+              {categories && (
+                <Controller
+                  name="interestTag"
+                  render={() => (
+                    <>
+                      {categories.map((category) => {
+                        if (category.type === 'REGION') {
+                          return (
+                            <CheckBox
+                              key={category.id}
+                              name="interestTag"
+                              text={category.name}
+                              value={category.id}
+                            />
+                          );
+                        }
+                      })}
+                    </>
+                  )}
+                />
+              )}
+            </Styled.AIFormColumnSection>
+          </Styled.AIFormCheckBoxSection>
         </Styled.AIFormTagSection>
         <Styled.AIFormButtonSection>
           <PrimaryButton
+            type="button"
             width="160px"
             style={{
               backgroundColor: Theme.colors.Gray_200,
@@ -134,7 +201,9 @@ const AdditionalInfoForm = () => {
           >
             이전
           </PrimaryButton>
-          <PrimaryButton disabled={!isValid}>확인</PrimaryButton>
+          <PrimaryButton type="submit" disabled={!isValid}>
+            확인
+          </PrimaryButton>
         </Styled.AIFormButtonSection>
       </Styled.AIFormContentSection>
     </Styled.AIFormWrapper>
