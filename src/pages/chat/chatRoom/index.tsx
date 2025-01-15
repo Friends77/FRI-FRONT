@@ -1,91 +1,115 @@
 import MessageInput from '@/components/chat/MessageInput';
 import MessageList from '@/components/chat/MessageList';
 import useMessageList from '@/hooks/chat/useMessageList';
+import useMessageSubscription from '@/hooks/chat/useMessageSubscription';
 import useWebSocket from '@/hooks/chat/useWebSocket';
+import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
 import socketConnectedAtom from '@/recoil/chat/socketConnected';
-import { IChatMessageItem } from '@/types/chat';
-import { useState } from 'react';
+import profileAtom from '@/recoil/user/profile';
+import { ISentMessageItem, IPendingMessageItem } from '@/types/chat';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 const ChatRoomPage = () => {
   const { roomId: roomIdQuery } = useParams();
   const roomId = Number(roomIdQuery);
 
+  const [pendingMessageList, setPendingMessageList] = useState<
+    IPendingMessageItem[]
+  >([]);
+  const [sentMessageList, setSentMessageList] = useState<ISentMessageItem[]>(
+    [],
+  );
+  const [failedMessageList, setFailedMessageList] = useState<
+    IPendingMessageItem[]
+  >([]);
+
   const [socketConnected, setSocketConnected] =
     useRecoilState(socketConnectedAtom);
+  const sendMessageToServer = useRecoilValue(sendMessageHandlerAtom);
+  const myProfile = useRecoilValue(profileAtom);
   const [myMessageContent, setMyMessageContent] = useState('');
-  const [messageList, setMessageList] = useState<IChatMessageItem[]>([]);
 
-  const onReceivedMessage = (data: string) => {
-    const message: IChatMessageItem = JSON.parse(data);
+  // TODO: 제거 예정
+  useWebSocket({
+    setSocketConnected,
+  });
 
-    // TODO: 프로필 조회가 완성되면 주석 해제
-    // 내 메세지 수신인 경우
-    // if (message.chatRoomId === roomId && memberId === senderId) {
-    //   setMessageList((prevList) =>
-    //     prevList.map((message) =>
-    //       message.sendTime === sendTime
-    //         ? { ...message, status: 'success' }
-    //         : message,
-    //     ),
-    //   );
-    //   return;
-    // }
+  useMessageList({ roomId, setSentMessageList });
 
-    // 상대 메세지 수신인 경우
-    if (message.chatRoomId === roomId) {
-      setMessageList((prevList) => [...prevList, message]);
+  const { subscribe } = useMessageSubscription();
+
+  useEffect(() => {
+    const unsubscribe = subscribe(handleReceivedMessage);
+    return () => unsubscribe();
+  }, []);
+
+  const handleReceivedMessage = (data: string) => {
+    const message: ISentMessageItem = JSON.parse(data);
+
+    const { code, chatRoomId, senderId, clientMessageId } = message;
+
+    if (code === 200 && chatRoomId === roomId) {
+      if (senderId === myProfile?.memberId) {
+        setPendingMessageList((prevList) =>
+          prevList.filter(
+            (message) => message.clientMessageId !== clientMessageId,
+          ),
+        );
+      }
+
+      setSentMessageList((prevList) => [...prevList, message]);
+    }
+
+    if (code !== 200) {
+      const failedMessage = pendingMessageList.find(
+        (pendingMessage) => clientMessageId === pendingMessage.clientMessageId,
+      );
+
+      if (failedMessage) {
+        setFailedMessageList((prevList) => [...prevList, failedMessage]);
+
+        setPendingMessageList((prevList) =>
+          prevList.filter(
+            (pendingMessage) =>
+              clientMessageId !== pendingMessage.clientMessageId,
+          ),
+        );
+      }
     }
   };
 
-  const { sendMessageToServer } = useWebSocket({
-    setSocketConnected,
-    onReceivedMessage,
-  });
-
-  useMessageList({ roomId, setMessageList });
-
-  const onMyMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMyMessageContent(e.target.value);
-  };
-
-  const onSendMessage = (e: React.FormEvent) => {
+  const handleResendMessage = (clientMessageId: string) => {
     if (socketConnected && roomId) {
-      e.preventDefault();
+      const failedMessage = failedMessageList.find(
+        (failedMessage) => clientMessageId === failedMessage.clientMessageId,
+      );
 
-      const myMessageForm = {
-        message: myMessageContent,
-        chatRoomId: roomId,
-      };
+      if (failedMessage && sendMessageToServer) {
+        const messageForm = {
+          chatRoomId: roomId,
+          clientMessageId: failedMessage.clientMessageId,
+          message: failedMessage.content,
+        };
 
-      sendMessageToServer(myMessageForm);
-
-      // TODO: 프로필 조회가 완성되면, senderId, senderName값 수정
-      // TODO: 메세지 타입 수정
-      setMessageList((prevMessageList) => [
-        ...prevMessageList,
-        {
-          type: 'TEXT',
-          status: 'loading',
-          message: myMessageContent,
-          senderId: 1,
-          senderName: '지원',
-          sendTime: new Date().getTime() + '',
-        },
-      ]);
-
-      setMyMessageContent('');
+        sendMessageToServer(messageForm);
+      }
     }
   };
 
   return (
     <>
-      <MessageList messages={messageList} />
+      <MessageList
+        pendingMessageList={pendingMessageList}
+        sentMessageList={sentMessageList}
+        failedMessageList={failedMessageList}
+        onResendMessage={handleResendMessage}
+      />
       <MessageInput
         value={myMessageContent}
-        onMessageChange={onMyMessageChange}
-        onSendMessage={onSendMessage}
+        setMyMessageContent={setMyMessageContent}
+        setPendingMessageList={setFailedMessageList}
       />
     </>
   );

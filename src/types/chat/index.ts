@@ -30,23 +30,24 @@ export interface IMyChatListResponse extends IPaginationResponse {
   content: IMyChatItem[];
 }
 
-export interface IChatMessageItem {
-  chatRoomId?: number;
+export interface IPendingMessageItem {
+  clientMessageId: string;
+  chatRoomId: number;
   type: 'TEXT' | 'IMAGE' | 'SYSTEM';
-  status: 'loading' | 'success';
-  message: string;
+  content: string;
   senderId: number;
-  senderName: string;
-  sendTime: string;
 }
 
-// TODO: 위 IChatMessageItem와 통일 후 삭제 예정
-export interface IChatMessageServerItem {
+export interface ISentMessageItem {
+  code: number;
+  clientMessageId?: string;
+  chatRoomId: number;
   messageId: number;
+  type: 'TEXT' | 'IMAGE' | 'SYSTEM';
   senderId: number;
   content: string;
-  type: 'TEXT' | 'IMAGE' | 'SYSTEM';
   createdAt: string;
+  status: 'pending' | 'sent';
 }
 
 export interface IChatRoomInfo {
@@ -66,5 +67,9 @@ export interface IGetChatMessagesType extends IPaginationParams {
 }
 
 export interface IGetChatMessagesResponse extends IPaginationResponse {
-  content: IChatMessageServerItem[];
+  content: ISentMessageItem[];
+}
+
+export interface ISendMessageHandler {
+  (data: { [key: string]: string | number }): void;
 }

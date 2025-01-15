@@ -1,29 +1,21 @@
 import { useEffect } from 'react';
 import useGetMessages from './useGetMessages';
-import { IChatMessageItem } from '@/types/chat';
+import { ISentMessageItem } from '@/types/chat';
 
 interface IUseMessageListProps {
   roomId: number;
-  setMessageList: React.Dispatch<React.SetStateAction<IChatMessageItem[]>>;
+  setSentMessageList: React.Dispatch<React.SetStateAction<ISentMessageItem[]>>;
 }
 
-const useMessageList = ({ roomId, setMessageList }: IUseMessageListProps) => {
+const useMessageList = ({
+  roomId,
+  setSentMessageList,
+}: IUseMessageListProps) => {
   const { data: messagesResponse } = useGetMessages(roomId);
 
   useEffect(() => {
     if (messagesResponse) {
-      setMessageList(
-        messagesResponse.content.map(
-          ({ type, content, senderId, createdAt }) => ({
-            type,
-            status: 'success',
-            message: content,
-            senderId,
-            senderName: '테스트',
-            sendTime: createdAt,
-          }),
-        ),
-      );
+      setSentMessageList(messagesResponse.content);
     }
   }, [messagesResponse]);
 };

@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { useGetSecondaryToken } from './useGetSecondaryToken';
+import useMessageSubscription from './useMessageSubscription';
+import { useSetRecoilState } from 'recoil';
+import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
 
 interface IUseWebSocketProps {
   setSocketConnected: (connected: boolean) => void;
-  onReceivedMessage: (data: string) => void;
 }
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
 
-const useWebSocket = ({
-  onReceivedMessage,
-  setSocketConnected,
-}: IUseWebSocketProps) => {
+const useWebSocket = ({ setSocketConnected }: IUseWebSocketProps) => {
   const { data: tokenResponse } = useGetSecondaryToken();
+  const { notifySubscribers } = useMessageSubscription();
+  const setSendMessageHandler = useSetRecoilState(sendMessageHandlerAtom);
 
   const ws = useRef<WebSocket | null>(null);
   const [pongTimer, setPongTimer] = useState<ReturnType<
@@ -26,20 +27,27 @@ const useWebSocket = ({
       ws.current = new WebSocket(webSocketUrl);
 
       ws.current.onopen = () => {
+        console.log(ws.current?.readyState);
         runPongTimer();
         setSocketConnected(true);
+        setSendMessageHandler(() => sendMessageToServer);
       };
 
       ws.current.onmessage = (event) => {
-        onReceivedMessage(event.data);
+        console.log(ws.current?.readyState);
+        notifySubscribers(event.data);
       };
 
       ws.current.onclose = () => {
+        console.log(ws.current?.readyState);
         clearPongTimer();
         setSocketConnected(false);
       };
 
-      ws.current.onerror = () => {};
+      ws.current.onerror = (error) => {
+        console.log(ws.current?.readyState);
+        console.log(error);
+      };
     }
 
     return () => {
@@ -51,8 +59,7 @@ const useWebSocket = ({
     const timer = setTimeout(() => {
       setPongTimer(null);
       if (ws.current?.readyState !== WebSocket.OPEN) return;
-      // TODO: 서버 ping, pong 구현되면 테스트
-      // sendMessageToServer({ type: 'pong' });
+      sendMessageToServer({ type: 'pong' });
       runPongTimer();
     }, 1000 * 25);
 
