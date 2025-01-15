@@ -7,6 +7,7 @@ import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import SideBarChatList from './SideBarChatList';
 import { Suspense } from 'react';
 import SideBarChatListSkeleton from './SideBarChatListSkeleton';
+import SideBarWithoutAuth from './SideBarWithoutAuth';
 
 const SideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
@@ -14,14 +15,16 @@ const SideBar = () => {
 
   return (
     <Styled.Wrapper $isOpen={isSideBarOpen}>
-      <SideBarHeader />
-      {isLoggedIn && (
+      {isLoggedIn ? (
         <>
+          <SideBarHeader />
           <SideBarSearchInput />
           <Suspense fallback={<SideBarChatListSkeleton />}>
             <SideBarChatList />
           </Suspense>
         </>
+      ) : (
+        <SideBarWithoutAuth />
       )}
     </Styled.Wrapper>
   );
