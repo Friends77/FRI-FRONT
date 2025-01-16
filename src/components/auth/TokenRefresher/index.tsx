@@ -47,7 +47,7 @@ const TokenRefresher = ({ children }: ITokenRefresherProps) => {
     };
 
     refresh();
-  }, [isLoading, setIsLoading, mutateAsync]);
+  }, [isLoading, setIsLoading, mutateAsync, navigate]);
 
   if (isLoading) {
     return <div>Loading...😂</div>;
