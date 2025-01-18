@@ -50,33 +50,38 @@ const ChatRoomPage = () => {
 
     const { code, chatRoomId, senderId, clientMessageId } = message;
 
-    if (code === 200 && chatRoomId === roomId) {
-      if (senderId === myProfile?.memberId) {
-        setPendingMessageList((prevList) =>
-          prevList.filter(
-            (message) => message.clientMessageId !== clientMessageId,
-          ),
-        );
-      }
+    // if (code === 200 && chatRoomId === roomId) {
+    if (chatRoomId === roomId) {
+      // if (senderId === myProfile?.memberId) {
+      //   setPendingMessageList((prevList) =>
+      //     prevList.filter(
+      //       (message) => message.clientMessageId !== clientMessageId,
+      //     ),
+      //   );
+      // }
 
       setSentMessageList((prevList) => [...prevList, message]);
     }
 
-    if (code !== 200) {
-      const failedMessage = pendingMessageList.find(
-        (pendingMessage) => clientMessageId === pendingMessage.clientMessageId,
+    if (code !== 200 && clientMessageId) {
+      handleMessageSendFailure(clientMessageId);
+    }
+  };
+
+  const handleMessageSendFailure = (clientMessageId: string) => {
+    const failedMessage = pendingMessageList.find(
+      (pendingMessage) => clientMessageId === pendingMessage.clientMessageId,
+    );
+
+    if (failedMessage) {
+      setFailedMessageList((prevList) => [...prevList, failedMessage]);
+
+      setPendingMessageList((prevList) =>
+        prevList.filter(
+          (pendingMessage) =>
+            clientMessageId !== pendingMessage.clientMessageId,
+        ),
       );
-
-      if (failedMessage) {
-        setFailedMessageList((prevList) => [...prevList, failedMessage]);
-
-        setPendingMessageList((prevList) =>
-          prevList.filter(
-            (pendingMessage) =>
-              clientMessageId !== pendingMessage.clientMessageId,
-          ),
-        );
-      }
     }
   };
 

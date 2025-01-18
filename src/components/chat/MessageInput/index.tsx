@@ -31,14 +31,17 @@ const MessageInput = ({
   };
 
   const handleSendMessage = (e: React.FormEvent) => {
-    if (socketConnected && roomId && myProfile) {
+    // if (socketConnected && roomId && myProfile) {
+    if (socketConnected && roomId) {
       e.preventDefault();
-
       const id = uuidv4();
 
+      // TODO: 서버 필드 변경되면 확인하기, message => content
       const myMessageForm = {
         chatRoomId: roomId,
-        clientMessageId: id,
+        // clientMessageId: id,
+        // content: value,
+        // type: 'TEXT',
         message: value,
       };
 
@@ -50,11 +53,12 @@ const MessageInput = ({
       setPendingMessageList((prevList) => [
         ...prevList,
         {
+          ...myMessageForm,
           clientMessageId: id,
-          chatRoomId: roomId,
-          type: 'TEXT',
           content: value,
-          senderId: myProfile.memberId,
+          type: 'TEXT',
+          // senderId: myProfile.memberId,
+          senderId: 1, // TODO: 로그인한 사용자 ID로 고정 (임시)
         },
       ]);
 

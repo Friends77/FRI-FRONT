@@ -16,60 +16,76 @@ const useWebSocket = ({ setSocketConnected }: IUseWebSocketProps) => {
   const setSendMessageHandler = useSetRecoilState(sendMessageHandlerAtom);
 
   const ws = useRef<WebSocket | null>(null);
-  const [pongTimer, setPongTimer] = useState<ReturnType<
-    typeof setTimeout
-  > | null>(null);
+  const pongTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     if (tokenResponse) {
-      const webSocketUrl = `${websocketURL}/chat?token=${tokenResponse.secondaryToken}`;
-
-      ws.current = new WebSocket(webSocketUrl);
-
-      ws.current.onopen = () => {
-        console.log(ws.current?.readyState);
-        runPongTimer();
-        setSocketConnected(true);
-        setSendMessageHandler(() => sendMessageToServer);
-      };
-
-      ws.current.onmessage = (event) => {
-        console.log(ws.current?.readyState);
-        notifySubscribers(event.data);
-      };
-
-      ws.current.onclose = () => {
-        console.log(ws.current?.readyState);
-        clearPongTimer();
-        setSocketConnected(false);
-      };
-
-      ws.current.onerror = (error) => {
-        console.log(ws.current?.readyState);
-        console.log(error);
-      };
+      connectWebSocket();
     }
 
     return () => {
-      ws.current?.close();
+      closeWebSocket();
     };
   }, [tokenResponse]);
 
+  const closeWebSocket = () => {
+    clearPongTimer();
+    ws.current?.close();
+    ws.current = null;
+  };
+
+  const connectWebSocket = () => {
+    const webSocketUrl = `${websocketURL}/chat?token=${tokenResponse?.secondaryToken}`;
+    ws.current = new WebSocket(webSocketUrl);
+
+    ws.current.onopen = handleOpen;
+    ws.current.onmessage = handleMessage;
+    ws.current.onclose = handleClose;
+    ws.current.onerror = handleError;
+  };
+
+  const handleOpen = () => {
+    console.log(ws.current?.readyState);
+    runPongTimer();
+    setSocketConnected(true);
+    setRetryCount(0);
+    setSendMessageHandler(() => sendMessageToServer);
+  };
+
+  const handleMessage = (event: MessageEvent) => {
+    notifySubscribers(event.data);
+  };
+
+  const handleClose = () => {
+    console.log(ws.current?.readyState);
+    clearPongTimer();
+    setSocketConnected(false);
+
+    if (retryCount < 1) {
+      setRetryCount((prev) => prev + 1);
+      setTimeout(() => connectWebSocket(), 1000);
+    }
+  };
+
+  const handleError = (error: Event) => {
+    console.log(ws.current?.readyState, error);
+  };
+
   const runPongTimer = () => {
-    const timer = setTimeout(() => {
-      setPongTimer(null);
+    clearPongTimer();
+
+    pongTimer.current = setTimeout(() => {
       if (ws.current?.readyState !== WebSocket.OPEN) return;
       sendMessageToServer({ type: 'pong' });
       runPongTimer();
     }, 1000 * 25);
-
-    setPongTimer(timer);
   };
 
   const clearPongTimer = () => {
-    if (pongTimer) {
-      clearTimeout(pongTimer);
-      setPongTimer(null);
+    if (pongTimer.current) {
+      clearTimeout(pongTimer.current);
+      pongTimer.current = null;
     }
   };
 
@@ -77,8 +93,6 @@ const useWebSocket = ({ setSocketConnected }: IUseWebSocketProps) => {
     const serializedSendMessageForm = JSON.stringify(data);
     ws.current?.send(serializedSendMessageForm);
   };
-
-  return { sendMessageToServer };
 };
 
 export default useWebSocket;
