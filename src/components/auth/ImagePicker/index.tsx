@@ -15,7 +15,7 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
 
   const handleImageDelete = () => {
     setPickedImage(null);
-    setValue(name, null);
+    setValue(name, null, { shouldDirty: true });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +32,7 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
 
       fileReader.readAsDataURL(file);
 
-      setValue('imageUrl', e.target.value);
+      setValue(name, e.target.value, { shouldDirty: true });
     }
   };
 
