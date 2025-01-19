@@ -4,23 +4,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div<{ $width?: string }>`
   display: flex;
   flex-direction: column;
-  width: ${(props) => (props.$width ? props.$width : '320px')};
-`;
-
-export const Label = styled.label<{ $isRequired?: boolean }>`
-  align-self: flex-start;
-  position: relative;
-  ${({ theme }) => theme.typo.T2_B};
-  color: ${({ theme }) => theme.colors.Gray_1000};
-  margin-bottom: 16px;
-
-  &::after {
-    display: ${({ $isRequired }) => ($isRequired ? 'inline' : 'none')};
-    content: '*';
-    position: absolute;
-    right: -16px;
-    color: ${({ theme }) => theme.colors.Alter_error};
-  }
+  width: ${({ $width }) => $width};
 `;
 
 export const Dropdown = styled(Select)<{

@@ -9,6 +9,7 @@ import ArrowDown from '../SVG/Icon/ArrowDown';
 import Close from '../SVG/Icon/Close';
 import * as Styled from './Dropdown.styled';
 import { FieldError, useFormContext } from 'react-hook-form';
+import { Options } from '@/types/@common';
 
 /**
  *  @Dropdown
@@ -27,9 +28,6 @@ export interface IDropdownProps {
    */
   width?: string;
 
-  /** Dropdown 상단에 표시할 텍스트 */
-  label?: string;
-
   /**
    * Dropdown에 표시할 옵션 배열
    * 각 옵션은 value와 label 속성을 포함하는 객체로 구성
@@ -41,18 +39,9 @@ export interface IDropdownProps {
    *    {value: 2, label: 'Option 2'}
    * ]}
    */
-  options: {
-    value: string | number;
-    label: string;
-  }[];
+  options: Options[];
 
   placeholder?: string;
-
-  /**
-   * 해당 Dropdown이 필수 입력값인지 여부 설정
-   * @default false
-   */
-  isRequired?: boolean;
 
   /**
    * 다중 선택 모드 활성화 여부 설정
@@ -61,7 +50,7 @@ export interface IDropdownProps {
   isMulti?: boolean;
 
   /** react-hook-form의 Controller로부터 전달된 현재 값 */
-  value?: { value: number | string; label: string };
+  value?: Options | Options[];
 
   name: string;
 
@@ -102,11 +91,9 @@ const MultiValueRemove = (props: MultiValueRemoveProps) => {
 const Dropdown = forwardRef<any, IDropdownProps>(
   (
     {
-      width,
-      label,
+      width = '320px',
       options,
       placeholder,
-      isRequired,
       isMulti,
       name,
       value,
@@ -123,7 +110,6 @@ const Dropdown = forwardRef<any, IDropdownProps>(
 
     return (
       <Styled.Wrapper $width={width}>
-        <Styled.Label $isRequired={isRequired}>{label}</Styled.Label>
         <Styled.Dropdown
           ref={ref}
           classNamePrefix="dropdown"
@@ -131,7 +117,7 @@ const Dropdown = forwardRef<any, IDropdownProps>(
           closeMenuOnSelect={isMulti ? false : true}
           hideSelectedOptions={false}
           placeholder={placeholder}
-          isSearchable={false}
+          isSearchable={isMulti ? true : false}
           isMulti={isMulti}
           value={value}
           $isError={!!error}
