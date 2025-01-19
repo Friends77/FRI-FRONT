@@ -27,7 +27,10 @@ export const BasicInfoFormImagePickerSection = styled.section`
 `;
 
 export const BasicInfoFormBirthSection = styled.section`
+  display: flex;
+  flex-direction: column;
   position: relative;
+  gap: 16px;
 `;
 
 export const BasicInfoFormLabel = styled.label`

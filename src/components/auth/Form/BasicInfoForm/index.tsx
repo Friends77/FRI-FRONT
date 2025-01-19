@@ -1,5 +1,6 @@
 /**
- * 프로필 사진, 닉네임, 출생년도, 성별 입력 폼
+ * BasicInfoForm: 프로필 사진, 닉네임, 출생년도, 성별 입력 폼
+ * @Author 선우
  */
 
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
@@ -9,6 +10,7 @@ import { GENDER } from '@/constants/gender';
 import { AUTH_ERROR_MSG } from '@/constants/message';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { BIRTH_YEAR } from '@/constants/year';
+import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { moveToStep } from '@/utils/step/moveSteps';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -16,7 +18,6 @@ import { useSetRecoilState } from 'recoil';
 import ImagePicker from '../../ImagePicker';
 import InputField from '../../InputField';
 import * as Styled from './BasicInfoForm.styled';
-import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
 
 const BasicInfoForm = () => {
   const setSignUpStep = useSetRecoilState(signUpStepAtom);
@@ -69,59 +70,44 @@ const BasicInfoForm = () => {
           isErrorMsgRelative={true}
         />
         <Styled.BasicInfoFormBirthSection>
+          <Styled.BasicInfoFormLabel>
+            나이 (출생년도)&nbsp;
+          </Styled.BasicInfoFormLabel>
           <Controller
             name="birth"
             control={control}
-            rules={{
-              required: {
-                value: true,
-                message: '출생년도를 선택해주세요.',
-              },
-            }}
-            render={({ field: { ref, value, onChange } }) => (
+            render={({ field }) => (
               <Dropdown
+                {...field}
                 name="birth"
-                label="나이(출생년도)"
                 options={BIRTH_YEAR}
-                placeholder="생년월일을 입력해주세요"
-                isRequired={true}
-                ref={ref}
-                value={BIRTH_YEAR.find((option) => option.value === value)}
-                onChange={(...args) => {
-                  onChange(args[0].value);
-                }}
+                placeholder="출생년도를 선택해주세요"
+                value={BIRTH_YEAR.find((year) => year.value === field.value)}
+                onChange={(e) => field.onChange(e.value)}
               />
             )}
           />
         </Styled.BasicInfoFormBirthSection>
         <Styled.BasicInfoFormGenderSection>
           <Styled.BasicInfoFormLabel>성별&nbsp;</Styled.BasicInfoFormLabel>
-          <Controller
-            name="gender"
-            control={control}
-            rules={{
-              required: {
-                value: true,
-                message: '성별 입력 필요',
-              },
-            }}
-            render={() => {
+          <Styled.BasicInfoFormRadio>
+            {GENDER.map((gender) => {
               return (
-                <Styled.BasicInfoFormRadio>
-                  {GENDER.map((gender) => {
-                    return (
-                      <Radio
-                        key={gender.label}
-                        name="gender"
-                        text={gender.label}
-                        value={gender.value}
-                      />
-                    );
-                  })}
-                </Styled.BasicInfoFormRadio>
+                <Radio
+                  rules={{
+                    required: {
+                      value: true,
+                      message: '성별 입력 필요',
+                    },
+                  }}
+                  key={gender.label}
+                  name="gender"
+                  text={gender.label}
+                  value={gender.value}
+                />
               );
-            }}
-          />
+            })}
+          </Styled.BasicInfoFormRadio>
         </Styled.BasicInfoFormGenderSection>
         <PrimaryButton
           disabled={!isValid}
