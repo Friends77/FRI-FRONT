@@ -25,6 +25,7 @@ import {
   useForm,
 } from 'react-hook-form';
 import * as Styled from './ProfilePage.styled';
+import { AUTH_ERROR_MSG } from '@/constants/message';
 
 const ProfilePage = () => {
   const [categoryOptions, setCategoryOptions] = useState<Options[]>([]);
@@ -69,6 +70,7 @@ const ProfilePage = () => {
   }, [userData]);
 
   const methods = useForm({
+    mode: 'onChange',
     defaultValues: {
       imageUrl: userData.imageUrl,
       selfDescription: userData.selfDescription,
@@ -86,7 +88,7 @@ const ProfilePage = () => {
     control,
     reset,
     handleSubmit,
-    formState: { isDirty },
+    formState: { isValid, isDirty },
   } = methods;
 
   // 프로필 수정 react-query
@@ -97,7 +99,7 @@ const ProfilePage = () => {
   const onSubmit: SubmitHandler<UpdateProfileDataType> = (data) => {
     const { EI, FT, JP, NS, tags, ...filteredData } = data;
 
-    const selectedTags = tags?.map((option) => option.value) || [];
+    const selectedTags = tags?.map((option) => option.value);
 
     const formData = {
       ...filteredData,
@@ -132,6 +134,12 @@ const ProfilePage = () => {
                   width="892px"
                   placeholder="한 줄 소개를 입력해주세요."
                   isErrorMsgRelative={true}
+                  rules={{
+                    required: {
+                      value: true,
+                      message: AUTH_ERROR_MSG.SELF_DESCRIPTION_REQUIRED,
+                    },
+                  }}
                 />
               </Styled.ProfilePageInputContainer>
               <Styled.ProfilePageInputContainer>
@@ -254,7 +262,7 @@ const ProfilePage = () => {
                 />
               </Styled.ProfilePageInputContainer>
               <Styled.ProfilePageButtonSection>
-                <PrimaryButton type="submit" disabled={!isDirty}>
+                <PrimaryButton type="submit" disabled={!isValid || !isDirty}>
                   저장하기
                 </PrimaryButton>
               </Styled.ProfilePageButtonSection>
