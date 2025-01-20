@@ -1,13 +1,10 @@
 import AuthAxios from '@/apis/@core/authInstance';
-import { ChatListParamsType, IMyChatListResponse } from '@/types/chat';
+import { IMyChatItem } from '@/types/chat';
 import { createQueryParams } from '@/utils/formatter/queryParams';
 
-export const getChatList = async ({
-  size,
-  lastChatRoomMemberId,
-}: ChatListParamsType) => {
-  const queryParams = createQueryParams({ size, lastChatRoomMemberId });
-  const response = await AuthAxios.get<IMyChatListResponse>(
+export const getChatList = async (nickname?: string) => {
+  const queryParams = createQueryParams({ nickname });
+  const response = await AuthAxios.get<IMyChatItem[]>(
     `/api/user/chat/room${queryParams}`,
   );
 

@@ -1,5 +1,3 @@
-import { IPaginationResponse } from '../@common';
-
 export interface IMyChatItem {
   chatRoomMemberId: number;
   id: number;
@@ -13,12 +11,3 @@ export interface IMyChatItem {
   lastMessageTime: string;
   unreadMessageCount: number;
 }
-
-export interface IMyChatListResponse extends IPaginationResponse {
-  content: IMyChatItem[];
-}
-
-export type ChatListParamsType = {
-  size: number;
-  lastChatRoomMemberId: number | null;
-};

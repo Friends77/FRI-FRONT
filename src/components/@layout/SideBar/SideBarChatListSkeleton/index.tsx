@@ -1,13 +1,10 @@
-import { PAGE_SIZE } from '@/hooks/chat/useGetMyChatList';
 import * as Styled from './SideBarChatListSkeleton.styled';
 import { v4 as uuidv4 } from 'uuid';
 
 const SideBarChatListSkeleton = () => {
   return (
     <Styled.SkeletonWrapper>
-      {/* 스켈레톤 박스 개수는 채팅방 개수 유무에 따라 결정
-      count > PAGE_SIZE ? PAGE_SIZE : count */}
-      {Array.from({ length: PAGE_SIZE }, () => 0).map(() => (
+      {Array.from({ length: 20 }, () => 0).map(() => (
         <Styled.SkeletonItem key={uuidv4()}>
           <Styled.ChatRoomImg />
           <Styled.ChatRoomInfo>
