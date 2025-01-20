@@ -1,9 +1,9 @@
 import ArrowDown from '@/components/@common/SVG/Icon/ArrowDown';
 import styled from 'styled-components';
 
-export const Wrapper = styled.section`
+export const Wrapper = styled.section<{ $isOpen: boolean }>`
+  margin-bottom: ${({ $isOpen }) => $isOpen && '32px'};
   padding: 0 24px;
-  overflow-y: auto;
 `;
 
 export const Title = styled.div`

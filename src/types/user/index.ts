@@ -5,9 +5,9 @@ export interface Location {
 
 export interface InterestTag {
   id: number;
-  name: 'string';
+  name: string;
   type: 'SUBJECT' | 'REGION';
-  image: 'string';
+  image: string;
 }
 
 export interface IProfileResponse {
@@ -35,7 +35,14 @@ export interface IProfileResponse {
     | 'ENTJ'
     | 'ESTJ';
   interestTag: InterestTag[];
-  imageUrl: 'string';
+  imageUrl: string;
 }
 
 export type ProfileType = IProfileResponse;
+
+export interface IProfileSimpleResponse {
+  memberId: number;
+  nickname: string;
+  imageUrl: string;
+  selfDescription: string;
+}

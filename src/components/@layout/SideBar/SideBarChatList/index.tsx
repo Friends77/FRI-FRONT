@@ -18,7 +18,7 @@ const SideBarChatList = () => {
     }
   }, [data, setChatRoomList]);
   return (
-    <SideBarListWrapper title="채팅방" count={chatRoomList.length}>
+    <SideBarListWrapper isOpened title="채팅방" count={chatRoomList.length}>
       {chatRoomList.map(
         ({
           id,

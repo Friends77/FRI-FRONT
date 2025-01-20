@@ -16,3 +16,7 @@ export const Wrapper = styled.aside<{ $isOpen: boolean }>`
   border-bottom-right-radius: 24px;
   z-index: 888;
 `;
+
+export const Container = styled.div`
+  overflow-y: auto;
+`;

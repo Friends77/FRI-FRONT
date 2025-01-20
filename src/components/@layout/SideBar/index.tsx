@@ -8,6 +8,8 @@ import SideBarChatList from './SideBarChatList';
 import { Suspense } from 'react';
 import SideBarChatListSkeleton from './SideBarChatListSkeleton';
 import SideBarWithoutAuth from './SideBarWithoutAuth';
+import SideBarFriendList from './SideBarFriendList';
+import SideBarFriendListSkeleton from './SideBarFriendListSkeleton';
 
 const SideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
@@ -19,9 +21,14 @@ const SideBar = () => {
         <>
           <SideBarHeader />
           <SideBarSearchInput />
-          <Suspense fallback={<SideBarChatListSkeleton />}>
-            <SideBarChatList />
-          </Suspense>
+          <Styled.Container>
+            <Suspense fallback={<SideBarFriendListSkeleton />}>
+              <SideBarFriendList />
+            </Suspense>
+            <Suspense fallback={<SideBarChatListSkeleton />}>
+              <SideBarChatList />
+            </Suspense>
+          </Styled.Container>
         </>
       ) : (
         <SideBarWithoutAuth />
