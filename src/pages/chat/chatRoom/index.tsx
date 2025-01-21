@@ -6,15 +6,22 @@ import useWebSocket from '@/hooks/chat/useWebSocket';
 import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
 import socketConnectedAtom from '@/recoil/chat/socketConnected';
 import profileAtom from '@/recoil/user/profile';
-import { ISentMessageItem, IPendingMessageItem } from '@/types/chat';
-import { useEffect, useState } from 'react';
+import {
+  ISentMessageItem,
+  IPendingMessageItem,
+  MessageType,
+} from '@/types/chat';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import { useRecoilState, useRecoilValue } from 'recoil';
-
+import { v4 as uuidv4 } from 'uuid';
 const ChatRoomPage = () => {
   const { roomId: roomIdQuery } = useParams();
   const roomId = Number(roomIdQuery);
 
+  const messageTimers = useRef<Map<string, NodeJS.Timeout>>(new Map());
+
+  const [myMessageContent, setMyMessageContent] = useState('');
   const [pendingMessageList, setPendingMessageList] = useState<
     IPendingMessageItem[]
   >([]);
@@ -29,9 +36,8 @@ const ChatRoomPage = () => {
     useRecoilState(socketConnectedAtom);
   const sendMessageToServer = useRecoilValue(sendMessageHandlerAtom);
   const myProfile = useRecoilValue(profileAtom);
-  const [myMessageContent, setMyMessageContent] = useState('');
 
-  // TODO: 제거 예정
+  // TODO: 테스트 후, 제거 예정
   useWebSocket({
     setSocketConnected,
   });
@@ -41,29 +47,85 @@ const ChatRoomPage = () => {
   const { subscribe } = useMessageSubscription();
 
   useEffect(() => {
-    const unsubscribe = subscribe(handleReceivedMessage);
-    return () => unsubscribe();
-  }, []);
+    if (myProfile) {
+      const unsubscribe = subscribe(handleReceivedMessage);
+      return () => unsubscribe();
+    }
+  }, [myProfile]);
+
+  const setMessageTimer = (clientMessageId: string) => {
+    const timer = setTimeout(() => {
+      handleMessageSendFailure(clientMessageId);
+    }, 1000 * 5);
+
+    messageTimers.current.set(clientMessageId, timer);
+  };
+
+  const clearMessageTimer = (clientMessageId: string) => {
+    const timer = messageTimers.current.get(clientMessageId);
+
+    if (timer) {
+      clearTimeout(timer);
+      messageTimers.current.delete(clientMessageId);
+    }
+  };
+
+  const handleSendMessage = (e: React.FormEvent) => {
+    if (socketConnected && roomId && myProfile) {
+      e.preventDefault();
+      const id = uuidv4();
+
+      const myMessageForm = {
+        chatRoomId: roomId,
+        clientMessageId: id,
+        content: myMessageContent,
+        type: 'TEXT' as MessageType,
+      };
+
+      if (sendMessageToServer) {
+        sendMessageToServer(myMessageForm);
+      }
+
+      // TODO: 메세지 타입 수정
+      setPendingMessageList((prevList) => [
+        ...prevList,
+        {
+          ...myMessageForm,
+          senderId: myProfile.memberId,
+        },
+      ]);
+
+      setMyMessageContent('');
+      setMessageTimer(id);
+    }
+  };
 
   const handleReceivedMessage = (data: string) => {
     const message: ISentMessageItem = JSON.parse(data);
 
     const { code, chatRoomId, senderId, clientMessageId } = message;
 
-    // if (code === 200 && chatRoomId === roomId) {
-    if (chatRoomId === roomId) {
-      // if (senderId === myProfile?.memberId) {
-      //   setPendingMessageList((prevList) =>
-      //     prevList.filter(
-      //       (message) => message.clientMessageId !== clientMessageId,
-      //     ),
-      //   );
-      // }
+    if (code === 200 && chatRoomId === roomId && clientMessageId) {
+      if (senderId === myProfile?.memberId) {
+        clearMessageTimer(clientMessageId);
+        setPendingMessageList((prevList) =>
+          prevList.filter(
+            (message) => message.clientMessageId !== clientMessageId,
+          ),
+        );
+      }
 
       setSentMessageList((prevList) => [...prevList, message]);
     }
 
     if (code !== 200 && clientMessageId) {
+      clearMessageTimer(clientMessageId);
+      setPendingMessageList((prevList) =>
+        prevList.filter(
+          (message) => message.clientMessageId !== clientMessageId,
+        ),
+      );
+
       handleMessageSendFailure(clientMessageId);
     }
   };
@@ -103,6 +165,12 @@ const ChatRoomPage = () => {
     }
   };
 
+  const handleDeleteMessage = (clientMessageId: string) => {
+    setFailedMessageList((prevList) =>
+      prevList.filter((message) => message.clientMessageId !== clientMessageId),
+    );
+  };
+
   return (
     <>
       <MessageList
@@ -110,11 +178,12 @@ const ChatRoomPage = () => {
         sentMessageList={sentMessageList}
         failedMessageList={failedMessageList}
         onResendMessage={handleResendMessage}
+        onDeleteMessage={handleDeleteMessage}
       />
       <MessageInput
         value={myMessageContent}
         setMyMessageContent={setMyMessageContent}
-        setPendingMessageList={setFailedMessageList}
+        onSendMessage={handleSendMessage}
       />
     </>
   );

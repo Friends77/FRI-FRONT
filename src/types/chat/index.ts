@@ -28,10 +28,12 @@ export interface IMyChatListResponse extends IPaginationResponse {
   content: IMyChatItem[];
 }
 
+export type MessageType = 'TEXT' | 'IMAGE' | 'SYSTEM';
+
 export interface IPendingMessageItem {
   clientMessageId: string;
   chatRoomId: number;
-  type: 'TEXT' | 'IMAGE' | 'SYSTEM';
+  type: MessageType;
   content: string;
   senderId: number;
 }
@@ -41,7 +43,7 @@ export interface ISentMessageItem {
   clientMessageId?: string;
   chatRoomId: number;
   messageId: number;
-  type: 'TEXT' | 'IMAGE' | 'SYSTEM';
+  type: MessageType;
   senderId: number;
   content: string;
   createdAt: string;

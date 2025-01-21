@@ -5,6 +5,7 @@ interface IMessageListProps {
   sentMessageList: ISentMessageItem[];
   failedMessageList: IPendingMessageItem[];
   onResendMessage: (clientMessageId: string) => void;
+  onDeleteMessage: (clientMessageId: string) => void;
 }
 
 const MessageList = ({
@@ -12,6 +13,7 @@ const MessageList = ({
   sentMessageList,
   failedMessageList,
   onResendMessage,
+  onDeleteMessage,
 }: IMessageListProps) => {
   return (
     <ul>
@@ -27,6 +29,11 @@ const MessageList = ({
             onClick={() => onResendMessage(failedMessage.clientMessageId)}
           >
             재전송
+          </button>
+          <button
+            onClick={() => onDeleteMessage(failedMessage.clientMessageId)}
+          >
+            삭제
           </button>
           {failedMessage.content}
         </li>

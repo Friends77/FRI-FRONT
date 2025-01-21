@@ -56,18 +56,19 @@ export default function AppRouter() {
           path: AUTH_PATH.RESET_PASSWORD,
           element: <ResetPasswordPage />,
         },
-        // TODO: 테스트 후, 삭제 예정
-        {
-          path: CHAT_PATH.CHAT_LIST,
-          element: <ChatListPage />,
-        },
-        {
-          path: CHAT_PATH.CHAT_ROOM,
-          element: <ChatRoomPage />,
-        },
+
         {
           element: <WithNavBarLayout />,
           children: [
+            // TODO: 테스트 후, 삭제 예정
+            {
+              path: CHAT_PATH.CHAT_LIST,
+              element: <ChatListPage />,
+            },
+            {
+              path: CHAT_PATH.CHAT_ROOM,
+              element: <ChatRoomPage />,
+            },
             {
               index: true,
               element: <HomePage />,
