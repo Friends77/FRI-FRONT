@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 interface ISideBarContentWrapperProps {
   children: React.ReactNode;
-  isOpened: boolean;
+  isOpened?: boolean;
   title: string;
   count: number;
 }
@@ -14,7 +14,7 @@ const SideBarListWrapper = ({
   title,
   count,
 }: ISideBarContentWrapperProps) => {
-  const [isOpen, setIsOpen] = useState(isOpened);
+  const [isOpen, setIsOpen] = useState(isOpened || false);
 
   const handleIsOpenToggle = () => {
     setIsOpen((prev) => !prev);
@@ -22,7 +22,7 @@ const SideBarListWrapper = ({
   return (
     <Styled.Wrapper $isOpen={isOpen}>
       <Styled.Title>
-        <Styled.Text>{`${title} ${count}`}</Styled.Text>
+        <Styled.Text $isOpen={isOpen}>{`${title} ${count}`}</Styled.Text>
         <Styled.MoreBtn onClick={handleIsOpenToggle}>
           <Styled.MoreIcon
             title={`${title} 목록 토글 버튼`}

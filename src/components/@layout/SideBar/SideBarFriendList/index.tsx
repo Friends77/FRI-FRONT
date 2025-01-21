@@ -9,7 +9,7 @@ const SideBarFriendList = () => {
   } = useGetMyFriendList();
 
   return (
-    <SideBarListWrapper isOpened title="친구" count={content.length}>
+    <SideBarListWrapper title="친구" count={content.length}>
       {content.map((friend) => (
         <Styled.Wrapper key={friend.memberId}>
           <ProfileImage

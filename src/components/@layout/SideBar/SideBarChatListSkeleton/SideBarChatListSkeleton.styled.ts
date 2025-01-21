@@ -2,16 +2,23 @@ import { pulse } from '@/styles/animation';
 import styled from 'styled-components';
 
 export const SkeletonWrapper = styled.div`
+  padding: 16px 24px 0;
   overflow-y: auto;
+  animation: ${pulse} 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+`;
+
+export const Header = styled.div`
+  width: 80px;
+  height: 24px;
+  border-radius: 16px;
+  background-color: ${({ theme }) => theme.colors.Gray_300};
 `;
 
 export const SkeletonItem = styled.li`
   position: relative;
   display: flex;
   gap: 12px;
-  padding: 16px 24px;
-
-  animation: ${pulse} 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  padding: 16px 0;
 `;
 
 export const ChatRoomImg = styled.div`
