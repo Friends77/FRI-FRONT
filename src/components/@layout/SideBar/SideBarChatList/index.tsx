@@ -6,6 +6,7 @@ import * as Styled from './SideBarChatList.styled';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import chatRoomListAtom from '@/recoil/user/chatRoomList';
+import ProfileImage from '@/components/@common/ProfileImage';
 
 const SideBarChatList = () => {
   const { data } = useGetMyChatList();
@@ -49,9 +50,10 @@ const SideBarChatList = () => {
                 <Styled.ParticipantList>
                   {participantList.map((imgUrl, index) => (
                     <Styled.ParticipantItem key={uuidv4()} $index={index}>
-                      <Styled.ParticipantImg
+                      <ProfileImage
                         src={imgUrl}
                         alt="참여 유저 프로필 이미지"
+                        size={24}
                       />
                     </Styled.ParticipantItem>
                   ))}

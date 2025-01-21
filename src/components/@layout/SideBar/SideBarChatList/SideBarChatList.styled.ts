@@ -63,13 +63,6 @@ export const ParticipantItem = styled.li<{ $index?: number }>`
   left: ${({ $index }) => $index && `${15 * $index}px`};
 `;
 
-export const ParticipantImg = styled.img`
-  width: 24px;
-  height: 24px;
-  border: 1px solid ${({ theme }) => theme.colors.Gray_100};
-  border-radius: 999px;
-`;
-
 export const ParticipantCount = styled.div`
   ${({ theme }) => theme.typo.Label_R};
   display: flex;

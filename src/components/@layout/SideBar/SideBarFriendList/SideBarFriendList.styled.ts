@@ -7,13 +7,6 @@ export const Wrapper = styled.li`
   padding: 12px 0;
 `;
 
-export const ProfileImg = styled.img`
-  width: 56px;
-  height: 56px;
-  border-radius: 999px;
-  object-fit: cover;
-`;
-
 export const FriendInfo = styled.div`
   display: flex;
   flex-direction: column;
