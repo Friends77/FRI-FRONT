@@ -9,23 +9,32 @@ import { Suspense } from 'react';
 import SideBarChatListSkeleton from './SideBarChatListSkeleton';
 import SideBarWithoutAuth from './SideBarWithoutAuth';
 import SideBarFriendList from './SideBarFriendList';
+import { FormProvider, useForm } from 'react-hook-form';
 
 const SideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
   const isSideBarOpen = useRecoilValue(isSideBarOpenAtom);
+
+  const methods = useForm<{ keyword: string }>({
+    defaultValues: {
+      keyword: '',
+    },
+  });
 
   return (
     <Styled.Wrapper $isOpen={isSideBarOpen}>
       {isLoggedIn ? (
         <>
           <SideBarHeader />
-          <SideBarSearchInput />
-          <Styled.Container>
-            <Suspense fallback={<SideBarChatListSkeleton />}>
-              <SideBarFriendList />
-              <SideBarChatList />
-            </Suspense>
-          </Styled.Container>
+          <FormProvider {...methods}>
+            <SideBarSearchInput />
+            <Styled.Container>
+              <Suspense fallback={<SideBarChatListSkeleton />}>
+                <SideBarFriendList />
+                <SideBarChatList />
+              </Suspense>
+            </Styled.Container>
+          </FormProvider>
         </>
       ) : (
         <SideBarWithoutAuth />

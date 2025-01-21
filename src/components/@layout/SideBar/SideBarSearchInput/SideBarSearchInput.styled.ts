@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.form`
+export const Wrapper = styled.div`
   margin-bottom: 16px;
   padding: 0 24px;
 `;

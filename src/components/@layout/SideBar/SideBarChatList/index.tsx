@@ -7,9 +7,15 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import chatRoomListAtom from '@/recoil/user/chatRoomList';
 import ProfileImage from '@/components/@common/ProfileImage';
+import { useFormContext } from 'react-hook-form';
+import useDebounce from '@/hooks/@common/useDebounce';
 
 const SideBarChatList = () => {
-  const { data } = useGetMyChatList();
+  const { watch } = useFormContext();
+  const keyword = watch('keyword');
+
+  const debouncedKeyword = useDebounce(keyword);
+  const { data } = useGetMyChatList(debouncedKeyword);
 
   const [chatRoomList, setChatRoomList] = useRecoilState(chatRoomListAtom);
 

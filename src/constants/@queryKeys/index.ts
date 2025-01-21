@@ -4,5 +4,6 @@ export const USER_KEYS = Object.freeze({
 });
 
 export const CHAT_KEYS = Object.freeze({
-  CHAT_LIST: ['chat-list'],
+  CHAT_LIST: (keyword?: string) =>
+    keyword ? ['chat-list'] : ['chat-list', keyword],
 });
