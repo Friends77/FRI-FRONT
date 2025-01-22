@@ -1,10 +1,18 @@
 import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.li`
+export const Wrapper = styled.li<{ $isSelected: boolean }>`
   position: relative;
   display: flex;
   gap: 12px;
-  padding: 16px 0;
+  padding: 16px 24px;
+  background-color: ${({ theme, $isSelected }) =>
+    $isSelected && theme.colors.White};
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.White};
+  }
 `;
 
 export const ChatRoomImg = styled.img`
@@ -79,7 +87,7 @@ export const ParticipantCount = styled.div`
 export const UnreadCountContainer = styled.div`
   ${({ theme }) => theme.typo.B2_R};
   position: absolute;
-  right: 0px;
+  right: 24px;
   bottom: 30.5px;
   padding: 2px 7.5px;
   color: ${({ theme }) => theme.colors.White};

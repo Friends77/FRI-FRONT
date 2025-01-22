@@ -9,8 +9,13 @@ import chatRoomListAtom from '@/recoil/user/chatRoomList';
 import ProfileImage from '@/components/@common/ProfileImage';
 import { useFormContext } from 'react-hook-form';
 import useDebounce from '@/hooks/@common/useDebounce';
+import { useNavigate, useParams } from 'react-router';
+import { CHAT_PATH } from '@/constants/routes';
 
 const SideBarChatList = () => {
+  const { roomId } = useParams();
+  const navigate = useNavigate();
+
   const { watch } = useFormContext();
   const keyword = watch('keyword');
 
@@ -24,6 +29,11 @@ const SideBarChatList = () => {
       setChatRoomList(data);
     }
   }, [data, setChatRoomList]);
+
+  const handleChatRoomClick = (roomId: number) => {
+    const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());
+    navigate(path);
+  };
   return (
     <SideBarListWrapper isOpened title="채팅방" count={chatRoomList.length}>
       {chatRoomList.map(
@@ -40,7 +50,11 @@ const SideBarChatList = () => {
           const participantList = [...participantProfileList].slice(0, 4);
 
           return (
-            <Styled.Wrapper key={id}>
+            <Styled.Wrapper
+              key={id}
+              onClick={() => handleChatRoomClick(id)}
+              $isSelected={roomId === id.toString()}
+            >
               <Styled.ChatRoomImg
                 src={imageUrl}
                 alt={`${title} 채팅방 이미지`}

@@ -1,6 +1,7 @@
 import {
   AUTH_PATH,
   BOARD_PATH,
+  CHAT_PATH,
   ROOT_PATH,
   SEARCH_PATH,
   SETTING_PATH,
@@ -20,6 +21,7 @@ import BoardPage from '@/pages/board/board';
 import SettingPage from '@/pages/user/setting';
 import SearchPage from '@/pages/search';
 import WithNavBarLayout from '@/components/@layout/WithNavBarLayout';
+import ChatRoomPage from '@/pages/chat/ChatRoom';
 
 export default function AppRouter() {
   const router = createBrowserRouter([
@@ -56,6 +58,10 @@ export default function AppRouter() {
         {
           element: <WithNavBarLayout />,
           children: [
+            {
+              path: CHAT_PATH.CHAT_ROOM,
+              element: <ChatRoomPage />,
+            },
             {
               index: true,
               element: <HomePage />,

@@ -4,7 +4,13 @@ import { lineClamp } from '../SideBarChatList/SideBarChatList.styled';
 export const Wrapper = styled.li`
   display: flex;
   gap: 16px;
-  padding: 12px 0;
+  padding: 12px 24px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.White};
+  }
 `;
 
 export const FriendInfo = styled.div`

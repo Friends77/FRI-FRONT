@@ -3,14 +3,13 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.section<{ $isOpen: boolean }>`
   margin-bottom: ${({ $isOpen }) => $isOpen && '32px'};
-  padding: 0 24px;
 `;
 
 export const Title = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 7px 0;
+  padding: 7px 24px;
 `;
 
 export const Text = styled.p<{ $isOpen: boolean }>`
