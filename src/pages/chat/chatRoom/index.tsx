@@ -13,7 +13,7 @@ import {
 } from '@/types/chat';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 const ChatRoomPage = () => {
   const { roomId: roomIdQuery } = useParams();
@@ -32,15 +32,12 @@ const ChatRoomPage = () => {
     IPendingMessageItem[]
   >([]);
 
-  const [socketConnected, setSocketConnected] =
-    useRecoilState(socketConnectedAtom);
+  const socketConnected = useRecoilValue(socketConnectedAtom);
   const sendMessageToServer = useRecoilValue(sendMessageHandlerAtom);
   const myProfile = useRecoilValue(profileAtom);
 
   // TODO: 테스트 후, 제거 예정
-  useWebSocket({
-    setSocketConnected,
-  });
+  useWebSocket();
 
   useMessageList({ roomId, setSentMessageList });
 

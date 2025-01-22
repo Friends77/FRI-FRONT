@@ -1,39 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useGetSecondaryToken } from './useGetSecondaryToken';
 import useMessageSubscription from './useMessageSubscription';
 import { useSetRecoilState } from 'recoil';
 import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
-
-interface IUseWebSocketProps {
-  setSocketConnected: (connected: boolean) => void;
-}
+import socketConnectedAtom from '@/recoil/chat/socketConnected';
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
 
-const useWebSocket = ({ setSocketConnected }: IUseWebSocketProps) => {
+const useWebSocket = () => {
   const { data: tokenResponse } = useGetSecondaryToken();
   const { notifySubscribers } = useMessageSubscription();
+  const setSocketConnected = useSetRecoilState(socketConnectedAtom);
   const setSendMessageHandler = useSetRecoilState(sendMessageHandlerAtom);
 
   const ws = useRef<WebSocket | null>(null);
   const pongTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [retryCount, setRetryCount] = useState(0);
+  const retryCountRef = useRef(0);
 
   useEffect(() => {
     if (tokenResponse) {
       connectWebSocket();
     }
-
-    return () => {
-      closeWebSocket();
-    };
   }, [tokenResponse]);
-
-  const closeWebSocket = () => {
-    clearPongTimer();
-    ws.current?.close();
-    ws.current = null;
-  };
 
   const connectWebSocket = () => {
     const webSocketUrl = `${websocketURL}/chat?token=${tokenResponse?.secondaryToken}`;
@@ -49,7 +37,7 @@ const useWebSocket = ({ setSocketConnected }: IUseWebSocketProps) => {
     console.log(ws.current?.readyState);
     runPongTimer();
     setSocketConnected(true);
-    setRetryCount(0);
+
     setSendMessageHandler(() => sendMessageToServer);
   };
 
@@ -62,8 +50,9 @@ const useWebSocket = ({ setSocketConnected }: IUseWebSocketProps) => {
     clearPongTimer();
     setSocketConnected(false);
 
-    if (retryCount < 1) {
-      setRetryCount((prev) => prev + 1);
+    if (retryCountRef.current < 1) {
+      console.log('handleClose', retryCountRef.current);
+      retryCountRef.current += 1;
       setTimeout(() => connectWebSocket(), 1000);
     }
   };
