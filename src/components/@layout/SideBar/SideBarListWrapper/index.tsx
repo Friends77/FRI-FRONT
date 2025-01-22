@@ -21,7 +21,7 @@ const SideBarListWrapper = ({
   };
   return (
     <Styled.Wrapper $isOpen={isOpen}>
-      <Styled.Title>
+      <Styled.Title $isOpen={isOpen}>
         <Styled.Text $isOpen={isOpen}>{`${title} ${count}`}</Styled.Text>
         <Styled.MoreBtn onClick={handleIsOpenToggle}>
           <Styled.MoreIcon

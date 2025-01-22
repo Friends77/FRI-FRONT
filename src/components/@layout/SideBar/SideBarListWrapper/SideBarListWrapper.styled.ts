@@ -5,11 +5,15 @@ export const Wrapper = styled.section<{ $isOpen: boolean }>`
   margin-bottom: ${({ $isOpen }) => $isOpen && '32px'};
 `;
 
-export const Title = styled.div`
+export const Title = styled.div<{ $isOpen: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 7px 24px;
+  margin: 0 24px;
+  padding: 7px 0;
+
+  ${({ theme, $isOpen }) =>
+    !$isOpen && `border-bottom: 1px solid ${theme.colors.Gray_300}`};
 `;
 
 export const Text = styled.p<{ $isOpen: boolean }>`
