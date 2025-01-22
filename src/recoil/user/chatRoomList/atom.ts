@@ -1,7 +1,7 @@
-import { ChatRoomType } from '@/types/chat';
+import { IMyChatItem } from '@/types/chat';
 import { atom } from 'recoil';
 
-const chatRoomListAtom = atom<ChatRoomType[]>({
+const chatRoomListAtom = atom<IMyChatItem[]>({
   key: 'chatRoomList',
   default: [],
 });

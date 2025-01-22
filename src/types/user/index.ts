@@ -38,8 +38,6 @@ export interface IProfileResponse {
   imageUrl: string;
 }
 
-export type ProfileType = IProfileResponse;
-
 export interface IProfileSimpleResponse {
   memberId: number;
   nickname: string;

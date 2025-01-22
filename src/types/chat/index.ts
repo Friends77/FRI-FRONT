@@ -3,8 +3,7 @@ export interface IMyChatItem {
   id: number;
   title: string;
   imageUrl: string;
-  // TODO: 카테고리 타입 import
-  categoryIdList: any;
+  categoryIdList: number[];
   participantCount: number;
   participantProfileList: string[];
   lastMessage: string;
