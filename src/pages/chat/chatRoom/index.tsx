@@ -1,7 +1,6 @@
 import MessageInput from '@/components/chat/MessageInput';
 import MessageList from '@/components/chat/MessageList';
-import useEnterChatRoom from '@/hooks/chat/useEnterChatRoom';
-import useMessageList from '@/hooks/chat/useMessageList';
+import useGetPreviousMessage from '@/hooks/chat/useGetPreviousMessage';
 import useMessageSubscription from '@/hooks/chat/useMessageSubscription';
 import useWebSocket from '@/hooks/chat/useWebSocket';
 import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
@@ -40,13 +39,7 @@ const ChatRoomPage = () => {
   // TODO: 테스트 후, 제거 예정
   useWebSocket();
 
-  const { mutate: enterChatRoom } = useEnterChatRoom();
-
-  useEffect(() => {
-    enterChatRoom();
-  }, []);
-
-  useMessageList({ roomId, setSentMessageList });
+  useGetPreviousMessage({ roomId, setSentMessageList });
 
   const { subscribe } = useMessageSubscription();
 
@@ -109,9 +102,11 @@ const ChatRoomPage = () => {
 
     const { code, chatRoomId, senderId, clientMessageId } = message;
 
-    if (code === 200 && chatRoomId === roomId && clientMessageId) {
+    if (code === 200 && chatRoomId === roomId) {
       if (senderId === myProfile?.memberId) {
-        clearMessageTimer(clientMessageId);
+        if (clientMessageId) {
+          clearMessageTimer(clientMessageId);
+        }
         setPendingMessageList((prevList) =>
           prevList.filter(
             (message) => message.clientMessageId !== clientMessageId,

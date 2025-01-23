@@ -44,7 +44,7 @@ export const getChatList = async () => {
   return response.data;
 };
 
-export const enterChatRoom = async (roomId: string) => {
+export const enterChatRoom = async (roomId: number) => {
   const response = await AuthAxios.post(`/api/user/chat/room/${roomId}`);
 
   return response.data;
