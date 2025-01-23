@@ -53,7 +53,9 @@ const HomeChatListByTag = () => {
       <Styled.TitleNSwiperSection>
         <Styled.SubTitleSection>
           <Tag icon={tag.image} label={tag?.name} />
-          <Styled.SubTitle>이 포함된 채팅방을 추천해드릴게요</Styled.SubTitle>
+          <Styled.SubTitle>
+            태그가 포함된 채팅방을 추천해드릴게요
+          </Styled.SubTitle>
         </Styled.SubTitleSection>
         <Styled.SwiperSection>
           <PageNavigator
