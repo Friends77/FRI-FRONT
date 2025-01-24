@@ -39,7 +39,7 @@ export const ChatRoomSubtitle = styled.h5`
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
-export const ChatRoomTagSection = styled.section`
+export const ChatRoomTagSection = styled.ul`
   display: flex;
   gap: 6px;
   width: 100%;

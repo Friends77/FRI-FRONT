@@ -19,7 +19,11 @@ const PageNavigator = ({
   onClick,
 }: IpageNavigatorProps) => {
   return (
-    <Styled.Wrapper onClick={onClick} disabled={disabled}>
+    <Styled.Wrapper
+      onClick={onClick}
+      disabled={disabled}
+      $isDisabled={disabled}
+    >
       {direction === 'prev' ? (
         <ArrowLeft title="이전" width="6" height="12" />
       ) : (

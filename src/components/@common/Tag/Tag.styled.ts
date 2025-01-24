@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.li`
   display: flex;
   border: 1px solid ${({ theme }) => theme.colors.Gray_300};
   border-radius: 8px;

@@ -41,7 +41,7 @@ const HomeChatListByTag = () => {
   const { data: chatRooms } = useChatRoomsByTag(categoryIds[0]);
 
   // 태그 매칭
-  let tag = tags.find((tag) => tag.id === categoryIds[0])!;
+  const tag = tags.find((tag) => tag.id === categoryIds[0])!;
 
   // 추천 채팅방 없을 때
   if (!chatRooms) {

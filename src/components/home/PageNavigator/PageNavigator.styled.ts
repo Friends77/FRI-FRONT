@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.button`
+export const Wrapper = styled.button<{ $isDisabled: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,5 +8,5 @@ export const Wrapper = styled.button`
   height: 40px;
   border-radius: 999px;
   background-color: ${({ theme }) => theme.colors.Blue_50};
-  cursor: pointer;
+  cursor: ${({ $isDisabled }) => ($isDisabled ? 'default' : 'pointer')};
 `;

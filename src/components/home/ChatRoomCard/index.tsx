@@ -28,10 +28,7 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
         <Styled.ChatRoomTitle>{chatRoom.title}</Styled.ChatRoomTitle>
         <Styled.ChatRoomSubtitle>채팅방 부제목 영역</Styled.ChatRoomSubtitle>
         <Styled.ChatRoomTagSection>
-          {chatRoom.categoryIdList.map((category, idx) => {
-            if (idx > 2) {
-              return;
-            }
+          {chatRoom.categoryIdList.slice(0, 3).map((category) => {
             const tag = tags.find((tags) => tags.id === category.id)!;
             return <Tag key={category.id} icon={tag.image} label={tag.name} />;
           })}
