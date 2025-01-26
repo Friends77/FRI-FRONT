@@ -23,7 +23,6 @@ import BoardPage from '@/pages/board/board';
 import SettingPage from '@/pages/user/setting';
 import SearchPage from '@/pages/search';
 import WithNavBarLayout from '@/components/@layout/WithNavBarLayout';
-import ChatRoomPage from '@/pages/chat/ChatRoom';
 
 export default function AppRouter() {
   const router = createBrowserRouter([

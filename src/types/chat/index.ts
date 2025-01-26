@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { IPaginationParams, IPaginationResponse } from '../@common';
 
 export interface ICreateChatRoomRequest {
@@ -14,8 +13,6 @@ export interface ISecondaryTokenResponse {
   secondaryToken: string;
 }
 
-=======
->>>>>>> 053ee204a19428dbf22c746d5cbd5db0da1505c6
 export interface IMyChatItem {
   chatRoomMemberId: number;
   id: number;
@@ -28,7 +25,6 @@ export interface IMyChatItem {
   lastMessageTime: string;
   unreadMessageCount: number;
 }
-<<<<<<< HEAD
 
 export type MessageType = 'TEXT' | 'IMAGE' | 'SYSTEM';
 
@@ -74,5 +70,3 @@ export interface IGetChatMessagesResponse extends IPaginationResponse {
 export interface ISendMessageHandler {
   (data: { [key: string]: string | number }): void;
 }
-=======
->>>>>>> 053ee204a19428dbf22c746d5cbd5db0da1505c6

@@ -1,5 +1,4 @@
 import AuthAxios from '@/apis/@core/authInstance';
-<<<<<<< HEAD
 import {
   ICreateChatRoomRequest,
   ICreateChatRoomResponse,
@@ -38,11 +37,6 @@ export const createChatRoom = async ({
   return response.data;
 };
 
-=======
-import { IMyChatItem } from '@/types/chat';
-import { createQueryParams } from '@/utils/formatter/queryParams';
-
->>>>>>> 053ee204a19428dbf22c746d5cbd5db0da1505c6
 export const getChatList = async (nickname?: string) => {
   const queryParams = createQueryParams({ nickname });
   const response = await AuthAxios.get<IMyChatItem[]>(
@@ -51,7 +45,6 @@ export const getChatList = async (nickname?: string) => {
 
   return response.data;
 };
-<<<<<<< HEAD
 
 export const enterChatRoom = async (roomId: number) => {
   const response = await AuthAxios.post(`/api/user/chat/room/${roomId}`);
@@ -84,5 +77,3 @@ export const getChatMessages = async ({
 
   return response.data;
 };
-=======
->>>>>>> 053ee204a19428dbf22c746d5cbd5db0da1505c6

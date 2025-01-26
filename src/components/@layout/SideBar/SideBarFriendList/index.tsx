@@ -1,7 +1,6 @@
 import useGetMyFriendList from '@/hooks/user/useGetMyFriendList';
 import SideBarListWrapper from '../SideBarListWrapper';
-import * as Styled from './SideBarFriendList.styled';
-import ProfileImage from '@/components/@common/ProfileImage';
+import SideBarFriendItem from '../SideBarFriendItem';
 
 const SideBarFriendList = () => {
   const {
@@ -11,19 +10,7 @@ const SideBarFriendList = () => {
   return (
     <SideBarListWrapper title="친구" count={content.length}>
       {content.map((friend) => (
-        <Styled.Wrapper key={friend.memberId}>
-          <ProfileImage
-            src={friend.imageUrl}
-            alt={`${friend.nickname} 프로필 이미지`}
-            size={56}
-          />
-          <Styled.FriendInfo>
-            <Styled.Nickname>{friend.nickname}</Styled.Nickname>
-            <Styled.SelfDescription>
-              {friend.selfDescription}
-            </Styled.SelfDescription>
-          </Styled.FriendInfo>
-        </Styled.Wrapper>
+        <SideBarFriendItem key={friend.memberId} friend={friend} />
       ))}
     </SideBarListWrapper>
   );

@@ -1,16 +1,13 @@
 import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
 import SideBarListWrapper from '../SideBarListWrapper';
-import { formatToHHMM } from '@/utils/formatter/time';
-import { v4 as uuidv4 } from 'uuid';
-import * as Styled from './SideBarChatList.styled';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import chatRoomListAtom from '@/recoil/user/chatRoomList';
-import ProfileImage from '@/components/@common/ProfileImage';
 import { useFormContext } from 'react-hook-form';
 import useDebounce from '@/hooks/@common/useDebounce';
 import { useNavigate, useParams } from 'react-router';
 import { CHAT_PATH } from '@/constants/routes';
+import SideBarChatRoomItem from '../SideBarChatRoomItem';
 
 const SideBarChatList = () => {
   const { roomId } = useParams();
@@ -30,73 +27,23 @@ const SideBarChatList = () => {
     }
   }, [data, setChatRoomList]);
 
-  const handleChatRoomClick = (roomId: number) => {
-    const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());
-    navigate(path);
-  };
+  const handleChatRoomClick = useCallback(
+    (roomId: number) => {
+      const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());
+      navigate(path);
+    },
+    [navigate],
+  );
   return (
     <SideBarListWrapper isOpened title="채팅방" count={chatRoomList.length}>
-      {chatRoomList.map(
-        ({
-          id,
-          imageUrl,
-          title,
-          lastMessage,
-          lastMessageTime,
-          unreadMessageCount,
-          participantCount,
-          participantProfileList,
-        }) => {
-          const participantList = [...participantProfileList].slice(0, 4);
-
-          return (
-            <Styled.Wrapper
-              key={id}
-              onClick={() => handleChatRoomClick(id)}
-              $isSelected={roomId === id.toString()}
-            >
-              <Styled.ChatRoomImg
-                src={imageUrl}
-                alt={`${title} 채팅방 이미지`}
-              />
-              <Styled.ChatRoomInfo>
-                <Styled.TitleAndTime>
-                  <Styled.Title>{title}</Styled.Title>
-                  <Styled.Time dateTime={lastMessageTime}>
-                    {formatToHHMM(lastMessageTime)}
-                  </Styled.Time>
-                </Styled.TitleAndTime>
-                <Styled.Message>{lastMessage}</Styled.Message>
-                <Styled.ParticipantList>
-                  {participantList.map((imgUrl, index) => (
-                    <Styled.ParticipantItem key={uuidv4()} $index={index}>
-                      <ProfileImage
-                        src={imgUrl}
-                        alt="참여 유저 프로필 이미지"
-                        size={24}
-                      />
-                    </Styled.ParticipantItem>
-                  ))}
-                  {participantCount > 4 && (
-                    <Styled.ParticipantItem $index={4}>
-                      <Styled.ParticipantCount>
-                        <span>{participantCount - 4}</span>
-                      </Styled.ParticipantCount>
-                    </Styled.ParticipantItem>
-                  )}
-                </Styled.ParticipantList>
-                {!!unreadMessageCount && (
-                  <Styled.UnreadCountContainer>
-                    <span>
-                      {unreadMessageCount > 99 ? '+99' : unreadMessageCount}
-                    </span>
-                  </Styled.UnreadCountContainer>
-                )}
-              </Styled.ChatRoomInfo>
-            </Styled.Wrapper>
-          );
-        },
-      )}
+      {chatRoomList.map((chatRoom) => (
+        <SideBarChatRoomItem
+          key={chatRoom.id}
+          chatRoom={chatRoom}
+          isSelected={roomId === chatRoom.id.toString()}
+          onClick={handleChatRoomClick}
+        />
+      ))}
     </SideBarListWrapper>
   );
 };
