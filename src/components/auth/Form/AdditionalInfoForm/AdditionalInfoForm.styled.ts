@@ -32,7 +32,7 @@ export const AIFormMBTIOption = styled.section`
   justify-content: space-between;
 `;
 
-export const AIFormMBTILabel = styled.label`
+export const AIFormLabel = styled.label`
   ${({ theme }) => theme.typo.T2_B};
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
@@ -54,4 +54,15 @@ export const AIFormTagSection = styled.section`
 export const AIFormButtonSection = styled.section`
   display: flex;
   gap: 16px;
+`;
+
+export const AIFormCheckBoxSection = styled.section`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const AIFormColumnSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
