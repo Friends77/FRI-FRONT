@@ -6,6 +6,7 @@ const useGetMyChatList = (nickname?: string) => {
   return useSuspenseQuery({
     queryKey: CHAT_KEYS.CHAT_LIST(nickname),
     queryFn: () => getChatList(nickname),
+    staleTime: 5 * 60 * 1000,
   });
 };
 
