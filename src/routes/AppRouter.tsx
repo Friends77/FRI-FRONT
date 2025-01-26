@@ -15,6 +15,8 @@ import SignUpPage from '@/pages/auth/signUp';
 import NaverLoginCallbackPage from '@/pages/auth/callback/naver';
 import ResetPasswordPage from '@/pages/auth/resetPassword';
 import GoogleLoginCallback from '@/pages/auth/callback/google';
+import ChatRoomPage from '@/pages/chat/chatRoom';
+import ChatListPage from '@/pages/chat/chatList';
 import HomePage from '@/pages/home';
 import ProfilePage from '@/pages/user/profile';
 import BoardPage from '@/pages/board/board';
@@ -55,9 +57,19 @@ export default function AppRouter() {
           path: AUTH_PATH.RESET_PASSWORD,
           element: <ResetPasswordPage />,
         },
+
         {
           element: <WithNavBarLayout />,
           children: [
+            // TODO: 테스트 후, 삭제 예정
+            {
+              path: CHAT_PATH.CHAT_LIST,
+              element: <ChatListPage />,
+            },
+            {
+              path: CHAT_PATH.CHAT_ROOM,
+              element: <ChatRoomPage />,
+            },
             {
               path: CHAT_PATH.CHAT_ROOM,
               element: <ChatRoomPage />,

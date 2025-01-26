@@ -41,13 +41,13 @@ const LoginForm = () => {
             id="email"
             name="email"
             placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
-            rules={{
-              required: AUTH_ERROR_MSG.EMAIL_REQUIRED,
-              pattern: {
-                value: AUTH_PATTERN.EMAIL,
-                message: AUTH_ERROR_MSG.EMAIL_PATTERN,
-              },
-            }}
+            // rules={{
+            //   required: AUTH_ERROR_MSG.EMAIL_REQUIRED,
+            //   pattern: {
+            //     value: AUTH_PATTERN.EMAIL,
+            //     message: AUTH_ERROR_MSG.EMAIL_PATTERN,
+            //   },
+            // }}
           />
           <InputField
             type="password"
@@ -55,9 +55,9 @@ const LoginForm = () => {
             id="password"
             name="password"
             placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
-            rules={{
-              required: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
-            }}
+            // rules={{
+            //   required: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
+            // }}
           />
         </Styled.InputFields>
         <PrimaryButton>로그인</PrimaryButton>
