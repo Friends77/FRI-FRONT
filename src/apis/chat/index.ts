@@ -1,5 +1,6 @@
 import AuthAxios from '@/apis/@core/authInstance';
 import {
+  IChatRoomDetailResponse,
   ICreateChatRoomRequest,
   ICreateChatRoomResponse,
   IGetChatMessagesResponse,
@@ -8,6 +9,7 @@ import {
   ISecondaryTokenResponse,
 } from '@/types/chat';
 
+// 채팅방 생성
 export const createChatRoom = async ({
   title,
   categoryIdList,
@@ -36,6 +38,7 @@ export const createChatRoom = async ({
   return response.data;
 };
 
+// 참여 중인 채팅방 목록 조회
 export const getChatList = async () => {
   const response = await AuthAxios.get<IMyChatListResponse>(
     '/api/user/chat/room',
@@ -44,12 +47,14 @@ export const getChatList = async () => {
   return response.data;
 };
 
+// 채팅방 입장
 export const enterChatRoom = async (roomId: number) => {
   const response = await AuthAxios.post(`/api/user/chat/room/${roomId}`);
 
   return response.data;
 };
 
+// 채팅 웹소켓 연결을 위한 secondary token 발급
 export const getSecondaryToken = async () => {
   const response = await AuthAxios.get<ISecondaryTokenResponse>(
     '/api/user/secondaryToken',
@@ -58,6 +63,7 @@ export const getSecondaryToken = async () => {
   return response.data;
 };
 
+// 이전 메세지 조회
 export const getChatMessages = async ({
   roomId,
   size,
@@ -71,6 +77,15 @@ export const getChatMessages = async ({
         lastMessageId,
       },
     },
+  );
+
+  return response.data;
+};
+
+// 채팅방 상세정보 조회
+export const getChatRoomDetail = async (roomId: number) => {
+  const response = await AuthAxios.get<IChatRoomDetailResponse>(
+    `/api/user/chat/room/${roomId}`,
   );
 
   return response.data;

@@ -5,3 +5,10 @@ export interface IPaginationParams {
 export interface IPaginationResponse {
   hasNext: boolean;
 }
+
+export interface IInterestCategoryItem {
+  id: number;
+  name: string;
+  type: string;
+  image: string | null;
+}

@@ -6,4 +6,5 @@ export const CHAT_KEYS = Object.freeze({
   SECONDARY_TOKEN: ['secondary-token'],
   CHAT_LIST: ['chat-list'],
   CHAT_MESSAGES: (roomId: number) => ['chat-messages', roomId],
+  CHAT_DETAIL: (roomId: number) => ['chat-detail', roomId],
 });

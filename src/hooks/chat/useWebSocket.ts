@@ -37,7 +37,6 @@ const useWebSocket = () => {
     console.log(ws.current?.readyState);
     runPongTimer();
     setSocketConnected(true);
-
     setSendMessageHandler(() => sendMessageToServer);
   };
 

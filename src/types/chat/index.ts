@@ -1,4 +1,8 @@
-import { IPaginationParams, IPaginationResponse } from '../@common';
+import {
+  IInterestCategoryItem,
+  IPaginationParams,
+  IPaginationResponse,
+} from '../@common';
 
 export interface ICreateChatRoomRequest {
   title: string;
@@ -28,7 +32,15 @@ export interface IMyChatListResponse extends IPaginationResponse {
   content: IMyChatItem[];
 }
 
-export type MessageType = 'TEXT' | 'IMAGE' | 'SYSTEM';
+export type MessageType =
+  | 'TEXT'
+  | 'IMAGE'
+  | 'SYSTEM'
+  | 'SYSTEM_MEMBER_ENTER'
+  | 'SYSTEM_MEMBER_LEAVE'
+  | 'SYSTEM_NEW_MANAGER';
+
+export type MyMessageType = 'TEXT' | 'IMAGE';
 
 export interface IPendingMessageItem {
   clientMessageId: string;
@@ -42,12 +54,11 @@ export interface ISentMessageItem {
   code: number;
   clientMessageId?: string;
   chatRoomId: number;
-  messageId: number;
+  messageId?: number;
   type: MessageType;
-  senderId: number;
+  senderId?: number;
   content: string;
-  createdAt: string;
-  status: 'pending' | 'sent';
+  createdAt: number;
 }
 
 export interface IChatRoomInfo {
@@ -71,4 +82,33 @@ export interface IGetChatMessagesResponse extends IPaginationResponse {
 
 export interface ISendMessageHandler {
   (data: { [key: string]: string | number }): void;
+}
+
+export interface IChatRoomDetailResponse {
+  id: number;
+  title: string;
+  imageUrl: string;
+  categoryIdList: IInterestCategoryItem[];
+  participantCount: number;
+  likeCount: number;
+  isLike: boolean;
+}
+
+export interface ISendMyMessageForm {
+  messageType: MyMessageType;
+  imagePath?: string;
+}
+
+export interface IMessageUtil {
+  currentMessage: ISentMessageItem;
+  index: number;
+}
+
+export interface IPrevMessageUtil extends IMessageUtil {
+  prevMessage: ISentMessageItem;
+}
+
+export interface INextMessageUtil extends IMessageUtil {
+  nextMessage: ISentMessageItem;
+  length: number;
 }
