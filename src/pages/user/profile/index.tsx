@@ -11,6 +11,7 @@ import ImagePicker from '@/components/auth/ImagePicker';
 import InputField from '@/components/auth/InputField';
 import { GENDER } from '@/constants/gender';
 import { EI, FT, JP, NS } from '@/constants/mbti';
+import { AUTH_ERROR_MSG } from '@/constants/message';
 import { BIRTH_YEAR } from '@/constants/year';
 import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
 import { useProfile } from '@/hooks/user/useProfile';
@@ -25,15 +26,41 @@ import {
   useForm,
 } from 'react-hook-form';
 import * as Styled from './ProfilePage.styled';
-import { AUTH_ERROR_MSG } from '@/constants/message';
+import { AUTH_PATTERN } from '@/constants/pattern';
+import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
 
 const ProfilePage = () => {
   const [categoryOptions, setCategoryOptions] = useState<Options[]>([]);
   const [selectedTags, setSelectedTags] = useState<Options[]>([]);
 
+  // 닉네임 변경하기 버튼 클릭 여부 상태
+  const [hasClickedEdit, setHasClickedEdit] = useState(false);
+
   // 사용자 정보 조회 및 MBTI 재가공
   const { data: userData } = useProfile();
   const letters = userData.mbti.split('');
+
+  // 닉네임 유효성 검사
+  const { mutateAsync: verifyNickname } = useCheckAvailability();
+
+  const handleVerifyNicknameValidate = async (value: string) => {
+    const { isValid, message } = await verifyNickname({
+      type: 'nickname',
+      value,
+    });
+
+    // 원래 닉네임과 같으면 유효성 검사 실시하지 않음
+    if (userData.nickname !== value && !isValid) {
+      return message;
+    }
+
+    return true;
+  };
+
+  const handleEditNickname = () => {
+    alert('닉네임이 변경되었습니다! 저장을 완료해주세요.');
+    setHasClickedEdit(true);
+  };
 
   // 카테고리 조회
   const { data: categories } = useFetchCategory();
@@ -72,6 +99,7 @@ const ProfilePage = () => {
   const methods = useForm({
     mode: 'onChange',
     defaultValues: {
+      nickname: userData.nickname,
       imageUrl: userData.imageUrl,
       selfDescription: userData.selfDescription,
       birth: +userData.birth.substring(0, 4),
@@ -89,11 +117,16 @@ const ProfilePage = () => {
     reset,
     handleSubmit,
     formState: { isValid, isDirty },
+    getFieldState,
   } = methods;
 
   // 프로필 수정 react-query
   const { mutate } = useMutation({
     mutationFn: updateProfile,
+    onSuccess: () => {
+      alert('변경 되었습니다.');
+      location.reload();
+    },
   });
 
   const onSubmit: SubmitHandler<UpdateProfileDataType> = (data) => {
@@ -122,8 +155,42 @@ const ProfilePage = () => {
           <Styled.ProfilePageInnerContainer>
             <Styled.ProfilePageContentSection>
               <Styled.ProfilePageImageContainer>
-                <ImagePicker name="imageUrl" />
+                <ImagePicker name="imageUrl" usage="myPage" />
               </Styled.ProfilePageImageContainer>
+              <Styled.ProfilePageInputContainer>
+                <Styled.ProfilePageLabel>닉네임</Styled.ProfilePageLabel>
+                <Styled.NickNameSection>
+                  <InputField
+                    isRequired={true}
+                    name="nickname"
+                    width="774px"
+                    placeholder="닉네임을 입력해주세요"
+                    isErrorMsgRelative={true}
+                    rules={{
+                      required: {
+                        value: true,
+                        message: AUTH_ERROR_MSG.NICKNAME_REQUIRED,
+                      },
+                      pattern: {
+                        value: AUTH_PATTERN.NICKNAME,
+                        message: AUTH_ERROR_MSG.NICKNAME_PATTERN,
+                      },
+                      validate: handleVerifyNicknameValidate,
+                    }}
+                  />
+                  <Styled.UpdateNickNameBtn
+                    type="button"
+                    disabled={
+                      // 변경 되었거나 유효한 닉네임일 때만 버튼 활성화
+                      !getFieldState('nickname').isDirty ||
+                      getFieldState('nickname').invalid
+                    }
+                    onClick={handleEditNickname}
+                  >
+                    변경하기
+                  </Styled.UpdateNickNameBtn>
+                </Styled.NickNameSection>
+              </Styled.ProfilePageInputContainer>
               <Styled.ProfilePageInputContainer>
                 <Styled.ProfilePageLabel $isRequired={true}>
                   한 줄 소개&nbsp;
@@ -262,7 +329,10 @@ const ProfilePage = () => {
                 />
               </Styled.ProfilePageInputContainer>
               <Styled.ProfilePageButtonSection>
-                <PrimaryButton type="submit" disabled={!isValid || !isDirty}>
+                <PrimaryButton
+                  type="submit"
+                  disabled={!isValid || !isDirty || !hasClickedEdit}
+                >
                   저장하기
                 </PrimaryButton>
               </Styled.ProfilePageButtonSection>

@@ -1,3 +1,4 @@
+import SecondaryButton from '@/components/@common/Button/SecondaryButton';
 import styled from 'styled-components';
 
 export const ProfilePageHeader = styled.h1`
@@ -42,6 +43,17 @@ export const ProfilePageLabel = styled.label<{ $isRequired?: boolean }>`
     position: absolute;
     color: ${({ theme }) => theme.colors.Alter_error};
   }
+`;
+
+export const NickNameSection = styled.article`
+  display: flex;
+  width: 100%;
+  gap: 16px;
+`;
+
+export const UpdateNickNameBtn = styled(SecondaryButton)`
+  height: 53px;
+  cursor: pointer;
 `;
 
 export const ProfilePageMBTIOption = styled.article`
