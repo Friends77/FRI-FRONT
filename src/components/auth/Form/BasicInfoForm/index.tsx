@@ -47,7 +47,7 @@ const BasicInfoForm = () => {
       <Styled.BasicInfoFormHeader>프로필 작성</Styled.BasicInfoFormHeader>
       <Styled.BasicInfoFormContentSection>
         <Styled.BasicInfoFormImagePickerSection>
-          <ImagePicker name="imageUrl" />
+          <ImagePicker name="imageUrl" usage="signUp" />
         </Styled.BasicInfoFormImagePickerSection>
         <InputField
           label="닉네임"

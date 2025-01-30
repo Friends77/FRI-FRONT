@@ -3,15 +3,25 @@ import defaultProfileImg from '@/assets/images/defaultProfile.png';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import * as Styled from './ImagePicker.styled';
+import { useImageUpload } from '@/hooks/@common/useImageUpload';
 
 export interface IImagePickerProps {
   name: string;
+  // usage: 사용처(회원가입, 마이페이지)
+  usage: 'signUp' | 'myPage';
 }
 
-const ImagePicker = ({ name }: IImagePickerProps) => {
+const ImagePicker = ({ name, usage }: IImagePickerProps) => {
   const { register, setValue } = useFormContext();
 
   const [pickedImage, setPickedImage] = useState<string | null>(null);
+
+  const { mutate: imageUpload } = useImageUpload({
+    onSuccessHandler: (path) => setValue(name, path, { shouldDirty: true }),
+    onErrorHandler: () => {
+      alert('이미지 업로드에 실패하였습니다!');
+    },
+  });
 
   const handleImageDelete = () => {
     setPickedImage(null);
@@ -32,7 +42,16 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
 
       fileReader.readAsDataURL(file);
 
-      setValue(name, e.target.value, { shouldDirty: true });
+      if (usage === 'signUp') {
+        // 회원가입인 경우
+        setValue(name, file);
+      } else {
+        // 프로필 수정인 경우
+        const formData = new FormData();
+        formData.append('image', file);
+
+        imageUpload(formData);
+      }
     }
   };
 
