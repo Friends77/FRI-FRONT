@@ -108,7 +108,7 @@ export const fetchCategory = async () => {
   return response.data;
 };
 
-export const signUp = async (formData: SignUpDataType) => {
+export const signUp = async (formData: FormData) => {
   const response = await Axios.post('/api/auth/register', formData);
 
   return response.data;
