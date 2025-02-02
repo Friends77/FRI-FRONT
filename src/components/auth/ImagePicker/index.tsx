@@ -1,20 +1,24 @@
 import camera from '@/assets/images/camera.png';
 import defaultProfileImg from '@/assets/images/defaultProfile.png';
-import { useState } from 'react';
+import { ReactEventHandler, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import * as Styled from './ImagePicker.styled';
 import { useImageUpload } from '@/hooks/@common/useImageUpload';
 
 export interface IImagePickerProps {
   name: string;
-  // usage: 사용처(회원가입, 마이페이지)
-  usage: 'signUp' | 'myPage';
+  usage: 'signUp' | 'myPage'; // usage: 사용처(회원가입, 마이페이지)
+  imageUrl: string;
 }
 
-const ImagePicker = ({ name, usage }: IImagePickerProps) => {
+const ImagePicker = ({ name, usage, imageUrl }: IImagePickerProps) => {
   const { register, setValue } = useFormContext();
 
-  const [pickedImage, setPickedImage] = useState<string | null>(null);
+  const [pickedImage, setPickedImage] = useState<string | null>(imageUrl);
+
+  const handleImgError: ReactEventHandler<HTMLImageElement> = (e) => {
+    setPickedImage(null);
+  };
 
   const { mutate: imageUpload } = useImageUpload({
     onSuccessHandler: (path) => setValue(name, path, { shouldDirty: true }),
@@ -60,6 +64,7 @@ const ImagePicker = ({ name, usage }: IImagePickerProps) => {
       <Styled.ImagePickerImageSection>
         <Styled.ImagePickerImagePreview
           src={pickedImage ? pickedImage : defaultProfileImg}
+          onError={handleImgError}
         />
         <label>
           <input
