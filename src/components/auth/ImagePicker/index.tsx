@@ -32,7 +32,7 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
 
       fileReader.readAsDataURL(file);
 
-      setValue('imageUrl', e.target.value);
+      setValue('imageUrl', file);
     }
   };
 

@@ -24,7 +24,7 @@ const SignUpPage = () => {
 
   // 회원가입 페이지 이동 시, signUpStep 값을 1로 초기화
   useEffect(() => {
-    setSignUpStep(2);
+    setSignUpStep(1);
   }, []);
 
   const methods = useForm<SignUpFormDataType>({
@@ -59,6 +59,7 @@ const SignUpPage = () => {
 
   const onSubmit: SubmitHandler<SignUpFormDataType> = (data) => {
     const {
+      imageUrl,
       year,
       month,
       day,
@@ -68,22 +69,25 @@ const SignUpPage = () => {
       JP,
       'confirm-password': _,
       certno,
-      ...filteredData
+      ...formFields
     } = data;
 
-    const formData = {
-      ...filteredData,
+    const requestPayload = {
+      ...formFields,
       authToken,
       birth: `${year}-${month}-${day}`,
       mbti: `${EI}${NS}${FT}${JP}`,
-      imageUrl: '',
       location: {
         latitude,
         longitude,
       },
     };
 
-    // mutate{formData);
+    const formData = new FormData();
+    formData.append('registerRequestDto', JSON.stringify(requestPayload));
+    formData.append('profileImage', imageUrl);
+
+    mutate(formData);
   };
 
   const renderPage = () => {
