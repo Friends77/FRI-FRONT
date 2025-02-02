@@ -44,7 +44,6 @@ export interface IProfileResponse {
 export interface UpdateProfileFormDataType {
   imageUrl: string;
   selfDescription: string;
-  birth: number;
   gender: 'MAN' | 'WOMAN' | 'ETC';
   mbti?: string;
   interestTag?: (string | number)[];
@@ -56,6 +55,9 @@ export interface UpdateProfileFormDataType {
 
 // 폼 입력 데이터 타입
 export interface UpdateProfileDataType extends UpdateProfileFormDataType {
+  year: number;
+  month: number;
+  day: string;
   EI: string;
   NS: string;
   FT: string;
