@@ -11,7 +11,9 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import useMessageSubscription from './useMessageSubscription';
 import socketConnectedAtom from '@/recoil/chat/socketConnected';
-import useGetPreviousMessage from './useGetPreviousMessage';
+import chatMembersAtom from '@/recoil/chat/member';
+import useGetMemberProfile from './useGetMemberProfile';
+import useEnterChatRoom from './useEnterChatRoom';
 
 interface IUseMessageHandlerProps {
   roomId: number;
@@ -33,11 +35,13 @@ const useMessageHandler = ({
   const setSentMessageList = useSetRecoilState(sentMessageAtom);
   const setFailedMessageList = useSetRecoilState(failedMessageAtom);
   const sendMessageToServer = useRecoilValue(sendMessageHandlerAtom);
+  const setChatMembersAtom = useSetRecoilState(chatMembersAtom);
 
   const messageTimers = useRef<Map<string, NodeJS.Timeout>>(new Map());
   const [myMessageContent, setMyMessageContent] = useState('');
+  const [newMemberId, setNewMemberId] = useState<number | null>(null);
 
-  useGetPreviousMessage({ roomId, setSentMessageList });
+  useEnterChatRoom({ roomId, setSentMessageList, messageListRef });
 
   const { subscribe } = useMessageSubscription();
 
@@ -47,6 +51,8 @@ const useMessageHandler = ({
       return () => unsubscribe();
     }
   }, [myProfile]);
+
+  useGetMemberProfile({ roomId, memberId: newMemberId, setNewMemberId });
 
   const setMessageTimer = (clientMessageId: string) => {
     const timer = setTimeout(() => {
@@ -72,12 +78,11 @@ const useMessageHandler = ({
     if (socketConnected && roomId && myProfile) {
       await sendMyMessage({ messageType, imagePath });
 
-      if (messageListRef.current) {
+      const messageList = messageListRef.current;
+
+      if (messageList) {
         setTimeout(() => {
-          messageListRef.current?.scrollTo(
-            0,
-            messageListRef.current.scrollHeight,
-          );
+          messageList.scrollTo(0, messageList.scrollHeight);
         }, 0);
       }
     }
@@ -132,6 +137,16 @@ const useMessageHandler = ({
           ),
         );
       } else {
+        if (message.type === 'SYSTEM_MEMBER_ENTER') {
+          setNewMemberId(message.senderId as number);
+        }
+
+        if (message.type === 'SYSTEM_MEMBER_LEAVE') {
+          setChatMembersAtom((prevList) =>
+            prevList.filter((member) => message.senderId !== member.id),
+          );
+        }
+
         if (messageListRef.current) {
           const { scrollHeight, scrollTop, clientHeight } =
             messageListRef.current;

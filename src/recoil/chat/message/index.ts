@@ -1,3 +1,15 @@
-import { pendingMessageAtom, sentMessageAtom, failedMessageAtom } from './atom';
+import {
+  pendingMessageAtom,
+  sentMessageAtom,
+  failedMessageAtom,
+  selectedImageMessageAtom,
+} from './atom';
+import imageMessagesSelector from './imageMessagesSelector';
 
-export { pendingMessageAtom, sentMessageAtom, failedMessageAtom };
+export {
+  pendingMessageAtom,
+  sentMessageAtom,
+  failedMessageAtom,
+  selectedImageMessageAtom,
+  imageMessagesSelector,
+};

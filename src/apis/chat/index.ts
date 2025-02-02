@@ -1,8 +1,10 @@
 import AuthAxios from '@/apis/@core/authInstance';
 import {
+  IChatMemberProfileItem,
   IChatRoomDetailResponse,
   ICreateChatRoomRequest,
   ICreateChatRoomResponse,
+  IGetChatMemberRequest,
   IGetChatMessagesResponse,
   IGetChatMessagesType,
   IMyChatListResponse,
@@ -89,4 +91,30 @@ export const getChatRoomDetail = async (roomId: number) => {
   );
 
   return response.data;
+};
+
+// 채팅방 참여자 목록 조회
+export const getChatMemberList = async (roomId: number) => {
+  const response = await AuthAxios.get<IChatMemberProfileItem[]>(
+    `/api/user/chat/room/${roomId}/member`,
+  );
+
+  return response.data;
+};
+
+// 채팅방 사용자 프로필 조회
+export const getChatMember = async ({
+  roomId,
+  memberId,
+}: IGetChatMemberRequest) => {
+  const response = await AuthAxios.get<IChatMemberProfileItem>(
+    `/api/user/chat/room/${roomId}/member/${memberId}`,
+  );
+
+  return response.data;
+};
+
+// 채팅방 나가기
+export const exitChatRoom = async (roomId: number) => {
+  await AuthAxios.delete(`/api/user/chat/room/${roomId}`);
 };

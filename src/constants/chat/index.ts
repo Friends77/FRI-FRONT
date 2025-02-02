@@ -1,0 +1,4 @@
+export const CHAT_CONSTANT = Object.freeze({
+  MAX_VISIBLE_IMAGE_MESSAGES: 4,
+  MAX_VISIBLE_ALBUM_IMAGES: 8,
+});

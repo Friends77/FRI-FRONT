@@ -13,7 +13,7 @@ export const Wrapper = styled.nav`
   width: 72px;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.Gray_200};
-  z-index: 999;
+  z-index: 200;
 `;
 
 export const NavMenuList = styled.ul`

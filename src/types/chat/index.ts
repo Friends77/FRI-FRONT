@@ -112,3 +112,22 @@ export interface INextMessageUtil extends IMessageUtil {
   nextMessage: ISentMessageItem;
   length: number;
 }
+
+export interface IChatMemberProfileItem {
+  id: number;
+  nickname: string;
+  profileImageUrl: string;
+  friendshipStatusEnums: string;
+  isManager: boolean;
+  isMe: boolean;
+}
+
+export interface IGetChatMemberRequest {
+  roomId: number;
+  memberId: number;
+}
+
+export interface ISelectedImageMessageViewer {
+  selectedImageIndex: number;
+  message: ISentMessageItem | IPendingMessageItem | null;
+}

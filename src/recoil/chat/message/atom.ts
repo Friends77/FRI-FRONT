@@ -1,4 +1,8 @@
-import { IPendingMessageItem, ISentMessageItem } from '@/types/chat';
+import {
+  IPendingMessageItem,
+  ISelectedImageMessageViewer,
+  ISentMessageItem,
+} from '@/types/chat';
 import { atom } from 'recoil';
 
 export const pendingMessageAtom = atom<IPendingMessageItem[]>({
@@ -14,4 +18,12 @@ export const sentMessageAtom = atom<ISentMessageItem[]>({
 export const failedMessageAtom = atom<IPendingMessageItem[]>({
   key: 'failedMessageAtom',
   default: [],
+});
+
+export const selectedImageMessageAtom = atom<ISelectedImageMessageViewer>({
+  key: 'selectedImageMessageAtom',
+  default: {
+    selectedImageIndex: 0,
+    message: null,
+  },
 });

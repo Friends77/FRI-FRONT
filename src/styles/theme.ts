@@ -16,6 +16,7 @@ const typoCreator = (
 
 export const Theme = {
   colors: {
+    Black: '#000000',
     White: '#FFFFFF',
     Gray_100: '#FAFAFA',
     Gray_200: '#F2F2F2',

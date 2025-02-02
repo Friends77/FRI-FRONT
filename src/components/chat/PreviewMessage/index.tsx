@@ -13,7 +13,7 @@ const PreviewMessage = ({ message, onClick }: IPreviewMessage) => {
     <Styled.PreviewMessageContainer onClick={onClick}>
       <Styled.PreviewMessage>
         {message.type === 'TEXT' && message.content}
-        {message.type === 'IMAGE' && '사진이 도착했어요'}
+        {message.type === 'IMAGE' && '사진'}
         <ArrowDown title="메세지 보기" width="24" height="24" />
       </Styled.PreviewMessage>
     </Styled.PreviewMessageContainer>

@@ -7,9 +7,22 @@ interface IOtherMessageItemProps {
 
 export const OtherMessageItem = styled.li<IOtherMessageItemProps>`
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
   padding: ${({ $isSameTime, $isSameSender }) =>
     $isSameTime && $isSameSender ? '8px 24px 0' : '16px 24px 0'};
+`;
+
+export const SenderProfile = styled.div`
+  display: flex;
+`;
+
+export const SenderNickname = styled.div`
+  ${({ theme }) => theme.typo.B1_B};
+`;
+
+export const MessageContainer = styled.div`
+  display: flex;
+  align-items: flex-end;
 `;
 
 export const MessageContent = styled.p`
@@ -19,6 +32,33 @@ export const MessageContent = styled.p`
   padding: 6px 12px;
   border-radius: 0 12px 12px 12px;
   word-break: break-word;
+`;
+
+export const ImageMessageContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+export const ImageMessageButton = styled.button`
+  display: flex;
+`;
+
+export const DimmedImage = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.Black};
+  color: ${({ theme }) => theme.colors.White};
+  ${({ theme }) => theme.typo.B1_B};
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ImageMessageContent = styled.img`

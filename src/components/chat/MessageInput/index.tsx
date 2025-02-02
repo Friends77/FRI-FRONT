@@ -5,6 +5,7 @@ import { Theme } from '@/styles/theme';
 import { useMutation } from '@tanstack/react-query';
 import { imageUpload } from '@/apis/@common';
 import { ISendMyMessageForm } from '@/types/chat';
+import { useEffect, useRef, useState } from 'react';
 
 interface IMessageInputProps {
   value: string;
@@ -17,10 +18,21 @@ const MessageInput = ({
   setMyMessageContent,
   onSendMessage,
 }: IMessageInputProps) => {
+  const imagePathList = useRef<string[]>([]);
+  const imageMessageCount = useRef<number>(0);
+
   const { mutate } = useMutation({
     mutationFn: imageUpload,
     onSuccess: (path) => {
-      onSendMessage({ messageType: 'IMAGE', imagePath: path });
+      imagePathList.current = [...imagePathList.current, path];
+
+      if (imageMessageCount.current === imagePathList.current.length) {
+        console.log('성공', imagePathList.current);
+        onSendMessage({
+          messageType: 'IMAGE',
+          imagePath: imagePathList.current.join(','),
+        });
+      }
     },
     onError: (error) => {
       console.error(error);
@@ -45,12 +57,13 @@ const MessageInput = ({
     const { files } = e.target;
 
     if (files) {
-      if (files.length > 5) {
-        window.alert('최대 5장까지 업로드 가능합니다');
+      if (files.length > 20) {
+        window.alert('최대 20장까지 업로드 가능합니다');
         return;
       }
 
       for (let i = 0; i < files.length; i++) {
+        imageMessageCount.current = files.length;
         const formData = new FormData();
         formData.append('image', files[i]);
         mutate(formData);

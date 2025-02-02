@@ -23,6 +23,33 @@ export const MessageContent = styled.p`
   word-break: break-word;
 `;
 
+export const ImageMessageContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+export const ImageMessageButton = styled.button`
+  display: flex;
+`;
+
+export const DimmedImage = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.Black};
+  color: ${({ theme }) => theme.colors.White};
+  ${({ theme }) => theme.typo.B1_B};
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const ImageMessageContent = styled.img`
   width: 120px;
   height: 120px;
