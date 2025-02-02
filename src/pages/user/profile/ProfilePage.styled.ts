@@ -45,6 +45,11 @@ export const ProfilePageLabel = styled.label<{ $isRequired?: boolean }>`
   }
 `;
 
+export const ProfilePageBirthSection = styled.section`
+  display: flex;
+  gap: 8px;
+`;
+
 export const NickNameSection = styled.article`
   display: flex;
   width: 100%;

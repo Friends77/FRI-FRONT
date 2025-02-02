@@ -28,6 +28,8 @@ import {
 import * as Styled from './ProfilePage.styled';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
+import { BIRTH_MONTH } from '@/constants/month';
+import { getDaysInMonth } from '@/utils/date';
 
 const ProfilePage = () => {
   const [categoryOptions, setCategoryOptions] = useState<Options[]>([]);
@@ -38,7 +40,11 @@ const ProfilePage = () => {
 
   // 사용자 정보 조회 및 MBTI 재가공
   const { data: userData } = useProfile();
+  const birth = userData.birth.split('-');
   const letters = userData.mbti.split('');
+
+  // 사용자의 생월, 생일에 해당하는 일 세팅
+  const [days, setDays] = useState(getDaysInMonth(+birth[0], +birth[1]));
 
   // 닉네임 유효성 검사
   const { mutateAsync: verifyNickname } = useCheckAvailability();
@@ -60,6 +66,20 @@ const ProfilePage = () => {
   const handleEditNickname = () => {
     alert('닉네임이 변경되었습니다! 저장을 완료해주세요.');
     setHasClickedEdit(true);
+  };
+
+  const handleSelectBirthYM = () => {
+    // 출생년도나 생월의 값이 변경되면 생일의 값을 1로 초기화
+    setValue('day', '01');
+
+    // 사용자가 선택한 출생년도
+    const year = getValues('year');
+
+    // 사용자가 선택한 생월
+    const month = getValues('month');
+
+    // 날짜 select에 날짜 세팅
+    setDays(getDaysInMonth(year, month));
   };
 
   // 카테고리 조회
@@ -102,7 +122,9 @@ const ProfilePage = () => {
       nickname: userData.nickname,
       imageUrl: userData.imageUrl,
       selfDescription: userData.selfDescription,
-      birth: +userData.birth.substring(0, 4),
+      year: +birth[0],
+      month: +birth[1],
+      day: birth[2],
       gender: userData.gender,
       EI: letters[0],
       NS: letters[1],
@@ -116,6 +138,8 @@ const ProfilePage = () => {
     control,
     reset,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { isValid, isDirty },
     getFieldState,
   } = methods;
@@ -130,12 +154,13 @@ const ProfilePage = () => {
   });
 
   const onSubmit: SubmitHandler<UpdateProfileDataType> = (data) => {
-    const { EI, FT, JP, NS, tags, ...filteredData } = data;
+    const { year, month, day, EI, FT, JP, NS, tags, ...filteredData } = data;
 
     const selectedTags = tags?.map((option) => option.value);
 
     const formData = {
       ...filteredData,
+      birth: `${year}-${month}-${day}`,
       mbti: `${EI}${NS}${FT}${JP}`,
       interestTag: selectedTags,
       location: {
@@ -155,7 +180,11 @@ const ProfilePage = () => {
           <Styled.ProfilePageInnerContainer>
             <Styled.ProfilePageContentSection>
               <Styled.ProfilePageImageContainer>
-                <ImagePicker name="imageUrl" usage="myPage" />
+                <ImagePicker
+                  name="imageUrl"
+                  usage="myPage"
+                  imageUrl={userData.imageUrl}
+                />
               </Styled.ProfilePageImageContainer>
               <Styled.ProfilePageInputContainer>
                 <Styled.ProfilePageLabel>닉네임</Styled.ProfilePageLabel>
@@ -183,7 +212,8 @@ const ProfilePage = () => {
                     disabled={
                       // 변경 되었거나 유효한 닉네임일 때만 버튼 활성화
                       !getFieldState('nickname').isDirty ||
-                      getFieldState('nickname').invalid
+                      getFieldState('nickname').invalid ||
+                      hasClickedEdit
                     }
                     onClick={handleEditNickname}
                   >
@@ -213,23 +243,63 @@ const ProfilePage = () => {
                 <Styled.ProfilePageLabel $isRequired={false}>
                   나이(출생년도)
                 </Styled.ProfilePageLabel>
-                <Controller
-                  name="birth"
-                  control={control}
-                  render={({ field }) => (
-                    <Dropdown
-                      {...field}
-                      width="892px"
-                      name="birth"
-                      options={BIRTH_YEAR}
-                      placeholder="출생년도를 선택해주세요"
-                      value={BIRTH_YEAR.find(
-                        (year) => year.value === field.value,
-                      )}
-                      onChange={(e) => field.onChange(e.value)}
-                    />
-                  )}
-                />
+                <Styled.ProfilePageBirthSection>
+                  <Controller
+                    name="year"
+                    control={control}
+                    render={({ field }) => (
+                      <Dropdown
+                        {...field}
+                        width="442px"
+                        name="year"
+                        options={BIRTH_YEAR}
+                        placeholder="출생년도를 선택해주세요"
+                        value={BIRTH_YEAR.find(
+                          (year) => year.value === field.value,
+                        )}
+                        onChange={(e) => {
+                          field.onChange(e.value);
+                          handleSelectBirthYM();
+                        }}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="month"
+                    control={control}
+                    render={({ field }) => (
+                      <Dropdown
+                        {...field}
+                        width="217px"
+                        name="month"
+                        options={BIRTH_MONTH}
+                        placeholder="월"
+                        value={BIRTH_MONTH.find(
+                          (month) => +month.value === field.value,
+                        )}
+                        onChange={(e) => {
+                          field.onChange(e.value);
+                          handleSelectBirthYM();
+                        }}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name="day"
+                    control={control}
+                    render={({ field }) => (
+                      <Dropdown
+                        {...field}
+                        width="217px"
+                        name="day"
+                        options={days}
+                        placeholder="일"
+                        value={days.find((day) => day.value === field.value)}
+                        onChange={(e) => field.onChange(e.value)}
+                      />
+                    )}
+                  />
+                </Styled.ProfilePageBirthSection>
               </Styled.ProfilePageInputContainer>
               <Styled.ProfilePageInputContainer>
                 <Styled.ProfilePageLabel $isRequired={false}>
@@ -331,7 +401,11 @@ const ProfilePage = () => {
               <Styled.ProfilePageButtonSection>
                 <PrimaryButton
                   type="submit"
-                  disabled={!isValid || !isDirty || !hasClickedEdit}
+                  disabled={
+                    !isValid ||
+                    !isDirty ||
+                    (getFieldState('nickname').isDirty && !hasClickedEdit)
+                  }
                 >
                   저장하기
                 </PrimaryButton>
