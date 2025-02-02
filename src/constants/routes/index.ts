@@ -10,6 +10,11 @@ export const AUTH_PATH = Object.freeze({
   RESET_PASSWORD: '/reset-password',
 });
 
+export const CHAT_PATH = Object.freeze({
+  CHAT_LIST: '/chat',
+  CHAT_ROOM: '/chat/room/:roomId',
+});
+
 export const USER_PATH = Object.freeze({
   PROFILE: '/profile',
 });

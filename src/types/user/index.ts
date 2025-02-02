@@ -13,6 +13,7 @@ export interface InterestTag {
 }
 
 export interface IProfileResponse {
+  memberId: number;
   nickname: string;
   email: string;
   birth: string;
