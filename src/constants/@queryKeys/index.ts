@@ -9,3 +9,7 @@ export const CHAT_KEYS = Object.freeze({
     keyword ? ['chat-list'] : ['chat-list', keyword],
   CHAT_MESSAGES: (roomId: number) => ['chat-messages', roomId],
 });
+
+export const HOME_KEYS = Object.freeze({
+  RECOMMENDED_ROOMS_BY_TAGS: ['chat-rooms-by-tag'],
+});
