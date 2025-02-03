@@ -6,7 +6,6 @@ export const Wrapper = styled.aside<{ $isOpen: boolean }>`
   left: 72px;
   display: flex;
   flex-direction: column;
-  padding: 0 24px;
   width: 400px;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.Gray_100};
@@ -16,4 +15,8 @@ export const Wrapper = styled.aside<{ $isOpen: boolean }>`
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
   z-index: 888;
+`;
+
+export const Container = styled.div`
+  overflow-y: auto;
 `;
