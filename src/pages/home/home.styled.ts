@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ChatRoomByTagSection = styled.section`
   width: 865px;
-  height: 458px;
+  height: 904px;
 `;
 
 export const ChatRoomByTagTitleSection = styled.section`

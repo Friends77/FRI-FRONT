@@ -7,5 +7,6 @@ export interface IChatRoomByTagResponse {
     categoryIdList: { id: number }[];
     participantCount: number;
     participantProfileList: string[];
+    description: string;
   }[];
 }

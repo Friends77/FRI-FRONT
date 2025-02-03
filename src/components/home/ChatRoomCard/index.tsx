@@ -16,6 +16,7 @@ export interface IChatRoomCardProps {
   }[];
   participantCount: number;
   participantProfileList: string[];
+  description: string;
 }
 
 const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
@@ -26,7 +27,9 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
       </Styled.ImageContainer>
       <Styled.ChatRoomInfoContainer>
         <Styled.ChatRoomTitle>{chatRoom.title}</Styled.ChatRoomTitle>
-        <Styled.ChatRoomSubtitle>채팅방 부제목 영역</Styled.ChatRoomSubtitle>
+        <Styled.ChatRoomSubtitle>
+          {chatRoom.description}
+        </Styled.ChatRoomSubtitle>
         <Styled.ChatRoomTagSection>
           {chatRoom.categoryIdList.slice(0, 3).map((category) => {
             const tag = tags.find((tags) => tags.id === category.id)!;
