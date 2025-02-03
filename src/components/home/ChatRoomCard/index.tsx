@@ -5,7 +5,9 @@
 
 import Tag from '@/components/@common/Tag';
 import * as Styled from './ChatRoomCard.styled';
-import { tags } from '@/constants/tag';
+import ProfileImage from '@/components/@common/ProfileImage';
+import { ParticipantCount } from '@/components/@layout/SideBar/SideBarChatRoomItem/SideBarChatRoomItem.styled';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface IChatRoomCardProps {
   id: number;
@@ -13,6 +15,9 @@ export interface IChatRoomCardProps {
   imageUrl: string;
   categoryIdList: {
     id: number;
+    name: string;
+    type: 'SUBJECT' | 'REGION';
+    image: string;
   }[];
   participantCount: number;
   participantProfileList: string[];
@@ -20,6 +25,9 @@ export interface IChatRoomCardProps {
 }
 
 const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
+  // 참여 유저 4명 자르기
+  const participantList = [...chatRoom.participantProfileList].slice(0, 4);
+
   return (
     <Styled.Wrapper>
       <Styled.ImageContainer>
@@ -32,10 +40,33 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
         </Styled.ChatRoomSubtitle>
         <Styled.ChatRoomTagSection>
           {chatRoom.categoryIdList.slice(0, 3).map((category) => {
-            const tag = tags.find((tags) => tags.id === category.id)!;
-            return <Tag key={category.id} icon={tag.image} label={tag.name} />;
+            return (
+              <Tag
+                key={category.id}
+                icon={category.image}
+                label={category.name}
+              />
+            );
           })}
         </Styled.ChatRoomTagSection>
+        <Styled.ChatRoomPariticipantList>
+          {participantList.map((imageUrl, idx) => (
+            <Styled.ParticipantItem key={uuidv4()} $index={idx}>
+              <ProfileImage
+                src={imageUrl}
+                alt="참여 유저 프로필 이미지"
+                size={24}
+              />
+            </Styled.ParticipantItem>
+          ))}
+          {chatRoom.participantCount > 4 && (
+            <Styled.ParticipantItem $index={4}>
+              <ParticipantCount>
+                <span>{chatRoom.participantCount - 4}</span>
+              </ParticipantCount>
+            </Styled.ParticipantItem>
+          )}
+        </Styled.ChatRoomPariticipantList>
       </Styled.ChatRoomInfoContainer>
     </Styled.Wrapper>
   );

@@ -44,3 +44,18 @@ export const ChatRoomTagSection = styled.ul`
   gap: 6px;
   width: 100%;
 `;
+
+export const ChatRoomPariticipantList = styled.ul`
+  display: flex;
+`;
+
+export const ParticipantItem = styled.li<{ $index?: number }>`
+  margin-left: 8px;
+  position: absolute;
+  left: ${({ $index }) => $index && `${15 * $index}px`};
+  width: 24px;
+  height: 24px;
+  border: 1px solid ${({ theme }) => theme.colors.Gray_100};
+  border-radius: 999px;
+  background-color: ${({ theme }) => theme.colors.Gray_300};
+`;
