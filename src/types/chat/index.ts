@@ -54,7 +54,7 @@ export interface ISentMessageItem {
   code: number;
   clientMessageId?: string;
   chatRoomId: number;
-  messageId?: number;
+  messageId: number;
   type: MessageType;
   senderId?: number;
   content: string;
@@ -92,6 +92,8 @@ export interface IChatRoomDetailResponse {
   participantCount: number;
   likeCount: number;
   isLike: boolean;
+  lastMessageId: number;
+  lastReadMessageId: number;
 }
 
 export interface ISendMyMessageForm {

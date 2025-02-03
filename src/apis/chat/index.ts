@@ -51,9 +51,7 @@ export const getChatList = async () => {
 
 // 채팅방 입장
 export const enterChatRoom = async (roomId: number) => {
-  const response = await AuthAxios.post(`/api/user/chat/room/${roomId}`);
-
-  return response.data;
+  await AuthAxios.post(`/api/user/chat/room/${roomId}`);
 };
 
 // 채팅 웹소켓 연결을 위한 secondary token 발급

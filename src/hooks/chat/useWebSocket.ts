@@ -50,7 +50,6 @@ const useWebSocket = () => {
     setSocketConnected(false);
 
     if (retryCountRef.current < 1) {
-      console.log('handleClose', retryCountRef.current);
       retryCountRef.current += 1;
       setTimeout(() => connectWebSocket(), 1000);
     }

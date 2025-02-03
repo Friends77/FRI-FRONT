@@ -17,6 +17,7 @@ import ChatRoomAlbum from '@/components/chat/ChatRoomAlbum';
 import ImageViewer from '@/components/@common/ImageViewer';
 import { imageMessagesSelector } from '@/recoil/chat/message';
 import useChatRoomDrawer from '@/hooks/chat/useChatRoomDrawer';
+import useEnterChatRoom from '@/hooks/chat/useEnterChatRoom';
 const ChatRoomPage = () => {
   const { roomId: roomIdQuery } = useParams();
   const roomId = Number(roomIdQuery);
@@ -26,16 +27,15 @@ const ChatRoomPage = () => {
 
   const messageListRef = useRef<HTMLUListElement | null>(null);
 
+  const [isEnter, setIsEnter] = useState(false);
   const [isShowPreviewMessage, setIsShowPreviewMessage] = useState(false);
   const [previewMessage, setPreviewMessage] = useState<ISentMessageItem | null>(
     null,
   );
 
-  console.log(chatRoomDetail);
-
   // TODO: 테스트 후, 제거 예정
   useWebSocket();
-
+  useEnterChatRoom({ roomId, setIsEnter });
   useGetChatRoomDetail({ roomId });
   useGetChatMembers({ roomId });
 
@@ -49,7 +49,7 @@ const ChatRoomPage = () => {
 
   useScrollHandler({
     roomId,
-    lastMessageId: chatRoomDetail?.lastMessageId,
+    isEnter,
     messageListRef,
     setPreviewMessage,
     setIsShowPreviewMessage,

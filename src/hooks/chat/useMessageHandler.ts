@@ -13,7 +13,6 @@ import useMessageSubscription from './useMessageSubscription';
 import socketConnectedAtom from '@/recoil/chat/socketConnected';
 import chatMembersAtom from '@/recoil/chat/member';
 import useGetMemberProfile from './useGetMemberProfile';
-import useEnterChatRoom from './useEnterChatRoom';
 
 interface IUseMessageHandlerProps {
   roomId: number;
@@ -38,10 +37,9 @@ const useMessageHandler = ({
   const setChatMembersAtom = useSetRecoilState(chatMembersAtom);
 
   const messageTimers = useRef<Map<string, NodeJS.Timeout>>(new Map());
+
   const [myMessageContent, setMyMessageContent] = useState('');
   const [newMemberId, setNewMemberId] = useState<number | null>(null);
-
-  useEnterChatRoom({ roomId, setSentMessageList, messageListRef });
 
   const { subscribe } = useMessageSubscription();
 

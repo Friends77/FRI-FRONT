@@ -1,13 +1,14 @@
 import { sentMessageAtom } from '@/recoil/chat/message';
-import { ISentMessageItem } from '@/types/chat';
+import { IGetChatMessagesResponse, ISentMessageItem } from '@/types/chat';
 import throttle from '@/utils/throttle';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import useGetPreviousMessage from './useGetPreviousMessage';
+import roomDetailAtom from '@/recoil/chat/roomDetail';
 
 interface IUseScrollHandler {
   roomId: number;
-  lastMessageId: number | null;
+  isEnter: boolean;
   messageListRef: React.RefObject<HTMLUListElement>;
   setPreviewMessage: (message: ISentMessageItem | null) => void;
   setIsShowPreviewMessage: (isShow: boolean) => void;
@@ -15,19 +16,77 @@ interface IUseScrollHandler {
 
 const useScrollHandler = ({
   roomId,
-  lastMessageId,
+  isEnter,
   messageListRef,
   setPreviewMessage,
   setIsShowPreviewMessage,
 }: IUseScrollHandler) => {
+  const chatRoomDetail = useRecoilValue(roomDetailAtom);
   const [sentMessageList, setSentMessageList] = useRecoilState(sentMessageAtom);
   const [shouldFetchMessages, setShouldFetchMessages] = useState(false);
-  const [] = useState();
+  const [lastMsgId, setLastMsgId] = useState<number | null>(
+    chatRoomDetail?.lastMessageId || null,
+  );
 
   const { data: messagesResponse } = useGetPreviousMessage({
     roomId,
     shouldFetchMessages,
+    size: 20,
+    lastMessageId: lastMsgId || undefined,
   });
+
+  const updateSentMessages = async (
+    messagesResponse: IGetChatMessagesResponse,
+  ) => {
+    setLastMsgId(messagesResponse.content[0].messageId);
+
+    setSentMessageList((prevList) => [
+      ...messagesResponse.content,
+      ...prevList,
+    ]);
+  };
+
+  useEffect(() => {
+    if (chatRoomDetail) {
+      setLastMsgId(chatRoomDetail.lastMessageId);
+    }
+  }, [chatRoomDetail]);
+
+  useEffect(() => {
+    if (isEnter) {
+      setShouldFetchMessages(true);
+    }
+  }, [isEnter]);
+
+  useEffect(() => {
+    const loadMessagesAndScroll = async () => {
+      const messageList = messageListRef.current;
+
+      if (messagesResponse && messageList) {
+        let isFirst = sentMessageList.length === 0;
+
+        const scrollHeightBefore = messageList.scrollHeight;
+
+        await updateSentMessages(messagesResponse);
+
+        if (messageList) {
+          if (isFirst) {
+            messageList.scrollTo(0, messageList.scrollHeight);
+          }
+
+          if (!isFirst) {
+            requestAnimationFrame(() => {
+              messageList.scrollTop =
+                messageList.scrollHeight - scrollHeightBefore;
+            });
+          }
+        }
+      }
+    };
+
+    loadMessagesAndScroll();
+    setShouldFetchMessages(false);
+  }, [messagesResponse]);
 
   useEffect(() => {
     const messageList = messageListRef.current;
@@ -42,7 +101,7 @@ const useScrollHandler = ({
           setIsShowPreviewMessage(false);
         }
 
-        if (messageList.scrollTop === 0 && sentMessageList.length > 0) {
+        if (messageList.scrollTop === 0) {
           setShouldFetchMessages(true);
         }
       }
@@ -53,14 +112,7 @@ const useScrollHandler = ({
     return () => {
       messageList?.removeEventListener('scroll', handleScroll);
     };
-  }, [sentMessageList]);
-
-  useEffect(() => {
-    if (shouldFetchMessages && messagesResponse) {
-      console.log('##', messagesResponse);
-      setShouldFetchMessages(false);
-    }
-  }, [messagesResponse, shouldFetchMessages]);
+  }, []);
 };
 
 export default useScrollHandler;

@@ -27,7 +27,6 @@ const MessageInput = ({
       imagePathList.current = [...imagePathList.current, path];
 
       if (imageMessageCount.current === imagePathList.current.length) {
-        console.log('성공', imagePathList.current);
         onSendMessage({
           messageType: 'IMAGE',
           imagePath: imagePathList.current.join(','),
