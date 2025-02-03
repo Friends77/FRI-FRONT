@@ -4,7 +4,12 @@ export interface IChatRoomByTagResponse {
     id: number;
     title: string;
     imageUrl: string;
-    categoryIdList: { id: number }[];
+    categoryIdList: {
+      id: number;
+      name: string;
+      type: 'SUBJECT' | 'REGION';
+      image: string;
+    }[];
     participantCount: number;
     participantProfileList: string[];
     description: string;
