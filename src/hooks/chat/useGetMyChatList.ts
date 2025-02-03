@@ -1,11 +1,12 @@
 import { getChatList } from '@/apis/chat';
 import { CHAT_KEYS } from '@/constants/@queryKeys';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
-const useGetMyChatList = () => {
-  return useQuery({
-    queryKey: CHAT_KEYS.CHAT_LIST,
-    queryFn: getChatList,
+const useGetMyChatList = (nickname?: string) => {
+  return useSuspenseQuery({
+    queryKey: CHAT_KEYS.CHAT_LIST(nickname),
+    queryFn: () => getChatList(nickname),
+    staleTime: 5 * 60 * 1000,
   });
 };
 

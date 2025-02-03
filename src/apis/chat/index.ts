@@ -7,9 +7,10 @@ import {
   IGetChatMemberRequest,
   IGetChatMessagesResponse,
   IGetChatMessagesType,
-  IMyChatListResponse,
+  IMyChatItem,
   ISecondaryTokenResponse,
 } from '@/types/chat';
+import { createQueryParams } from '@/utils/formatter/queryParams';
 
 // 채팅방 생성
 export const createChatRoom = async ({
@@ -41,9 +42,11 @@ export const createChatRoom = async ({
 };
 
 // 참여 중인 채팅방 목록 조회
-export const getChatList = async () => {
-  const response = await AuthAxios.get<IMyChatListResponse>(
-    '/api/user/chat/room',
+export const getChatList = async (nickname?: string) => {
+  const queryParams = createQueryParams({ nickname });
+
+  const response = await AuthAxios.get<IMyChatItem[]>(
+    `/api/user/chat/room${queryParams}`,
   );
 
   return response.data;
