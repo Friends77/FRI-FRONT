@@ -14,6 +14,7 @@ export const OtherMessageItem = styled.li<IOtherMessageItemProps>`
 
 export const SenderProfile = styled.div`
   display: flex;
+  gap: 10px;
 `;
 
 export const SenderNickname = styled.div`
@@ -23,6 +24,7 @@ export const SenderNickname = styled.div`
 export const MessageContainer = styled.div`
   display: flex;
   align-items: flex-end;
+  margin-left: 46px;
 `;
 
 export const MessageContent = styled.p`

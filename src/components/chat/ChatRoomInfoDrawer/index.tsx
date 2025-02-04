@@ -11,6 +11,7 @@ import { useState } from 'react';
 import ConfirmModal from '@/components/@common/Modal/ConfirmModal';
 import useExitChatRoom from '@/hooks/chat/useExitChatRoom';
 import { useParams } from 'react-router';
+import ProfileImage from '@/components/@common/ProfileImage';
 
 interface IChatRoomInfoDrawer {
   isOpen: boolean;
@@ -110,7 +111,11 @@ const ChatRoomInfoDrawer = ({
           <Styled.MembersContent>
             {chatMemberList.map((member) => (
               <Styled.Member key={member.id}>
-                {/* TODO: 프로필 컴포넌트 머지되면 프로필 이미지 추가 */}
+                <ProfileImage
+                  size={32}
+                  src={member.profileImageUrl}
+                  alt="프로필 이미지"
+                />
                 <Styled.MemberName>{member.nickname}</Styled.MemberName>
                 {member.isManager && (
                   <Styled.ManagerTag>방장</Styled.ManagerTag>

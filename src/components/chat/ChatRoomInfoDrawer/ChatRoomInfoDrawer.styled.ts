@@ -101,12 +101,13 @@ export const MemberCount = styled.span`
 `;
 
 export const MembersContent = styled.ul`
-  padding: 16px;
+  padding: 16px 0;
 `;
 
 export const Member = styled.li`
   display: flex;
   align-items: center;
+  gap: 8px;
   padding: 11px 20px;
 `;
 

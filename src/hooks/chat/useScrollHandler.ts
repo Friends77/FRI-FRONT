@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import useGetPreviousMessage from './useGetPreviousMessage';
 import roomDetailAtom from '@/recoil/chat/roomDetail';
+import { CHAT_CONSTANT } from '@/constants/chat';
 
 interface IUseScrollHandler {
   roomId: number;
@@ -31,7 +32,7 @@ const useScrollHandler = ({
   const { data: messagesResponse } = useGetPreviousMessage({
     roomId,
     shouldFetchMessages,
-    size: 20,
+    size: CHAT_CONSTANT.DEFAULT_MESSAGE_SIZE,
     lastMessageId: lastMsgId || undefined,
   });
 

@@ -5,6 +5,7 @@ import { CHAT_CONSTANT } from '@/constants/chat';
 import { selectedImageMessageAtom } from '@/recoil/chat/message';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import chatMembersAtom from '@/recoil/chat/member';
+import ProfileImage from '@/components/@common/ProfileImage';
 
 interface IOtherMessageProps {
   message: ISentMessageItem;
@@ -37,7 +38,11 @@ const OtherMessage = ({
     >
       {senderProfile && (
         <Styled.SenderProfile>
-          {/* TODO: 프로필 컴포넌트 머지되면 프로필 이미지 추가 */}
+          <ProfileImage
+            size={36}
+            src={senderProfile.profileImageUrl}
+            alt="프로필 이미지"
+          />
           <Styled.SenderNickname>
             {senderProfile.nickname}
           </Styled.SenderNickname>
