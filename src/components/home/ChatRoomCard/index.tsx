@@ -1,0 +1,75 @@
+/**
+ * 채팅방 카드 컴포넌트
+ * @author 선우
+ */
+
+import Tag from '@/components/@common/Tag';
+import * as Styled from './ChatRoomCard.styled';
+import ProfileImage from '@/components/@common/ProfileImage';
+import { ParticipantCount } from '@/components/@layout/SideBar/SideBarChatRoomItem/SideBarChatRoomItem.styled';
+import { v4 as uuidv4 } from 'uuid';
+
+export interface IChatRoomCardProps {
+  id: number;
+  title: string;
+  imageUrl: string;
+  categoryIdList: {
+    id: number;
+    name: string;
+    type: 'SUBJECT' | 'REGION';
+    image: string;
+  }[];
+  participantCount: number;
+  participantProfileList: string[];
+  description: string;
+}
+
+const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
+  // 참여 유저 4명 자르기
+  const participantList = [...chatRoom.participantProfileList].slice(0, 4);
+
+  return (
+    <Styled.Wrapper>
+      <Styled.ImageContainer>
+        <Styled.ChatRoomThumbnail src={chatRoom.imageUrl} />
+      </Styled.ImageContainer>
+      <Styled.ChatRoomInfoContainer>
+        <Styled.ChatRoomTitle>{chatRoom.title}</Styled.ChatRoomTitle>
+        <Styled.ChatRoomSubtitle>
+          {chatRoom.description}
+        </Styled.ChatRoomSubtitle>
+        <Styled.ChatRoomTagSection>
+          {chatRoom.categoryIdList.slice(0, 3).map((category) => {
+            return (
+              <Tag
+                key={category.id}
+                icon={category.image}
+                label={category.name}
+              />
+            );
+          })}
+        </Styled.ChatRoomTagSection>
+        <Styled.ChatRoomPariticipantList>
+          {participantList.map((imageUrl, idx) => (
+            <Styled.ParticipantItem key={uuidv4()} $index={idx}>
+              <ProfileImage
+                src={imageUrl}
+                alt="참여 유저 프로필 이미지"
+                size={24}
+              />
+            </Styled.ParticipantItem>
+          ))}
+          {chatRoom.participantCount > 4 && (
+            <Styled.ParticipantItem $index={4}>
+              <ParticipantCount>
+                <span>{chatRoom.participantCount - 4}</span>
+              </ParticipantCount>
+            </Styled.ParticipantItem>
+          )}
+        </Styled.ChatRoomPariticipantList>
+      </Styled.ChatRoomInfoContainer>
+    </Styled.Wrapper>
+  );
+};
+
+export default ChatRoomCard;
