@@ -21,7 +21,7 @@ const useEnterChatRoom = ({ roomId, setIsEnter }: IUseMessageListProps) => {
 
   useEffect(() => {
     mutate();
-  }, []);
+  }, [roomId]);
 };
 
 export default useEnterChatRoom;

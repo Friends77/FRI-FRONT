@@ -16,8 +16,6 @@ const PreviewMessage = ({ message, onClick }: IPreviewMessage) => {
     (member) => member.id === message.senderId,
   );
 
-  console.log(chatMembers);
-
   return (
     <Styled.PreviewMessageContainer onClick={onClick}>
       <Styled.PreviewMessage>

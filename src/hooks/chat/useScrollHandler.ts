@@ -29,6 +29,10 @@ const useScrollHandler = ({
     chatRoomDetail?.lastMessageId || null,
   );
 
+  useEffect(() => {
+    setLastMsgId(null);
+  }, [roomId]);
+
   const { data: messagesResponse } = useGetPreviousMessage({
     roomId,
     shouldFetchMessages,
@@ -87,7 +91,7 @@ const useScrollHandler = ({
 
     loadMessagesAndScroll();
     setShouldFetchMessages(false);
-  }, [messagesResponse]);
+  }, [messagesResponse, roomId]);
 
   useEffect(() => {
     const messageList = messageListRef.current;

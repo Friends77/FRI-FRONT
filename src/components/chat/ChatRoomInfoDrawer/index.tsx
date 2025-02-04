@@ -48,7 +48,6 @@ const ChatRoomInfoDrawer = ({
   );
 
   const { mutate: exitChatRoom } = useExitChatRoom();
-
   const { data: userProfile } = useGetProfile(selectedProfileId);
 
   useEffect(() => {
