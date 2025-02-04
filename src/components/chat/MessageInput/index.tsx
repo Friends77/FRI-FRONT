@@ -33,8 +33,8 @@ const MessageInput = ({
         });
       }
     },
-    onError: (error) => {
-      console.error(error);
+    onError: () => {
+      alert('이미지 업로드에 실패하였습니다.');
     },
   });
 

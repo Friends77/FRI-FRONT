@@ -23,9 +23,9 @@ const ChatRoomAlbum = ({
         <Styled.Title>사진</Styled.Title>
       </Styled.Header>
       <Styled.AlbumContent>
-        {imageMessages.map((path) => (
+        {imageMessages.map((path, index) => (
           <Styled.AlbumImageButton
-            key={path}
+            key={`${path}-${index}`}
             onClick={() => onAlbumImageClick(path)}
           >
             <Styled.AlbumImage src={path} alt="사진" />

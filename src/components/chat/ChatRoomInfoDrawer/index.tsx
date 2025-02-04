@@ -120,8 +120,8 @@ const ChatRoomInfoDrawer = ({
             <Styled.AlbumContent>
               {imageMessages
                 .slice(-CHAT_CONSTANT.MAX_VISIBLE_ALBUM_IMAGES)
-                .map((path) => (
-                  <li key={path}>
+                .map((path, index) => (
+                  <li key={`${path}-${index}`}>
                     <Styled.AlbumImageButton
                       onClick={() => onAlbumImageClick(path)}
                     >

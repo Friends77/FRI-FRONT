@@ -115,7 +115,7 @@ const MyMessage = ({
               .slice(0, CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES)
               .map((path, index) => (
                 <Styled.ImageMessageButton
-                  key={path}
+                  key={`${path}-${index}`}
                   type="button"
                   onClick={() => handleImageMessageClick(index)}
                 >
