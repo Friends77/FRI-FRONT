@@ -1,5 +1,5 @@
 import {
-  IInterestCategoryItem,
+  IInterestTag,
   IPaginationParams,
   IPaginationResponse,
 } from '../@common';
@@ -86,7 +86,7 @@ export interface IChatRoomDetailResponse {
   id: number;
   title: string;
   imageUrl: string;
-  categoryIdList: IInterestCategoryItem[];
+  categoryIdList: IInterestTag[];
   participantCount: number;
   likeCount: number;
   isLike: boolean;

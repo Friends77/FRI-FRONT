@@ -7,11 +7,15 @@ import { CHAT_CONSTANT } from '@/constants/chat';
 import chatMembersAtom from '@/recoil/chat/member';
 import Exit from '@/components/@common/SVG/Icon/Exit';
 import Close from '@/components/@common/SVG/Icon/Close';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ConfirmModal from '@/components/@common/Modal/ConfirmModal';
 import useExitChatRoom from '@/hooks/chat/useExitChatRoom';
 import { useParams } from 'react-router';
 import ProfileImage from '@/components/@common/ProfileImage';
+import ProfileDialog from '@/components/@common/Modal/ProfileDialog';
+import useGetProfile from '@/hooks/@common/useGetProfile';
+import { IUserProfile } from '@/types/@common';
+import profileAtom from '@/recoil/user/profile';
 
 interface IChatRoomInfoDrawer {
   isOpen: boolean;
@@ -32,10 +36,26 @@ const ChatRoomInfoDrawer = ({
   const chatRoomDetail = useRecoilValue(roomDetailAtom);
   const imageMessages = useRecoilValue(imageMessagesSelector);
   const chatMemberList = useRecoilValue(chatMembersAtom);
+  const myProfile = useRecoilValue(profileAtom);
 
   const [isOpenExitModal, setIsOpenExitModal] = useState(false);
+  const [isOpenProfile, setIsOpenProfile] = useState(true);
+  const [selectedProfileId, setSelectedProfileId] = useState<number | null>(
+    null,
+  );
+  const [selectedProfile, setSelectedProfile] = useState<IUserProfile | null>(
+    null,
+  );
 
   const { mutate: exitChatRoom } = useExitChatRoom();
+
+  const { data: userProfile } = useGetProfile(selectedProfileId);
+
+  useEffect(() => {
+    if (userProfile) {
+      setSelectedProfile(userProfile);
+    }
+  }, [userProfile]);
 
   const handleOpenExitModal = () => {
     setIsOpenExitModal(true);
@@ -49,6 +69,17 @@ const ChatRoomInfoDrawer = ({
     setIsOpenExitModal(false);
   };
 
+  const handleOpenProfile = (memberId: number) => {
+    setSelectedProfileId(memberId);
+    setIsOpenProfile(true);
+  };
+
+  const handleCloseProfile = () => {
+    setSelectedProfileId(null);
+    setSelectedProfile(null);
+    setIsOpenProfile(false);
+  };
+
   return (
     <>
       {isOpenExitModal && (
@@ -58,6 +89,10 @@ const ChatRoomInfoDrawer = ({
           onConfirm={handleExitChatRoom}
           description="채팅방을 나가면 더 이상 메시지를 받을 수 없습니다."
         />
+      )}
+
+      {isOpenProfile && selectedProfile && (
+        <ProfileDialog profile={selectedProfile} onClose={handleCloseProfile} />
       )}
 
       <Styled.ChatRoomInfoDrawerContainer $isOpen={isOpen}>
@@ -111,12 +146,19 @@ const ChatRoomInfoDrawer = ({
           <Styled.MembersContent>
             {chatMemberList.map((member) => (
               <Styled.Member key={member.id}>
-                <ProfileImage
-                  size={32}
-                  src={member.profileImageUrl}
-                  alt="프로필 이미지"
-                />
-                <Styled.MemberName>{member.nickname}</Styled.MemberName>
+                <Styled.ShowProfileButton
+                  type="button"
+                  onClick={() => handleOpenProfile(member.id)}
+                >
+                  <ProfileImage
+                    size={32}
+                    src={member.profileImageUrl}
+                    alt="프로필 이미지"
+                  />
+                </Styled.ShowProfileButton>
+                <Styled.MemberName $isMe={myProfile?.memberId === member.id}>
+                  {myProfile?.memberId === member.id ? '나' : member.nickname}
+                </Styled.MemberName>
                 {member.isManager && (
                   <Styled.ManagerTag>방장</Styled.ManagerTag>
                 )}

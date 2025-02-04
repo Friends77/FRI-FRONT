@@ -1,5 +1,6 @@
 export const COMMON_KEYS = Object.freeze({
   CATEGORY: ['category'],
+  USER_PROFILE: (memberId: number) => ['user_profile', memberId],
 });
 
 export const USER_KEYS = Object.freeze({

@@ -1,8 +1,12 @@
 import ArrowDown from '@/components/@common/SVG/Icon/ArrowDown';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface IChatRoomInfoDrawerProps {
   $isOpen: boolean;
+}
+
+interface IMemberName {
+  $isMe: boolean;
 }
 
 export const ChatRoomInfoDrawerContainer = styled.aside<IChatRoomInfoDrawerProps>`
@@ -111,8 +115,19 @@ export const Member = styled.li`
   padding: 11px 20px;
 `;
 
-export const MemberName = styled.div`
-  ${({ theme }) => theme.typo.B1_R};
+export const ShowProfileButton = styled.button`
+  display: flex;
+`;
+
+export const MemberName = styled.div<IMemberName>`
+  ${({ $isMe }) =>
+    $isMe
+      ? css`
+          ${({ theme }) => theme.typo.B1_B};
+        `
+      : css`
+          ${({ theme }) => theme.typo.B1_R};
+        `}
 `;
 
 export const ManagerTag = styled.div`

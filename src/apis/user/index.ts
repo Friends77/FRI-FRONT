@@ -1,8 +1,9 @@
 import AuthAxios from '@/apis/@core/authInstance';
-import { IProfileResponse, IProfileSimpleResponse } from '@/types/user';
+import { IUserProfile } from '@/types/@common';
+import { IProfileSimpleResponse } from '@/types/user';
 
 export const getProfile = async () => {
-  const response = await AuthAxios.get<IProfileResponse>('/api/user/profile');
+  const response = await AuthAxios.get<IUserProfile>('/api/user/profile');
 
   return response.data;
 };
