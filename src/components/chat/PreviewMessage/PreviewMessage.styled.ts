@@ -9,7 +9,7 @@ export const PreviewMessageContainer = styled.button`
   padding: 0 20px;
 `;
 
-export const PreviewMessage = styled.p`
+export const PreviewMessage = styled.div`
   width: 100%;
   ${({ theme }) => theme.typo.B1_R};
   display: flex;
@@ -41,7 +41,7 @@ export const PreviewMessageContent = styled.div`
   min-width: 0;
 `;
 
-export const Content = styled.p`
+export const Content = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;

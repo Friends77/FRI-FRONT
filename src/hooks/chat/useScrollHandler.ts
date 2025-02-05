@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import useGetPreviousMessage from './useGetPreviousMessage';
 import roomDetailAtom from '@/recoil/chat/roomDetail';
-import { CHAT_CONSTANT } from '@/constants/chat';
 
 interface IUseScrollHandler {
   roomId: number;
@@ -28,21 +27,25 @@ const useScrollHandler = ({
   const [lastMsgId, setLastMsgId] = useState<number | null>(
     chatRoomDetail?.lastMessageId || null,
   );
+  const [isFirstFetch, setIsFirstFetch] = useState(true);
 
   useEffect(() => {
+    setIsFirstFetch(true);
     setLastMsgId(null);
   }, [roomId]);
 
   const { data: messagesResponse } = useGetPreviousMessage({
     roomId,
     shouldFetchMessages,
-    size: CHAT_CONSTANT.DEFAULT_MESSAGE_SIZE,
     lastMessageId: lastMsgId || undefined,
+    isFirst: isFirstFetch,
   });
 
   const updateSentMessages = async (
     messagesResponse: IGetChatMessagesResponse,
   ) => {
+    if (messagesResponse.content.length === 0) return;
+
     setLastMsgId(messagesResponse.content[0].messageId);
 
     setSentMessageList((prevList) => [
@@ -53,11 +56,7 @@ const useScrollHandler = ({
 
   useEffect(() => {
     if (chatRoomDetail) {
-      setLastMsgId((prevLastMessage) =>
-        !prevLastMessage
-          ? chatRoomDetail.lastMessageId + 1
-          : chatRoomDetail.lastMessageId,
-      );
+      setLastMsgId(chatRoomDetail.lastMessageId);
     }
   }, [chatRoomDetail]);
 
@@ -81,6 +80,7 @@ const useScrollHandler = ({
         if (messageList) {
           if (isFirst) {
             messageList.scrollTo(0, messageList.scrollHeight);
+            setIsFirstFetch(false);
           }
 
           if (!isFirst) {
