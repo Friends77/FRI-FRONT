@@ -5,24 +5,20 @@ import MessageList from '@/components/chat/MessageList';
 import useGetChatRoomDetail from '@/hooks/chat/useGetChatRoomDetail';
 import useWebSocket from '@/hooks/chat/useWebSocket';
 import { ISentMessageItem } from '@/types/chat';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import useMessageHandler from '@/hooks/chat/useMessageHandler';
 import useScrollHandler from '@/hooks/chat/useScrollHandler';
 import useGetChatMembers from '@/hooks/chat/useGetChatMembers';
-import { useRecoilTransaction_UNSTABLE, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import roomDetailAtom from '@/recoil/chat/roomDetail';
 import ChatRoomInfoDrawer from '@/components/chat/ChatRoomInfoDrawer';
 import ChatRoomAlbum from '@/components/chat/ChatRoomAlbum';
 import ImageViewer from '@/components/@common/ImageViewer';
-import {
-  failedMessageAtom,
-  imageMessagesSelector,
-  pendingMessageAtom,
-  sentMessageAtom,
-} from '@/recoil/chat/message';
+import { imageMessagesSelector } from '@/recoil/chat/message';
 import useChatRoomDrawer from '@/hooks/chat/useChatRoomDrawer';
 import useEnterChatRoom from '@/hooks/chat/useEnterChatRoom';
+import useResetState from '@/hooks/chat/useResetState';
 
 const ChatRoomPage = () => {
   const { roomId: roomIdQuery } = useParams();
@@ -41,22 +37,10 @@ const ChatRoomPage = () => {
 
   // TODO: 테스트 후, 제거 예정
   useWebSocket();
+  useResetState({ roomId, setIsEnter });
   useEnterChatRoom({ roomId, setIsEnter });
   useGetChatRoomDetail({ roomId });
   useGetChatMembers({ roomId });
-
-  // 방이 변경되면 모든 상태 reset
-  const resetChatState = useRecoilTransaction_UNSTABLE(({ reset }) => () => {
-    reset(sentMessageAtom);
-    reset(pendingMessageAtom);
-    reset(failedMessageAtom);
-    reset(roomDetailAtom);
-  });
-
-  useEffect(() => {
-    resetChatState();
-    setIsEnter(false);
-  }, [roomId]);
 
   const { myMessageContent, setMyMessageContent, handleSendMessage } =
     useMessageHandler({
