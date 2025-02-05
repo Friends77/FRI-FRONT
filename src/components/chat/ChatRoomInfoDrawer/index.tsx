@@ -83,9 +83,11 @@ const ChatRoomInfoDrawer = ({
     <>
       {isOpenExitModal && (
         <ConfirmModal
-          title={`${chatRoomDetail?.title}을 나가시겠습니까?`}
-          onCancel={handleCancelExitChat}
-          onConfirm={handleExitChatRoom}
+          title={`${chatRoomDetail?.title}을(를) 나가시겠습니까?`}
+          confirmButtonText="취소"
+          cancelButtonText="나가기"
+          onCancel={handleExitChatRoom}
+          onConfirm={handleCancelExitChat}
           description="채팅방을 나가면 더 이상 메시지를 받을 수 없습니다."
         />
       )}

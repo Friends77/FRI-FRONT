@@ -52,6 +52,7 @@ export const AlbumHeader = styled.div`
   justify-content: space-between;
   ${({ theme }) => theme.typo.T2_R}
   padding: 8px 12px;
+  color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
 export const AlbumImageButton = styled.button`
@@ -97,6 +98,7 @@ export const MemberTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 1px;
+  color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
 export const MemberCount = styled.span`

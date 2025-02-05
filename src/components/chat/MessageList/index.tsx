@@ -78,7 +78,7 @@ const MessageList = forwardRef<HTMLUListElement, IMessageListProps>(
               !isSystemMessage && sentMessage.senderId !== myProfile?.memberId;
 
             return (
-              <React.Fragment key={sentMessage.createdAt}>
+              <React.Fragment key={`${sentMessage.createdAt}-${index}`}>
                 {!isSameDate({
                   currentMessage: sentMessage,
                   prevMessage: sentMessageList[index - 1],

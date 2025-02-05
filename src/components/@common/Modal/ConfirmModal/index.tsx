@@ -8,6 +8,7 @@ interface IConfirmModal {
   title: string;
   description?: string | React.ReactNode;
   confirmButtonText?: string;
+  cancelButtonText?: string;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -16,6 +17,7 @@ const ConfirmModal = ({
   title,
   description,
   confirmButtonText,
+  cancelButtonText,
   onConfirm,
   onCancel,
 }: IConfirmModal) => {
@@ -35,7 +37,9 @@ const ConfirmModal = ({
             <Styled.Description>{description}</Styled.Description>
           </Styled.Content>
           <Styled.ButtonContainer>
-            <Styled.CancelButton onClick={onCancel}>취소</Styled.CancelButton>
+            <Styled.CancelButton onClick={onCancel}>
+              {cancelButtonText || '취소'}
+            </Styled.CancelButton>
             <PrimaryButton onClick={onConfirm}>
               {confirmButtonText || '확인'}
             </PrimaryButton>

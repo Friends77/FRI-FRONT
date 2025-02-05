@@ -51,7 +51,7 @@ const ImageViewer = ({
       <Styled.ImageViewerContainer>
         <Styled.ImageViewer>
           <Styled.Header>
-            <h3>미리보기</h3>
+            <Styled.Heading>미리보기</Styled.Heading>
             <Styled.CloseButton onClick={handleClose}>
               <Close title="닫기" width="24" height="24" />
             </Styled.CloseButton>

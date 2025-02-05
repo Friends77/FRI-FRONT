@@ -39,12 +39,12 @@ export const InfoLabel = styled.span`
   ${({ theme }) => theme.typo.B2_R};
   flex: 1;
   text-align: center;
-  color: ${({ theme }) => theme.colors.Gray_1000};
+  color: ${({ theme }) => theme.colors.Gray_800};
 `;
 
 export const InfoValue = styled.span`
   ${({ theme }) => theme.typo.B1_R};
-  color: ${({ theme }) => theme.colors.Gray_800};
+  color: ${({ theme }) => theme.colors.Gray_1000};
   flex: 1;
   text-align: center;
 `;

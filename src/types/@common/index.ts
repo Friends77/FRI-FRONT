@@ -50,7 +50,7 @@ export interface IUserProfile {
   gender: Gender;
   location?: ILocation;
   selfDescription?: string;
-  mbti?: MBTI;
+  mbti: MBTI;
   interestTag: IInterestTag[];
   imageUrl: string;
 }

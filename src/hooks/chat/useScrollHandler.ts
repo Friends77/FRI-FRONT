@@ -53,7 +53,11 @@ const useScrollHandler = ({
 
   useEffect(() => {
     if (chatRoomDetail) {
-      setLastMsgId(chatRoomDetail.lastMessageId);
+      setLastMsgId((prevLastMessage) =>
+        !prevLastMessage
+          ? chatRoomDetail.lastMessageId + 1
+          : chatRoomDetail.lastMessageId,
+      );
     }
   }, [chatRoomDetail]);
 

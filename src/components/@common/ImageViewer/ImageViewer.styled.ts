@@ -33,6 +33,11 @@ export const Header = styled.div`
   margin-bottom: 16px;
 `;
 
+export const Heading = styled.h3`
+  ${({ theme }) => theme.typo.T1_B};
+  color: ${({ theme }) => theme.colors.Gray_1000};
+`;
+
 export const CloseButton = styled.button`
   display: flex;
 `;
