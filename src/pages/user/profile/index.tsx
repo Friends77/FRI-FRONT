@@ -101,7 +101,7 @@ const ProfilePage = () => {
     setPrevMonth(+month);
 
     // 날짜 select에 날짜 세팅
-    setDays(getDaysInMonth(year, month));
+    setDays(getDaysInMonth(year, +month));
   };
 
   // 카테고리 조회
@@ -145,7 +145,7 @@ const ProfilePage = () => {
       imageUrl: userData.imageUrl,
       selfDescription: userData.selfDescription,
       year: +birth[0],
-      month: +birth[1],
+      month: birth[1],
       day: birth[2],
       gender: userData.gender,
       EI: letters[0],
@@ -298,7 +298,7 @@ const ProfilePage = () => {
                       options={BIRTH_MONTH}
                       placeholder="월"
                       value={BIRTH_MONTH.find(
-                        (month) => +month.value === field.value,
+                        (month) => month.value === field.value,
                       )}
                       onChange={(e) => {
                         field.onChange(e.value);

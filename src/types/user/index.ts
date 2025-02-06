@@ -57,7 +57,7 @@ export interface UpdateProfileFormDataType {
 // 폼 입력 데이터 타입
 export interface UpdateProfileDataType extends UpdateProfileFormDataType {
   year: number;
-  month: number;
+  month: string;
   day: string;
   EI: string;
   NS: string;
