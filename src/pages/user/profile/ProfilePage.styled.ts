@@ -9,7 +9,7 @@ export const ProfilePageHeader = styled.h1`
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
-export const ProfilePageInnerContainer = styled.div`
+export const ProfilePageStyledForm = styled.form`
   display: flex;
   justify-content: center;
 `;
@@ -17,7 +17,7 @@ export const ProfilePageInnerContainer = styled.div`
 export const ProfilePageContentSection = styled.section`
   display: flex;
   flex-direction: column;
-  margin-top: 58px;
+  margin: 58px 0px 120px 0px;
   gap: 48px;
 `;
 

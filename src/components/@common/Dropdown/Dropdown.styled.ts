@@ -31,17 +31,37 @@ export const Dropdown = styled(Select)<{
   }
 
   .dropdown__value-container {
+    display: flex;
     justify-content: left;
     padding: 16px;
     ${({ theme }) => theme.typo.B1_R};
+    gap: 10px;
   }
 
   .dropdown__multi-value {
+    display: flex;
     background-color: ${({ theme }) => theme.colors.Gray_100};
     border: 1px solid ${({ theme }) => theme.colors.Gray_300};
     border-radius: 4px;
     padding: 4px 6px 4px 8px;
     gap: 4px;
+    margin: 0px;
+    align-items: center;
+  }
+
+  .dropdown__multi-value__label {
+    padding: 0px;
+    ${({ theme }) => theme.typo.B1_R};
+    line-height: 21px;
+    color: ${({ theme }) => theme.colors.Gray_800};
+  }
+
+  .dropdown__multi-value__remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
   }
 
   .dropdown__multi-value__remove:hover {

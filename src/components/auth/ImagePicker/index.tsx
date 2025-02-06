@@ -8,15 +8,17 @@ import { useImageUpload } from '@/hooks/@common/useImageUpload';
 export interface IImagePickerProps {
   name: string;
   usage: 'signUp' | 'myPage'; // usage: 사용처(회원가입, 마이페이지)
-  imageUrl: string;
+  imageUrl?: string;
 }
 
 const ImagePicker = ({ name, usage, imageUrl }: IImagePickerProps) => {
   const { register, setValue } = useFormContext();
 
-  const [pickedImage, setPickedImage] = useState<string | null>(imageUrl);
+  const [pickedImage, setPickedImage] = useState<string | null>(
+    imageUrl || null,
+  );
 
-  const handleImgError: ReactEventHandler<HTMLImageElement> = (e) => {
+  const handleImgError: ReactEventHandler<HTMLImageElement> = () => {
     setPickedImage(null);
   };
 
@@ -62,11 +64,11 @@ const ImagePicker = ({ name, usage, imageUrl }: IImagePickerProps) => {
   return (
     <Styled.ImagePickerWrapper>
       <Styled.ImagePickerImageSection>
-        <Styled.ImagePickerImagePreview
-          src={pickedImage ? pickedImage : defaultProfileImg}
-          onError={handleImgError}
-        />
         <label>
+          <Styled.ImagePickerImagePreview
+            src={pickedImage ? pickedImage : defaultProfileImg}
+            onError={handleImgError}
+          />
           <input
             type="file"
             accept="image/*"

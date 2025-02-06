@@ -83,7 +83,7 @@ const ClearIndicator = (props: ClearIndicatorProps) => {
 const MultiValueRemove = (props: MultiValueRemoveProps) => {
   return (
     <components.MultiValueRemove {...props}>
-      <Close title="선택 항목 삭제" width="14px" height="14px" />
+      <Close title="선택 항목 삭제" width="10px" height="10px" />
     </components.MultiValueRemove>
   );
 };
