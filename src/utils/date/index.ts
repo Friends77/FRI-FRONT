@@ -10,3 +10,11 @@ export const getDaysInMonth = (year: number, month: number) => {
     };
   });
 };
+
+export const createMonthOption = (index: number) => {
+  const month = String(index + 1);
+  return {
+    value: month.padStart(2, '0'),
+    label: month,
+  };
+};

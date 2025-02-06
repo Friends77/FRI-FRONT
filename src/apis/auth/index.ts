@@ -9,7 +9,6 @@ import {
   ISendVerifyCodeResponse,
   ISocialLoginResponse,
   LoginDataType,
-  SignUpDataType,
   SocialLoginTokenType,
 } from '@/types/auth';
 
