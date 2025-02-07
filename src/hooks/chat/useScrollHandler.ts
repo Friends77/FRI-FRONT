@@ -2,9 +2,8 @@ import { sentMessageAtom } from '@/recoil/chat/message';
 import { IGetChatMessagesResponse, ISentMessageItem } from '@/types/chat';
 import throttle from '@/utils/throttle';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import useGetPreviousMessage from './useGetPreviousMessage';
-import roomDetailAtom from '@/recoil/chat/roomDetail';
 
 interface IUseScrollHandler {
   roomId: number;
@@ -21,57 +20,47 @@ const useScrollHandler = ({
   setPreviewMessage,
   setIsShowPreviewMessage,
 }: IUseScrollHandler) => {
-  const chatRoomDetail = useRecoilValue(roomDetailAtom);
-  const [sentMessageList, setSentMessageList] = useRecoilState(sentMessageAtom);
+  const setSentMessageList = useSetRecoilState(sentMessageAtom);
   const [shouldFetchMessages, setShouldFetchMessages] = useState(false);
-  const [lastMsgId, setLastMsgId] = useState<number | null>(
-    chatRoomDetail?.lastMessageId || null,
-  );
-  const [isFirstFetch, setIsFirstFetch] = useState(true);
-
-  useEffect(() => {
-    setIsFirstFetch(true);
-    setLastMsgId(null);
-  }, [roomId]);
+  const [lastMsgId, setLastMsgId] = useState<number | null>(null);
+  const [isFirst, setIsFirst] = useState(true);
 
   const { data: messagesResponse } = useGetPreviousMessage({
     roomId,
     shouldFetchMessages,
     lastMessageId: lastMsgId || undefined,
-    isFirst: isFirstFetch,
   });
 
-  const updateSentMessages = async (
-    messagesResponse: IGetChatMessagesResponse,
-  ) => {
-    if (messagesResponse.content.length === 0) return;
-
-    setLastMsgId(messagesResponse.content[0].messageId);
-
-    setSentMessageList((prevList) => [
-      ...messagesResponse.content,
-      ...prevList,
-    ]);
-  };
+  useEffect(() => {
+    setLastMsgId(null);
+  }, [roomId]);
 
   useEffect(() => {
-    if (chatRoomDetail) {
-      setLastMsgId(chatRoomDetail.lastMessageId);
-    }
-  }, [chatRoomDetail]);
-
-  useEffect(() => {
-    if (isEnter) {
+    if (isEnter && isFirst) {
       setShouldFetchMessages(true);
+      setIsFirst(false);
     }
-  }, [isEnter]);
+  }, [isEnter, isFirst]);
 
   useEffect(() => {
+    const updateSentMessages = async (
+      messagesResponse: IGetChatMessagesResponse,
+    ) => {
+      if (messagesResponse.content.length === 0) return;
+
+      setLastMsgId(messagesResponse.content[0].messageId);
+
+      setSentMessageList((prevList) => [
+        ...messagesResponse.content,
+        ...prevList,
+      ]);
+    };
+
     const loadMessagesAndScroll = async () => {
       const messageList = messageListRef.current;
 
       if (messagesResponse && messageList) {
-        let isFirst = sentMessageList.length === 0;
+        // let isFirst = !lastMsgId;
 
         const scrollHeightBefore = messageList.scrollHeight;
 
@@ -80,7 +69,6 @@ const useScrollHandler = ({
         if (messageList) {
           if (isFirst) {
             messageList.scrollTo(0, messageList.scrollHeight);
-            setIsFirstFetch(false);
           }
 
           if (!isFirst) {
@@ -94,8 +82,9 @@ const useScrollHandler = ({
     };
 
     loadMessagesAndScroll();
+
     setShouldFetchMessages(false);
-  }, [messagesResponse, roomId]);
+  }, [messagesResponse]);
 
   useEffect(() => {
     const messageList = messageListRef.current;

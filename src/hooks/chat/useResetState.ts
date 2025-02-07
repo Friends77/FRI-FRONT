@@ -5,7 +5,11 @@ import {
 } from '@/recoil/chat/message';
 import roomDetailAtom from '@/recoil/chat/roomDetail';
 import { useEffect } from 'react';
-import { useRecoilTransaction_UNSTABLE } from 'recoil';
+import {
+  useRecoilState,
+  useRecoilTransaction_UNSTABLE,
+  useRecoilValue,
+} from 'recoil';
 
 interface IUseResetState {
   roomId: number;
@@ -13,6 +17,8 @@ interface IUseResetState {
 }
 
 const useResetState = ({ roomId, setIsEnter }: IUseResetState) => {
+  const sentMessageList = useRecoilValue(sentMessageAtom);
+
   const resetChatState = useRecoilTransaction_UNSTABLE(({ reset }) => () => {
     reset(sentMessageAtom);
     reset(pendingMessageAtom);
@@ -21,8 +27,8 @@ const useResetState = ({ roomId, setIsEnter }: IUseResetState) => {
   });
 
   useEffect(() => {
-    setIsEnter(false);
     resetChatState();
+    setIsEnter(false);
   }, [roomId]);
 };
 

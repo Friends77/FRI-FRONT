@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getChatMessages } from '@/apis/chat';
 import { CHAT_KEYS } from '@/constants/@queryKeys';
+import { CHAT_CONSTANT } from '@/constants/chat';
 
 interface IUseMessageListProps {
   roomId: number;
@@ -12,14 +13,20 @@ interface IUseMessageListProps {
 const useGetPreviousMessage = ({
   roomId,
   shouldFetchMessages,
-  size,
   lastMessageId,
 }: IUseMessageListProps) => {
-  return useQuery({
+  const { data } = useQuery({
     queryKey: CHAT_KEYS.CHAT_MESSAGES(roomId),
-    queryFn: () => getChatMessages({ roomId, size, lastMessageId }),
+    queryFn: () =>
+      getChatMessages({
+        roomId,
+        size: CHAT_CONSTANT.DEFAULT_MESSAGE_SIZE,
+        lastMessageId,
+      }),
     enabled: !!roomId && shouldFetchMessages,
   });
+
+  return { data };
 };
 
 export default useGetPreviousMessage;

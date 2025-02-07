@@ -2,11 +2,15 @@ import Search from '@/components/@common/SVG/Icon/Search';
 import * as Styled from './SideBarSearchInput.styled';
 import { useFormContext } from 'react-hook-form';
 
-const SideBarSearchInput = () => {
+interface ISideBarSearchInput {
+  className?: string;
+}
+
+const SideBarSearchInput = ({ className }: ISideBarSearchInput) => {
   const { register } = useFormContext();
 
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper className={className}>
       <Styled.InputContainer>
         <Styled.Input placeholder="검색" {...register('keyword')} />
         <Styled.SearchBtn>

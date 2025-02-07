@@ -7,6 +7,7 @@ import {
   IGetChatMemberRequest,
   IGetChatMessagesResponse,
   IGetChatMessagesType,
+  IInviteChatForm,
   IMyChatItem,
   ISecondaryTokenResponse,
 } from '@/types/chat';
@@ -118,4 +119,20 @@ export const getChatMember = async ({
 // 채팅방 나가기
 export const exitChatRoom = async (roomId: number) => {
   await AuthAxios.delete(`/api/user/chat/room/${roomId}`);
+  return { chatRoomId: roomId };
+};
+
+// 채팅방 초대
+export const inviteChatRoom = async ({ roomId, friendId }: IInviteChatForm) => {
+  const inviteChatForm = {
+    chatRoomId: roomId,
+    receiverIdList: [friendId],
+  };
+
+  const response = await AuthAxios.post(
+    '/api/user/chat/invitation/request',
+    inviteChatForm,
+  );
+
+  return response.data;
 };

@@ -24,13 +24,13 @@ export const MessageContent = styled.p`
 `;
 
 export const ImageMessageContainer = styled.div`
-  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
 `;
 
 export const ImageMessageButton = styled.button`
+  position: relative;
   display: flex;
 `;
 

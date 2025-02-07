@@ -1,4 +1,5 @@
 import ArrowDown from '@/components/@common/SVG/Icon/ArrowDown';
+import { FriendsStatus } from '@/types/chat';
 import styled, { css } from 'styled-components';
 
 interface IChatRoomInfoDrawerProps {
@@ -7,6 +8,10 @@ interface IChatRoomInfoDrawerProps {
 
 interface IMemberName {
   $isMe: boolean;
+}
+
+interface IFriendStatus {
+  $friendStatus: FriendsStatus;
 }
 
 export const ChatRoomInfoDrawerContainer = styled.aside<IChatRoomInfoDrawerProps>`
@@ -106,19 +111,31 @@ export const MemberCount = styled.span`
   color: ${({ theme }) => theme.colors.Gray_700};
 `;
 
+export const InvitationButton = styled.button`
+  display: flex;
+`;
+
 export const MembersContent = styled.ul`
   padding: 16px 0;
+  overflow-y: auto;
+  max-height: 274px;
 `;
 
 export const Member = styled.li`
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
   padding: 11px 20px;
+`;
+
+export const MemberInfo = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const ShowProfileButton = styled.button`
   display: flex;
+  margin-right: 8px;
 `;
 
 export const MemberName = styled.div<IMemberName>`
@@ -143,6 +160,36 @@ export const ManagerTag = styled.div`
   border-radius: 4px;
   ${({ theme }) => theme.typo.B2_R};
   margin-left: 8px;
+`;
+
+export const MemberFriendStatus = styled.button<IFriendStatus>`
+  width: 106px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${({ $friendStatus }) =>
+    $friendStatus === FriendsStatus.AVAILABLE &&
+    css`
+      ${({ theme }) => theme.typo.B1_B};
+      background-color: ${({ theme }) => theme.colors.Blue_400};
+      color: ${({ theme }) => theme.colors.White};
+      gap: 4px;
+    `}
+
+  ${({ $friendStatus }) =>
+    $friendStatus === FriendsStatus.REQUESTED &&
+    css`
+      ${({ theme }) => theme.typo.B1_R};
+      color: ${({ theme }) => theme.colors.Gray_800};
+      background-color: ${({ theme }) => theme.colors.Gray_300};
+    `}
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const ExitRoom = styled.div`

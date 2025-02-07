@@ -13,9 +13,8 @@ export const useCreateChatRoom = () => {
       });
       alert(`${chatRoomId}번 채팅방 생성완료!`);
     },
-    onError: (error) => {
-      console.log(error);
-      alert('채팅방 생성실패!');
+    onError: () => {
+      alert('채팅방 생성을 실패했습니다.');
     },
   });
 };
