@@ -10,12 +10,9 @@ import Dropdown from '@/components/@common/Dropdown';
 import Radio from '@/components/@common/Radio';
 import ImagePicker from '@/components/auth/ImagePicker';
 import InputField from '@/components/auth/InputField';
-import { GENDER } from '@/constants/gender';
-import { EI, FT, JP, NS } from '@/constants/mbti';
 import { AUTH_ERROR_MSG } from '@/constants/message';
 import { BIRTH_MONTH } from '@/constants/month';
 import { AUTH_PATTERN } from '@/constants/pattern';
-import { BIRTH_YEAR } from '@/constants/year';
 import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
 import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
 import { useProfile } from '@/hooks/user/useProfile';
@@ -36,6 +33,9 @@ import { useNavigate } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import * as Styled from './ProfilePage.styled';
 import { USER_KEYS } from '@/constants/@queryKeys';
+import { BIRTH_YEAR } from '@/constants/user/year';
+import { GENDER } from '@/constants/user/gender';
+import { EI, FT, JP, NS } from '@/constants/user/mbti';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
