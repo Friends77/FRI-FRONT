@@ -56,6 +56,10 @@ export interface IDropdownProps {
 
   /** react-hook-form의 Controller로부터 전달된 onChange Handler */
   onChange?: (value: any) => void;
+
+  label?: string;
+
+  isRequired?: boolean;
 }
 
 const DropdownIndicator = (props: DropdownIndicatorProps) => {
@@ -75,7 +79,7 @@ const DropdownIndicator = (props: DropdownIndicatorProps) => {
 const ClearIndicator = (props: ClearIndicatorProps) => {
   return (
     <components.ClearIndicator {...props}>
-      <Close title="선택 항목 초기화" width="24px" height="24px" />
+      <Close title="선택 항목 초기화" width="12px" height="12px" />
     </components.ClearIndicator>
   );
 };
@@ -98,6 +102,8 @@ const Dropdown = forwardRef<any, IDropdownProps>(
       name,
       value,
       onChange,
+      label,
+      isRequired,
       ...rest
     },
     ref,

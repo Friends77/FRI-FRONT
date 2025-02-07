@@ -8,7 +8,6 @@ import Dropdown from '@/components/@common/Dropdown';
 import Radio from '@/components/@common/Radio';
 import { AUTH_ERROR_MSG } from '@/constants/message';
 import { AUTH_PATTERN } from '@/constants/pattern';
-import { BIRTH_YEAR } from '@/constants/year';
 import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { getDaysInMonth } from '@/utils/date';
@@ -19,9 +18,9 @@ import { useSetRecoilState } from 'recoil';
 import ImagePicker from '../../ImagePicker';
 import InputField from '../../InputField';
 import * as Styled from './BasicInfoForm.styled';
-import { BIRTH_YEAR } from '@/constants/user/year';
 import { BIRTH_MONTH } from '@/constants/user/month';
 import { GENDER } from '@/constants/user/gender';
+import { BIRTH_YEAR } from '@/constants/user/year';
 
 const BasicInfoForm = () => {
   const daySelectRef = useRef<any>(null);
@@ -107,23 +106,6 @@ const BasicInfoForm = () => {
           isErrorMsgRelative={true}
         />
         <Styled.BasicInfoFormBirthSection>
-          <Styled.BasicInfoFormLabel>
-            나이 (출생년도)&nbsp;
-          </Styled.BasicInfoFormLabel>
-          <Controller
-            name="birth"
-            control={control}
-            render={({ field }) => (
-              <Dropdown
-                {...field}
-                name="birth"
-                options={BIRTH_YEAR}
-                placeholder="출생년도를 선택해주세요"
-                value={BIRTH_YEAR.find((year) => year.value === field.value)}
-                onChange={(e) => field.onChange(e.value)}
-              />
-            )}
-          />
           <Styled.BasicInfoFormBirthYearSection>
             <Controller
               name="year"

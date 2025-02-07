@@ -7,13 +7,29 @@ export const Wrapper = styled.div<{ $width?: string }>`
   width: ${({ $width }) => $width};
 `;
 
+export const Label = styled.label<{ $isRequired?: boolean }>`
+  align-self: flex-start;
+  position: relative;
+  ${({ theme }) => theme.typo.T2_B};
+  color: ${({ theme }) => theme.colors.Gray_1000};
+  margin-bottom: 16px;
+
+  &::after {
+    display: ${({ $isRequired }) => ($isRequired ? 'inline' : 'none')};
+    content: '*';
+    position: absolute;
+    right: -16px;
+    color: ${({ theme }) => theme.colors.Alter_error};
+  }
+`;
+
 export const Dropdown = styled(Select)<{
   $isMulti?: boolean;
   $isError: boolean;
 }>`
   .dropdown__control {
     width: 100%;
-    max-height: 56px;
+    min-height: 56px;
     border-radius: 6px;
     border: 1px solid
       ${({ theme, $isError }) =>
@@ -32,13 +48,17 @@ export const Dropdown = styled(Select)<{
 
   .dropdown__single-value,
   .dropdown__placeholder {
-    height: 24px;
+    display: flex;
+    align-items: center;
+    height: 21px;
+    color: ${({ theme }) => theme.colors.Gray_700};
   }
 
   .dropdown__value-container {
     display: flex;
     justify-content: left;
-    padding: 16px;
+    align-items: center;
+    padding: 14px;
     ${({ theme }) => theme.typo.B1_R};
     gap: 10px;
   }
@@ -78,7 +98,7 @@ export const Dropdown = styled(Select)<{
   }
 
   .dropdown__indicators {
-    padding: 8px;
+    padding-right: 14px;
   }
 
   .dropdown__menu {
