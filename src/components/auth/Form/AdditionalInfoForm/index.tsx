@@ -1,17 +1,18 @@
 /**
- * MBTI, 한 줄 소개, 관심사 입력 폼
+ * AdditionalInfoForm: MBTI, 한 줄 소개, 관심사 입력 폼
+ * @Author 선우
  */
 
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import CheckBox from '@/components/@common/Checkbox';
 import Radio from '@/components/@common/Radio';
-import { EI, FT, JP, NS } from '@/constants/mbti';
+import { EI, FT, JP, NS } from '@/constants/user/mbti';
 import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
 import { useGeoLocation } from '@/hooks/auth/useGeoLocation';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { Theme } from '@/styles/theme';
 import { moveToStep } from '@/utils/step/moveSteps';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 import InputField from '../../InputField';
 import * as Styled from './AdditionalInfoForm.styled';
@@ -31,9 +32,9 @@ const AdditionalInfoForm = () => {
   const { data: categories } = useFetchCategory();
 
   const {
-    control,
     formState: { isValid },
   } = useFormContext();
+
   return (
     <Styled.AIFormWrapper>
       <Styled.AIFormHeader>프로필 작성</Styled.AIFormHeader>
@@ -41,86 +42,54 @@ const AdditionalInfoForm = () => {
         <Styled.AIFormMBTISection>
           <Styled.AIFormLabel>MBTI</Styled.AIFormLabel>
           <Styled.AIFormMBTIOption>
-            <Controller
-              name="EI"
-              control={control}
-              render={() => {
+            <Styled.AIFormRadio>
+              {EI.map((option) => {
                 return (
-                  <Styled.AIFormRadio>
-                    {EI.map((option) => {
-                      return (
-                        <Radio
-                          key={option.label}
-                          name="EI"
-                          text={option.label}
-                          value={option.value}
-                        />
-                      );
-                    })}
-                  </Styled.AIFormRadio>
+                  <Radio
+                    key={option.label}
+                    name="EI"
+                    text={option.label}
+                    value={option.value}
+                  />
                 );
-              }}
-            />
-            <Controller
-              name="NS"
-              control={control}
-              render={() => {
+              })}
+            </Styled.AIFormRadio>
+            <Styled.AIFormRadio>
+              {NS.map((option) => {
                 return (
-                  <Styled.AIFormRadio>
-                    {NS.map((option) => {
-                      return (
-                        <Radio
-                          key={option.label}
-                          name="NS"
-                          text={option.label}
-                          value={option.value}
-                        />
-                      );
-                    })}
-                  </Styled.AIFormRadio>
+                  <Radio
+                    key={option.label}
+                    name="NS"
+                    text={option.label}
+                    value={option.value}
+                  />
                 );
-              }}
-            />
-            <Controller
-              name="FT"
-              control={control}
-              render={() => {
+              })}
+            </Styled.AIFormRadio>
+            <Styled.AIFormRadio>
+              {FT.map((option) => {
                 return (
-                  <Styled.AIFormRadio>
-                    {FT.map((option) => {
-                      return (
-                        <Radio
-                          key={option.label}
-                          name="FT"
-                          text={option.label}
-                          value={option.value}
-                        />
-                      );
-                    })}
-                  </Styled.AIFormRadio>
+                  <Radio
+                    key={option.label}
+                    name="FT"
+                    text={option.label}
+                    value={option.value}
+                  />
                 );
-              }}
-            />
-            <Controller
-              name="JP"
-              control={control}
-              render={() => {
+              })}
+            </Styled.AIFormRadio>
+            <Styled.AIFormRadio>
+              {JP.map((option) => {
                 return (
-                  <Styled.AIFormRadio>
-                    {JP.map((option) => {
-                      return (
-                        <Radio
-                          key={option.label}
-                          name="JP"
-                          text={option.label}
-                          value={option.value}
-                        />
-                      );
-                    })}
-                  </Styled.AIFormRadio>
+                  <Radio
+                    key={option.label}
+                    name="JP"
+                    text={option.label}
+                    value={option.value}
+                  />
                 );
-              }}
-            />
+              })}
+            </Styled.AIFormRadio>
           </Styled.AIFormMBTIOption>
         </Styled.AIFormMBTISection>
         <InputField
@@ -139,52 +108,42 @@ const AdditionalInfoForm = () => {
             <Styled.AIFormColumnSection>
               {/* 관심사 영역 */}
               {categories && (
-                <Controller
-                  name="interestTag"
-                  render={() => (
-                    <>
-                      {categories.map((category) => {
-                        if (category.type === 'SUBJECT') {
-                          return (
-                            <CheckBox
-                              key={category.id}
-                              name="interestTag"
-                              text={`${category.image}  ${category.name}`}
-                              value={category.id}
-                              rules={{
-                                required: true,
-                              }}
-                            />
-                          );
-                        }
-                      })}
-                    </>
-                  )}
-                />
+                <>
+                  {categories.map((category) => {
+                    if (category.type === 'SUBJECT') {
+                      return (
+                        <CheckBox
+                          key={category.id}
+                          name="interestTag"
+                          text={`${category.image}  ${category.name}`}
+                          value={category.id}
+                          rules={{
+                            required: true,
+                          }}
+                        />
+                      );
+                    }
+                  })}
+                </>
               )}
             </Styled.AIFormColumnSection>
             <Styled.AIFormColumnSection>
               {/* 지역 영역 */}
               {categories && (
-                <Controller
-                  name="interestTag"
-                  render={() => (
-                    <>
-                      {categories.map((category) => {
-                        if (category.type === 'REGION') {
-                          return (
-                            <CheckBox
-                              key={category.id}
-                              name="interestTag"
-                              text={category.name}
-                              value={category.id}
-                            />
-                          );
-                        }
-                      })}
-                    </>
-                  )}
-                />
+                <>
+                  {categories.map((category) => {
+                    if (category.type === 'REGION') {
+                      return (
+                        <CheckBox
+                          key={category.id}
+                          name="interestTag"
+                          text={category.name}
+                          value={category.id}
+                        />
+                      );
+                    }
+                  })}
+                </>
               )}
             </Styled.AIFormColumnSection>
           </Styled.AIFormCheckBoxSection>

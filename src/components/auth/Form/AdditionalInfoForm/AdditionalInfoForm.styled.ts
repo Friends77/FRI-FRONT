@@ -17,7 +17,7 @@ export const AIFormContentSection = styled.section`
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  margin-top: 66px;
+  margin: 66px 0px 120px 0px;
 `;
 
 export const AIFormMBTISection = styled.section`

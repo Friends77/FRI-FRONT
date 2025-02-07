@@ -17,6 +17,7 @@ export const ImagePickerImagePreview = styled.img`
   height: 88px;
   object-fit: cover;
   border-radius: 999px;
+  cursor: pointer;
 `;
 export const ImagePickerAddImageButton = styled.img`
   position: absolute;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div<{ $width?: string }>`
   display: flex;
   flex-direction: column;
-  width: ${(props) => (props.$width ? props.$width : '320px')};
+  width: ${({ $width }) => $width};
 `;
 
 export const Label = styled.label<{ $isRequired?: boolean }>`
@@ -46,18 +46,47 @@ export const Dropdown = styled(Select)<{
     box-shadow: none;
   }
 
+  .dropdown__single-value,
+  .dropdown__placeholder {
+    display: flex;
+    align-items: center;
+    height: 21px;
+    color: ${({ theme }) => theme.colors.Gray_700};
+  }
+
   .dropdown__value-container {
+    display: flex;
     justify-content: left;
-    padding: 16px;
+    align-items: center;
+    padding: 14px;
     ${({ theme }) => theme.typo.B1_R};
+    gap: 10px;
   }
 
   .dropdown__multi-value {
+    display: flex;
     background-color: ${({ theme }) => theme.colors.Gray_100};
     border: 1px solid ${({ theme }) => theme.colors.Gray_300};
     border-radius: 4px;
     padding: 4px 6px 4px 8px;
     gap: 4px;
+    margin: 0px;
+    align-items: center;
+  }
+
+  .dropdown__multi-value__label {
+    padding: 0px;
+    ${({ theme }) => theme.typo.B1_R};
+    line-height: 21px;
+    color: ${({ theme }) => theme.colors.Gray_800};
+  }
+
+  .dropdown__multi-value__remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
   }
 
   .dropdown__multi-value__remove:hover {
@@ -69,7 +98,7 @@ export const Dropdown = styled(Select)<{
   }
 
   .dropdown__indicators {
-    padding: 8px;
+    padding-right: 14px;
   }
 
   .dropdown__menu {

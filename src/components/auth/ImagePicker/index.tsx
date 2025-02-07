@@ -1,21 +1,37 @@
 import camera from '@/assets/images/camera.png';
 import defaultProfileImg from '@/assets/images/defaultProfile.png';
-import { useState } from 'react';
+import { ReactEventHandler, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import * as Styled from './ImagePicker.styled';
+import { useImageUpload } from '@/hooks/@common/useImageUpload';
 
 export interface IImagePickerProps {
   name: string;
+  usage: 'signUp' | 'myPage'; // usage: 사용처(회원가입, 마이페이지)
+  imageUrl?: string;
 }
 
-const ImagePicker = ({ name }: IImagePickerProps) => {
+const ImagePicker = ({ name, usage, imageUrl }: IImagePickerProps) => {
   const { register, setValue } = useFormContext();
 
-  const [pickedImage, setPickedImage] = useState<string | null>(null);
+  const [pickedImage, setPickedImage] = useState<string | null>(
+    imageUrl || null,
+  );
+
+  const handleImgError: ReactEventHandler<HTMLImageElement> = () => {
+    setPickedImage(null);
+  };
+
+  const { mutate: imageUpload } = useImageUpload({
+    onSuccessHandler: (path) => setValue(name, path, { shouldDirty: true }),
+    onErrorHandler: () => {
+      alert('이미지 업로드에 실패하였습니다!');
+    },
+  });
 
   const handleImageDelete = () => {
     setPickedImage(null);
-    setValue(name, null);
+    setValue(name, null, { shouldDirty: true });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,17 +48,28 @@ const ImagePicker = ({ name }: IImagePickerProps) => {
 
       fileReader.readAsDataURL(file);
 
-      setValue('imageUrl', e.target.value);
+      if (usage === 'signUp') {
+        // 회원가입인 경우
+        setValue(name, file);
+      } else {
+        // 프로필 수정인 경우
+        const formData = new FormData();
+        formData.append('image', file);
+
+        imageUpload(formData);
+      }
+      setValue('imageUrl', file);
     }
   };
 
   return (
     <Styled.ImagePickerWrapper>
       <Styled.ImagePickerImageSection>
-        <Styled.ImagePickerImagePreview
-          src={pickedImage ? pickedImage : defaultProfileImg}
-        />
         <label>
+          <Styled.ImagePickerImagePreview
+            src={pickedImage ? pickedImage : defaultProfileImg}
+            onError={handleImgError}
+          />
           <input
             type="file"
             accept="image/*"
