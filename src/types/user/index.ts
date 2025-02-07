@@ -7,9 +7,9 @@ export interface Location {
 
 export interface InterestTag {
   id: number;
-  name: 'string';
+  name: string;
   type: 'SUBJECT' | 'REGION';
-  image: 'string';
+  image: string;
 }
 
 export interface IProfileResponse {
@@ -66,4 +66,9 @@ export interface UpdateProfileDataType extends UpdateProfileFormDataType {
   tags: Options[];
 }
 
-export type Profile = IProfileResponse;
+export interface IProfileSimpleResponse {
+  memberId: number;
+  nickname: string;
+  imageUrl: string;
+  selfDescription: string;
+}

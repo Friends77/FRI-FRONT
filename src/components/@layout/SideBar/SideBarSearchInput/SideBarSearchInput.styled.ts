@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.form`
-  position: relative;
+export const Wrapper = styled.div`
   margin-bottom: 16px;
+  padding: 0 24px;
+`;
+
+export const InputContainer = styled.div`
+  position: relative;
 `;
 
 export const Input = styled.input`

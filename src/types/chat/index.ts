@@ -20,12 +20,10 @@ export interface IMyChatItem {
   imageUrl: string;
   categoryIdList: number[];
   participantCount: number;
+  participantProfileList: string[];
+  lastMessage: string;
   lastMessageTime: string;
   unreadMessageCount: number;
-}
-
-export interface IMyChatListResponse extends IPaginationResponse {
-  content: IMyChatItem[];
 }
 
 export type MessageType = 'TEXT' | 'IMAGE' | 'SYSTEM';

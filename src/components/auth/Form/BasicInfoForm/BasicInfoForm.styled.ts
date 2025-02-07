@@ -33,6 +33,15 @@ export const BasicInfoFormBirthSection = styled.section`
   gap: 16px;
 `;
 
+export const BasicInfoFormBirthYearSection = styled.section`
+  display: flex;
+`;
+
+export const BasicInfoFormMDSection = styled.section`
+  display: flex;
+  gap: 8px;
+`;
+
 export const BasicInfoFormLabel = styled.label`
   ${({ theme }) => theme.typo.T2_B};
   color: ${({ theme }) => theme.colors.Gray_1000};

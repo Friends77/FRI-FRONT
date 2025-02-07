@@ -58,6 +58,7 @@ const ImagePicker = ({ name, usage, imageUrl }: IImagePickerProps) => {
 
         imageUpload(formData);
       }
+      setValue('imageUrl', file);
     }
   };
 

@@ -23,7 +23,7 @@ export interface SignUpDataType {
   email: string;
   password: string;
   nickname: string;
-  birth: number;
+  birth: string;
   gender: 'MAN' | 'WOMAN';
   selfDescription: string;
   mbti: string;
@@ -36,6 +36,9 @@ export interface SignUpDataType {
 }
 
 export interface SignUpFormDataType extends SignUpDataType {
+  year: string;
+  month: string;
+  day: string;
   certno: string;
   'confirm-password': string;
   EI: string;

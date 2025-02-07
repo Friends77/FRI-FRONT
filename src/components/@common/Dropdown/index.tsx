@@ -110,6 +110,7 @@ const Dropdown = forwardRef<any, IDropdownProps>(
 
     return (
       <Styled.Wrapper $width={width}>
+        {label && <Styled.Label $isRequired={isRequired}>{label}</Styled.Label>}
         <Styled.Dropdown
           ref={ref}
           classNamePrefix="dropdown"

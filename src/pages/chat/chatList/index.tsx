@@ -12,7 +12,7 @@ const ChatListPage = () => {
 
   useEffect(() => {
     if (data) {
-      setChatList(data.content);
+      setChatList(data);
     }
   }, [data]);
 

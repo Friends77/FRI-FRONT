@@ -1,11 +1,11 @@
 import {
   AUTH_PATH,
   BOARD_PATH,
+  CHAT_PATH,
   ROOT_PATH,
   SEARCH_PATH,
   SETTING_PATH,
   USER_PATH,
-  CHAT_PATH,
 } from '@/constants/routes';
 import LoginPage from '@/pages/auth/login';
 import { createBrowserRouter, RouterProvider } from 'react-router';
@@ -64,6 +64,10 @@ export default function AppRouter() {
             {
               path: CHAT_PATH.CHAT_LIST,
               element: <ChatListPage />,
+            },
+            {
+              path: CHAT_PATH.CHAT_ROOM,
+              element: <ChatRoomPage />,
             },
             {
               path: CHAT_PATH.CHAT_ROOM,
