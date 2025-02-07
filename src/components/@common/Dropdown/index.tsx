@@ -9,6 +9,7 @@ import ArrowDown from '../SVG/Icon/ArrowDown';
 import Close from '../SVG/Icon/Close';
 import * as Styled from './Dropdown.styled';
 import { FieldError, useFormContext } from 'react-hook-form';
+import { Options } from '@/types/@common';
 
 /**
  *  @Dropdown
@@ -27,9 +28,6 @@ export interface IDropdownProps {
    */
   width?: string;
 
-  /** Dropdown 상단에 표시할 텍스트 */
-  label?: string;
-
   /**
    * Dropdown에 표시할 옵션 배열
    * 각 옵션은 value와 label 속성을 포함하는 객체로 구성
@@ -41,18 +39,9 @@ export interface IDropdownProps {
    *    {value: 2, label: 'Option 2'}
    * ]}
    */
-  options: {
-    value: string | number;
-    label: string;
-  }[];
+  options: Options[];
 
   placeholder?: string;
-
-  /**
-   * 해당 Dropdown이 필수 입력값인지 여부 설정
-   * @default false
-   */
-  isRequired?: boolean;
 
   /**
    * 다중 선택 모드 활성화 여부 설정
@@ -61,12 +50,16 @@ export interface IDropdownProps {
   isMulti?: boolean;
 
   /** react-hook-form의 Controller로부터 전달된 현재 값 */
-  value?: { value: number | string; label: string };
+  value?: Options | Options[];
 
   name: string;
 
   /** react-hook-form의 Controller로부터 전달된 onChange Handler */
   onChange?: (value: any) => void;
+
+  label?: string;
+
+  isRequired?: boolean;
 }
 
 const DropdownIndicator = (props: DropdownIndicatorProps) => {
@@ -86,7 +79,7 @@ const DropdownIndicator = (props: DropdownIndicatorProps) => {
 const ClearIndicator = (props: ClearIndicatorProps) => {
   return (
     <components.ClearIndicator {...props}>
-      <Close title="선택 항목 초기화" width="24px" height="24px" />
+      <Close title="선택 항목 초기화" width="12px" height="12px" />
     </components.ClearIndicator>
   );
 };
@@ -94,7 +87,7 @@ const ClearIndicator = (props: ClearIndicatorProps) => {
 const MultiValueRemove = (props: MultiValueRemoveProps) => {
   return (
     <components.MultiValueRemove {...props}>
-      <Close title="선택 항목 삭제" width="14px" height="14px" />
+      <Close title="선택 항목 삭제" width="10px" height="10px" />
     </components.MultiValueRemove>
   );
 };
@@ -102,15 +95,15 @@ const MultiValueRemove = (props: MultiValueRemoveProps) => {
 const Dropdown = forwardRef<any, IDropdownProps>(
   (
     {
-      width,
-      label,
+      width = '320px',
       options,
       placeholder,
-      isRequired,
       isMulti,
       name,
       value,
       onChange,
+      label,
+      isRequired,
       ...rest
     },
     ref,
@@ -131,7 +124,7 @@ const Dropdown = forwardRef<any, IDropdownProps>(
           closeMenuOnSelect={isMulti ? false : true}
           hideSelectedOptions={false}
           placeholder={placeholder}
-          isSearchable={false}
+          isSearchable={isMulti ? true : false}
           isMulti={isMulti}
           value={value}
           $isError={!!error}

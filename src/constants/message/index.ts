@@ -22,6 +22,9 @@ export const AUTH_ERROR_MSG = Object.freeze({
   NICKNAME_REQUIRED: '닉네임을 입력해주세요.',
   NICKNAME_PATTERN: '2~20자의 한글, 영문, 숫자만 사용 가능합니다.',
 
+  // 한 줄 소개
+  SELF_DESCRIPTION_REQUIRED: '한 줄 소개를 입력해주세요.',
+
   // 성별
   GENDER_REQUIRED: '성별을 선택해주세요.',
 

@@ -36,7 +36,7 @@ const InputField = ({
 }: IInputFieldProps) => {
   const {
     watch,
-    resetField,
+    setValue,
     setFocus,
     register,
     formState: { errors },
@@ -46,7 +46,7 @@ const InputField = ({
   const error = errors[name] as FieldError;
 
   const handleCancelClick = () => {
-    resetField(name);
+    setValue(name, '');
     setFocus(name);
   };
   return (

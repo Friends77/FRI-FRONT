@@ -1,6 +1,6 @@
 /**
- * 프로필 사진, 닉네임, 출생년도, 성별 입력 폼
- * @author 선우
+ * BasicInfoForm: 프로필 사진, 닉네임, 출생년도, 성별 입력 폼
+ * @Author 선우
  */
 
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
@@ -18,9 +18,9 @@ import { useSetRecoilState } from 'recoil';
 import ImagePicker from '../../ImagePicker';
 import InputField from '../../InputField';
 import * as Styled from './BasicInfoForm.styled';
-import { BIRTH_YEAR } from '@/constants/user/year';
 import { BIRTH_MONTH } from '@/constants/user/month';
 import { GENDER } from '@/constants/user/gender';
+import { BIRTH_YEAR } from '@/constants/user/year';
 
 const BasicInfoForm = () => {
   const daySelectRef = useRef<any>(null);
@@ -83,7 +83,7 @@ const BasicInfoForm = () => {
       <Styled.BasicInfoFormHeader>프로필 작성</Styled.BasicInfoFormHeader>
       <Styled.BasicInfoFormContentSection>
         <Styled.BasicInfoFormImagePickerSection>
-          <ImagePicker name="imageUrl" />
+          <ImagePicker name="imageUrl" usage="signUp" />
         </Styled.BasicInfoFormImagePickerSection>
         <InputField
           label="닉네임"
@@ -185,32 +185,24 @@ const BasicInfoForm = () => {
         </Styled.BasicInfoFormBirthSection>
         <Styled.BasicInfoFormGenderSection>
           <Styled.BasicInfoFormLabel>성별&nbsp;</Styled.BasicInfoFormLabel>
-          <Controller
-            name="gender"
-            control={control}
-            rules={{
-              required: {
-                value: true,
-                message: '성별 입력 필요',
-              },
-            }}
-            render={() => {
+          <Styled.BasicInfoFormRadio>
+            {GENDER.map((gender) => {
               return (
-                <Styled.BasicInfoFormRadio>
-                  {GENDER.map((gender) => {
-                    return (
-                      <Radio
-                        key={gender.label}
-                        name="gender"
-                        text={gender.label}
-                        value={gender.value}
-                      />
-                    );
-                  })}
-                </Styled.BasicInfoFormRadio>
+                <Radio
+                  rules={{
+                    required: {
+                      value: true,
+                      message: '성별 입력 필요',
+                    },
+                  }}
+                  key={gender.label}
+                  name="gender"
+                  text={gender.label}
+                  value={gender.value}
+                />
               );
-            }}
-          />
+            })}
+          </Styled.BasicInfoFormRadio>
         </Styled.BasicInfoFormGenderSection>
         <PrimaryButton
           disabled={!isValid}

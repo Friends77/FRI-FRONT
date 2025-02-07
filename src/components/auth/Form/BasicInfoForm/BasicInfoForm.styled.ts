@@ -30,7 +30,7 @@ export const BasicInfoFormBirthSection = styled.section`
   display: flex;
   flex-direction: column;
   position: relative;
-  gap: 8px;
+  gap: 16px;
 `;
 
 export const BasicInfoFormBirthYearSection = styled.section`
