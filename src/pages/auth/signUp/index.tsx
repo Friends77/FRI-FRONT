@@ -59,25 +59,33 @@ const SignUpPage = () => {
 
   const onSubmit: SubmitHandler<SignUpFormDataType> = (data) => {
     const {
+      imageUrl,
+      year,
+      month,
+      day,
       EI,
       NS,
       FT,
       JP,
       'confirm-password': _,
       certno,
-      ...filteredData
+      ...formFields
     } = data;
 
-    const formData = {
-      ...filteredData,
+    const requestPayload = {
+      ...formFields,
       authToken,
+      birth: `${year}-${month}-${day}`,
       mbti: `${EI}${NS}${FT}${JP}`,
-      imageUrl: '',
       location: {
         latitude,
         longitude,
       },
     };
+
+    const formData = new FormData();
+    formData.append('registerRequestDto', JSON.stringify(requestPayload));
+    formData.append('profileImage', imageUrl);
 
     mutate(formData);
   };

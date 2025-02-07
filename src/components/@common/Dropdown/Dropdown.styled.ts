@@ -29,7 +29,7 @@ export const Dropdown = styled(Select)<{
 }>`
   .dropdown__control {
     width: 100%;
-    min-height: 56px;
+    max-height: 56px;
     border-radius: 6px;
     border: 1px solid
       ${({ theme, $isError }) =>
@@ -44,6 +44,11 @@ export const Dropdown = styled(Select)<{
   .dropdown__control--is-focused {
     border: 1px solid ${({ theme }) => theme.colors.Blue_400};
     box-shadow: none;
+  }
+
+  .dropdown__single-value,
+  .dropdown__placeholder {
+    height: 24px;
   }
 
   .dropdown__value-container {
