@@ -16,6 +16,8 @@ export interface ISVG extends React.SVGProps<SVGSVGElement> {
   height?: string;
   /** 아이콘 색 */
   color?: string;
+  /** 아이콘 서브색 */
+  subColor?: string;
   /** 아이콘 굵기 */
   weight?: 1 | 1.1 | 1.6 | 2 | 2.5;
 }

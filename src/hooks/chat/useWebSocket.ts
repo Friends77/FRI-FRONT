@@ -1,27 +1,28 @@
 import { useEffect, useRef } from 'react';
 import { useGetSecondaryToken } from './useGetSecondaryToken';
 import useMessageSubscription from './useMessageSubscription';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
 import socketConnectedAtom from '@/recoil/chat/socketConnected';
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
 
 const useWebSocket = () => {
-  const { data: tokenResponse } = useGetSecondaryToken();
   const { notifySubscribers } = useMessageSubscription();
-  const setSocketConnected = useSetRecoilState(socketConnectedAtom);
+  const [socketConnected, setSocketConnected] =
+    useRecoilState(socketConnectedAtom);
   const setSendMessageHandler = useSetRecoilState(sendMessageHandlerAtom);
+  const { data: tokenResponse } = useGetSecondaryToken(socketConnected);
 
   const ws = useRef<WebSocket | null>(null);
   const pongTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const retryCountRef = useRef(0);
 
   useEffect(() => {
-    if (tokenResponse) {
+    if (!socketConnected && tokenResponse) {
       connectWebSocket();
     }
-  }, [tokenResponse]);
+  }, [socketConnected, tokenResponse]);
 
   const connectWebSocket = () => {
     const webSocketUrl = `${websocketURL}/chat?token=${tokenResponse?.secondaryToken}`;
@@ -37,7 +38,6 @@ const useWebSocket = () => {
     console.log(ws.current?.readyState);
     runPongTimer();
     setSocketConnected(true);
-
     setSendMessageHandler(() => sendMessageToServer);
   };
 
@@ -51,7 +51,6 @@ const useWebSocket = () => {
     setSocketConnected(false);
 
     if (retryCountRef.current < 1) {
-      console.log('handleClose', retryCountRef.current);
       retryCountRef.current += 1;
       setTimeout(() => connectWebSocket(), 1000);
     }

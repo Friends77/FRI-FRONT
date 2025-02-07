@@ -14,7 +14,7 @@ export const Wrapper = styled.aside<{ $isOpen: boolean }>`
   transition: transform 0.3s ease;
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
-  z-index: 888;
+  z-index: 100;
 `;
 
 export const Container = styled.div`

@@ -1,7 +1,7 @@
-import { IProfileResponse } from '@/types/user';
+import { IUserProfile } from '@/types/@common';
 import { atom } from 'recoil';
 
-const profileAtom = atom<null | IProfileResponse>({
+const profileAtom = atom<null | IUserProfile>({
   key: 'profile',
   default: null,
 });
