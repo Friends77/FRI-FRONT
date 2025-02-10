@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+export const RecommendedContent = styled.section`
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+`;
+
 export const ChatRoomByTagSection = styled.section`
   width: 865px;
   height: 904px;
