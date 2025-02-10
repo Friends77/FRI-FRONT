@@ -59,3 +59,12 @@ export interface IUserProfile {
   interestTag: IInterestTag[];
   imageUrl: string;
 }
+
+export interface IRecommendedUsers {
+  content: {
+    memberId: number;
+    nickname: string;
+    imageUrl: string;
+    selfDescription: string;
+  }[];
+}
