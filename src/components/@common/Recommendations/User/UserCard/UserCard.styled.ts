@@ -19,6 +19,7 @@ export const UserCardIntroSection = styled.section`
   align-items: center;
   gap: 16px;
   width: 100%;
+  overflow-x: hidden;
 `;
 
 export const UserCardImage = styled.img`
