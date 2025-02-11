@@ -1,6 +1,7 @@
 import AuthAxios from '@/apis/@core/authInstance';
 import Axios from '@/apis/@core/instance';
-import { IRecommendedUsers, IUserProfile } from '@/types/@common';
+import { IUserProfile } from '@/types/@common';
+import { IProfileSimpleResponse } from '@/types/user';
 
 // 이미지 업로드
 export const imageUpload = async (formData: FormData) => {
@@ -20,7 +21,7 @@ export const getUserProfile = async (memberId: number) => {
 
 // 유저 추천
 export const getUserRecommendations = async (size: number) => {
-  const response = await Axios.get<IRecommendedUsers>(
+  const response = await Axios.get<{ content: IProfileSimpleResponse[] }>(
     `/api/global/recommendation/user`,
     {
       params: {

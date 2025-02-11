@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const useGetUserRecommendations = (size: number) => {
   return useQuery({
-    queryKey: COMMON_KEYS.RECOMMENDED_USRES,
+    queryKey: COMMON_KEYS.RECOMMENDED_USERS,
     queryFn: () => getUserRecommendations(size),
     enabled: size !== 0,
   });

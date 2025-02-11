@@ -4,21 +4,16 @@
  */
 
 import PersonAdd from '@/components/@common/SVG/Icon/PersonAdd';
-import { IRecommendedUsers } from '@/types/@common';
-import { ReactEventHandler, useState } from 'react';
+import { IProfileSimpleResponse } from '@/types/user';
+import { useState } from 'react';
 import * as Styled from './UserCard.styled';
-import defaultProfileImg from '@/assets/images/defaultProfile.png';
 
 export interface IUserCardProps {
-  userInfo: IRecommendedUsers['content'][0];
+  userInfo: IProfileSimpleResponse;
 }
 
 const UserCard = ({ userInfo }: IUserCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
-
-  const handleImgError: ReactEventHandler<HTMLImageElement> = (e) => {
-    e.currentTarget.src = defaultProfileImg;
-  };
 
   // TO-DO: 친구 추가 API 연동
   const handleButtonClick = () => {
@@ -31,10 +26,7 @@ const UserCard = ({ userInfo }: IUserCardProps) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Styled.UserCardIntroSection>
-        <Styled.UserCardImage
-          src={userInfo.imageUrl}
-          onError={handleImgError}
-        />
+        <Styled.UserCardImage src={userInfo.imageUrl} />
         <Styled.UserCardInfoSection>
           <Styled.UserCardNickname>{userInfo.nickname}</Styled.UserCardNickname>
           <Styled.UserCardDescription $isHovered={isHovered}>
