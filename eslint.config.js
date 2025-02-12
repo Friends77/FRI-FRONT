@@ -25,8 +25,13 @@ export default tseslint.config(
       ],
       'padding-line-between-statements': [
         'error',
-        { blankLine: 'always', prev: '*', next: 'return' }, // return문 앞에 한 줄 공백 추가
-        { blankLine: 'always', prev: 'export', next: 'export' }, // export 사이에 공백 추가
+        // export 사이에 공백 추가
+        { blankLine: 'always', prev: 'export', next: 'export' },
+        // 변수 선언 사이에 공백 추가
+        { blankLine: 'always', prev: 'const', next: 'const' },
+        { blankLine: 'always', prev: 'let', next: 'let' },
+        // return문 앞에 한 줄 공백 추가
+        { blankLine: 'always', prev: '*', next: 'return' },
       ],
     },
   },
