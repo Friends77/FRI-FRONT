@@ -1,24 +1,20 @@
 import { useEffect } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { enterChatRoom } from '@/apis/chat';
-import { CHAT_KEYS } from '@/constants/@queryKeys';
 
 interface IUseMessageListProps {
   roomId: number;
   setIsEnter: React.Dispatch<React.SetStateAction<boolean>>;
+  lastMsgId: number | null;
 }
 
-const useEnterChatRoom = ({ roomId, setIsEnter }: IUseMessageListProps) => {
-  const queryClient = useQueryClient();
-
+const useEnterChatRoom = ({
+  roomId,
+  setIsEnter,
+  lastMsgId,
+}: IUseMessageListProps) => {
   const { mutate } = useMutation({
     mutationFn: () => enterChatRoom(roomId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: CHAT_KEYS.CHAT_LIST(),
-      });
-      setIsEnter(true);
-    },
     onError: (error) => {
       console.error(error);
       alert('채팅방 입장 실패!');
@@ -26,8 +22,11 @@ const useEnterChatRoom = ({ roomId, setIsEnter }: IUseMessageListProps) => {
   });
 
   useEffect(() => {
-    mutate();
-  }, [roomId]);
+    if (!lastMsgId) {
+      mutate();
+      setIsEnter(true);
+    }
+  }, [lastMsgId]);
 };
 
 export default useEnterChatRoom;

@@ -6,12 +6,27 @@ interface IInvitationButton {
   $status: 'AVAILABLE' | 'INVITED';
 }
 
+export const InvitationDialog = styled.div`
+  min-height: 448px;
+`;
+
 export const SearchInput = styled(SideBarSearchInput)`
   padding: 0;
   margin-top: 24px;
 `;
 
-export const FriendList = styled.ul``;
+export const EmptyFriendList = styled.div`
+  ${({ theme }) => theme.typo.B1_R};
+  color: ${({ theme }) => theme.colors.Gray_700};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 380px;
+`;
+
+export const FriendList = styled.ul`
+  padding-bottom: 8px;
+`;
 
 export const FriendItem = styled.li`
   display: flex;

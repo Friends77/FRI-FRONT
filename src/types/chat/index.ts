@@ -2,11 +2,21 @@ import {
   IInterestTag,
   IPaginationParams,
   IPaginationResponse,
+  Options,
 } from '../@common';
 
 export interface ICreateChatRoomRequest {
   title: string;
+  description?: string;
   categoryIdList: number[];
+  backgroundImage?: Blob;
+}
+
+export interface ICreateChatRoomForm {
+  title: string;
+  description?: string;
+  categoryIdList: Options[];
+  backgroundImage?: Blob;
 }
 
 export interface ICreateChatRoomResponse {
@@ -142,4 +152,29 @@ export interface ISelectedImageMessageViewer {
 export interface IInviteChatForm {
   roomId: number;
   friendId: number;
+}
+
+export interface IMemberToInviteResponse {
+  content: IMemberToInvite[];
+}
+
+export interface IMemberToInvite {
+  memberId: number;
+  nickname: string;
+  imageUrl: string;
+  selfDescription?: string;
+}
+
+export interface IGetFriendsToInviteRequest {
+  roomId: number;
+  nickname?: string;
+}
+
+export enum FriendsInvitationStatus {
+  AVAILABLE = 'AVAILABLE',
+  INVITED = 'INVITED',
+}
+
+export interface IMemberWithStatus extends IMemberToInvite {
+  status: FriendsInvitationStatus;
 }

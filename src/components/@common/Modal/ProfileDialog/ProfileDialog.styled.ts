@@ -49,7 +49,7 @@ export const InfoValue = styled.span`
   text-align: center;
 `;
 
-export const TagContainer = styled.div`
+export const TagContainer = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 6px;

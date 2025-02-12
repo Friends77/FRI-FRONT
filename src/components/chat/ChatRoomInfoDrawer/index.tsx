@@ -22,6 +22,7 @@ import useFriendRequest from '@/hooks/user/useFriendRequest';
 import { useQueryClient } from '@tanstack/react-query';
 import { CHAT_KEYS } from '@/constants/@queryKeys';
 import ChatInvitationDialog from '../ChatInvitationDialog';
+import Tag from '@/components/@common/Tag';
 
 interface IChatRoomInfoDrawer {
   isOpen: boolean;
@@ -141,8 +142,9 @@ const ChatRoomInfoDrawer = ({
           alt="채팅방 썸네일 이미지"
         />
         <Styled.Categories>
-          {/* TODO: 카테고리 칩 머지되면 추가 */}
-          카테고리들
+          {chatRoomDetail?.categoryIdList.map((tag) => (
+            <Tag key={tag.id} size="large" icon={tag.image} label={tag.name} />
+          ))}
         </Styled.Categories>
         <Styled.Album>
           <Styled.AlbumHeader>

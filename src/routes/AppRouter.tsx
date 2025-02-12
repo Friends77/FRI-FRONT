@@ -17,6 +17,7 @@ import ResetPasswordPage from '@/pages/auth/resetPassword';
 import GoogleLoginCallback from '@/pages/auth/callback/google';
 import ChatRoomPage from '@/pages/chat/chatRoom';
 import ChatListPage from '@/pages/chat/chatList';
+import CreateChatRoom from '@/pages/chat/createChatRoom';
 import HomePage from '@/pages/home';
 import ProfilePage from '@/pages/user/profile';
 import BoardPage from '@/pages/board/board';
@@ -70,8 +71,8 @@ export default function AppRouter() {
               element: <ChatRoomPage />,
             },
             {
-              path: CHAT_PATH.CHAT_ROOM,
-              element: <ChatRoomPage />,
+              path: CHAT_PATH.CHAT_ROOM_CREATE,
+              element: <CreateChatRoom />,
             },
             {
               index: true,

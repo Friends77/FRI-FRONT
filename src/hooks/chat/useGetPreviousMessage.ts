@@ -5,25 +5,25 @@ import { CHAT_CONSTANT } from '@/constants/chat';
 
 interface IUseMessageListProps {
   roomId: number;
-  shouldFetchMessages: boolean;
+  shouldFetchPreviousMessages: boolean;
   size?: number;
   lastMessageId?: number;
 }
 
 const useGetPreviousMessage = ({
   roomId,
-  shouldFetchMessages,
+  shouldFetchPreviousMessages,
   lastMessageId,
 }: IUseMessageListProps) => {
   const { data } = useQuery({
-    queryKey: CHAT_KEYS.CHAT_MESSAGES(roomId),
+    queryKey: CHAT_KEYS.CHAT_MESSAGES,
     queryFn: () =>
       getChatMessages({
         roomId,
         size: CHAT_CONSTANT.DEFAULT_MESSAGE_SIZE,
         lastMessageId,
       }),
-    enabled: !!roomId && shouldFetchMessages,
+    enabled: !!roomId && shouldFetchPreviousMessages,
   });
 
   return { data };

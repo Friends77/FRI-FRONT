@@ -1,20 +1,19 @@
 import { exitChatRoom } from '@/apis/chat';
 import { ROOT_PATH } from '@/constants/routes';
-import chatRoomListAtom from '@/recoil/user/chatRoomList';
 import { useNavigate } from 'react-router';
-import { useSetRecoilState } from 'recoil';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { CHAT_KEYS } from '@/constants/@queryKeys';
 
 const useExitChatRoom = () => {
   const navigate = useNavigate();
-  const setChatRoomList = useSetRecoilState(chatRoomListAtom);
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: exitChatRoom,
-    onSuccess: ({ chatRoomId }) => {
-      setChatRoomList((prevList) =>
-        prevList.filter((room) => room.id !== chatRoomId),
-      );
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: CHAT_KEYS.CHAT_LIST(),
+      });
 
       navigate(ROOT_PATH.ROOT);
     },

@@ -7,7 +7,9 @@ import {
   IGetChatMemberRequest,
   IGetChatMessagesResponse,
   IGetChatMessagesType,
+  IGetFriendsToInviteRequest,
   IInviteChatForm,
+  IMemberToInviteResponse,
   IMyChatItem,
   ISecondaryTokenResponse,
 } from '@/types/chat';
@@ -16,27 +18,27 @@ import { createQueryParams } from '@/utils/formatter/queryParams';
 // 채팅방 생성
 export const createChatRoom = async ({
   title,
+  description,
   categoryIdList,
+  backgroundImage,
 }: ICreateChatRoomRequest) => {
-  // TODO: UI 완성되면 수정 필요
   const formData = new FormData();
 
   const chatRoomData = {
     title,
-    // categoryIdList,
-    categoryIdList: [1],
+    categoryIdList,
+    description,
   };
 
   formData.append('chatRoomCreateRequestDto', JSON.stringify(chatRoomData));
 
+  if (backgroundImage) {
+    formData.append('backgroundImage', backgroundImage);
+  }
+
   const response = await AuthAxios.post<ICreateChatRoomResponse>(
     '/api/user/chat/room',
     formData,
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    },
   );
 
   return response.data;
@@ -119,7 +121,6 @@ export const getChatMember = async ({
 // 채팅방 나가기
 export const exitChatRoom = async (roomId: number) => {
   await AuthAxios.delete(`/api/user/chat/room/${roomId}`);
-  return { chatRoomId: roomId };
 };
 
 // 채팅방 초대
@@ -129,9 +130,21 @@ export const inviteChatRoom = async ({ roomId, friendId }: IInviteChatForm) => {
     receiverIdList: [friendId],
   };
 
-  const response = await AuthAxios.post(
-    '/api/user/chat/invitation/request',
-    inviteChatForm,
+  await AuthAxios.post('/api/user/chat/invitation/request', inviteChatForm);
+
+  return { data: { friendId } };
+};
+
+// 초대 가능한 친구 리스트
+export const getFriendsToInvite = async ({
+  roomId,
+  nickname,
+}: IGetFriendsToInviteRequest) => {
+  const response = await AuthAxios.get<IMemberToInviteResponse>(
+    `/api/user/friendship/chatRoom/${roomId}/invite-list`,
+    {
+      params: { nickname },
+    },
   );
 
   return response.data;
