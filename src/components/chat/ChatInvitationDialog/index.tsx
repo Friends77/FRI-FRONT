@@ -71,7 +71,9 @@ const ChatInvitationDialog = ({ title, onClose }: IChatInvitationDialog) => {
                     <Styled.InfoContent>
                       <Styled.Nickname>{member.nickname}</Styled.Nickname>
                       {member.selfDescription && (
-                        <Styled.Description>안녕하세요</Styled.Description>
+                        <Styled.Description>
+                          {member.selfDescription}
+                        </Styled.Description>
                       )}
                     </Styled.InfoContent>
                   </Styled.Profile>
