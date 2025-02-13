@@ -25,15 +25,19 @@ const UserCard = ({ userInfo }: IUserCardProps) => {
       onMouseOver={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Styled.UserCardIntroSection>
-        <Styled.UserCardImage src={userInfo.imageUrl} />
-        <Styled.UserCardInfoSection>
-          <Styled.UserCardNickname>{userInfo.nickname}</Styled.UserCardNickname>
-          <Styled.UserCardDescription $isHovered={isHovered}>
-            {userInfo.selfDescription}
-          </Styled.UserCardDescription>
-        </Styled.UserCardInfoSection>
-      </Styled.UserCardIntroSection>
+      <Styled.UserCardInnerWrapper $isHovered={isHovered}>
+        <Styled.UserCardIntroSection $isHovered={isHovered}>
+          <Styled.UserCardImage src={userInfo.imageUrl} />
+          <Styled.UserCardInfoSection $isHovered={isHovered}>
+            <Styled.UserCardNickname>
+              {userInfo.nickname}
+            </Styled.UserCardNickname>
+            <Styled.UserCardDescription $isHovered={isHovered}>
+              {userInfo.selfDescription}
+            </Styled.UserCardDescription>
+          </Styled.UserCardInfoSection>
+        </Styled.UserCardIntroSection>
+      </Styled.UserCardInnerWrapper>
       {isHovered && (
         <Styled.UserCardButton onClick={handleButtonClick}>
           <PersonAdd title="친구신청" width="21" height="14" />

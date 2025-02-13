@@ -5,7 +5,6 @@ export const UserCardWrapper = styled.li`
   justify-content: space-between;
   align-items: center;
   padding: 12px;
-  position: relative;
   width: 100%;
 
   &:hover {
@@ -14,9 +13,9 @@ export const UserCardWrapper = styled.li`
   }
 `;
 
-export const UserCardInnerWrapper = styled.div`
+export const UserCardInnerWrapper = styled.div<{ $isHovered: boolean }>`
   display: flex;
-  width: 100%;
+  width: ${({ $isHovered }) => ($isHovered ? '286px' : '100%')};
   overflow-x: hidden;
 `;
 
@@ -25,13 +24,13 @@ export const UserCardIntroSection = styled.section<{ $isHovered: boolean }>`
   display: flex;
   align-items: center;
   gap: 16px;
-  width: ${({ $isHovered }) => ($isHovered ? '254px' : '100%')};
+  width: ${({ $isHovered }) => ($isHovered ? '286px' : '100%')};
 `;
 
 // 프로필 이미지
 export const UserCardImage = styled.img`
-  width: 72px;
-  height: 72px;
+  width: 60px;
+  height: 60px;
   border-radius: 999px;
 `;
 
@@ -40,7 +39,7 @@ export const UserCardInfoSection = styled.section<{ $isHovered: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 2px;
-  width: ${({ $isHovered }) => ($isHovered ? '90%' : '100%')};
+  width: ${({ $isHovered }) => ($isHovered ? '210px' : '100%')};
 `;
 
 export const UserCardNickname = styled.span`
@@ -54,12 +53,9 @@ export const UserCardDescription = styled.span<{ $isHovered: boolean }>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ${({ $isHovered }) => ($isHovered ? 'ellipsis' : '')};
-  padding-right: 40px;
 `;
 
 export const UserCardButton = styled.button`
-  position: absolute;
-  right: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
