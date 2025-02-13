@@ -14,24 +14,33 @@ export const UserCardWrapper = styled.li`
   }
 `;
 
-export const UserCardIntroSection = styled.section`
+export const UserCardInnerWrapper = styled.div`
   display: flex;
-  align-items: center;
-  gap: 16px;
   width: 100%;
   overflow-x: hidden;
 `;
 
+// 프로필 이미지 + 닉네임 + 한줄소개
+export const UserCardIntroSection = styled.section<{ $isHovered: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: ${({ $isHovered }) => ($isHovered ? '254px' : '100%')};
+`;
+
+// 프로필 이미지
 export const UserCardImage = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 72px;
+  height: 72px;
   border-radius: 999px;
 `;
 
-export const UserCardInfoSection = styled.section`
+// 닉네임 + 한줄소개
+export const UserCardInfoSection = styled.section<{ $isHovered: boolean }>`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  gap: 2px;
+  width: ${({ $isHovered }) => ($isHovered ? '90%' : '100%')};
 `;
 
 export const UserCardNickname = styled.span`
@@ -45,7 +54,7 @@ export const UserCardDescription = styled.span<{ $isHovered: boolean }>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ${({ $isHovered }) => ($isHovered ? 'ellipsis' : '')};
-  width: ${({ $isHovered }) => ($isHovered ? '55%' : '100%')};
+  padding-right: 40px;
 `;
 
 export const UserCardButton = styled.button`
