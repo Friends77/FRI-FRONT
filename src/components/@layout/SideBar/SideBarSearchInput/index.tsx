@@ -4,15 +4,22 @@ import { useFormContext } from 'react-hook-form';
 
 interface ISideBarSearchInput {
   className?: string;
+  placeholder?: string;
 }
 
-const SideBarSearchInput = ({ className }: ISideBarSearchInput) => {
+const SideBarSearchInput = ({
+  className,
+  placeholder,
+}: ISideBarSearchInput) => {
   const { register } = useFormContext();
 
   return (
     <Styled.Wrapper className={className}>
       <Styled.InputContainer>
-        <Styled.Input placeholder="검색" {...register('keyword')} />
+        <Styled.Input
+          placeholder={placeholder || '검색'}
+          {...register('keyword')}
+        />
         <Styled.SearchBtn>
           <Search title="검색" width="24px" height="24px" />
         </Styled.SearchBtn>

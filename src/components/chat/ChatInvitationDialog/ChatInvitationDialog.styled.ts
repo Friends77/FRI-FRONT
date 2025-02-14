@@ -1,5 +1,6 @@
 import ProfileImage from '@/components/@common/ProfileImage';
 import SideBarSearchInput from '@/components/@layout/SideBar/SideBarSearchInput';
+import { Link } from 'react-router';
 import styled, { css } from 'styled-components';
 
 interface IInvitationButton {
@@ -20,8 +21,21 @@ export const EmptyFriendList = styled.div`
   color: ${({ theme }) => theme.colors.Gray_700};
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
   height: 380px;
+  gap: 4px;
+  padding-bottom: 48px;
+`;
+
+export const FindFriendButton = styled(Link)`
+  ${({ theme }) => theme.typo.B1_R};
+  color: ${({ theme }) => theme.colors.Blue_500};
+  padding: 5px 12px;
+  display: flex;
+  gap: 4px;
+  border: 1px solid ${({ theme }) => theme.colors.Blue_500};
+  border-radius: 999px;
 `;
 
 export const FriendList = styled.ul`
@@ -52,10 +66,12 @@ export const InfoContent = styled.div`
 
 export const Nickname = styled.div`
   ${({ theme }) => theme.typo.T2_B};
+  color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
 export const Description = styled.p`
   ${({ theme }) => theme.typo.B1_R};
+  color: ${({ theme }) => theme.colors.Gray_900};
 `;
 
 export const InvitationButton = styled.button<IInvitationButton>`

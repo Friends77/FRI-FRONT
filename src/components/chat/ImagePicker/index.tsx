@@ -29,9 +29,6 @@ const ImagePicker = () => {
           src={previewImage || defaultThumbnail}
           alt="채팅방 썸네일"
         />
-        <Styled.DeleteButton type="button" onClick={handleDeleteImage}>
-          삭제
-        </Styled.DeleteButton>
       </Styled.PreviewImageButton>
 
       <Styled.Content>
@@ -39,6 +36,7 @@ const ImagePicker = () => {
           채팅방 썸네일 미 업로드 시,
           <br /> 기본 채팅방 사진으로 지정됩니다.
         </Styled.Description>
+
         <Styled.Label>
           이미지 업로드
           <input
@@ -49,6 +47,11 @@ const ImagePicker = () => {
             hidden
           />
         </Styled.Label>
+        {previewImage !== defaultThumbnail && (
+          <Styled.DeleteButton type="button" onClick={handleDeleteImage}>
+            삭제
+          </Styled.DeleteButton>
+        )}
       </Styled.Content>
     </Styled.ImagePickerWrapper>
   );

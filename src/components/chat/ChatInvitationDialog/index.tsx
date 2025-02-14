@@ -1,5 +1,6 @@
 import * as Styled from './ChatInvitationDialog.styled';
 import CustomModal from '@/components/@common/Modal/CustomModal';
+import ArrowForward from '@/components/@common/SVG/Icon/ArrowForward';
 import useGetFriendsToInvite from '@/hooks/chat/useGetFriendsToInvite';
 import useSendChatInvite from '@/hooks/chat/useSendChatInvite';
 import { FriendsInvitationStatus, IMemberWithStatus } from '@/types/chat';
@@ -56,9 +57,9 @@ const ChatInvitationDialog = ({ title, onClose }: IChatInvitationDialog) => {
     <CustomModal title={title} onClose={onClose}>
       <FormProvider {...methods}>
         <Styled.InvitationDialog>
-          <Styled.SearchInput />
+          <Styled.SearchInput placeholder="친구 이름 검색" />
           {/* TODO: 서버에서 친구상태 추가되면 수정 */}
-          {memberList.length > 0 ? (
+          {memberList.length < 0 ? (
             <Styled.FriendList>
               {memberList.map((member) => (
                 <Styled.FriendItem key={member.memberId}>
@@ -93,6 +94,10 @@ const ChatInvitationDialog = ({ title, onClose }: IChatInvitationDialog) => {
           ) : (
             <Styled.EmptyFriendList>
               아직 등록된 친구가 없어요
+              <Styled.FindFriendButton to="/">
+                친구 찾기{' '}
+                <ArrowForward title="친구 찾기" width="24" height="24" />
+              </Styled.FindFriendButton>
             </Styled.EmptyFriendList>
           )}
         </Styled.InvitationDialog>

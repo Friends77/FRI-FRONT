@@ -9,9 +9,15 @@ export interface IImagePickerProps {
   name: string;
   usage: 'signUp' | 'myPage'; // usage: 사용처(회원가입, 마이페이지)
   imageUrl?: string;
+  defaultImageUrl?: string;
 }
 
-const ImagePicker = ({ name, usage, imageUrl }: IImagePickerProps) => {
+const ImagePicker = ({
+  name,
+  usage,
+  imageUrl,
+  defaultImageUrl,
+}: IImagePickerProps) => {
   const { register, setValue } = useFormContext();
 
   const [pickedImage, setPickedImage] = useState<string | null>(
@@ -67,7 +73,7 @@ const ImagePicker = ({ name, usage, imageUrl }: IImagePickerProps) => {
       <Styled.ImagePickerImageSection>
         <label>
           <Styled.ImagePickerImagePreview
-            src={pickedImage ? pickedImage : defaultProfileImg}
+            src={pickedImage || defaultImageUrl || defaultProfileImg}
             onError={handleImgError}
           />
           <input

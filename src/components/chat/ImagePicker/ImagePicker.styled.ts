@@ -22,13 +22,6 @@ export const PreviewImage = styled.img`
   object-fit: cover;
 `;
 
-export const DeleteButton = styled.button`
-  ${({ theme }) => theme.typo.B1_R};
-  color: ${({ theme }) => theme.colors.Gray_800};
-  cursor: pointer;
-  text-decoration: underline;
-`;
-
 export const Content = styled.div`
   margin-bottom: 34px;
 `;
@@ -48,4 +41,11 @@ export const Label = styled.label`
   padding: 6px 12px;
   color: ${({ theme }) => theme.colors.White};
   background-color: ${({ theme }) => theme.colors.Blue_400};
+`;
+
+export const DeleteButton = styled.button`
+  ${({ theme }) => theme.typo.B1_R};
+  color: ${({ theme }) => theme.colors.Gray_800};
+  cursor: pointer;
+  text-decoration: underline;
 `;

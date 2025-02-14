@@ -8,9 +8,9 @@ import { Options } from '@/types/@common';
 import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import { ICreateChatRoomForm } from '@/types/chat';
-import ImagePicker from '@/components/chat/ImagePicker';
 import { useCreateChatRoom } from '@/hooks/chat/useCreateChatRoom';
-
+import ImagePicker from '@/components/auth/ImagePicker';
+import defaultThumbnail from '@/assets/images/defaultThumbnail.png';
 const createChatRoom = () => {
   const { data: categories } = useFetchCategory();
   const [categoryOptions, setCategoryOptions] = useState<Options[]>([]);
@@ -47,10 +47,13 @@ const createChatRoom = () => {
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <ul>
-            <li>
-              <Styled.ImageLabel>채팅방 사진</Styled.ImageLabel>
-              <ImagePicker />
-            </li>
+            <Styled.ThumbnailItem>
+              <ImagePicker
+                name="backgroundImage"
+                usage="signUp"
+                defaultImageUrl={defaultThumbnail}
+              />
+            </Styled.ThumbnailItem>
             <Styled.InputItem>
               <Styled.Label>
                 채팅방 이름 <Styled.RequiredTag>*</Styled.RequiredTag>

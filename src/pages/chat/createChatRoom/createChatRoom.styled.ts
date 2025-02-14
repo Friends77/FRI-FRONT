@@ -10,7 +10,21 @@ export const Header = styled.h3`
   margin-top: 120px;
   ${({ theme }) => theme.typo.D1_B};
   color: ${({ theme }) => theme.colors.Gray_1000};
-  margin-bottom: 64px;
+  margin-bottom: 50px;
+`;
+
+export const ThumbnailItem = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 30px;
+`;
+
+export const Caution = styled.p`
+  ${({ theme }) => theme.typo.B1_R};
+  color: ${({ theme }) => theme.colors.Gray_800};
 `;
 
 export const InputItem = styled.li`
