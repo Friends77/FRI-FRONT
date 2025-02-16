@@ -34,11 +34,19 @@ const ChatRoomPage = () => {
   const [previewMessage, setPreviewMessage] = useState<ISentMessageItem | null>(
     null,
   );
+  const [lastMsgId, setLastMsgId] = useState<number | null>(null);
+  const [shouldFetchPreviousMessages, setShouldFetchPreviousMessages] =
+    useState(false);
 
   // TODO: 테스트 후, 제거 예정
   useWebSocket();
-  useResetState({ roomId, setIsEnter });
-  useEnterChatRoom({ roomId, setIsEnter });
+  useResetState({
+    roomId,
+    setLastMsgId,
+    setIsEnter,
+    setShouldFetchPreviousMessages,
+  });
+  useEnterChatRoom({ roomId, setIsEnter, lastMsgId });
   useGetChatRoomDetail({ roomId });
   useGetChatMembers({ roomId });
 
@@ -52,10 +60,14 @@ const ChatRoomPage = () => {
 
   useScrollHandler({
     roomId,
-    isEnter,
     messageListRef,
     setPreviewMessage,
     setIsShowPreviewMessage,
+    lastMsgId,
+    setLastMsgId,
+    isEnter,
+    shouldFetchPreviousMessages,
+    setShouldFetchPreviousMessages,
   });
 
   const {

@@ -25,7 +25,7 @@ const SideBarChatList = () => {
     if (data) {
       setChatRoomList(data);
     }
-  }, [data, setChatRoomList]);
+  }, [data]);
 
   const handleChatRoomClick = useCallback(
     (roomId: number) => {

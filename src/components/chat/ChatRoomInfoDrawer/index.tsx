@@ -16,6 +16,13 @@ import ProfileDialog from '@/components/@common/Modal/ProfileDialog';
 import useGetProfile from '@/hooks/@common/useGetProfile';
 import { IUserProfile } from '@/types/@common';
 import profileAtom from '@/recoil/user/profile';
+import AddFriend from '@/components/@common/SVG/Icon/AddFriend';
+import { FriendsStatus } from '@/types/chat';
+import useFriendRequest from '@/hooks/user/useFriendRequest';
+import { useQueryClient } from '@tanstack/react-query';
+import { CHAT_KEYS } from '@/constants/@queryKeys';
+import ChatInvitationDialog from '../ChatInvitationDialog';
+import Tag from '@/components/@common/Tag';
 
 interface IChatRoomInfoDrawer {
   isOpen: boolean;
@@ -32,6 +39,7 @@ const ChatRoomInfoDrawer = ({
 }: IChatRoomInfoDrawer) => {
   const { roomId: roomIdQuery } = useParams();
   const roomId = Number(roomIdQuery);
+  const queryClient = useQueryClient();
 
   const chatRoomDetail = useRecoilValue(roomDetailAtom);
   const imageMessages = useRecoilValue(imageMessagesSelector);
@@ -39,7 +47,8 @@ const ChatRoomInfoDrawer = ({
   const myProfile = useRecoilValue(profileAtom);
 
   const [isOpenExitModal, setIsOpenExitModal] = useState(false);
-  const [isOpenProfile, setIsOpenProfile] = useState(true);
+  const [isOpenProfile, setIsOpenProfile] = useState(false);
+  const [isOpenInvitationDialog, setIsOpenInvitationDialog] = useState(false);
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(
     null,
   );
@@ -48,6 +57,13 @@ const ChatRoomInfoDrawer = ({
   );
 
   const { mutate: exitChatRoom } = useExitChatRoom();
+  const { mutate: addFriend } = useFriendRequest({
+    onSuccessHandler: () => {
+      queryClient.invalidateQueries({
+        queryKey: CHAT_KEYS.CHAT_MEMBER_LIST(roomId),
+      });
+    },
+  });
   const { data: userProfile } = useGetProfile(selectedProfileId);
 
   useEffect(() => {
@@ -79,6 +95,18 @@ const ChatRoomInfoDrawer = ({
     setIsOpenProfile(false);
   };
 
+  const handleAddFriend = (friendId: number) => {
+    addFriend(friendId);
+  };
+
+  const handleOpenInvitationDialog = () => {
+    setIsOpenInvitationDialog(true);
+  };
+
+  const handleCloseInvitationDialog = () => {
+    setIsOpenInvitationDialog(false);
+  };
+
   return (
     <>
       {isOpenExitModal && (
@@ -96,6 +124,13 @@ const ChatRoomInfoDrawer = ({
         <ProfileDialog profile={selectedProfile} onClose={handleCloseProfile} />
       )}
 
+      {isOpenInvitationDialog && (
+        <ChatInvitationDialog
+          title={`${chatRoomDetail?.title} 초대하기`}
+          onClose={handleCloseInvitationDialog}
+        />
+      )}
+
       <Styled.ChatRoomInfoDrawerContainer $isOpen={isOpen}>
         <Styled.CloseButtonContainer>
           <Styled.CloseButton onClick={onCloseDrawer}>
@@ -107,8 +142,9 @@ const ChatRoomInfoDrawer = ({
           alt="채팅방 썸네일 이미지"
         />
         <Styled.Categories>
-          {/* TODO: 카테고리 칩 머지되면 추가 */}
-          카테고리들
+          {chatRoomDetail?.categoryIdList.map((tag) => (
+            <Tag key={tag.id} size="large" icon={tag.image} label={tag.name} />
+          ))}
         </Styled.Categories>
         <Styled.Album>
           <Styled.AlbumHeader>
@@ -141,27 +177,54 @@ const ChatRoomInfoDrawer = ({
                 {`(${chatMemberList.length})`}
               </Styled.MemberCount>
             </Styled.MemberTitle>
-            {/* TODO: 추후 친구추가 기능 작업시 주석 해제 */}
-            {/* <Plus title="친구 초대" width="24" height="24" /> */}
+            <Styled.InvitationButton
+              type="button"
+              onClick={handleOpenInvitationDialog}
+            >
+              <Plus title="친구 초대" width="24" height="24" />
+            </Styled.InvitationButton>
           </Styled.MembersHeader>
           <Styled.MembersContent>
             {chatMemberList.map((member) => (
               <Styled.Member key={member.id}>
-                <Styled.ShowProfileButton
-                  type="button"
-                  onClick={() => handleOpenProfile(member.id)}
-                >
-                  <ProfileImage
-                    size={32}
-                    src={member.profileImageUrl}
-                    alt="프로필 이미지"
-                  />
-                </Styled.ShowProfileButton>
-                <Styled.MemberName $isMe={myProfile?.memberId === member.id}>
-                  {myProfile?.memberId === member.id ? '나' : member.nickname}
-                </Styled.MemberName>
-                {member.isManager && (
-                  <Styled.ManagerTag>방장</Styled.ManagerTag>
+                <Styled.MemberInfo>
+                  <Styled.ShowProfileButton
+                    type="button"
+                    onClick={() => handleOpenProfile(member.id)}
+                  >
+                    <ProfileImage
+                      size={32}
+                      src={member.profileImageUrl}
+                      alt="프로필 이미지"
+                    />
+                  </Styled.ShowProfileButton>
+                  <Styled.MemberName $isMe={myProfile?.memberId === member.id}>
+                    {myProfile?.memberId === member.id ? '나' : member.nickname}
+                  </Styled.MemberName>
+                  {member.isManager && (
+                    <Styled.ManagerTag>방장</Styled.ManagerTag>
+                  )}
+                </Styled.MemberInfo>
+                {(member.friendshipStatusEnums === FriendsStatus.AVAILABLE ||
+                  member.friendshipStatusEnums === FriendsStatus.REQUESTED) && (
+                  <Styled.MemberFriendStatus
+                    onClick={() => handleAddFriend(member.id)}
+                    disabled={
+                      member.friendshipStatusEnums === FriendsStatus.REQUESTED
+                    }
+                    $friendStatus={member.friendshipStatusEnums}
+                  >
+                    {member.friendshipStatusEnums ===
+                      FriendsStatus.AVAILABLE && (
+                      <>
+                        <AddFriend title="친구 신청" width="24" height="24" />
+                        친구신청
+                      </>
+                    )}
+
+                    {member.friendshipStatusEnums === FriendsStatus.REQUESTED &&
+                      '수락 대기중'}
+                  </Styled.MemberFriendStatus>
                 )}
               </Styled.Member>
             ))}
