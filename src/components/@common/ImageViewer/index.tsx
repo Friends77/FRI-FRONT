@@ -6,10 +6,9 @@ import ModalContainer from '@/utils/portal';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import PrevButton from '../SVG/Icon/PrevButton';
-import NextButton from '../SVG/Icon/NextButton';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useLockBodyScroll from '@/hooks/@common/useLockBodyScroll';
+import PageNavigator from '@/components/home/PageNavigator';
 
 interface IImageViewer {
   imageList: string[];
@@ -24,25 +23,29 @@ const ImageViewer = ({
   onClose,
   selectedImageIndex,
 }: IImageViewer) => {
-  const [swiper, setSwiper] = useState<SwiperClass>();
-  const [swiperIndex, setSwiperIndex] = useState(0);
+  const swiper = useRef<SwiperClass | null>(null);
+  const [swiperIndex, setSwiperIndex] = useState(selectedImageIndex);
 
   const handleClose = () => {
     onClose();
   };
 
   const handlePrev = () => {
-    swiper?.slidePrev();
+    swiper.current?.slidePrev();
   };
   const handleNext = () => {
-    swiper?.slideNext();
+    swiper.current?.slideNext();
   };
 
   useEffect(() => {
     if (swiper) {
-      swiper.slideTo(selectedImageIndex, 0);
+      swiper.current?.slideTo(selectedImageIndex, 0);
     }
   }, [swiper, selectedImageIndex]);
+
+  useEffect(() => {
+    setSwiperIndex(swiperIndex);
+  }, [swiperIndex]);
 
   useLockBodyScroll();
 
@@ -59,22 +62,32 @@ const ImageViewer = ({
           <Styled.SwiperContainer
             slidesPerView={1}
             onSwiper={(e) => {
-              setSwiper(e);
+              swiper.current = e;
             }}
-            onActiveIndexChange={(e) => setSwiperIndex(e.realIndex)}
+            onSlideChange={(e) => {
+              setSwiperIndex(e.activeIndex);
+            }}
           >
-            <Styled.PrevButton onClick={handlePrev}>
-              {/* TODO: PageNavigator가 머지되면 교체예정 */}
-              <PrevButton title="이전" width="40" height="40" />
+            <Styled.PrevButton>
+              <PageNavigator
+                color="gray"
+                direction="prev"
+                disabled={swiperIndex === 0}
+                onClick={handlePrev}
+              />
             </Styled.PrevButton>
             {imageList.map((path, index) => (
               <Styled.SwiperSlideContainer key={index}>
                 <Styled.Image src={path} alt={alt} />
               </Styled.SwiperSlideContainer>
             ))}
-            <Styled.NextButton onClick={handleNext}>
-              {/* TODO: PageNavigator가 머지되면 교체예정 */}
-              <NextButton title="다음" width="40" height="40" />
+            <Styled.NextButton>
+              <PageNavigator
+                color="gray"
+                direction="next"
+                disabled={swiperIndex === imageList.length - 1}
+                onClick={handleNext}
+              />
             </Styled.NextButton>
           </Styled.SwiperContainer>
           <Styled.Pagination>{`${swiperIndex + 1}/${imageList.length}`}</Styled.Pagination>

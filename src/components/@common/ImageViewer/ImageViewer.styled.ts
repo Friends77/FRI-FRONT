@@ -60,18 +60,16 @@ export const Image = styled.img`
   object-fit: cover;
 `;
 
-export const PrevButton = styled.button`
+export const PrevButton = styled.div`
   position: absolute;
   top: 50%;
   left: 0;
-  cursor: pointer;
   z-index: 400;
 `;
-export const NextButton = styled.button`
+export const NextButton = styled.div`
   position: absolute;
   top: 50%;
   right: 0;
-  cursor: pointer;
   z-index: 400;
 `;
 

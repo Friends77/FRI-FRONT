@@ -1,12 +1,18 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.li`
-  display: flex;
-  border: 1px solid ${({ theme }) => theme.colors.Gray_300};
+export interface ITag {
+  $size: 'small' | 'large';
+}
+
+export const Wrapper = styled.li<ITag>`
+  display: inline-flex;
+  outline: 1px solid ${({ theme }) => theme.colors.Gray_300};
   border-radius: 8px;
-  padding: 4px 8px 4px 8px;
   background-color: ${({ theme }) => theme.colors.Gray_100};
   color: ${({ theme }) => theme.colors.Gray_800};
-  ${({ theme }) => theme.typo.Label_R};
   gap: 4px;
+  padding: 4px 8px;
+
+  ${({ theme, $size }) =>
+    $size === 'small' ? theme.typo.Label_R : theme.typo.T2_R};
 `;

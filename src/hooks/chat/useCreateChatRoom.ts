@@ -1,21 +1,24 @@
 import { createChatRoom } from '@/apis/chat';
 import { CHAT_KEYS } from '@/constants/@queryKeys';
+import { CHAT_PATH } from '@/constants/routes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router';
 
 export const useCreateChatRoom = () => {
   const queryClient = useQueryClient();
 
+  const navigate = useNavigate();
+
   return useMutation({
     mutationFn: createChatRoom,
-    onSuccess: ({ chatRoomId }) => {
-      queryClient.invalidateQueries({
+    onSuccess: async ({ chatRoomId }) => {
+      await queryClient.invalidateQueries({
         queryKey: CHAT_KEYS.CHAT_LIST(),
       });
-      alert(`${chatRoomId}번 채팅방 생성완료!`);
+      navigate(CHAT_PATH.CHAT_ROOM.replace(':roomId', `${chatRoomId}`));
     },
-    onError: (error) => {
-      console.log(error);
-      alert('채팅방 생성실패!');
+    onError: () => {
+      alert('채팅방 생성을 실패했습니다.');
     },
   });
 };

@@ -120,15 +120,17 @@ const MyMessage = ({
                   onClick={() => handleImageMessageClick(index)}
                 >
                   <Styled.ImageMessageContent src={path} alt="이미지 메세지" />
+
+                  {index + 1 === CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES &&
+                    message.content.split(',').length >
+                      CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES && (
+                      <Styled.DimmedImage>{`+${
+                        message.content.split(',').length -
+                        CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES
+                      }`}</Styled.DimmedImage>
+                    )}
                 </Styled.ImageMessageButton>
               ))}
-            {message.content.split(',').length >
-              CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES && (
-              <Styled.DimmedImage>{`+${
-                message.content.split(',').length -
-                CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES
-              }`}</Styled.DimmedImage>
-            )}
           </Styled.ImageMessageContainer>
         )}
       </Styled.MyMessageItem>

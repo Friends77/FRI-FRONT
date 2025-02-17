@@ -5,14 +5,16 @@ import { enterChatRoom } from '@/apis/chat';
 interface IUseMessageListProps {
   roomId: number;
   setIsEnter: React.Dispatch<React.SetStateAction<boolean>>;
+  lastMsgId: number | null;
 }
 
-const useEnterChatRoom = ({ roomId, setIsEnter }: IUseMessageListProps) => {
+const useEnterChatRoom = ({
+  roomId,
+  setIsEnter,
+  lastMsgId,
+}: IUseMessageListProps) => {
   const { mutate } = useMutation({
     mutationFn: () => enterChatRoom(roomId),
-    onSuccess: () => {
-      setIsEnter(true);
-    },
     onError: (error) => {
       console.error(error);
       alert('채팅방 입장 실패!');
@@ -20,8 +22,11 @@ const useEnterChatRoom = ({ roomId, setIsEnter }: IUseMessageListProps) => {
   });
 
   useEffect(() => {
-    mutate();
-  }, [roomId]);
+    if (!lastMsgId) {
+      mutate();
+      setIsEnter(true);
+    }
+  }, [lastMsgId]);
 };
 
 export default useEnterChatRoom;

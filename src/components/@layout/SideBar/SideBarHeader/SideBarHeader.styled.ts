@@ -8,8 +8,15 @@ export const Wrapper = styled.section`
   padding: 0 24px;
 `;
 
-export const NotificationBtn = styled.button`
+export const SideBarButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
+export const SideBarButton = styled.button`
   position: relative;
+  display: flex;
 `;
 
 export const NotificationBadge = styled.div`

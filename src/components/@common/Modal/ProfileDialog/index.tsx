@@ -3,6 +3,7 @@ import { IUserProfile } from '@/types/@common';
 import CustomModal from '../CustomModal';
 import ProfileImage from '../../ProfileImage';
 import { getInternationalAge } from '@/utils/formatter/time';
+import Tag from '../../Tag';
 
 interface IProfileDialog {
   profile: IUserProfile;
@@ -46,9 +47,9 @@ const ProfileDialog = ({ profile, onClose }: IProfileDialog) => {
       </Styled.InfoTable>
 
       <Styled.TagContainer>
-        {/* TODO: 관심사 카테고리 머지되면 작업 */}
-        {/* {interestTag.map((tag) => (
-        ))} */}
+        {interestTag.map((tag) => (
+          <Tag key={tag.id} size="large" icon={tag.image} label={tag.name} />
+        ))}
       </Styled.TagContainer>
     </CustomModal>
   );

@@ -9,11 +9,21 @@ import { useRecoilTransaction_UNSTABLE } from 'recoil';
 
 interface IUseResetState {
   roomId: number;
+  setLastMsgId: React.Dispatch<React.SetStateAction<number | null>>;
   setIsEnter: React.Dispatch<React.SetStateAction<boolean>>;
+  setShouldFetchPreviousMessages: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const useResetState = ({ roomId, setIsEnter }: IUseResetState) => {
+const useResetState = ({
+  roomId,
+  setLastMsgId,
+  setIsEnter,
+  setShouldFetchPreviousMessages,
+}: IUseResetState) => {
   const resetChatState = useRecoilTransaction_UNSTABLE(({ reset }) => () => {
+    setShouldFetchPreviousMessages(false);
+    setLastMsgId(null);
+    setIsEnter(false);
     reset(sentMessageAtom);
     reset(pendingMessageAtom);
     reset(failedMessageAtom);
@@ -21,7 +31,6 @@ const useResetState = ({ roomId, setIsEnter }: IUseResetState) => {
   });
 
   useEffect(() => {
-    setIsEnter(false);
     resetChatState();
   }, [roomId]);
 };

@@ -1,4 +1,4 @@
-import { getUserProfile } from '@/apis/@common';
+import { getUserProfile } from '@/apis/user';
 import { COMMON_KEYS } from '@/constants/@queryKeys';
 import { useQuery } from '@tanstack/react-query';
 

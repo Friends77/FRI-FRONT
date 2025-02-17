@@ -17,6 +17,10 @@ export const SenderProfile = styled.div`
   gap: 10px;
 `;
 
+export const ProfileButton = styled.button`
+  display: flex;
+`;
+
 export const SenderNickname = styled.div`
   ${({ theme }) => theme.typo.B1_B};
 `;

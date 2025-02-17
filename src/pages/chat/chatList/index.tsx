@@ -1,18 +1,19 @@
 import { useCreateChatRoom } from '@/hooks/chat/useCreateChatRoom';
 import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router';
-import { IMyChatItem } from '@/types/chat';
+import { useRecoilState } from 'recoil';
+import chatRoomListAtom from '@/recoil/user/chatRoomList';
 
 const ChatListPage = () => {
-  const [chatList, setChatList] = useState<IMyChatItem[] | null>();
+  const [chatRoomList, setChatRoomList] = useRecoilState(chatRoomListAtom);
 
   const { mutate: createChatRoom } = useCreateChatRoom();
   const { data } = useGetMyChatList();
 
   useEffect(() => {
     if (data) {
-      setChatList(data);
+      setChatRoomList(data);
     }
   }, [data]);
 
@@ -24,7 +25,7 @@ const ChatListPage = () => {
     <>
       <button onClick={handleCreateChatRoom}>채팅방 생성</button>
       <ul>
-        {chatList?.map((chat) => (
+        {chatRoomList?.map((chat) => (
           <li key={chat.id}>
             <Link
               to={`/chat/room/${chat.id}`}

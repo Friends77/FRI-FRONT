@@ -2,11 +2,22 @@ import {
   IInterestTag,
   IPaginationParams,
   IPaginationResponse,
+  Options,
 } from '../@common';
+import { IProfileSimpleResponse } from '../user';
 
 export interface ICreateChatRoomRequest {
   title: string;
+  description?: string;
   categoryIdList: number[];
+  backgroundImage?: Blob;
+}
+
+export interface ICreateChatRoomForm {
+  title: string;
+  description?: string;
+  categoryIdList: Options[];
+  backgroundImage?: Blob;
 }
 
 export interface ICreateChatRoomResponse {
@@ -113,11 +124,18 @@ export interface INextMessageUtil extends IMessageUtil {
   length: number;
 }
 
+export enum FriendsStatus {
+  AVAILABLE = 'AVAILABLE',
+  RECEIVED = 'RECEIVED',
+  REQUESTED = 'REQUESTED',
+  UNAVAILABLE = 'UNAVAILABLE',
+}
+
 export interface IChatMemberProfileItem {
   id: number;
   nickname: string;
   profileImageUrl: string;
-  friendshipStatusEnums: string;
+  friendshipStatusEnums: FriendsStatus;
   isManager: boolean;
   isMe: boolean;
 }
@@ -130,4 +148,27 @@ export interface IGetChatMemberRequest {
 export interface ISelectedImageMessageViewer {
   selectedImageIndex: number;
   message: ISentMessageItem | IPendingMessageItem | null;
+}
+
+export interface IInviteChatForm {
+  roomId: number;
+  friendId: number;
+}
+
+export interface IMemberToInviteResponse {
+  content: IProfileSimpleResponse[];
+}
+
+export interface IGetFriendsToInviteRequest {
+  roomId: number;
+  nickname?: string;
+}
+
+export enum FriendsInvitationStatus {
+  AVAILABLE = 'AVAILABLE',
+  INVITED = 'INVITED',
+}
+
+export interface IMemberWithStatus extends IProfileSimpleResponse {
+  status: FriendsInvitationStatus;
 }
