@@ -22,19 +22,25 @@ import useResetState from '@/hooks/chat/useResetState';
 
 const ChatRoomPage = () => {
   const { roomId: roomIdQuery } = useParams();
+
   const roomId = Number(roomIdQuery);
 
   const chatRoomDetail = useRecoilValue(roomDetailAtom);
+
   const imageMessages = useRecoilValue(imageMessagesSelector);
 
   const messageListRef = useRef<HTMLUListElement | null>(null);
 
   const [isEnter, setIsEnter] = useState(false);
+
   const [isShowPreviewMessage, setIsShowPreviewMessage] = useState(false);
+
   const [previewMessage, setPreviewMessage] = useState<ISentMessageItem | null>(
     null,
   );
+
   const [lastMsgId, setLastMsgId] = useState<number | null>(null);
+
   const [shouldFetchPreviousMessages, setShouldFetchPreviousMessages] =
     useState(false);
 

@@ -17,8 +17,11 @@ export const useSocialLogin = () => {
   const [, setCookie] = useCookies(['isLoggedIn']);
 
   const setAccessToken = useSetRecoilState(accessTokenAtom);
+
   const setSocialAuthInfo = useSetRecoilState(socialAuthInfoAtom);
+
   const setSignUpStep = useSetRecoilState(signUpStepAtom);
+
   const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
 
   return useMutation({

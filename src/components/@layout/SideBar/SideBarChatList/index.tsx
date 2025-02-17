@@ -11,12 +11,15 @@ import SideBarChatRoomItem from '../SideBarChatRoomItem';
 
 const SideBarChatList = () => {
   const { roomId } = useParams();
+
   const navigate = useNavigate();
 
   const { watch } = useFormContext();
+
   const keyword = watch('keyword');
 
   const debouncedKeyword = useDebounce(keyword);
+
   const { data } = useGetMyChatList(debouncedKeyword);
 
   const [chatRoomList, setChatRoomList] = useRecoilState(chatRoomListAtom);
@@ -34,6 +37,7 @@ const SideBarChatList = () => {
     },
     [navigate],
   );
+
   return (
     <SideBarListWrapper isOpened title="채팅방" count={chatRoomList.length}>
       {chatRoomList.map((chatRoom) => (

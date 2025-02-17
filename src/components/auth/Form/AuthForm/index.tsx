@@ -18,10 +18,14 @@ import * as Styled from './AuthForm.styled';
 
 const AuthForm = () => {
   const setEmailAuthToken = useSetRecoilState(emailAuthTokenAtom);
+
   const setSignUpStep = useSetRecoilState(signUpStepAtom);
+
   const [isTimerActive, setIsTimerActive] = useState(false);
+
   // 메일 발송 여부
   const [isSendedMail, setIsSendedMail] = useState(false);
+
   // 인증 성공 여부
   const [isVerifiedSuccess, setIsVerifiedSuccess] = useState(false);
 
@@ -34,8 +38,11 @@ const AuthForm = () => {
   } = useFormContext();
 
   const email = useWatch({ name: 'email', control });
+
   const certno = useWatch({ name: 'certno', control });
+
   const password = useWatch({ name: 'password', control });
+
   const confirmPassword = useWatch({ name: 'confirm-password', control });
 
   // 비밀번호 일치 여부 확인
@@ -103,6 +110,7 @@ const AuthForm = () => {
 
     if (emailAuthToken) {
       setEmailAuthToken(emailAuthToken);
+
       return true;
     } else {
       return AUTH_ERROR_MSG.CERTNO_PATTERN;

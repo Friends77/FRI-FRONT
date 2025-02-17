@@ -11,6 +11,7 @@ export interface IRadioProps
 
 const Radio = ({ text, id, name, rules, ...rest }: IRadioProps) => {
   const { register } = useFormContext();
+
   return (
     <>
       <Styled.Label>

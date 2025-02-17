@@ -76,4 +76,5 @@ export const Theme = {
 };
 
 export type TColor = keyof (typeof Theme)['colors'];
+
 export type TTypo = keyof (typeof Theme)['typo'];

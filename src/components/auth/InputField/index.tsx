@@ -43,12 +43,14 @@ const InputField = ({
   } = useFormContext();
 
   const text = watch(name);
+
   const error = errors[name] as FieldError;
 
   const handleCancelClick = () => {
     setValue(name, '');
     setFocus(name);
   };
+
   return (
     <Styled.Wrapper $width={width}>
       {label && (

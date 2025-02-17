@@ -11,6 +11,7 @@ import { CHAT_PATH } from '@/constants/routes';
 
 const SideBarHeader = () => {
   const navigate = useNavigate();
+
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
   const handleCreateChatRoom = () => {

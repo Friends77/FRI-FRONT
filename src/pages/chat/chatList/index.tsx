@@ -9,6 +9,7 @@ const ChatListPage = () => {
   const [chatRoomList, setChatRoomList] = useRecoilState(chatRoomListAtom);
 
   const { mutate: createChatRoom } = useCreateChatRoom();
+
   const { data } = useGetMyChatList();
 
   useEffect(() => {

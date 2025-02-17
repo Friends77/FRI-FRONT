@@ -6,6 +6,7 @@ import { useSetRecoilState } from 'recoil';
 
 export const useRefresh = () => {
   const [, setCookie] = useCookies(['isLoggedIn']);
+
   const setAccessToken = useSetRecoilState(accessTokenAtom);
 
   return useMutation({

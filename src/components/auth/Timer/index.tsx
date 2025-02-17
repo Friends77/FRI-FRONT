@@ -25,8 +25,10 @@ const Timer = ({ timeout, onTimeout }: ITimerProps) => {
         const newRemainingTime = prevRemainigTime - 1000;
         if (newRemainingTime <= 0) {
           clearInterval(interval);
+
           return 0;
         }
+
         return newRemainingTime;
       });
     }, 1000);

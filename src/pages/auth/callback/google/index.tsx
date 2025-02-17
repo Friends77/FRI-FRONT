@@ -10,6 +10,7 @@ const GoogleLoginCallback = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
+
     const code = searchParams.get('code');
 
     if (code) {

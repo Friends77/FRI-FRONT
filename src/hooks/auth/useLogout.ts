@@ -8,8 +8,11 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 
 export const useLogout = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+
   const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
+
   const setProfile = useSetRecoilState(profileAtom);
+
   const [, , removeCookie] = useCookies(['isLoggedIn']);
 
   return useMutation({

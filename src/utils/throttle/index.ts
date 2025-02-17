@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const throttle = <T extends (...args: any[]) => void>(
   callback: T,
   delay: number,
 ) => {
   let lastTime = 0;
+
   let timer: NodeJS.Timeout | null = null;
 
   return (...args: Parameters<T>) => {

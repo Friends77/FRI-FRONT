@@ -66,6 +66,7 @@ export const PrevButton = styled.div`
   left: 0;
   z-index: 400;
 `;
+
 export const NextButton = styled.div`
   position: absolute;
   top: 50%;
