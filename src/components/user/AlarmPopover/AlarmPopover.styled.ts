@@ -11,6 +11,8 @@ export const AlarmPopoverContainer = styled.div`
   border-radius: 12px;
   z-index: 100;
   box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 `;
 
 export const AlarmTriangleIcon = styled(AlarmTriangle)`
@@ -53,6 +55,16 @@ export const Content = styled.p`
   ${({ theme }) => theme.typo.B1_B}
   color: ${({ theme }) => theme.colors.Gray_1000};
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+`;
+
+export const Nickname = styled.span`
+  display: inline-block;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const ButtonContainer = styled.div`
@@ -79,4 +91,14 @@ export const AcceptButton = styled.button`
   border-radius: 4px;
   padding: 6px 12px;
   line-height: 21px;
+`;
+
+export const EmptyText = styled.p`
+  ${({ theme }) => theme.typo.B1_R};
+  color: ${({ theme }) => theme.colors.Gray_700};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  margin-bottom: 62px;
 `;
