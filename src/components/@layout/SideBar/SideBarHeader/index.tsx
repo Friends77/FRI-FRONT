@@ -13,9 +13,11 @@ import AlarmPopover from '@/components/user/AlarmPopover';
 
 const SideBarHeader = () => {
   const navigate = useNavigate();
+
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
   const [hasAlarm, setHasAlarm] = useState(false);
+
   const [isAlarmOpen, setIsAlarmOpen] = useState(false);
 
   const { data: unreadAlarmCount } = useGetUnreadAlarmCount();

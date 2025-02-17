@@ -73,14 +73,21 @@ export interface IProfileSimpleResponse {
   selfDescription?: string;
 }
 
+export enum AlarmType {
+  FRIEND_REQUEST = 'FRIEND_REQUEST',
+  CHAT_ROOM_INVITATION = 'CHAT_ROOM_INVITATION',
+}
+
 export interface IAlarmItem {
   id: number;
-  type: 'FRIEND_REQUEST' | 'CHAT_ROOM_INVITATION';
+  type: AlarmType;
   message: string;
   senderId: number;
   receiverId: number;
   invitedChatRoomId?: number;
   createdAt: string;
+  nickname: string;
+  imageUrl: string;
 }
 
 export interface IGetAlarmListRequest extends IPaginationParams {

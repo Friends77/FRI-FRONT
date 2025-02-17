@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import * as Styled from './SideBar.styled';
 import isSideBarOpenAtom from '@/recoil/layout/isSideBarOpen';
 import SideBarHeader from './SideBarHeader';
@@ -11,19 +11,18 @@ import SideBarWithoutAuth from './SideBarWithoutAuth';
 import SideBarFriendList from './SideBarFriendList';
 import { FormProvider, useForm } from 'react-hook-form';
 import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
-import useGetMyFriendList from '@/hooks/user/useGetMyFriendList';
-import useChatWebSocket from '@/hooks/chat/useChatWebSocket';
 import socketConnectedAtom from '@/recoil/chat/socketConnected';
 import { useGetSecondaryToken } from '@/hooks/chat/useGetSecondaryToken';
 import useAlarmWebSocket from '@/hooks/user/useAlarmWebSocket';
-import useGetUnreadAlarmCount from '@/hooks/user/useGetUnreadAlarmCount';
 import chatRoomListAtom from '@/recoil/user/chatRoomList';
 
 const SideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
   const isSideBarOpen = useRecoilValue(isSideBarOpenAtom);
 
   const { data: tokenResponse } = useGetSecondaryToken(!!isLoggedIn);
+
   const setSocketConnected = useSetRecoilState(socketConnectedAtom);
 
   useEffect(() => {

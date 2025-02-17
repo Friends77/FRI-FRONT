@@ -35,6 +35,7 @@ const getChosung = (word: string) => {
     .map((char) => {
       const code = char.charCodeAt(0) - 0xac00;
       if (code < 0 || code > 11171) return char; // 한글이 아니면 그대로 반환
+
       return CHO[Math.floor(code / 588)];
     })
     .join('');
@@ -56,6 +57,7 @@ export const filterKeyword = ({ type, content, keyword }: IFilterKeyword) => {
       type === 'chat'
         ? (item as IMyChatItem).title
         : (item as IProfileSimpleResponse).nickname;
+
     const { lowerText, chosungText } = getSearchableText(text);
 
     return (

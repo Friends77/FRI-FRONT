@@ -11,7 +11,9 @@ const useAlarmWebSocket = (tokenResponse?: ISecondaryTokenResponse) => {
   );
 
   const ws = useRef<WebSocket | null>(null);
+
   const pongTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const retryCountRef = useRef(0);
 
   useEffect(() => {

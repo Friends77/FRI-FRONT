@@ -9,13 +9,17 @@ const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
 
 const useChatWebSocket = (tokenResponse?: ISecondaryTokenResponse) => {
   const { notifySubscribers } = useMessageSubscription();
+
   const [socketConnected, setSocketConnected] = useRecoilState(
     chatSocketConnectedAtom,
   );
+
   const setSendMessageHandler = useSetRecoilState(sendMessageHandlerAtom);
 
   const ws = useRef<WebSocket | null>(null);
+
   const pongTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const retryCountRef = useRef(0);
 
   useEffect(() => {

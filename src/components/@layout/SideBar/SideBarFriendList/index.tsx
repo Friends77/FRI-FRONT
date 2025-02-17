@@ -8,7 +8,9 @@ import { filterKeyword } from '@/utils/search';
 
 const SideBarFriendList = () => {
   const { watch } = useFormContext();
+
   const keyword = watch('keyword');
+
   const [friendList, setFriendList] = useState<IProfileSimpleResponse[]>([]);
 
   const { data } = useGetMyFriendList();

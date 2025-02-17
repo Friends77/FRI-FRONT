@@ -1,5 +1,5 @@
 import AuthAxios from '@/apis/@core/authInstance';
-import { IPaginationParams, IUserProfile } from '@/types/@common';
+import { IUserProfile } from '@/types/@common';
 import {
   UpdateProfileFormDataType,
   IProfileSimpleResponse,
@@ -65,6 +65,34 @@ export const getAlarmList = async ({
         lastAlarmId,
       },
     },
+  );
+
+  return response.data;
+};
+
+// 친구 요청 수락
+export const acceptFriendRequest = async (alarmId: number) => {
+  const requestForm = {
+    alarmId,
+  };
+
+  const response = await AuthAxios.post(
+    '/api/user/friendship/accept',
+    requestForm,
+  );
+
+  return response.data;
+};
+
+// 친구 요청 거절
+export const rejectFriendRequest = async (alarmId: number) => {
+  const requestForm = {
+    alarmId,
+  };
+
+  const response = await AuthAxios.post(
+    '/api/user/friendship/reject',
+    requestForm,
   );
 
   return response.data;
