@@ -5,10 +5,11 @@
 
 import HomeChatListByTag from '@/components/home/HomeChatListByTag';
 import * as Styled from './home.styled';
+import RecommendedUsers from '@/components/@common/Recommendations/User/RecommendedUsers';
 
 const HomePage = () => {
   return (
-    <>
+    <Styled.RecommendedContent>
       {/* 사용자 선택 태그 기반 추천 채팅방 영역 */}
       <Styled.ChatRoomByTagSection>
         <Styled.ChatRoomByTagTitleSection>
@@ -19,7 +20,9 @@ const HomePage = () => {
         </Styled.ChatRoomByTagTitleSection>
         <HomeChatListByTag />
       </Styled.ChatRoomByTagSection>
-    </>
+      {/* 친구 찾아보기 영역 */}
+      <RecommendedUsers />
+    </Styled.RecommendedContent>
   );
 };
 
