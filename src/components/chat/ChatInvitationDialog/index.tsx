@@ -15,10 +15,13 @@ interface IChatInvitationDialog {
 
 const ChatInvitationDialog = ({ title, onClose }: IChatInvitationDialog) => {
   const { roomId: roomIdQuery } = useParams();
+
   const roomId = Number(roomIdQuery);
+
   const [memberList, setMemberList] = useState<IMemberWithStatus[]>([]);
 
   const methods = useForm();
+
   const { watch } = methods;
 
   const { data: membersToInvite } = useGetFriendsToInvite({

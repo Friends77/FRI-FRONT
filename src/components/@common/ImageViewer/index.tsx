@@ -24,6 +24,7 @@ const ImageViewer = ({
   selectedImageIndex,
 }: IImageViewer) => {
   const swiper = useRef<SwiperClass | null>(null);
+
   const [swiperIndex, setSwiperIndex] = useState(selectedImageIndex);
 
   const handleClose = () => {
@@ -33,6 +34,7 @@ const ImageViewer = ({
   const handlePrev = () => {
     swiper.current?.slidePrev();
   };
+
   const handleNext = () => {
     swiper.current?.slideNext();
   };

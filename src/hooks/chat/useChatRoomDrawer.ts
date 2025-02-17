@@ -2,8 +2,11 @@ import { useState } from 'react';
 
 const useChatRoomDrawer = (imageMessages: string[]) => {
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+
   const [isOpenAlbum, setIsOpenAlbum] = useState(false);
+
   const [isShowImageViewer, setIsShowImageViewer] = useState(false);
+
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const onMoreButtonClick = () => {

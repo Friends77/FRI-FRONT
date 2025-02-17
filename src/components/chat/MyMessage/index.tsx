@@ -30,12 +30,16 @@ const MyMessage = ({
   isSameSender = false,
 }: IMyMessageProps) => {
   const { roomId: roomIdQuery } = useParams();
+
   const roomId = Number(roomIdQuery);
 
   const socketConnected = useRecoilValue(socketConnectedAtom);
+
   const sendMessageToServer = useRecoilValue(sendMessageHandlerAtom);
+
   const [failedMessageList, setFailedMessageList] =
     useRecoilState(failedMessageAtom);
+
   const setSelectedImageMessage = useSetRecoilState(selectedImageMessageAtom);
 
   const handleResendMessage = (clientMessageId: string) => {

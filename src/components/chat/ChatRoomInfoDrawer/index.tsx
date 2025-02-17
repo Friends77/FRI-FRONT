@@ -38,25 +38,35 @@ const ChatRoomInfoDrawer = ({
   onAlbumImageClick,
 }: IChatRoomInfoDrawer) => {
   const { roomId: roomIdQuery } = useParams();
+
   const roomId = Number(roomIdQuery);
+
   const queryClient = useQueryClient();
 
   const chatRoomDetail = useRecoilValue(roomDetailAtom);
+
   const imageMessages = useRecoilValue(imageMessagesSelector);
+
   const chatMemberList = useRecoilValue(chatMembersAtom);
+
   const myProfile = useRecoilValue(profileAtom);
 
   const [isOpenExitModal, setIsOpenExitModal] = useState(false);
+
   const [isOpenProfile, setIsOpenProfile] = useState(false);
+
   const [isOpenInvitationDialog, setIsOpenInvitationDialog] = useState(false);
+
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(
     null,
   );
+
   const [selectedProfile, setSelectedProfile] = useState<IUserProfile | null>(
     null,
   );
 
   const { mutate: exitChatRoom } = useExitChatRoom();
+
   const { mutate: addFriend } = useFriendRequest({
     onSuccessHandler: () => {
       queryClient.invalidateQueries({
@@ -64,6 +74,7 @@ const ChatRoomInfoDrawer = ({
       });
     },
   });
+
   const { data: userProfile } = useGetProfile(selectedProfileId);
 
   useEffect(() => {

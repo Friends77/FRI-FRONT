@@ -1,5 +1,4 @@
 import { AUTH_ERROR_MSG } from '@/constants/message';
-import { AUTH_PATTERN } from '@/constants/pattern';
 import { useLogin } from '@/hooks/auth/useLogin';
 import { LoginDataType } from '@/types/auth';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';

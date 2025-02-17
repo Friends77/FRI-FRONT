@@ -19,6 +19,7 @@ const SideBarListWrapper = ({
   const handleIsOpenToggle = () => {
     setIsOpen((prev) => !prev);
   };
+
   return (
     <Styled.Wrapper $isOpen={isOpen}>
       <Styled.Title $isOpen={isOpen}>

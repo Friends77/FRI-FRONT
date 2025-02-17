@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * BasicInfoForm: 프로필 사진, 닉네임, 출생년도, 성별 입력 폼
  * @Author 선우
@@ -30,6 +31,7 @@ const BasicInfoForm = () => {
   const [days, setDays] = useState([{ value: '', label: '' }]);
 
   const [prevYear, setPrevYear] = useState(null);
+
   const [prevMonth, setPrevMonth] = useState(null);
 
   const {

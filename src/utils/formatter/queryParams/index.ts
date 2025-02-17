@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const createQueryParams = (params: { [key: string]: any }) => {
   const query = Object.entries(params)
     .filter(

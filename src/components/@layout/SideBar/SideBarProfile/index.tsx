@@ -7,6 +7,7 @@ import ProfileImage from '@/components/@common/ProfileImage';
 
 const SideBarProfile = () => {
   const { data } = useProfile();
+
   const setProfile = useSetRecoilState(profileAtom);
 
   useEffect(() => {
@@ -14,6 +15,7 @@ const SideBarProfile = () => {
       setProfile(data);
     }
   }, [data, setProfile]);
+
   return (
     <Styled.ProfileContent>
       <ProfileImage src={data.imageUrl} alt="profile image" size={52} />
