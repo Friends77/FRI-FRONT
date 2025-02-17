@@ -3,7 +3,6 @@ import * as Styled from './ChatRoom.styled';
 import MessageInput from '@/components/chat/MessageInput';
 import MessageList from '@/components/chat/MessageList';
 import useGetChatRoomDetail from '@/hooks/chat/useGetChatRoomDetail';
-import useChatWebSocket from '@/hooks/chat/useChatWebSocket';
 import { ISentMessageItem } from '@/types/chat';
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router';
