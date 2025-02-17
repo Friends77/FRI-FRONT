@@ -6,6 +6,7 @@ import NaverLogin from '@/components/@common/SVG/Icon/NaverLogin';
 
 const SocialLoginForm = () => {
   const stateId = useId();
+
   const googleCallbackURL = import.meta.env.VITE_GOOGLE_CALLBACK_URL;
 
   const handleGoogleLogin = useGoogleLogin({
@@ -16,7 +17,9 @@ const SocialLoginForm = () => {
 
   const handleNaverLogin = () => {
     const naverClientId = import.meta.env.VITE_NAVER_CLIENT_ID;
+
     const naverCallbackURL = import.meta.env.VITE_NAVER_CALLBACK_URL;
+
     const naverLoginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${naverClientId}&state=${stateId}&redirect_uri=${naverCallbackURL}`;
 
     window.location.href = naverLoginUrl;

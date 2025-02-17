@@ -25,14 +25,17 @@ const OtherMessage = ({
   isSameSender,
 }: IOtherMessageProps) => {
   const chatMembers = useRecoilValue(chatMembersAtom);
+
   const setSelectedImageMessage = useSetRecoilState(selectedImageMessageAtom);
 
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(
     null,
   );
+
   const [selectedProfile, setSelectedProfile] = useState<IUserProfile | null>(
     null,
   );
+
   const [isOpenProfile, setIsOpenProfile] = useState(false);
 
   const { data: userProfile } = useGetProfile(selectedProfileId);

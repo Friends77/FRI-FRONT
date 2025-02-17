@@ -19,7 +19,7 @@ createRoot(document.getElementById('root')!).render(
             <GlobalStyle />
             <AppRouter />
           </ThemeProvider>
-          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </RecoilRoot>
     </CookiesProvider>

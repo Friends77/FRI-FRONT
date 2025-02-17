@@ -17,6 +17,7 @@ const SignUpPage = () => {
   const navigate = useNavigate();
 
   const { latitude, longitude } = useRecoilValue(userLocationAtom);
+
   const authToken = useRecoilValue(emailAuthTokenAtom) as string;
 
   // 회원가입 단계를 전역 상태로 관리
@@ -58,19 +59,7 @@ const SignUpPage = () => {
   });
 
   const onSubmit: SubmitHandler<SignUpFormDataType> = (data) => {
-    const {
-      imageUrl,
-      year,
-      month,
-      day,
-      EI,
-      NS,
-      FT,
-      JP,
-      'confirm-password': _,
-      certno,
-      ...formFields
-    } = data;
+    const { imageUrl, year, month, day, EI, NS, FT, JP, ...formFields } = data;
 
     const requestPayload = {
       ...formFields,

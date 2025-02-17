@@ -9,13 +9,14 @@ const ChatListPage = () => {
   const [chatRoomList, setChatRoomList] = useRecoilState(chatRoomListAtom);
 
   const { mutate: createChatRoom } = useCreateChatRoom();
+
   const { data } = useGetMyChatList();
 
   useEffect(() => {
     if (data) {
       setChatRoomList(data);
     }
-  }, [data]);
+  }, [data, setChatRoomList]);
 
   const handleCreateChatRoom = () => {
     createChatRoom({ title: '테스트', categoryIdList: [1] });

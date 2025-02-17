@@ -69,6 +69,7 @@ export async function sendSocialLoginToken({
     code,
     provider,
   });
+
   return response.data;
 }
 

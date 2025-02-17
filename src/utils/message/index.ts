@@ -9,6 +9,7 @@ export const isSameDate = ({
   if (index === 0) return false;
 
   const dateOfCurrentMessage = new Date(currentMessage.createdAt);
+
   const dateOfPrevMessage = new Date(prevMessage.createdAt);
 
   if (isSameDay(dateOfCurrentMessage, dateOfPrevMessage)) return true;
@@ -24,6 +25,7 @@ export const isSameTime = ({
   if (index === 0) return false;
 
   const dateOfCurrentMessage = new Date(currentMessage.createdAt);
+
   const dateOfPrevMessage = new Date(prevMessage.createdAt);
 
   if (isSameMinute(dateOfCurrentMessage, dateOfPrevMessage)) return true;
@@ -39,6 +41,7 @@ export const isSameSender = ({
   if (index === 0) return false;
 
   const currentMemberId = currentMessage.senderId;
+
   const prevMessageMemberId = prevMessage.senderId;
 
   if (currentMemberId === prevMessageMemberId) return true;
@@ -55,11 +58,13 @@ export const isShowSendTime = ({
   if (index === length - 1) return true;
 
   const currentMemberId = currentMessage.senderId;
+
   const nextMessageMemberId = nextMessage.senderId;
 
   if (currentMemberId !== nextMessageMemberId) return true;
 
   const dateOfCurrentMessage = new Date(currentMessage.createdAt);
+
   const dateOfNextMessage = new Date(nextMessage.createdAt);
 
   if (!isSameMinute(dateOfCurrentMessage, dateOfNextMessage)) {

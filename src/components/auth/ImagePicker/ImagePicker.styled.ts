@@ -12,6 +12,7 @@ export const ImagePickerWrapper = styled.div`
 export const ImagePickerImageSection = styled.section`
   position: relative;
 `;
+
 export const ImagePickerImagePreview = styled.img`
   width: 88px;
   height: 88px;
@@ -19,6 +20,7 @@ export const ImagePickerImagePreview = styled.img`
   border-radius: 999px;
   cursor: pointer;
 `;
+
 export const ImagePickerAddImageButton = styled.img`
   position: absolute;
   cursor: pointer;
@@ -29,6 +31,7 @@ export const ImagePickerAddImageButton = styled.img`
   border: 1px solid ${({ theme }) => theme.colors.Gray_300};
   border-radius: 16px;
 `;
+
 export const ImagePickerRemoveImageButton = styled.p`
   ${({ theme }) => theme.typo.B1_R};
   color: ${({ theme }) => theme.colors.Gray_800};

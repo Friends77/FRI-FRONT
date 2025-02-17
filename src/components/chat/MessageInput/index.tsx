@@ -19,6 +19,7 @@ const MessageInput = ({
   onSendMessage,
 }: IMessageInputProps) => {
   const imagePathList = useRef<string[]>([]);
+
   const imageMessageCount = useRef<number>(0);
 
   const { mutate: uploadImage } = useMutation({
@@ -58,6 +59,7 @@ const MessageInput = ({
     if (files) {
       if (files.length > 20) {
         window.alert('최대 20장까지 업로드 가능합니다');
+
         return;
       }
 

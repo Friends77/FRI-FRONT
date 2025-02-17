@@ -5,6 +5,7 @@ const imageMessagesSelector = selector({
   key: 'imageMessagesSelector',
   get: ({ get }) => {
     const sentMessageList = get(sentMessageAtom);
+
     const imageMessageList = sentMessageList.filter(
       (message) => message.type === 'IMAGE',
     );

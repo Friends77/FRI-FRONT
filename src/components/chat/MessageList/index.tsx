@@ -38,9 +38,13 @@ const MessageList = forwardRef<HTMLUListElement, IMessageListProps>(
     ref,
   ) => {
     const pendingMessageList = useRecoilValue(pendingMessageAtom);
+
     const sentMessageList = useRecoilValue(sentMessageAtom);
+
     const failedMessageList = useRecoilValue(failedMessageAtom);
+
     const myProfile = useRecoilValue(profileAtom);
+
     const [selectedImageMessage, setSelectedImageMessage] = useRecoilState(
       selectedImageMessageAtom,
     );
@@ -72,8 +76,10 @@ const MessageList = forwardRef<HTMLUListElement, IMessageListProps>(
         <Styled.MessageList ref={ref}>
           {sentMessageList.map((sentMessage, index) => {
             const isSystemMessage = sentMessage.type.startsWith('SYSTEM');
+
             const isMyMessage =
               !isSystemMessage && sentMessage.senderId === myProfile?.memberId;
+
             const isOtherMessage =
               !isSystemMessage && sentMessage.senderId !== myProfile?.memberId;
 

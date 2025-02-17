@@ -1,5 +1,5 @@
 import { Controller, FormProvider, useForm } from 'react-hook-form';
-import * as Styled from './createChatRoom.styled';
+import * as Styled from './CreateChatRoom.styled';
 import InputField from '@/components/auth/InputField';
 import { CHAT_ERROR_MSG } from '@/constants/message';
 import Dropdown from '@/components/@common/Dropdown';
@@ -11,12 +11,15 @@ import { ICreateChatRoomForm } from '@/types/chat';
 import { useCreateChatRoom } from '@/hooks/chat/useCreateChatRoom';
 import ImagePicker from '@/components/auth/ImagePicker';
 import defaultThumbnail from '@/assets/images/defaultThumbnail.png';
-const createChatRoom = () => {
+const CreateChatRoom = () => {
   const { data: categories } = useFetchCategory();
+
   const [categoryOptions, setCategoryOptions] = useState<Options[]>([]);
 
   const methods = useForm<ICreateChatRoomForm>();
+
   const { control, handleSubmit } = methods;
+
   const { mutate: createChatRoom } = useCreateChatRoom();
 
   useEffect(() => {
@@ -34,6 +37,7 @@ const createChatRoom = () => {
 
   const onSubmit = (data: ICreateChatRoomForm) => {
     const { categoryIdList } = data;
+
     const categories = categoryIdList.map(
       (category) => category.value as number,
     );
@@ -123,4 +127,4 @@ const createChatRoom = () => {
   );
 };
 
-export default createChatRoom;
+export default CreateChatRoom;

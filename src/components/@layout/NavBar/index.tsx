@@ -63,6 +63,7 @@ const NavBar = () => {
   const handleSideBarToggle = () => {
     setIsSideBarOpen((prev) => !prev);
   };
+
   return (
     <Styled.Wrapper>
       <Link to={ROOT_PATH.ROOT}>

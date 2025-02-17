@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil';
 
 export const useProfile = () => {
   const accessToken = useRecoilValue(accessTokenAtom);
+
   const memberId = getMemberIdFromToken(accessToken);
 
   return useSuspenseQuery({

@@ -21,9 +21,12 @@ const EmailVerificationForm = ({
   onNextStepClick,
 }: IEmailVerificationFormProps) => {
   const setEmailAuthToken = useSetRecoilState(emailAuthTokenAtom);
+
   const [isTimerActive, setIsTimerActive] = useState(false);
+
   // 이메일로 코드 전송을 성공하면 이후로는 수정하지 못하게 하기 위한 state
   const [isCodeSended, setIsCodeSended] = useState(false);
+
   const [isCodeVerified, setIsCodeVerified] = useState(false);
 
   const methods = useForm({
@@ -33,6 +36,7 @@ const EmailVerificationForm = ({
       certno: '',
     },
   });
+
   const {
     setError,
     watch,
@@ -42,6 +46,7 @@ const EmailVerificationForm = ({
   } = methods;
 
   const email = watch('email');
+
   const certno = watch('certno');
 
   const { mutate: sendCodeToEmail, isPending: isEmailSending } =
@@ -55,6 +60,7 @@ const EmailVerificationForm = ({
         setIsCodeSended(false);
       },
     });
+
   const handleSendEmail = async () => {
     setIsCodeSended(true);
     sendCodeToEmail(email);
@@ -73,17 +79,22 @@ const EmailVerificationForm = ({
       });
     },
   });
+
   const handleVerifyCodeValidate = async (value: string) => {
     if (value.length === 6) {
       try {
         const { emailAuthToken } = await verifyCode({ email, code: value });
         setEmailAuthToken(emailAuthToken);
+
         return true;
-      } catch (error) {
+      } catch (_) {
+        const _a = 1;
+
         return AUTH_ERROR_MSG.CERTNO_PATTERN;
       }
     }
   };
+
   return (
     <FormProvider {...methods}>
       <form>

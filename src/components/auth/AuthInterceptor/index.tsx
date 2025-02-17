@@ -24,6 +24,7 @@ interface IAuthInterceptorProps {
  */
 const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
+
   const { mutateAsync: refresh } = useRefresh();
 
   const requestInterceptor = AuthAxios.interceptors.request.use((config) => {
@@ -53,7 +54,7 @@ const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
           config.headers.Authorization = `Bearer ${accessToken}`;
 
           return axios(config);
-        } catch (err) {
+        } catch (_) {
           alert(AUTH_ERROR_MSG.SESSION_EXPIRED);
           window.location.href = `${BASE_URL}${AUTH_PATH.LOGIN}`;
         }

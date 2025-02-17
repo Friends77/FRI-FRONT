@@ -13,6 +13,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 const SideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
   const isSideBarOpen = useRecoilValue(isSideBarOpenAtom);
 
   const methods = useForm<{ keyword: string }>({
