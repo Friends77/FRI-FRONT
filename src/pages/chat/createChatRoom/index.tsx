@@ -1,5 +1,5 @@
 import { Controller, FormProvider, useForm } from 'react-hook-form';
-import * as Styled from './temp.styled';
+import * as Styled from './CreateChatRoom.styled';
 import InputField from '@/components/auth/InputField';
 import { CHAT_ERROR_MSG } from '@/constants/message';
 import Dropdown from '@/components/@common/Dropdown';
