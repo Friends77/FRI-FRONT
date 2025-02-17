@@ -3,13 +3,13 @@
  * @author 선우
  */
 
+import { Highlight } from '@/pages/home/home.styled';
 import profileAtom from '@/recoil/user/profile';
 import { useEffect, useState } from 'react';
-import FriendsGrid from '../FriendsGrid';
 import { useRecoilValue } from 'recoil';
+import { SubTitle } from '../ChatRoomRow/ChatRoomRow.styled';
+import FriendsGrid from '../FriendsGrid';
 import * as Styled from './HomeFriendListByTag.styles';
-import { ChatRoomByTagTitle } from '@/pages/home/home.styled';
-import { Highlight } from '@/pages/home/home.styled';
 
 const HomeFriendListByTag = () => {
   const [categoryIds, setCategoryIds] = useState<number[]>([]);
@@ -30,9 +30,12 @@ const HomeFriendListByTag = () => {
 
   return (
     <Styled.FriendListByTagWrapper>
-      <ChatRoomByTagTitle>
-        나랑 <Highlight>취미</Highlight>가 맞는 친구를 추천해줄게요!
-      </ChatRoomByTagTitle>
+      <Styled.FriendListByTagTitleSection>
+        <Styled.FriendListByTagTitle>
+          나랑 <Highlight>취미</Highlight>가 맞는 친구를 추천해줄게요!
+        </Styled.FriendListByTagTitle>
+        <SubTitle>나와 같은 태그가 포함된 친구를 추천 해 드릴게요 </SubTitle>
+      </Styled.FriendListByTagTitleSection>
       <Styled.FriendListByTagInnerWrapper>
         {categoryIds.map((categoryId, idx) => (
           <FriendsGrid key={idx} categoryId={categoryId} />
