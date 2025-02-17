@@ -1,18 +1,14 @@
+import alarmSocketConnectedAtom from '@/recoil/user/socketConnectedAtom';
+import { ISecondaryTokenResponse } from '@/types/chat';
 import { useEffect, useRef } from 'react';
-import { useGetSecondaryToken } from './useGetSecondaryToken';
-import useMessageSubscription from './useMessageSubscription';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
-import socketConnectedAtom from '@/recoil/chat/socketConnected';
+import { useRecoilState } from 'recoil';
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
 
-const useWebSocket = () => {
-  const { notifySubscribers } = useMessageSubscription();
-  const [socketConnected, setSocketConnected] =
-    useRecoilState(socketConnectedAtom);
-  const setSendMessageHandler = useSetRecoilState(sendMessageHandlerAtom);
-  const { data: tokenResponse } = useGetSecondaryToken(socketConnected);
+const useAlarmWebSocket = (tokenResponse?: ISecondaryTokenResponse) => {
+  const [socketConnected, setSocketConnected] = useRecoilState(
+    alarmSocketConnectedAtom,
+  );
 
   const ws = useRef<WebSocket | null>(null);
   const pongTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -25,7 +21,7 @@ const useWebSocket = () => {
   }, [socketConnected, tokenResponse]);
 
   const connectWebSocket = () => {
-    const webSocketUrl = `${websocketURL}/chat?token=${tokenResponse?.secondaryToken}`;
+    const webSocketUrl = `${websocketURL}/alarm?token=${tokenResponse?.secondaryToken}`;
     ws.current = new WebSocket(webSocketUrl);
 
     ws.current.onopen = handleOpen;
@@ -35,18 +31,17 @@ const useWebSocket = () => {
   };
 
   const handleOpen = () => {
-    console.log(ws.current?.readyState);
+    console.log('알림', ws.current?.readyState);
     runPongTimer();
     setSocketConnected(true);
-    setSendMessageHandler(() => sendMessageToServer);
   };
 
   const handleMessage = (event: MessageEvent) => {
-    notifySubscribers(event.data);
+    console.log('알림 메세지 도착', event.data);
   };
 
-  const handleClose = () => {
-    console.log(ws.current?.readyState);
+  const handleClose = (event: CloseEvent) => {
+    console.log('알림 close', ws.current?.readyState, event.code);
     clearPongTimer();
     setSocketConnected(false);
 
@@ -57,7 +52,7 @@ const useWebSocket = () => {
   };
 
   const handleError = (error: Event) => {
-    console.log(ws.current?.readyState, error);
+    console.log('알림', ws.current?.readyState, error);
   };
 
   const runPongTimer = () => {
@@ -83,4 +78,4 @@ const useWebSocket = () => {
   };
 };
 
-export default useWebSocket;
+export default useAlarmWebSocket;

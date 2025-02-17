@@ -45,12 +45,8 @@ export const createChatRoom = async ({
 };
 
 // 참여 중인 채팅방 목록 조회
-export const getChatList = async (nickname?: string) => {
-  const queryParams = createQueryParams({ nickname });
-
-  const response = await AuthAxios.get<IMyChatItem[]>(
-    `/api/user/chat/room${queryParams}`,
-  );
+export const getChatList = async () => {
+  const response = await AuthAxios.get<IMyChatItem[]>('/api/user/chat/room');
 
   return response.data;
 };

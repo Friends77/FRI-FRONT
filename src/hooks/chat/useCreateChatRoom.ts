@@ -13,7 +13,7 @@ export const useCreateChatRoom = () => {
     mutationFn: createChatRoom,
     onSuccess: async ({ chatRoomId }) => {
       await queryClient.invalidateQueries({
-        queryKey: CHAT_KEYS.CHAT_LIST(),
+        queryKey: CHAT_KEYS.CHAT_LIST,
       });
       navigate(CHAT_PATH.CHAT_ROOM.replace(':roomId', `${chatRoomId}`));
     },

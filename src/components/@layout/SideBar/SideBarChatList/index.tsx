@@ -1,13 +1,15 @@
 import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
 import SideBarListWrapper from '../SideBarListWrapper';
-import { useCallback, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useCallback, useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import chatRoomListAtom from '@/recoil/user/chatRoomList';
 import { useFormContext } from 'react-hook-form';
 import useDebounce from '@/hooks/@common/useDebounce';
 import { useNavigate, useParams } from 'react-router';
 import { CHAT_PATH } from '@/constants/routes';
 import SideBarChatRoomItem from '../SideBarChatRoomItem';
+import { IMyChatItem } from '@/types/chat';
+import { filterKeyword } from '@/utils/search';
 
 const SideBarChatList = () => {
   const { roomId } = useParams();
@@ -16,16 +18,21 @@ const SideBarChatList = () => {
   const { watch } = useFormContext();
   const keyword = watch('keyword');
 
+  // debouncedKeyword 안됨
   const debouncedKeyword = useDebounce(keyword);
-  const { data } = useGetMyChatList(debouncedKeyword);
 
-  const [chatRoomList, setChatRoomList] = useRecoilState(chatRoomListAtom);
+  const chatRoomList = useRecoilValue(chatRoomListAtom);
+  const [filteredChatList, setFilteredChatList] = useState(chatRoomList);
 
   useEffect(() => {
-    if (data) {
-      setChatRoomList(data);
-    }
-  }, [data]);
+    const filteredList = filterKeyword({
+      type: 'chat',
+      keyword,
+      content: chatRoomList,
+    });
+
+    setFilteredChatList(filteredList as IMyChatItem[]);
+  }, [keyword]);
 
   const handleChatRoomClick = useCallback(
     (roomId: number) => {
@@ -35,8 +42,8 @@ const SideBarChatList = () => {
     [navigate],
   );
   return (
-    <SideBarListWrapper isOpened title="채팅방" count={chatRoomList.length}>
-      {chatRoomList.map((chatRoom) => (
+    <SideBarListWrapper isOpened title="채팅방" count={filteredChatList.length}>
+      {filteredChatList.map((chatRoom) => (
         <SideBarChatRoomItem
           key={chatRoom.id}
           chatRoom={chatRoom}

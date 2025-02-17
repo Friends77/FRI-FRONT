@@ -1,3 +1,3 @@
-import socketConnectedAtom from './atom';
+import chatSocketConnectedAtom from './atom';
 
-export default socketConnectedAtom;
+export default chatSocketConnectedAtom;

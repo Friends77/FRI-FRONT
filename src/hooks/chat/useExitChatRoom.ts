@@ -12,7 +12,7 @@ const useExitChatRoom = () => {
     mutationFn: exitChatRoom,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: CHAT_KEYS.CHAT_LIST(),
+        queryKey: CHAT_KEYS.CHAT_LIST,
       });
 
       navigate(ROOT_PATH.ROOT);
