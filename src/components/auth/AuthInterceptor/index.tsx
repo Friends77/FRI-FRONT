@@ -24,6 +24,7 @@ interface IAuthInterceptorProps {
  */
 const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);
+
   const { mutateAsync: refresh } = useRefresh();
 
   const requestInterceptor = AuthAxios.interceptors.request.use((config) => {

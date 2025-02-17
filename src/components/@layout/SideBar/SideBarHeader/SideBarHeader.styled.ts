@@ -9,13 +9,13 @@ export const Wrapper = styled.section`
 `;
 
 export const SideBarButtonContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   gap: 6px;
 `;
 
 export const SideBarButton = styled.button`
-  position: relative;
   display: flex;
 `;
 

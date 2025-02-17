@@ -1,8 +1,8 @@
 import { atom } from 'recoil';
 
-const socketConnectedAtom = atom({
-  key: 'socketConnectedAtom',
+const chatSocketConnectedAtom = atom({
+  key: 'chatSocketConnectedAtom',
   default: false,
 });
 
-export default socketConnectedAtom;
+export default chatSocketConnectedAtom;
