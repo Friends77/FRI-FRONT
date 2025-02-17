@@ -88,8 +88,6 @@ const EmailVerificationForm = ({
 
         return true;
       } catch (_) {
-        const _a = 1;
-
         return AUTH_ERROR_MSG.CERTNO_PATTERN;
       }
     }
