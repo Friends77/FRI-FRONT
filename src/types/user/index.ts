@@ -44,7 +44,7 @@ export interface IProfileResponse {
 // 실제 서버 전송 데이터 타입
 export interface UpdateProfileFormDataType {
   imageUrl: string;
-  selfDescription: string;
+  selfDescription?: string;
   gender: 'MAN' | 'WOMAN' | 'ETC';
   mbti?: string;
   interestTag?: (string | number)[];

@@ -53,7 +53,7 @@ export interface IUserProfile {
   email: string;
   birth: string;
   gender: Gender;
-  location?: ILocation;
+  location: ILocation;
   selfDescription?: string;
   mbti: MBTI;
   interestTag: IInterestTag[];

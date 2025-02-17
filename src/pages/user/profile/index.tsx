@@ -36,15 +36,22 @@ import { USER_KEYS } from '@/constants/@queryKeys';
 import { BIRTH_YEAR } from '@/constants/user/year';
 import { GENDER } from '@/constants/user/gender';
 import { EI, FT, JP, NS } from '@/constants/user/mbti';
+import { SelectInstance } from 'react-select';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const daySelectRef = useRef<any>(null);
+
+  const daySelectRef = useRef<SelectInstance<{
+    value: string;
+    label: string;
+  }> | null>(null);
 
   const accessToken = useRecoilValue(accessTokenAtom);
+
   const memberId = getMemberIdFromToken(accessToken);
 
   const [categoryOptions, setCategoryOptions] = useState<Options[]>([]);
+
   const [selectedTags, setSelectedTags] = useState<Options[]>([]);
 
   // 닉네임 변경하기 버튼 클릭 여부 상태
@@ -52,10 +59,13 @@ const ProfilePage = () => {
 
   // 사용자 정보 조회 및 MBTI 재가공
   const { data: userData } = useProfile();
+
   const birth = userData.birth.split('-');
+
   const letters = userData.mbti.split('');
 
   const [prevYear, setPrevYear] = useState(+birth[0]);
+
   const [prevMonth, setPrevMonth] = useState(+birth[1]);
 
   // 사용자의 생년, 생월에 해당하는 일 세팅
