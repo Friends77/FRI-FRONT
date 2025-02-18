@@ -15,8 +15,11 @@ interface UseLoginParams {
 
 export const useLogin = ({ loginErrorHandler }: UseLoginParams) => {
   const navigate = useNavigate();
+
   const setAccessToken = useSetRecoilState(accessTokenAtom);
+
   const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
+
   const [, setCookie] = useCookies(['isLoggedIn']);
 
   return useMutation({

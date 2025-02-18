@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 
 const useMessageSubscription = () => {
   const [subscribers, setSubscribers] = useRecoilState(messageSubscribersAtom);
+
   const subscribersRef = useRef<Set<(data: string) => void>>(
     new Set(subscribers),
   );
@@ -16,6 +17,7 @@ const useMessageSubscription = () => {
     setSubscribers((prevSubScribers) => {
       const newSubScribers = new Set(prevSubScribers);
       newSubScribers.add(callback);
+
       return newSubScribers;
     });
 
@@ -23,6 +25,7 @@ const useMessageSubscription = () => {
       setSubscribers((prevSubScribers) => {
         const newSubScribers = new Set(prevSubScribers);
         newSubScribers.delete(callback);
+
         return newSubScribers;
       });
     };

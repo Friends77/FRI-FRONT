@@ -9,6 +9,7 @@ const ResetPasswordPage = () => {
   const handleNextStepClick = () => {
     setStep((prev) => prev + 1);
   };
+
   const renderPage = () => {
     switch (step) {
       case 1:
@@ -19,6 +20,7 @@ const ResetPasswordPage = () => {
         return; // TO-DO: 에러 페이지 추가
     }
   };
+
   return (
     <Styled.Main>
       <Styled.Header>

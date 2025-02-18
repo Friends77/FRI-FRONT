@@ -28,17 +28,24 @@ const useMessageHandler = ({
   setIsShowPreviewMessage,
 }: IUseMessageHandlerProps) => {
   const socketConnected = useRecoilValue(socketConnectedAtom);
+
   const myProfile = useRecoilValue(profileAtom);
+
   const [pendingMessageList, setPendingMessageList] =
     useRecoilState(pendingMessageAtom);
+
   const setSentMessageList = useSetRecoilState(sentMessageAtom);
+
   const setFailedMessageList = useSetRecoilState(failedMessageAtom);
+
   const sendMessageToServer = useRecoilValue(sendMessageHandlerAtom);
+
   const setChatMembersAtom = useSetRecoilState(chatMembersAtom);
 
   const messageTimers = useRef<Map<string, NodeJS.Timeout>>(new Map());
 
   const [myMessageContent, setMyMessageContent] = useState('');
+
   const [newMemberId, setNewMemberId] = useState<number | null>(null);
 
   const { subscribe } = useMessageSubscription();
@@ -46,6 +53,7 @@ const useMessageHandler = ({
   useEffect(() => {
     if (myProfile) {
       const unsubscribe = subscribe(handleReceivedMessage);
+
       return () => unsubscribe();
     }
   }, [myProfile, roomId]);
@@ -148,6 +156,7 @@ const useMessageHandler = ({
         if (messageListRef.current) {
           const { scrollHeight, scrollTop, clientHeight } =
             messageListRef.current;
+
           const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
           if (scrollPercentage < 0.95) {
             setPreviewMessage(message);

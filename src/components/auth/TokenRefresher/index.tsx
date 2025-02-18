@@ -24,8 +24,11 @@ const TokenRefresher = ({ children }: ITokenRefresherProps) => {
   const navigate = useNavigate();
 
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
   const accessToken = useRecoilValue(accessTokenAtom);
+
   const [isLoading, setIsLoading] = useState(isLoggedIn && !accessToken);
+
   const { mutateAsync } = useRefresh();
 
   useEffect(() => {

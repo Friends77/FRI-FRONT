@@ -19,6 +19,7 @@ const ResetPasswordForm = () => {
       'confirm-password': '',
     },
   });
+
   const {
     watch,
     handleSubmit,
@@ -26,15 +27,18 @@ const ResetPasswordForm = () => {
   } = methods;
 
   const password = watch('password');
+
   const confirmPassword = watch('confirm-password');
 
   const { mutate } = useResetPassword();
+
   const onSubmit: SubmitHandler<ResetPasswordDataType> = (data) => {
     mutate({
       emailAuthToken,
       newPassword: data.password,
     });
   };
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>

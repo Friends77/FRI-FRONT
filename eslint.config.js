@@ -33,6 +33,14 @@ export default tseslint.config(
         // return문 앞에 한 줄 공백 추가
         { blankLine: 'always', prev: '*', next: 'return' },
       ],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrors: 'none',
+        },
+      ],
     },
   },
 );

@@ -11,6 +11,7 @@ export interface ICheckBoxProps
 
 const CheckBox = ({ text, id, name, rules, ...rest }: ICheckBoxProps) => {
   const { register } = useFormContext();
+
   return (
     <Styled.Label>
       <Styled.CheckBox

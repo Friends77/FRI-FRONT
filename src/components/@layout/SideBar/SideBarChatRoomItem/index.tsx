@@ -26,6 +26,7 @@ const SideBarChatRoomItem = ({
     participantCount,
     participantProfileList,
   } = chatRoom;
+
   const participantList = [...participantProfileList].slice(0, 4);
 
   return (

@@ -40,7 +40,7 @@ const useScrollHandler = ({
     if (isEnter) {
       setShouldFetchPreviousMessages(true);
     }
-  }, [isEnter]);
+  }, [isEnter, setShouldFetchPreviousMessages]);
 
   // messagesResponse 가 바뀌면 저장 후 스크롤을 움직인다.
   useEffect(() => {
@@ -68,9 +68,11 @@ const useScrollHandler = ({
     const loadMessagesAndScroll = async () => {
       const messageList = messageListRef.current;
       if (messagesResponse && messageList) {
-        let isFirst = lastMsgId === null; // 최초호출인가
+        const isFirst = lastMsgId === null; // 최초호출인가
+
         const scrollHeightBefore = messageList.scrollHeight;
         await updateSentMessages(messagesResponse);
+
         // 최신 메시지 목록 가져오기
         if (isFirst) {
           messageList.scrollTo(0, messageList.scrollHeight);
@@ -89,9 +91,11 @@ const useScrollHandler = ({
 
   useEffect(() => {
     const messageList = messageListRef.current;
+
     const handleScroll = throttle(() => {
       if (messageList) {
         const { scrollHeight, scrollTop, clientHeight } = messageList;
+
         const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
         if (scrollPercentage >= 0.95) {
           setPreviewMessage(null);
@@ -105,6 +109,7 @@ const useScrollHandler = ({
       }
     }, 100 * 5);
     messageList?.addEventListener('scroll', handleScroll);
+
     return () => {
       messageList?.removeEventListener('scroll', handleScroll);
     };

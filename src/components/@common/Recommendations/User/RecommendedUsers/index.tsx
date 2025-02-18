@@ -18,7 +18,7 @@ const RecommendedUsers = () => {
 
   // 사용자 선택 관심사 태그 갯수에 따라 다르게 렌더링
   if (userInfo) {
-    size = userInfo?.interestTag.length! >= 2 ? 9 : 4;
+    size = (userInfo?.interestTag?.length ?? 0) >= 2 ? 9 : 4;
   }
 
   const { data, refetch } = useGetUserRecommendations(size);
