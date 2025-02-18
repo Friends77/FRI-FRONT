@@ -1,17 +1,20 @@
 import useGetAlarmList from '@/hooks/user/useGetAlarmList';
 import * as Styled from './AlarmPopover.styled';
 import ProfileImage from '@/components/@common/ProfileImage';
-import { useEffect, useState } from 'react';
-import { AlarmType, IAlarmItem } from '@/types/user';
+import { useEffect } from 'react';
+import { AlarmType } from '@/types/user';
 import useRejectFriendRequest from '@/hooks/user/useRejectFriendRequest';
 import useAcceptFriendRequest from '@/hooks/user/useAcceptFriendRequest';
 import useAcceptChatRoomInvitation from '@/hooks/chat/useAcceptChatRoomInvitation';
 import useRejectChatRoomInvitation from '@/hooks/chat/useRejectChatRoomInvitation';
+import { useRecoilState } from 'recoil';
+import alarmListAtom from '@/recoil/user/alarmList';
 
 const AlarmPopover = () => {
   const { data: alarmListResponse } = useGetAlarmList();
 
-  const [alarmList, setAlarmList] = useState<IAlarmItem[]>([]);
+  //TODO: 알람 전역 상태로 저장
+  const [alarmList, setAlarmList] = useRecoilState(alarmListAtom);
 
   const { mutate: acceptFriendRequest } = useAcceptFriendRequest();
 

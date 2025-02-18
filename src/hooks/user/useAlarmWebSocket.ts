@@ -1,7 +1,9 @@
-import alarmSocketConnectedAtom from '@/recoil/user/socketConnectedAtom';
+import alarmListAtom from '@/recoil/user/alarmList';
+import alarmSocketConnectedAtom from '@/recoil/user/alarmSocketConnectedAtom';
 import { ISecondaryTokenResponse } from '@/types/chat';
+import { IAlarmItem } from '@/types/user';
 import { useEffect, useRef } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
 
@@ -9,6 +11,8 @@ const useAlarmWebSocket = (tokenResponse?: ISecondaryTokenResponse) => {
   const [socketConnected, setSocketConnected] = useRecoilState(
     alarmSocketConnectedAtom,
   );
+
+  const setAlarmList = useSetRecoilState(alarmListAtom);
 
   const ws = useRef<WebSocket | null>(null);
 
@@ -40,6 +44,9 @@ const useAlarmWebSocket = (tokenResponse?: ISecondaryTokenResponse) => {
 
   const handleMessage = (event: MessageEvent) => {
     console.log('알림 메세지 도착', event.data);
+    const message: IAlarmItem = JSON.parse(event.data);
+
+    setAlarmList((prevList) => [...prevList, message]);
   };
 
   const handleClose = (event: CloseEvent) => {

@@ -14,7 +14,7 @@ import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
 import socketConnectedAtom from '@/recoil/chat/socketConnected';
 import { useGetSecondaryToken } from '@/hooks/chat/useGetSecondaryToken';
 import useAlarmWebSocket from '@/hooks/user/useAlarmWebSocket';
-import chatRoomListAtom from '@/recoil/user/chatRoomList';
+import chatRoomListAtom from '@/recoil/chat/roomList';
 
 const SideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);

@@ -47,7 +47,7 @@ const getSearchableText = (text: string) => ({
 });
 
 export const filterKeyword = ({ type, content, keyword }: IFilterKeyword) => {
-  if (!keyword.trim()) return content;
+  if (!keyword || !keyword.trim()) return content;
 
   const { lowerText: lowerKeyword, chosungText: keywordChosung } =
     getSearchableText(keyword);

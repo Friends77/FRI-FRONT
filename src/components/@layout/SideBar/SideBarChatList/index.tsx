@@ -1,7 +1,7 @@
 import SideBarListWrapper from '../SideBarListWrapper';
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import chatRoomListAtom from '@/recoil/user/chatRoomList';
+import chatRoomListAtom from '@/recoil/chat/roomList';
 import { useFormContext } from 'react-hook-form';
 // import useDebounce from '@/hooks/@common/useDebounce';
 import { useNavigate, useParams } from 'react-router';
