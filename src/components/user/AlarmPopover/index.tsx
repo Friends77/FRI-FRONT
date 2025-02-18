@@ -13,7 +13,6 @@ import alarmListAtom from '@/recoil/user/alarmList';
 const AlarmPopover = () => {
   const { data: alarmListResponse } = useGetAlarmList();
 
-  //TODO: 알람 전역 상태로 저장
   const [alarmList, setAlarmList] = useRecoilState(alarmListAtom);
 
   const { mutate: acceptFriendRequest } = useAcceptFriendRequest();
@@ -57,7 +56,7 @@ const AlarmPopover = () => {
       {alarmList.length > 0 ? (
         <Styled.AlarmList>
           {alarmList.map((alarm) => (
-            <Styled.AlarmItem>
+            <Styled.AlarmItem key={alarm.id}>
               {/* TODO: timestamp로 요청  */}
               <Styled.Time>방금 전</Styled.Time>
               <Styled.ContentContainer>
