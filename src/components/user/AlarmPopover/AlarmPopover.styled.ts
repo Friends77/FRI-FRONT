@@ -7,7 +7,7 @@ export const AlarmPopoverContainer = styled.div`
   left: -2px;
   background-color: ${({ theme }) => theme.colors.White};
   width: 428px;
-  min-height: 548px;
+  height: 548px;
   border-radius: 12px;
   z-index: 100;
   box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
@@ -49,6 +49,10 @@ export const Time = styled.time`
 export const ContentContainer = styled.div`
   display: flex;
   gap: 16px;
+`;
+
+export const ShowProfileButton = styled.button`
+  display: flex;
 `;
 
 export const Content = styled.p`

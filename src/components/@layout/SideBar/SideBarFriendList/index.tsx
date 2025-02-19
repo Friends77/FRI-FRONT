@@ -1,3 +1,4 @@
+import * as Styled from './SideBarFriendList.styled';
 import useGetMyFriendList from '@/hooks/user/useGetMyFriendList';
 import SideBarListWrapper from '../SideBarListWrapper';
 import SideBarFriendItem from '../SideBarFriendItem';
@@ -31,9 +32,13 @@ const SideBarFriendList = () => {
 
   return (
     <SideBarListWrapper title="친구" count={friendList.length}>
-      {friendList.map((friend) => (
-        <SideBarFriendItem key={friend.memberId} friend={friend} />
-      ))}
+      {friendList.length > 0 ? (
+        friendList.map((friend) => (
+          <SideBarFriendItem key={friend.memberId} friend={friend} />
+        ))
+      ) : (
+        <Styled.EmptyText>검색 결과가 없습니다.</Styled.EmptyText>
+      )}
     </SideBarListWrapper>
   );
 };

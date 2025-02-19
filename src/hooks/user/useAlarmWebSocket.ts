@@ -1,7 +1,7 @@
 import alarmListAtom from '@/recoil/user/alarmList';
 import alarmSocketConnectedAtom from '@/recoil/user/alarmSocketConnectedAtom';
 import { ISecondaryTokenResponse } from '@/types/chat';
-import { IAlarmItem } from '@/types/user';
+import { AlarmType } from '@/types/user';
 import { useEffect, useRef } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
@@ -44,9 +44,14 @@ const useAlarmWebSocket = (tokenResponse?: ISecondaryTokenResponse) => {
 
   const handleMessage = (event: MessageEvent) => {
     console.log('알림 메세지 도착', event.data);
-    const message: IAlarmItem = JSON.parse(event.data);
+    const message = JSON.parse(event.data);
 
-    setAlarmList((prevList) => [...prevList, message]);
+    if (
+      message.type === AlarmType.FRIEND_REQUEST ||
+      message.type === AlarmType.CHAT_ROOM_INVITATION
+    ) {
+      setAlarmList((prevList) => [...prevList, message]);
+    }
   };
 
   const handleClose = (event: CloseEvent) => {

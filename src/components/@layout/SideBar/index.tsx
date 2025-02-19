@@ -29,7 +29,7 @@ const SideBar = () => {
     if (tokenResponse) {
       setSocketConnected(true);
     }
-  }, [tokenResponse]);
+  }, [setSocketConnected, tokenResponse]);
 
   // useChatWebSocket(tokenResponse);
   useAlarmWebSocket(tokenResponse);
@@ -44,7 +44,7 @@ const SideBar = () => {
     if (chatListResponse) {
       setChatRoomList(chatListResponse);
     }
-  }, [chatListResponse]);
+  }, [chatListResponse, setChatRoomList]);
 
   return (
     <Styled.Wrapper $isOpen={isSideBarOpen}>

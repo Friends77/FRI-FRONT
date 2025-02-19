@@ -1,3 +1,4 @@
+import * as Styled from '../SideBarFriendList/SideBarFriendList.styled';
 import SideBarListWrapper from '../SideBarListWrapper';
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -46,14 +47,18 @@ const SideBarChatList = () => {
 
   return (
     <SideBarListWrapper isOpened title="채팅방" count={filteredChatList.length}>
-      {filteredChatList.map((chatRoom) => (
-        <SideBarChatRoomItem
-          key={chatRoom.id}
-          chatRoom={chatRoom}
-          isSelected={roomId === chatRoom.id.toString()}
-          onClick={handleChatRoomClick}
-        />
-      ))}
+      {filteredChatList.length > 0 ? (
+        filteredChatList.map((chatRoom) => (
+          <SideBarChatRoomItem
+            key={chatRoom.id}
+            chatRoom={chatRoom}
+            isSelected={roomId === chatRoom.id.toString()}
+            onClick={handleChatRoomClick}
+          />
+        ))
+      ) : (
+        <Styled.EmptyText>검색 결과가 없습니다.</Styled.EmptyText>
+      )}
     </SideBarListWrapper>
   );
 };

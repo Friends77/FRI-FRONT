@@ -1,7 +1,7 @@
 import useGetAlarmList from '@/hooks/user/useGetAlarmList';
 import * as Styled from './AlarmPopover.styled';
 import ProfileImage from '@/components/@common/ProfileImage';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AlarmType } from '@/types/user';
 import useRejectFriendRequest from '@/hooks/user/useRejectFriendRequest';
 import useAcceptFriendRequest from '@/hooks/user/useAcceptFriendRequest';
@@ -9,6 +9,9 @@ import useAcceptChatRoomInvitation from '@/hooks/chat/useAcceptChatRoomInvitatio
 import useRejectChatRoomInvitation from '@/hooks/chat/useRejectChatRoomInvitation';
 import { useRecoilState } from 'recoil';
 import alarmListAtom from '@/recoil/user/alarmList';
+import ProfileDialog from '@/components/@common/Modal/ProfileDialog';
+import { IUserProfile } from '@/types/@common';
+import useGetProfile from '@/hooks/@common/useGetProfile';
 
 const AlarmPopover = () => {
   const { data: alarmListResponse } = useGetAlarmList();
@@ -22,6 +25,18 @@ const AlarmPopover = () => {
   const { mutate: acceptChatRoomInvitation } = useRejectChatRoomInvitation();
 
   const { mutate: rejectChatRoomInvitation } = useAcceptChatRoomInvitation();
+
+  const [isOpenProfile, setIsOpenProfile] = useState(false);
+
+  const [selectedProfileId, setSelectedProfileId] = useState<number | null>(
+    null,
+  );
+
+  const [selectedProfile, setSelectedProfile] = useState<IUserProfile | null>(
+    null,
+  );
+
+  const { data: userProfile } = useGetProfile(selectedProfileId);
 
   const handleAccept = (type: AlarmType, alarmId: number) => {
     if (type === AlarmType.FRIEND_REQUEST) {
@@ -47,50 +62,81 @@ const AlarmPopover = () => {
     if (alarmListResponse) {
       setAlarmList(alarmListResponse.content);
     }
-  }, [alarmListResponse]);
+  }, [alarmListResponse, setAlarmList]);
+
+  useEffect(() => {
+    if (userProfile) {
+      setSelectedProfile(userProfile);
+    }
+  }, [userProfile]);
+
+  const handleOpenProfile = (memberId: number) => {
+    setSelectedProfileId(memberId);
+    setIsOpenProfile(true);
+  };
+
+  const handleCloseProfile = () => {
+    setSelectedProfileId(null);
+    setSelectedProfile(null);
+    setIsOpenProfile(false);
+  };
 
   return (
-    <Styled.AlarmPopoverContainer>
-      <Styled.AlarmTriangleIcon title="알림" width="25" height="20" />
-      <Styled.Header>전체 알림</Styled.Header>
-      {alarmList.length > 0 ? (
-        <Styled.AlarmList>
-          {alarmList.map((alarm) => (
-            <Styled.AlarmItem key={alarm.id}>
-              {/* TODO: timestamp로 요청  */}
-              <Styled.Time>방금 전</Styled.Time>
-              <Styled.ContentContainer>
-                <ProfileImage size={40} />
-                <div>
-                  <Styled.Content>
-                    <Styled.Nickname>{alarm.nickname}</Styled.Nickname>
-                    {alarm.type === AlarmType.FRIEND_REQUEST
-                      ? '님이 친구 추가 요청을 보냈어요'
-                      : '에서 나를 초대했어요'}
-                  </Styled.Content>
-                  <Styled.ButtonContainer>
-                    <Styled.RejectButton
-                      type="button"
-                      onClick={() => handleReject(alarm.type, alarm.id)}
-                    >
-                      거절
-                    </Styled.RejectButton>
-                    <Styled.AcceptButton
-                      type="button"
-                      onClick={() => handleAccept(alarm.type, alarm.id)}
-                    >
-                      수락
-                    </Styled.AcceptButton>
-                  </Styled.ButtonContainer>
-                </div>
-              </Styled.ContentContainer>
-            </Styled.AlarmItem>
-          ))}
-        </Styled.AlarmList>
-      ) : (
-        <Styled.EmptyText>받은 알림이 없어요</Styled.EmptyText>
+    <>
+      {isOpenProfile && selectedProfile && (
+        <ProfileDialog profile={selectedProfile} onClose={handleCloseProfile} />
       )}
-      {/* <Styled.AlarmItem>
+      <Styled.AlarmPopoverContainer>
+        <Styled.AlarmTriangleIcon title="알림" width="25" height="20" />
+        <Styled.Header>전체 알림</Styled.Header>
+        {alarmList.length > 0 ? (
+          <Styled.AlarmList>
+            {alarmList.map((alarm) => (
+              <Styled.AlarmItem key={alarm.id}>
+                {/* TODO: timestamp로 요청  */}
+                <Styled.Time>방금 전</Styled.Time>
+                <Styled.ContentContainer>
+                  {alarm.type === AlarmType.FRIEND_REQUEST ? (
+                    <Styled.ShowProfileButton
+                      type="button"
+                      onClick={() => handleOpenProfile(alarm.senderId)}
+                    >
+                      <ProfileImage size={40} />
+                    </Styled.ShowProfileButton>
+                  ) : (
+                    <ProfileImage size={40} />
+                  )}
+
+                  <div>
+                    <Styled.Content>
+                      <Styled.Nickname>{alarm.nickname}</Styled.Nickname>
+                      {alarm.type === AlarmType.FRIEND_REQUEST
+                        ? '님이 친구 추가 요청을 보냈어요'
+                        : '에서 나를 초대했어요'}
+                    </Styled.Content>
+                    <Styled.ButtonContainer>
+                      <Styled.RejectButton
+                        type="button"
+                        onClick={() => handleReject(alarm.type, alarm.id)}
+                      >
+                        거절
+                      </Styled.RejectButton>
+                      <Styled.AcceptButton
+                        type="button"
+                        onClick={() => handleAccept(alarm.type, alarm.id)}
+                      >
+                        수락
+                      </Styled.AcceptButton>
+                    </Styled.ButtonContainer>
+                  </div>
+                </Styled.ContentContainer>
+              </Styled.AlarmItem>
+            ))}
+          </Styled.AlarmList>
+        ) : (
+          <Styled.EmptyText>받은 알림이 없어요</Styled.EmptyText>
+        )}
+        {/* <Styled.AlarmItem>
           <Styled.Time>방금 전</Styled.Time>
           <Styled.ContentContainer>
             <ProfileImage size={40} />
@@ -108,7 +154,8 @@ const AlarmPopover = () => {
             </div>
           </Styled.ContentContainer>
         </Styled.AlarmItem> */}
-    </Styled.AlarmPopoverContainer>
+      </Styled.AlarmPopoverContainer>
+    </>
   );
 };
 

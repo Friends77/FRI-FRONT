@@ -13,6 +13,10 @@ export const Wrapper = styled.li`
   }
 `;
 
+export const ShowProfileButton = styled.button`
+  display: flex;
+`;
+
 export const FriendInfo = styled.div`
   display: flex;
   flex-direction: column;
