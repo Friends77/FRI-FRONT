@@ -118,7 +118,7 @@ export const InvitationButton = styled.button`
 export const MembersContent = styled.ul`
   padding: 16px 0;
   overflow-y: auto;
-  max-height: 390px;
+  max-height: 330px;
 `;
 
 export const Member = styled.li`

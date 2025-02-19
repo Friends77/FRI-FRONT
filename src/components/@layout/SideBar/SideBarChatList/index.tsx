@@ -35,7 +35,7 @@ const SideBarChatList = () => {
     });
 
     setFilteredChatList(filteredList as IMyChatItem[]);
-  }, [keyword]);
+  }, [keyword, chatRoomList]);
 
   const handleChatRoomClick = useCallback(
     (roomId: number) => {

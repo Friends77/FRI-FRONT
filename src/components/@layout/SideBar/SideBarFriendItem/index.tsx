@@ -60,7 +60,9 @@ const SideBarFriendItem = ({ friend }: ISideBarFriendItemProps) => {
         </Styled.ShowProfileButton>
         <Styled.FriendInfo>
           <Styled.Nickname>{nickname}</Styled.Nickname>
-          <Styled.SelfDescription>{selfDescription}</Styled.SelfDescription>
+          {selfDescription && (
+            <Styled.SelfDescription>{selfDescription}</Styled.SelfDescription>
+          )}
         </Styled.FriendInfo>
       </Styled.Wrapper>
     </>

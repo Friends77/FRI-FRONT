@@ -21,14 +21,16 @@ const SideBarFriendList = () => {
   }, [data]);
 
   useEffect(() => {
-    const filteredList = filterKeyword({
-      type: 'user',
-      keyword,
-      content: friendList,
-    });
+    if (data.content.length > 0) {
+      const filteredList = filterKeyword({
+        type: 'user',
+        keyword,
+        content: data.content,
+      });
 
-    setFriendList(filteredList as IProfileSimpleResponse[]);
-  }, [keyword]);
+      setFriendList(filteredList as IProfileSimpleResponse[]);
+    }
+  }, [data.content, keyword]);
 
   return (
     <SideBarListWrapper title="친구" count={friendList.length}>

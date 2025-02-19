@@ -56,7 +56,7 @@ const useMessageHandler = ({
 
       return () => unsubscribe();
     }
-  }, [myProfile, roomId]);
+  }, [myProfile]);
 
   useGetMemberProfile({ roomId, memberId: newMemberId, setNewMemberId });
 
@@ -129,9 +129,10 @@ const useMessageHandler = ({
   const handleReceivedMessage = (data: string) => {
     const message: ISentMessageItem = JSON.parse(data);
 
-    const { code, chatRoomId, senderId, clientMessageId } = message;
+    const { code, chatRoomId, senderId, clientMessageId, messageId } = message;
 
     if (code === 200 && chatRoomId === roomId) {
+      // 내가 보낸 메세지인 경우
       if (senderId === myProfile?.memberId) {
         if (clientMessageId) {
           clearMessageTimer(clientMessageId);
@@ -166,6 +167,18 @@ const useMessageHandler = ({
       }
 
       setSentMessageList((prevList) => [...prevList, message]);
+
+      const messageForm = {
+        type: 'READ',
+        chatRoomId: roomId,
+        messageId,
+        clientMessageId: '',
+        content: '',
+      };
+
+      if (sendMessageToServer) {
+        sendMessageToServer(messageForm);
+      }
     }
 
     if (code !== 200 && clientMessageId) {

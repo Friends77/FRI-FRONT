@@ -13,8 +13,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
 import socketConnectedAtom from '@/recoil/chat/socketConnected';
 import { useGetSecondaryToken } from '@/hooks/chat/useGetSecondaryToken';
-import useAlarmWebSocket from '@/hooks/user/useAlarmWebSocket';
+// import useAlarmWebSocket from '@/hooks/user/useAlarmWebSocket';
 import chatRoomListAtom from '@/recoil/chat/roomList';
+import useChatWebSocket from '@/hooks/chat/useChatWebSocket';
+import useChatListMessageHandler from '@/hooks/chat/useChatListMessageHandler';
 
 const SideBar = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
@@ -31,8 +33,9 @@ const SideBar = () => {
     }
   }, [setSocketConnected, tokenResponse]);
 
-  // useChatWebSocket(tokenResponse);
-  useAlarmWebSocket(tokenResponse);
+  useChatWebSocket(tokenResponse);
+  // useAlarmWebSocket(tokenResponse);
+  useChatListMessageHandler();
 
   const methods = useForm<{ keyword: string }>();
 
