@@ -43,6 +43,7 @@ const FriendsGrid = ({ categoryId }: IFriendsGridProps) => {
         {friends?.content.map((friend) => (
           <FriendCard
             key={friend.id}
+            id={friend.id}
             imageUrl={friend.imageUrl}
             nickname={friend.nickname}
           />
