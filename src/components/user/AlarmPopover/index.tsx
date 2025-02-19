@@ -12,6 +12,7 @@ import alarmListAtom from '@/recoil/user/alarmList';
 import ProfileDialog from '@/components/@common/Modal/ProfileDialog';
 import { IUserProfile } from '@/types/@common';
 import useGetProfile from '@/hooks/@common/useGetProfile';
+import { formatTimeAgo } from '@/utils/date';
 
 const AlarmPopover = () => {
   const { data: alarmListResponse } = useGetAlarmList();
@@ -93,8 +94,7 @@ const AlarmPopover = () => {
           <Styled.AlarmList>
             {alarmList.map((alarm) => (
               <Styled.AlarmItem key={alarm.id}>
-                {/* TODO: timestamp로 요청  */}
-                <Styled.Time>방금 전</Styled.Time>
+                <Styled.Time>{formatTimeAgo(alarm.createdAt)}</Styled.Time>
                 <Styled.ContentContainer>
                   {alarm.type === AlarmType.FRIEND_REQUEST ? (
                     <Styled.ShowProfileButton
