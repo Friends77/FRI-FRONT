@@ -1,4 +1,5 @@
 import Axios from '@/apis/@core/instance';
+import { HOME_CONSTANT } from '@/constants/home';
 import { IChatRoomByTagResponse, IFriendsByTagResponse } from '@/types/home';
 
 // 사용자 선택 태그 기반 추천 채팅방
@@ -22,7 +23,7 @@ export const getFriendsByTag = async (id: number) => {
     {
       params: {
         categoryIds: id,
-        size: 8,
+        size: HOME_CONSTANT.FRIEND_RECOMMENDATION_LIMIT,
       },
     },
   );
