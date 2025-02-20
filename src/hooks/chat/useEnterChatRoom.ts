@@ -25,7 +25,7 @@ const useEnterChatRoom = ({
       mutate();
       setIsEnter(true);
     }
-  }, [lastMsgId, mutate, setIsEnter]);
+  }, [lastMsgId]);
 };
 
 export default useEnterChatRoom;

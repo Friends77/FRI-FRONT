@@ -34,11 +34,11 @@ const SideBarFriendList = () => {
 
   return (
     <SideBarListWrapper title="친구" count={friendList.length}>
-      {friendList.length > 0 ? (
+      {friendList.length > 0 &&
         friendList.map((friend) => (
           <SideBarFriendItem key={friend.memberId} friend={friend} />
-        ))
-      ) : (
+        ))}
+      {keyword && friendList.length === 0 && (
         <Styled.EmptyText>검색 결과가 없습니다.</Styled.EmptyText>
       )}
     </SideBarListWrapper>

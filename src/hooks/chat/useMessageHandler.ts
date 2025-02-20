@@ -5,7 +5,11 @@ import {
 } from '@/recoil/chat/message';
 import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
 import profileAtom from '@/recoil/user/profile';
-import { ISendMyMessageForm, ISentMessageItem } from '@/types/chat';
+import {
+  ISendMyMessageForm,
+  ISentMessageItem,
+  MessageType,
+} from '@/types/chat';
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
@@ -144,11 +148,11 @@ const useMessageHandler = ({
           ),
         );
       } else {
-        if (message.type === 'SYSTEM_MEMBER_ENTER') {
+        if (message.type === MessageType.SYSTEM_MEMBER_ENTER) {
           setNewMemberId(message.senderId as number);
         }
 
-        if (message.type === 'SYSTEM_MEMBER_LEAVE') {
+        if (message.type === MessageType.SYSTEM_MEMBER_LEAVE) {
           setChatMembersAtom((prevList) =>
             prevList.filter((member) => message.senderId !== member.id),
           );
@@ -169,7 +173,7 @@ const useMessageHandler = ({
       setSentMessageList((prevList) => [...prevList, message]);
 
       const messageForm = {
-        type: 'READ',
+        type: MessageType.SYSTEM_READ,
         chatRoomId: roomId,
         messageId,
         clientMessageId: '',

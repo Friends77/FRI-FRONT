@@ -1,4 +1,8 @@
-import { IPendingMessageItem, ISentMessageItem } from '@/types/chat';
+import {
+  IPendingMessageItem,
+  ISentMessageItem,
+  MessageType,
+} from '@/types/chat';
 import * as Styled from './MyMessage.styled';
 import LoadingMessage from '@/components/@common/SVG/Icon/LoadingMessage';
 import Resend from '@/components/@common/SVG/Icon/Resend';
@@ -109,10 +113,10 @@ const MyMessage = ({
             </button>
           </Styled.FailedButtonContainer>
         )}
-        {message.type === 'TEXT' && (
+        {message.type === MessageType.TEXT && (
           <Styled.MessageContent>{message.content}</Styled.MessageContent>
         )}
-        {message.type === 'IMAGE' && (
+        {message.type === MessageType.IMAGE && (
           <Styled.ImageMessageContainer>
             {message.content
               .split(',')

@@ -1,4 +1,4 @@
-import { ISentMessageItem } from '@/types/chat';
+import { ISentMessageItem, MessageType } from '@/types/chat';
 import * as Styled from './PreviewMessage.styled';
 import ProfileImage from '@/components/@common/ProfileImage';
 import { useRecoilValue } from 'recoil';
@@ -29,8 +29,8 @@ const PreviewMessage = ({ message, onClick }: IPreviewMessage) => {
         </Styled.MemberProfile>
         <Styled.PreviewMessageContent>
           <Styled.Content>
-            {message.type === 'TEXT' && message.content}
-            {message.type === 'IMAGE' && '사진'}
+            {message.type === MessageType.TEXT && message.content}
+            {message.type === MessageType.IMAGE && '사진'}
           </Styled.Content>
           <Styled.ArrowDownIcon
             title="메세지 보기"

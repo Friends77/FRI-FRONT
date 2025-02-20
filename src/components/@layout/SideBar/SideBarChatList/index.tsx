@@ -47,7 +47,7 @@ const SideBarChatList = () => {
 
   return (
     <SideBarListWrapper isOpened title="채팅방" count={filteredChatList.length}>
-      {filteredChatList.length > 0 ? (
+      {filteredChatList.length > 0 &&
         filteredChatList.map((chatRoom) => (
           <SideBarChatRoomItem
             key={chatRoom.id}
@@ -55,8 +55,8 @@ const SideBarChatList = () => {
             isSelected={roomId === chatRoom.id.toString()}
             onClick={handleChatRoomClick}
           />
-        ))
-      ) : (
+        ))}
+      {keyword && filteredChatList.length === 0 && (
         <Styled.EmptyText>검색 결과가 없습니다.</Styled.EmptyText>
       )}
     </SideBarListWrapper>

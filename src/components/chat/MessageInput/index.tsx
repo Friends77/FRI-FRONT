@@ -4,7 +4,7 @@ import SendMessage from '@/components/@common/SVG/Icon/SendMessage';
 import { Theme } from '@/styles/theme';
 import { useMutation } from '@tanstack/react-query';
 import { imageUpload } from '@/apis/@common';
-import { ISendMyMessageForm } from '@/types/chat';
+import { ISendMyMessageForm, MessageType } from '@/types/chat';
 import { useRef } from 'react';
 
 interface IMessageInputProps {
@@ -29,7 +29,7 @@ const MessageInput = ({
 
       if (imageMessageCount.current === imagePathList.current.length) {
         onSendMessage({
-          messageType: 'IMAGE',
+          messageType: MessageType.IMAGE,
           imagePath: imagePathList.current.join(','),
         });
       }
@@ -48,7 +48,7 @@ const MessageInput = ({
       e.preventDefault();
 
       if (value) {
-        onSendMessage({ messageType: 'TEXT' });
+        onSendMessage({ messageType: MessageType.TEXT });
       }
     }
   };
@@ -98,7 +98,7 @@ const MessageInput = ({
         <Styled.SendButton
           type="button"
           disabled={!value}
-          onClick={() => onSendMessage({ messageType: 'TEXT' })}
+          onClick={() => onSendMessage({ messageType: MessageType.TEXT })}
         >
           <SendMessage
             title="전송하기"

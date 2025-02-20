@@ -6,6 +6,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import roomDetailAtom from '@/recoil/chat/roomDetail';
 import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
 import roomListAtom from '@/recoil/chat/roomList';
+import { MessageType } from '@/types/chat';
 
 interface IUseGetChatRoomDetails {
   roomId: number;
@@ -30,7 +31,7 @@ const useGetChatRoomDetail = ({ roomId }: IUseGetChatRoomDetails) => {
 
       if (sendMessageToServer) {
         const messageForm = {
-          type: 'READ',
+          type: MessageType.SYSTEM_READ,
           chatRoomId: roomId,
           messageId: chatRoomDetail.lastMessageId,
           clientMessageId: '',
@@ -47,7 +48,7 @@ const useGetChatRoomDetail = ({ roomId }: IUseGetChatRoomDetails) => {
         );
       }
     }
-  }, [chatRoomDetail, setChatRoomDetail, sendMessageToServer, setChatRoomList]);
+  }, [chatRoomDetail]);
 };
 
 export default useGetChatRoomDetail;

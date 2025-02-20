@@ -41,15 +41,20 @@ export interface IMyChatItem {
   unreadMessageCount: number;
 }
 
-export type MessageType =
-  | 'TEXT'
-  | 'IMAGE'
-  | 'SYSTEM'
-  | 'SYSTEM_MEMBER_ENTER'
-  | 'SYSTEM_MEMBER_LEAVE'
-  | 'SYSTEM_NEW_MANAGER';
+export enum MessageType {
+  TEXT = 'TEXT',
+  IMAGE = 'IMAGE',
+  SYSTEM = 'SYSTEM',
+  SYSTEM_MEMBER_ENTER = 'SYSTEM_MEMBER_ENTER',
+  SYSTEM_MEMBER_LEAVE = 'SYSTEM_MEMBER_LEAVE',
+  SYSTEM_NEW_MANAGER = 'SYSTEM_NEW_MANAGER',
+  SYSTEM_READ = 'SYSTEM_READ',
+}
 
-export type MyMessageType = 'TEXT' | 'IMAGE';
+export type MyMessageType = Extract<
+  MessageType,
+  MessageType.TEXT | MessageType.IMAGE
+>;
 
 export interface IPendingMessageItem {
   clientMessageId: string;
