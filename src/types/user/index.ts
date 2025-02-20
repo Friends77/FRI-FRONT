@@ -87,7 +87,7 @@ export interface IAlarmItem {
   invitedChatRoomId?: number;
   createdAt: string;
   nickname: string;
-  imageUrl: string;
+  senderProfileImage: string;
 }
 
 export interface IGetAlarmListRequest extends IPaginationParams {

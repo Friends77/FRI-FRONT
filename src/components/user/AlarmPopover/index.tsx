@@ -101,10 +101,18 @@ const AlarmPopover = () => {
                       type="button"
                       onClick={() => handleOpenProfile(alarm.senderId)}
                     >
-                      <ProfileImage size={40} />
+                      <ProfileImage
+                        size={40}
+                        src={alarm.senderProfileImage}
+                        alt={alarm.nickname}
+                      />
                     </Styled.ShowProfileButton>
                   ) : (
-                    <ProfileImage size={40} />
+                    <ProfileImage
+                      size={40}
+                      src={alarm.senderProfileImage}
+                      alt={alarm.nickname}
+                    />
                   )}
 
                   <div>
@@ -136,24 +144,6 @@ const AlarmPopover = () => {
         ) : (
           <Styled.EmptyText>받은 알림이 없어요</Styled.EmptyText>
         )}
-        {/* <Styled.AlarmItem>
-          <Styled.Time>방금 전</Styled.Time>
-          <Styled.ContentContainer>
-            <ProfileImage size={40} />
-            <div>
-              <Styled.Content>
-                <Styled.Nickname>
-                  지오니지오니지오니지오니지오니지오니지오
-                </Styled.Nickname>
-                님이 친구 추가 요청을 보냈어요
-              </Styled.Content>
-              <Styled.ButtonContainer>
-                <Styled.RejectButton type="button">거절</Styled.RejectButton>
-                <Styled.AcceptButton type="button">수락</Styled.AcceptButton>
-              </Styled.ButtonContainer>
-            </div>
-          </Styled.ContentContainer>
-        </Styled.AlarmItem> */}
       </Styled.AlarmPopoverContainer>
     </>
   );
