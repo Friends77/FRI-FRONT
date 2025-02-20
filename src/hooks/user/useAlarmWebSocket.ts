@@ -1,16 +1,21 @@
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import alarmListAtom from '@/recoil/user/alarmList';
-import alarmSocketConnectedAtom from '@/recoil/user/alarmSocketConnectedAtom';
-import { ISecondaryTokenResponse } from '@/types/chat';
 import { AlarmType } from '@/types/user';
-import { useEffect, useRef } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useEffect, useRef, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useGetSecondaryToken } from '../chat/useGetSecondaryToken';
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
 
-const useAlarmWebSocket = (tokenResponse?: ISecondaryTokenResponse) => {
-  const [socketConnected, setSocketConnected] = useRecoilState(
-    alarmSocketConnectedAtom,
-  );
+const useAlarmWebSocket = () => {
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
+  const { data: tokenResponse } = useGetSecondaryToken({
+    isLoggedIn: !!isLoggedIn,
+    type: 'alarm',
+  });
+
+  const [socketConnected, setSocketConnected] = useState(false);
 
   const setAlarmList = useSetRecoilState(alarmListAtom);
 

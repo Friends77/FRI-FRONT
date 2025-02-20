@@ -1,13 +1,21 @@
 import { useEffect, useRef } from 'react';
 import useMessageSubscription from './useMessageSubscription';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
+import { useGetSecondaryToken } from './useGetSecondaryToken';
 import chatSocketConnectedAtom from '@/recoil/chat/socketConnected';
-import { ISecondaryTokenResponse } from '@/types/chat';
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
 
-const useChatWebSocket = (tokenResponse?: ISecondaryTokenResponse) => {
+const useChatWebSocket = () => {
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
+  const { data: tokenResponse } = useGetSecondaryToken({
+    isLoggedIn: !!isLoggedIn,
+    type: 'chat',
+  });
+
   const { notifySubscribers } = useMessageSubscription();
 
   const [socketConnected, setSocketConnected] = useRecoilState(

@@ -12,7 +12,7 @@ export const USER_KEYS = Object.freeze({
 });
 
 export const CHAT_KEYS = Object.freeze({
-  SECONDARY_TOKEN: ['secondary-token'],
+  SECONDARY_TOKEN: (type: 'chat' | 'alarm') => ['secondary-token', type],
   CHAT_LIST: ['chat-list'],
   CHAT_MESSAGES: ['chat-messages'],
   CHAT_DETAIL: (roomId: number) => ['chat-detail', roomId],
