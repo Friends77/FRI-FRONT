@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const useGetAlarmList = (lastAlarmId?: number) => {
   return useQuery({
-    queryKey: USER_KEYS.ALARM_LIST,
+    queryKey: [USER_KEYS.ALARM_LIST, lastAlarmId],
     queryFn: () =>
       getAlarmList({
         size: USER_CONSTANT.DEFAULT_ALARM_SIZE,

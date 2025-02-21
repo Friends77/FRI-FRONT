@@ -55,7 +55,7 @@ const useAlarmWebSocket = () => {
       message.type === AlarmType.FRIEND_REQUEST ||
       message.type === AlarmType.CHAT_ROOM_INVITATION
     ) {
-      setAlarmList((prevList) => [...prevList, message]);
+      setAlarmList((prevList) => [message, ...prevList]);
     }
   };
 

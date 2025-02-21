@@ -1,16 +1,32 @@
 import { acceptChatRoomInvite } from '@/apis/chat';
-import { USER_KEYS } from '@/constants/@queryKeys';
+import { CHAT_KEYS } from '@/constants/@queryKeys';
+import alarmListAtom from '@/recoil/user/alarmList';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useSetRecoilState } from 'recoil';
 
-const useAcceptChatRoomInvitation = () => {
+interface IUseAcceptChatRoomInvitation {
+  onSuccessHandler: () => void;
+}
+
+const useAcceptChatRoomInvitation = ({
+  onSuccessHandler,
+}: IUseAcceptChatRoomInvitation) => {
   const queryClient = useQueryClient();
+
+  const setAlarmList = useSetRecoilState(alarmListAtom);
 
   return useMutation({
     mutationFn: acceptChatRoomInvite,
-    onSuccess: async () => {
+    onSuccess: async (_, alarmId) => {
       await queryClient.invalidateQueries({
-        queryKey: USER_KEYS.ALARM_LIST,
+        queryKey: CHAT_KEYS.CHAT_LIST,
       });
+
+      setAlarmList((prevList) =>
+        prevList.filter((alarm) => alarmId !== alarm.id),
+      );
+
+      onSuccessHandler();
     },
     onError: () => {
       alert('채팅방 초대 수락을 실패했습니다.');

@@ -1,3 +1,3 @@
 export const USER_CONSTANT = Object.freeze({
-  DEFAULT_ALARM_SIZE: 50,
+  DEFAULT_ALARM_SIZE: 5,
 });
