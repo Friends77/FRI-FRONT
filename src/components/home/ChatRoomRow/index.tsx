@@ -50,7 +50,7 @@ const ChatRoomRow = ({ categoryId }: ChatRoomRowProps) => {
     <Styled.Wrapper>
       <Styled.TitleNSwiperSection>
         <Styled.SubTitleSection>
-          {tag && <Tag icon={tag.image} label={tag.name} />}
+          {tag && <Tag size="large" icon={tag.image} label={tag.name} />}
           <Styled.SubTitle>
             태그가 포함된 채팅방을 추천해드릴게요
           </Styled.SubTitle>
