@@ -1,27 +1,23 @@
 import { logout } from '@/apis/auth';
+import { AUTH_PATH } from '@/constants/routes';
 import accessTokenAtom from '@/recoil/auth/accessToken';
-import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
-import profileAtom from '@/recoil/user/profile';
+
 import { useMutation } from '@tanstack/react-query';
 import { useCookies } from 'react-cookie';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 export const useLogout = () => {
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+  const accessToken = useRecoilValue(accessTokenAtom);
 
-  const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
-
-  const setProfile = useSetRecoilState(profileAtom);
-
-  const [, , removeCookie] = useCookies(['isLoggedIn']);
+  const [, , removeCookie] = useCookies(['isLoggedIn', 'refreshToken']);
 
   return useMutation({
-    mutationFn: () => logout(accessToken || ''),
+    mutationFn: () => logout(accessToken!),
     onSuccess: () => {
       removeCookie('isLoggedIn');
-      setAccessToken(null);
-      setIsLoggedIn(false);
-      setProfile(null);
+      removeCookie('refreshToken');
+
+      window.location.href = AUTH_PATH.LOGIN;
     },
   });
 };

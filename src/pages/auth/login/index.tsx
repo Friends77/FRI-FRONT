@@ -1,9 +1,23 @@
 import LoginForm from '@/components/auth/Form/LoginForm';
 import SocialLoginForm from '@/components/auth/Form/SocialLoginForm';
 import * as Styled from './LoginPage.styled';
-import { AUTH_PATH } from '@/constants/routes';
+import { AUTH_PATH, ROOT_PATH } from '@/constants/routes';
+import { useRecoilValue } from 'recoil';
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(ROOT_PATH.ROOT);
+    }
+  }, [navigate, isLoggedIn]);
+
   return (
     <Styled.Main>
       <Styled.LoginHeader>로그인</Styled.LoginHeader>
