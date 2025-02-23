@@ -1,4 +1,3 @@
-import AlarmTriangle from '@/components/@common/SVG/Icon/AlarmTriangle';
 import styled from 'styled-components';
 
 export const AlarmPopoverContainer = styled.div`
@@ -17,10 +16,27 @@ export const AlarmPopoverContainer = styled.div`
   max-height: 548px;
 `;
 
-export const AlarmTriangleIcon = styled(AlarmTriangle)`
+export const AlarmTriangleIcon = styled.div`
   position: absolute;
-  top: -20px;
-  left: 43px;
+  top: 43px;
+  left: 40px;
+  width: 25px;
+  height: 21px;
+  background-color: ${({ theme }) => theme.colors.White};
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.05);
+  clip-path: polygon(50% 0, 100% 100%, 0% 100%);
+  z-index: 201;
+
+  -webkit-mask-image: radial-gradient(
+    circle 6px at 50% -2px,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  mask-image: radial-gradient(
+    circle 6px at 50% -2px,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
 `;
 
 export const Header = styled.h3`

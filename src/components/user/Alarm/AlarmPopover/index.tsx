@@ -17,16 +17,16 @@ const AlarmPopover = () => {
   const [hasNext, setHasNext] = useState<boolean>(true);
 
   useEffect(() => {
-    if (alarmListResponse) {
-      if (alarmList.length === 0) {
-        setAlarmList(alarmListResponse.content);
-      } else {
-        setAlarmList((prevList) => [...prevList, ...alarmListResponse.content]);
-      }
+    if (!alarmListResponse) return;
 
-      setHasNext(alarmListResponse.hasNext);
-    }
-  }, [alarmListResponse]);
+    setAlarmList((prevList) => {
+      if (!lastAlarmId) return alarmListResponse.content;
+
+      return [...prevList, ...alarmListResponse.content];
+    });
+
+    setHasNext(alarmListResponse.hasNext);
+  }, [alarmListResponse, lastAlarmId]);
 
   useEffect(() => {
     if (!observerRef.current || !hasNext) return;
@@ -53,8 +53,8 @@ const AlarmPopover = () => {
 
   return (
     <>
+      <Styled.AlarmTriangleIcon />
       <Styled.AlarmPopoverContainer>
-        <Styled.AlarmTriangleIcon title="알림" width="25" height="20" />
         <Styled.Header>전체 알림</Styled.Header>
         {alarmList.length > 0 ? (
           <Styled.AlarmList>

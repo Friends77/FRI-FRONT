@@ -19,10 +19,11 @@ import HomeFill from '@/components/@common/SVG/Icon/HomeFill';
 import AssignmentFill from '@/components/@common/SVG/Icon/AssignmentFill';
 import ProfileFill from '@/components/@common/SVG/Icon/ProfileFill';
 import SettingFill from '@/components/@common/SVG/Icon/SettingFill';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import isSideBarOpenAtom from '@/recoil/layout/isSideBarOpen';
 import Expand from '@/components/@common/SVG/Icon/Expand';
 import SearchFill from '@/components/@common/SVG/Icon/SearchFill';
+import isOpenAlarmAtom from '@/recoil/user/isOpenAlarm/atom';
 
 const navMenus = [
   {
@@ -60,8 +61,11 @@ const navMenus = [
 const NavBar = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useRecoilState(isSideBarOpenAtom);
 
+  const setIsOpenAlarm = useSetRecoilState(isOpenAlarmAtom);
+
   const handleSideBarToggle = () => {
     setIsSideBarOpen((prev) => !prev);
+    setIsOpenAlarm(false);
   };
 
   return (
