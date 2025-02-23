@@ -18,11 +18,11 @@ export const MyMenu = styled.ul`
   background-color: ${({ theme }) => theme.colors.White};
   border-radius: 6px;
   z-index: 300;
-  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
 `;
 
 export const MyPage = styled.li`
-  padding: 10px 12px;
+  padding: 8px 12px;
 `;
 
 export const MyPageButton = styled.button`
@@ -34,7 +34,7 @@ export const MyPageButton = styled.button`
 `;
 
 export const Logout = styled.li`
-  padding: 10px 12px;
+  padding: 8px 12px;
 `;
 
 export const LogoutButton = styled.button`
