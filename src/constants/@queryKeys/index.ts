@@ -28,5 +28,12 @@ export const CHAT_KEYS = Object.freeze({
 });
 
 export const HOME_KEYS = Object.freeze({
-  RECOMMENDED_ROOMS_BY_TAGS: ['chat-rooms-by-tag'],
+  RECOMMENDED_ROOMS_BY_TAGS: (categoryId: number) => [
+    'chat-rooms-by-tag',
+    categoryId,
+  ],
+  RECOMMENDED_FRIENDS_BY_TAGS: (categoryId: number) => [
+    'friends-by-tag',
+    categoryId,
+  ],
 });
