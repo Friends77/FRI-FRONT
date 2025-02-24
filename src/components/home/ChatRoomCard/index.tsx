@@ -8,6 +8,9 @@ import * as Styled from './ChatRoomCard.styled';
 import ProfileImage from '@/components/@common/ProfileImage';
 import { ParticipantCount } from '@/components/@layout/SideBar/SideBarChatRoomItem/SideBarChatRoomItem.styled';
 import { v4 as uuidv4 } from 'uuid';
+import { useCallback } from 'react';
+import { CHAT_PATH } from '@/constants/routes';
+import { useNavigate } from 'react-router';
 
 export interface IChatRoomCardProps {
   id: number;
@@ -25,11 +28,22 @@ export interface IChatRoomCardProps {
 }
 
 const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
+  const navigate = useNavigate();
+
   // 참여 유저 4명 자르기
   const participantList = [...chatRoom.participantProfileList].slice(0, 4);
 
+  // 채팅방으로 이동
+  const handleChatRoomClick = useCallback(
+    (roomId: number) => {
+      const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());
+      navigate(path);
+    },
+    [navigate],
+  );
+
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper onClick={() => handleChatRoomClick(chatRoom.id)}>
       <Styled.ImageContainer>
         <Styled.ChatRoomThumbnail src={chatRoom.imageUrl} />
       </Styled.ImageContainer>
