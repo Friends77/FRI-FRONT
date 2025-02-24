@@ -3,7 +3,6 @@ import * as Styled from './ChatRoom.styled';
 import MessageInput from '@/components/chat/MessageInput';
 import MessageList from '@/components/chat/MessageList';
 import useGetChatRoomDetail from '@/hooks/chat/useGetChatRoomDetail';
-import useWebSocket from '@/hooks/chat/useWebSocket';
 import { ISentMessageItem } from '@/types/chat';
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router';
@@ -44,8 +43,6 @@ const ChatRoomPage = () => {
   const [shouldFetchPreviousMessages, setShouldFetchPreviousMessages] =
     useState(false);
 
-  // TODO: 테스트 후, 제거 예정
-  useWebSocket();
   useResetState({
     roomId,
     setLastMsgId,

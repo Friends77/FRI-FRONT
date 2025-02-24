@@ -15,7 +15,7 @@ const useGetPreviousMessage = ({
   shouldFetchPreviousMessages,
   lastMessageId,
 }: IUseMessageListProps) => {
-  const { data } = useQuery({
+  return useQuery({
     queryKey: CHAT_KEYS.CHAT_MESSAGES,
     queryFn: () =>
       getChatMessages({
@@ -25,8 +25,6 @@ const useGetPreviousMessage = ({
       }),
     enabled: !!roomId && shouldFetchPreviousMessages,
   });
-
-  return { data };
 };
 
 export default useGetPreviousMessage;

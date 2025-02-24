@@ -13,7 +13,6 @@ import {
   IMyChatItem,
   ISecondaryTokenResponse,
 } from '@/types/chat';
-import { createQueryParams } from '@/utils/formatter/queryParams';
 
 // 채팅방 생성
 export const createChatRoom = async ({
@@ -45,12 +44,8 @@ export const createChatRoom = async ({
 };
 
 // 참여 중인 채팅방 목록 조회
-export const getChatList = async (nickname?: string) => {
-  const queryParams = createQueryParams({ nickname });
-
-  const response = await AuthAxios.get<IMyChatItem[]>(
-    `/api/user/chat/room${queryParams}`,
-  );
+export const getChatList = async () => {
+  const response = await AuthAxios.get<IMyChatItem[]>('/api/user/chat/room');
 
   return response.data;
 };
@@ -145,6 +140,34 @@ export const getFriendsToInvite = async ({
     {
       params: { nickname },
     },
+  );
+
+  return response.data;
+};
+
+// 채팅방 초대 수락
+export const acceptChatRoomInvite = async (alarmId: number) => {
+  const requestForm = {
+    alarmId,
+  };
+
+  const response = await AuthAxios.post(
+    '/api/user/chat/invitation/accept',
+    requestForm,
+  );
+
+  return response.data;
+};
+
+// 채팅방 초대 거절
+export const rejectChatRoomInvite = async (alarmId: number) => {
+  const requestForm = {
+    alarmId,
+  };
+
+  const response = await AuthAxios.post(
+    '/api/user/chat/invitation/reject',
+    requestForm,
   );
 
   return response.data;

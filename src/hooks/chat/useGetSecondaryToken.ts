@@ -2,10 +2,18 @@ import { getSecondaryToken } from '@/apis/chat';
 import { CHAT_KEYS } from '@/constants/@queryKeys';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetSecondaryToken = (socketConnected: boolean) => {
+interface IUseGetSecondaryToken {
+  isLoggedIn: boolean;
+  type: 'chat' | 'alarm';
+}
+
+export const useGetSecondaryToken = ({
+  type,
+  isLoggedIn,
+}: IUseGetSecondaryToken) => {
   return useQuery({
-    queryKey: CHAT_KEYS.SECONDARY_TOKEN,
+    queryKey: CHAT_KEYS.SECONDARY_TOKEN(type),
     queryFn: getSecondaryToken,
-    enabled: !socketConnected,
+    enabled: !!isLoggedIn,
   });
 };

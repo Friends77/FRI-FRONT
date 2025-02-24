@@ -23,11 +23,18 @@ export const Input = styled.input`
   }
 `;
 
-export const SearchBtn = styled.button`
+export const DeleteKeywordButton = styled.button`
   position: absolute;
+  display: flex;
+  top: 50%;
+  right: 48px;
+  transform: translateY(-50%);
+`;
+
+export const SearchButton = styled.button`
+  position: absolute;
+  display: flex;
   top: 50%;
   right: 16px;
   transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
 `;

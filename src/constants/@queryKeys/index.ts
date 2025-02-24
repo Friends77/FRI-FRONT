@@ -7,11 +7,13 @@ export const COMMON_KEYS = Object.freeze({
 export const USER_KEYS = Object.freeze({
   PROFILE: (id: number) => ['profile', id],
   FRIEND_LIST: ['friend-list'],
+  UNREAD_ALARM_COUNT: ['unread-alarm-count'],
+  ALARM_LIST: ['alarm-list'],
 });
 
 export const CHAT_KEYS = Object.freeze({
-  SECONDARY_TOKEN: ['secondary-token'],
-  CHAT_LIST: (keyword?: string) => ['chat-list', keyword || ''],
+  SECONDARY_TOKEN: (type: 'chat' | 'alarm') => ['secondary-token', type],
+  CHAT_LIST: ['chat-list'],
   CHAT_MESSAGES: ['chat-messages'],
   CHAT_DETAIL: (roomId: number) => ['chat-detail', roomId],
   CHAT_MEMBER_LIST: (roomId: number) => ['chat-member-list', roomId],

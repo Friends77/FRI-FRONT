@@ -12,6 +12,7 @@ export const AUTH_PATH = Object.freeze({
 
 export const CHAT_PATH = Object.freeze({
   CHAT_LIST: '/chat',
+  CHAT_ROOM_PATH: '/chat/room',
   CHAT_ROOM: '/chat/room/:roomId',
   CHAT_ROOM_CREATE: '/chat/room/create',
 });

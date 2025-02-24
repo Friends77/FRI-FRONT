@@ -1,21 +1,28 @@
 import { useEffect, useRef } from 'react';
-import { useGetSecondaryToken } from './useGetSecondaryToken';
 import useMessageSubscription from './useMessageSubscription';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
-import socketConnectedAtom from '@/recoil/chat/socketConnected';
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
+import { useGetSecondaryToken } from './useGetSecondaryToken';
+import chatSocketConnectedAtom from '@/recoil/chat/socketConnected';
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;
 
-const useWebSocket = () => {
+const useChatWebSocket = () => {
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
+  const { data: tokenResponse } = useGetSecondaryToken({
+    isLoggedIn: !!isLoggedIn,
+    type: 'chat',
+  });
+
   const { notifySubscribers } = useMessageSubscription();
 
-  const [socketConnected, setSocketConnected] =
-    useRecoilState(socketConnectedAtom);
+  const [socketConnected, setSocketConnected] = useRecoilState(
+    chatSocketConnectedAtom,
+  );
 
   const setSendMessageHandler = useSetRecoilState(sendMessageHandlerAtom);
-
-  const { data: tokenResponse } = useGetSecondaryToken(socketConnected);
 
   const ws = useRef<WebSocket | null>(null);
 
@@ -40,7 +47,7 @@ const useWebSocket = () => {
   };
 
   const handleOpen = () => {
-    console.log(ws.current?.readyState);
+    console.log('채팅', ws.current?.readyState);
     runPongTimer();
     setSocketConnected(true);
     setSendMessageHandler(() => sendMessageToServer);
@@ -50,8 +57,8 @@ const useWebSocket = () => {
     notifySubscribers(event.data);
   };
 
-  const handleClose = () => {
-    console.log(ws.current?.readyState);
+  const handleClose = (event: CloseEvent) => {
+    console.log('채팅 close', ws.current?.readyState, event.code, event.reason);
     clearPongTimer();
     setSocketConnected(false);
 
@@ -62,7 +69,7 @@ const useWebSocket = () => {
   };
 
   const handleError = (error: Event) => {
-    console.log(ws.current?.readyState, error);
+    console.log('채팅', ws.current?.readyState, error);
   };
 
   const runPongTimer = () => {
@@ -88,4 +95,4 @@ const useWebSocket = () => {
   };
 };
 
-export default useWebSocket;
+export default useChatWebSocket;

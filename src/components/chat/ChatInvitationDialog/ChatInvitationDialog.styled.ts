@@ -8,12 +8,14 @@ interface IInvitationButton {
 }
 
 export const InvitationDialog = styled.div`
-  min-height: 448px;
+  height: 380px;
+  margin-bottom: 24px;
 `;
 
 export const SearchInput = styled(SideBarSearchInput)`
   padding: 0;
   margin-top: 24px;
+  padding: 0 24px;
 `;
 
 export const EmptyFriendList = styled.div`
@@ -23,7 +25,7 @@ export const EmptyFriendList = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  height: 380px;
+  height: 300px;
   gap: 4px;
   padding-bottom: 48px;
 `;
@@ -39,7 +41,9 @@ export const FindFriendButton = styled(Link)`
 `;
 
 export const FriendList = styled.ul`
-  padding-bottom: 8px;
+  max-height: 310px;
+  overflow-y: auto;
+  padding: 0 24px;
 `;
 
 export const FriendItem = styled.li`

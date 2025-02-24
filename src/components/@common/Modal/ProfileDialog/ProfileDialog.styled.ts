@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const ProfileModalContainer = styled.div`
+  padding: 0 24px 24px;
+`;
+
 export const ProfileHeader = styled.div`
   display: flex;
   align-items: center;
