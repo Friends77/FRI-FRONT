@@ -17,9 +17,13 @@ const HomePage = () => {
         roomId={5}
         title={
           <Styled.BannerTitle>
-            <h3>화제의 기대작!</h3>
-            <h3>오징어게임 진심인</h3>
-            <h3>사람들과 이모저모 수다 떨기</h3>
+            <h3>
+              화제의 기대작!
+              <br />
+              오징어게임 진심인
+              <br />
+              사람들과 이모저모 수다 떨기
+            </h3>
           </Styled.BannerTitle>
         }
         subTitle="내가 재밌게 본 드라마를 같이 얘기 나누고 싶다면?"

@@ -58,13 +58,8 @@ const Banner = ({ roomId, title, subTitle }: BannerProps) => {
               </Styled.ChatRoomInfo>
             </Styled.ChatRoomInfoSection>
             <Styled.ButtonSection>
-              <Styled.Button type="button" bgcolor="#EFE5FE40" typo="B2_R">
-                자세히 보기
-              </Styled.Button>
               <Styled.Button
                 type="button"
-                bgcolor="Blue_500"
-                typo="B2_B"
                 onClick={() => handleChatRoomClick(chatRoomDetail!.id)}
               >
                 참여하기

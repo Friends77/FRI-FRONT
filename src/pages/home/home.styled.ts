@@ -22,7 +22,6 @@ export const RecommendedContent = styled.section`
 
 export const ChatRoomByTagSection = styled.section`
   width: 865px;
-  height: 904px;
 `;
 
 export const ChatRoomByTagTitleSection = styled.section`

@@ -1,6 +1,5 @@
-import { TTypo } from '@/styles/theme';
-import styled from 'styled-components';
 import Banner from '@/assets/images/banner.png';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -64,7 +63,7 @@ export const ChatRoomInfoSection = styled.section`
 export const ChatRoomImage = styled.img`
   width: 60px;
   height: 60px;
-  border-radius: 12px;
+  border-radius: 26px;
 `;
 
 export const ChatRoomInfo = styled.section`
@@ -79,14 +78,14 @@ export const ButtonSection = styled.section`
   gap: 8px;
 `;
 
-export const Button = styled.button<{ bgcolor: string; typo: TTypo }>`
+export const Button = styled.button`
   width: 145px;
   height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 24px;
-  background-color: ${({ theme, bgcolor }) => theme.colors[bgcolor] ?? bgcolor};
+  background-color: ${({ theme }) => theme.colors.Blue_500};
   color: ${({ theme }) => theme.colors.Gray_100};
-  ${({ theme, typo }) => theme.typo[typo]};
+  ${({ theme }) => theme.typo.B2_B};
 `;
