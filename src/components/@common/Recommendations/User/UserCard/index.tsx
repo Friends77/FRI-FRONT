@@ -7,6 +7,7 @@ import PersonAdd from '@/components/@common/SVG/Icon/PersonAdd';
 import { IProfileSimpleResponse } from '@/types/user';
 import { useState } from 'react';
 import * as Styled from './UserCard.styled';
+import useFriendRequest from '@/hooks/user/useFriendRequest';
 
 export interface IUserCardProps {
   userInfo: IProfileSimpleResponse;
@@ -15,9 +16,14 @@ export interface IUserCardProps {
 const UserCard = ({ userInfo }: IUserCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // TO-DO: 친구 추가 API 연동
-  const handleButtonClick = () => {
-    console.log('친구 추가');
+  const { mutate: addFriend } = useFriendRequest({
+    onSuccessHandler: () => {
+      alert('친구 신청을 보냈어요!');
+    },
+  });
+
+  const handleAddFriend = (friendId: number) => {
+    addFriend(friendId);
   };
 
   return (
@@ -39,7 +45,9 @@ const UserCard = ({ userInfo }: IUserCardProps) => {
         </Styled.UserCardIntroSection>
       </Styled.UserCardInnerWrapper>
       {isHovered && (
-        <Styled.UserCardButton onClick={handleButtonClick}>
+        <Styled.UserCardButton
+          onClick={() => handleAddFriend(userInfo.memberId)}
+        >
           <PersonAdd title="친구신청" width="21" height="14" />
           친구신청
         </Styled.UserCardButton>
