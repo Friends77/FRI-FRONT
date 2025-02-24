@@ -4,7 +4,6 @@ export const FriendListByTagWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-top: 50px;
 `;
 
 export const FriendListByTagTitleSection = styled.section`
