@@ -9,10 +9,8 @@ import { useNavigate } from 'react-router';
 import { CHAT_PATH } from '@/constants/routes';
 import useGetUnreadAlarmCount from '@/hooks/user/useGetUnreadAlarmCount';
 import AlarmPopover from '@/components/user/Alarm/AlarmPopover';
-// import alarmListAtom from '@/recoil/user/alarmList';
 import hasAlarmAtom from '@/recoil/user/hasAlarm';
 import isOpenAlarmAtom from '@/recoil/user/isOpenAlarm/atom';
-// import useGetAlarmList from '@/hooks/user/useGetAlarmList';
 
 const SideBarHeader = () => {
   const navigate = useNavigate();
@@ -22,10 +20,6 @@ const SideBarHeader = () => {
   const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(isOpenAlarmAtom);
 
   const { data: unreadAlarmCount } = useGetUnreadAlarmCount();
-
-  // const setAlarmList = useSetRecoilState(alarmListAtom);
-
-  // const { data: alarmListResponse } = useGetAlarmList();
 
   useEffect(() => {
     if (unreadAlarmCount && unreadAlarmCount > 0) {
@@ -43,16 +37,9 @@ const SideBarHeader = () => {
 
   useEffect(() => {
     if (!isAlarmOpen) {
-      // setAlarmList([]);
       setHasAlarm(false);
     }
   }, [isAlarmOpen]);
-
-  // useEffect(() => {
-  //   if (alarmListResponse) {
-  //     setAlarmList(alarmListResponse.content);
-  //   }
-  // }, [alarmListResponse]);
 
   return (
     <Styled.Wrapper>
