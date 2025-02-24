@@ -11,7 +11,7 @@ import {
   selectedImageMessageAtom,
   sentMessageAtom,
 } from '@/recoil/chat/message';
-import { ISentMessageItem } from '@/types/chat';
+import { ISentMessageItem, MessageType } from '@/types/chat';
 import DateMessage from '../DateMessage';
 import PreviewMessage from '../PreviewMessage';
 import {
@@ -75,7 +75,9 @@ const MessageList = forwardRef<HTMLUListElement, IMessageListProps>(
 
         <Styled.MessageList ref={ref}>
           {sentMessageList.map((sentMessage, index) => {
-            const isSystemMessage = sentMessage.type.startsWith('SYSTEM');
+            const isSystemMessage = sentMessage.type.startsWith(
+              MessageType.SYSTEM,
+            );
 
             const isMyMessage =
               !isSystemMessage && sentMessage.senderId === myProfile?.memberId;

@@ -3,7 +3,7 @@ import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
 import { useEffect } from 'react';
 import { Link } from 'react-router';
 import { useRecoilState } from 'recoil';
-import chatRoomListAtom from '@/recoil/user/chatRoomList';
+import chatRoomListAtom from '@/recoil/chat/roomList';
 
 const ChatListPage = () => {
   const [chatRoomList, setChatRoomList] = useRecoilState(chatRoomListAtom);

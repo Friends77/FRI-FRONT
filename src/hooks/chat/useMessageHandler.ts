@@ -5,7 +5,11 @@ import {
 } from '@/recoil/chat/message';
 import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
 import profileAtom from '@/recoil/user/profile';
-import { ISendMyMessageForm, ISentMessageItem } from '@/types/chat';
+import {
+  ISendMyMessageForm,
+  ISentMessageItem,
+  MessageType,
+} from '@/types/chat';
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
@@ -56,7 +60,7 @@ const useMessageHandler = ({
 
       return () => unsubscribe();
     }
-  }, [myProfile, roomId]);
+  }, [myProfile]);
 
   useGetMemberProfile({ roomId, memberId: newMemberId, setNewMemberId });
 
@@ -129,9 +133,10 @@ const useMessageHandler = ({
   const handleReceivedMessage = (data: string) => {
     const message: ISentMessageItem = JSON.parse(data);
 
-    const { code, chatRoomId, senderId, clientMessageId } = message;
+    const { code, chatRoomId, senderId, clientMessageId, messageId } = message;
 
     if (code === 200 && chatRoomId === roomId) {
+      // 내가 보낸 메세지인 경우
       if (senderId === myProfile?.memberId) {
         if (clientMessageId) {
           clearMessageTimer(clientMessageId);
@@ -143,11 +148,11 @@ const useMessageHandler = ({
           ),
         );
       } else {
-        if (message.type === 'SYSTEM_MEMBER_ENTER') {
+        if (message.type === MessageType.SYSTEM_MEMBER_ENTER) {
           setNewMemberId(message.senderId as number);
         }
 
-        if (message.type === 'SYSTEM_MEMBER_LEAVE') {
+        if (message.type === MessageType.SYSTEM_MEMBER_LEAVE) {
           setChatMembersAtom((prevList) =>
             prevList.filter((member) => message.senderId !== member.id),
           );
@@ -166,6 +171,18 @@ const useMessageHandler = ({
       }
 
       setSentMessageList((prevList) => [...prevList, message]);
+
+      const messageForm = {
+        type: MessageType.SYSTEM_READ,
+        chatRoomId: roomId,
+        messageId,
+        clientMessageId: '',
+        content: '',
+      };
+
+      if (sendMessageToServer) {
+        sendMessageToServer(messageForm);
+      }
     }
 
     if (code !== 200 && clientMessageId) {

@@ -1,5 +1,6 @@
 import { selector } from 'recoil';
 import { sentMessageAtom } from './atom';
+import { MessageType } from '@/types/chat';
 
 const imageMessagesSelector = selector({
   key: 'imageMessagesSelector',
@@ -7,7 +8,7 @@ const imageMessagesSelector = selector({
     const sentMessageList = get(sentMessageAtom);
 
     const imageMessageList = sentMessageList.filter(
-      (message) => message.type === 'IMAGE',
+      (message) => message.type === MessageType.IMAGE,
     );
 
     let imageList: string[] = [];

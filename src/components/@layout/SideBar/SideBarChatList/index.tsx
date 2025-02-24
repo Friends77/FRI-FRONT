@@ -1,13 +1,15 @@
-import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
+import * as Styled from '../SideBarFriendList/SideBarFriendList.styled';
 import SideBarListWrapper from '../SideBarListWrapper';
-import { useCallback, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import chatRoomListAtom from '@/recoil/user/chatRoomList';
+import { useCallback, useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import chatRoomListAtom from '@/recoil/chat/roomList';
 import { useFormContext } from 'react-hook-form';
-import useDebounce from '@/hooks/@common/useDebounce';
+// import useDebounce from '@/hooks/@common/useDebounce';
 import { useNavigate, useParams } from 'react-router';
 import { CHAT_PATH } from '@/constants/routes';
 import SideBarChatRoomItem from '../SideBarChatRoomItem';
+import { IMyChatItem } from '@/types/chat';
+import { filterKeyword } from '@/utils/search';
 
 const SideBarChatList = () => {
   const { roomId } = useParams();
@@ -18,17 +20,22 @@ const SideBarChatList = () => {
 
   const keyword = watch('keyword');
 
-  const debouncedKeyword = useDebounce(keyword);
+  // debouncedKeyword 안됨
+  // const debouncedKeyword = useDebounce(keyword);
 
-  const { data } = useGetMyChatList(debouncedKeyword);
+  const chatRoomList = useRecoilValue(chatRoomListAtom);
 
-  const [chatRoomList, setChatRoomList] = useRecoilState(chatRoomListAtom);
+  const [filteredChatList, setFilteredChatList] = useState(chatRoomList);
 
   useEffect(() => {
-    if (data) {
-      setChatRoomList(data);
-    }
-  }, [data]);
+    const filteredList = filterKeyword({
+      type: 'chat',
+      keyword,
+      content: chatRoomList,
+    });
+
+    setFilteredChatList(filteredList as IMyChatItem[]);
+  }, [keyword, chatRoomList]);
 
   const handleChatRoomClick = useCallback(
     (roomId: number) => {
@@ -39,15 +46,19 @@ const SideBarChatList = () => {
   );
 
   return (
-    <SideBarListWrapper isOpened title="채팅방" count={chatRoomList.length}>
-      {chatRoomList.map((chatRoom) => (
-        <SideBarChatRoomItem
-          key={chatRoom.id}
-          chatRoom={chatRoom}
-          isSelected={roomId === chatRoom.id.toString()}
-          onClick={handleChatRoomClick}
-        />
-      ))}
+    <SideBarListWrapper isOpened title="채팅방" count={filteredChatList.length}>
+      {filteredChatList.length > 0 &&
+        filteredChatList.map((chatRoom) => (
+          <SideBarChatRoomItem
+            key={chatRoom.id}
+            chatRoom={chatRoom}
+            isSelected={roomId === chatRoom.id.toString()}
+            onClick={handleChatRoomClick}
+          />
+        ))}
+      {keyword && filteredChatList.length === 0 && (
+        <Styled.EmptyText>검색 결과가 없습니다.</Styled.EmptyText>
+      )}
     </SideBarListWrapper>
   );
 };

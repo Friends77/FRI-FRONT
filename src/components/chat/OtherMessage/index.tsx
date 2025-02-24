@@ -1,4 +1,4 @@
-import { ISentMessageItem } from '@/types/chat';
+import { ISentMessageItem, MessageType } from '@/types/chat';
 import * as Styled from './OtherMessage.styled';
 import { format } from 'date-fns';
 import { CHAT_CONSTANT } from '@/constants/chat';
@@ -92,10 +92,10 @@ const OtherMessage = ({
           </Styled.SenderProfile>
         )}
         <Styled.MessageContainer>
-          {message.type === 'TEXT' && (
+          {message.type === MessageType.TEXT && (
             <Styled.MessageContent>{message.content}</Styled.MessageContent>
           )}
-          {message.type === 'IMAGE' && (
+          {message.type === MessageType.IMAGE && (
             <Styled.ImageMessageContainer>
               {message.content
                 .split(',')

@@ -15,8 +15,7 @@ const useEnterChatRoom = ({
 }: IUseMessageListProps) => {
   const { mutate } = useMutation({
     mutationFn: () => enterChatRoom(roomId),
-    onError: (error) => {
-      console.error(error);
+    onError: (_) => {
       alert('채팅방 입장 실패!');
     },
   });

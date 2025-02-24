@@ -16,7 +16,6 @@ export const CustomModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 424px;
-  padding: 24px;
   background-color: ${({ theme }) => theme.colors.White};
   border-radius: 8px;
 `;
@@ -25,6 +24,7 @@ export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 24px 24px 0;
 `;
 
 export const Heading = styled.h3`

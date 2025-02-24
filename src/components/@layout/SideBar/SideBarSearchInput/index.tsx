@@ -1,6 +1,7 @@
 import Search from '@/components/@common/SVG/Icon/Search';
 import * as Styled from './SideBarSearchInput.styled';
 import { useFormContext } from 'react-hook-form';
+import Cancel from '@/components/@common/SVG/Icon/Cancel';
 
 interface ISideBarSearchInput {
   className?: string;
@@ -11,7 +12,13 @@ const SideBarSearchInput = ({
   className,
   placeholder,
 }: ISideBarSearchInput) => {
-  const { register } = useFormContext();
+  const { register, watch, setValue } = useFormContext();
+
+  const keyword = watch('keyword');
+
+  const handleDeleteKeyword = () => {
+    setValue('keyword', '');
+  };
 
   return (
     <Styled.Wrapper className={className}>
@@ -20,9 +27,18 @@ const SideBarSearchInput = ({
           placeholder={placeholder || '검색'}
           {...register('keyword')}
         />
-        <Styled.SearchBtn>
+
+        {keyword && (
+          <Styled.DeleteKeywordButton
+            type="button"
+            onClick={handleDeleteKeyword}
+          >
+            <Cancel title="검색어 삭제" width="20" height="20" />
+          </Styled.DeleteKeywordButton>
+        )}
+        <Styled.SearchButton type="button">
           <Search title="검색" width="24px" height="24px" />
-        </Styled.SearchBtn>
+        </Styled.SearchButton>
       </Styled.InputContainer>
     </Styled.Wrapper>
   );

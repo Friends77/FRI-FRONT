@@ -7,10 +7,15 @@ export const Wrapper = styled.li`
   padding: 12px 24px;
   transition: all 0.3s ease;
   cursor: pointer;
+  align-items: center;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.White};
   }
+`;
+
+export const ShowProfileButton = styled.button`
+  display: flex;
 `;
 
 export const FriendInfo = styled.div`

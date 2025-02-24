@@ -53,6 +53,7 @@ const useScrollHandler = ({
       messagesResponse: IGetChatMessagesResponse,
     ) => {
       if (messagesResponse.content.length === 0) return;
+
       setLastMsgId(messagesResponse.content[0].messageId);
       setSentMessageList((prevList) => [
         ...messagesResponse.content,
@@ -67,6 +68,7 @@ const useScrollHandler = ({
     // 최초 메세지를 불러오고 스크롤을 조정한다.
     const loadMessagesAndScroll = async () => {
       const messageList = messageListRef.current;
+
       if (messagesResponse && messageList) {
         const isFirst = lastMsgId === null; // 최초호출인가
 

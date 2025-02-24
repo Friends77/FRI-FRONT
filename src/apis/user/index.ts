@@ -3,6 +3,8 @@ import { IUserProfile } from '@/types/@common';
 import {
   UpdateProfileFormDataType,
   IProfileSimpleResponse,
+  IGetAlarmListResponse,
+  IGetAlarmListRequest,
 } from '@/types/user';
 
 export const getProfile = async () => {
@@ -41,4 +43,57 @@ export const sendFriendRequest = async (friendId: number) => {
   };
 
   await AuthAxios.post('/api/user/friendship/request', requestFriendForm);
+};
+
+// 안읽은 알림 개수 조회
+export const getUnreadAlarmCount = async () => {
+  const response = await AuthAxios.get<number>('/api/user/alarm/unread-count');
+
+  return response.data;
+};
+
+// 알림 조회
+export const getAlarmList = async ({
+  size,
+  lastAlarmId,
+}: IGetAlarmListRequest) => {
+  const response = await AuthAxios.get<IGetAlarmListResponse>(
+    '/api/user/alarm',
+    {
+      params: {
+        size,
+        lastAlarmId,
+      },
+    },
+  );
+
+  return response.data;
+};
+
+// 친구 요청 수락
+export const acceptFriendRequest = async (alarmId: number) => {
+  const requestForm = {
+    alarmId,
+  };
+
+  const response = await AuthAxios.post(
+    '/api/user/friendship/accept',
+    requestForm,
+  );
+
+  return response.data;
+};
+
+// 친구 요청 거절
+export const rejectFriendRequest = async (alarmId: number) => {
+  const requestForm = {
+    alarmId,
+  };
+
+  const response = await AuthAxios.post(
+    '/api/user/friendship/reject',
+    requestForm,
+  );
+
+  return response.data;
 };

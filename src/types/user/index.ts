@@ -1,4 +1,4 @@
-import { Options } from '../@common';
+import { IPaginationParams, IPaginationResponse, Options } from '../@common';
 
 export interface Location {
   latitude: number;
@@ -71,4 +71,29 @@ export interface IProfileSimpleResponse {
   nickname: string;
   imageUrl: string;
   selfDescription?: string;
+}
+
+export enum AlarmType {
+  FRIEND_REQUEST = 'FRIEND_REQUEST',
+  CHAT_ROOM_INVITATION = 'CHAT_ROOM_INVITATION',
+}
+
+export interface IAlarmItem {
+  id: number;
+  type: AlarmType;
+  message: string;
+  senderId: number;
+  receiverId: number;
+  invitedChatRoomId?: number;
+  createdAt: string;
+  nickname: string;
+  senderProfileImage: string;
+}
+
+export interface IGetAlarmListRequest extends IPaginationParams {
+  lastAlarmId?: number;
+}
+
+export interface IGetAlarmListResponse extends IPaginationResponse {
+  content: IAlarmItem[];
 }
