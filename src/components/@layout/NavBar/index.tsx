@@ -1,64 +1,41 @@
-import Assignment from '@/components/@common/SVG/Icon/Assignment';
 import Home from '@/components/@common/SVG/Icon/Home';
 import Logo from '@/components/@common/SVG/Icon/Logo';
 import Profile from '@/components/@common/SVG/Icon/Profile';
-import Search from '@/components/@common/SVG/Icon/Search';
-import Setting from '@/components/@common/SVG/Icon/Setting';
-import {
-  BOARD_PATH,
-  ROOT_PATH,
-  SEARCH_PATH,
-  SETTING_PATH,
-  USER_PATH,
-} from '@/constants/routes';
+import { ROOT_PATH, USER_PATH } from '@/constants/routes';
 import { Link } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import * as Styled from './NavBar.styled';
 import Collapse from '@/components/@common/SVG/Icon/Collapse';
 import HomeFill from '@/components/@common/SVG/Icon/HomeFill';
-import AssignmentFill from '@/components/@common/SVG/Icon/AssignmentFill';
 import ProfileFill from '@/components/@common/SVG/Icon/ProfileFill';
-import SettingFill from '@/components/@common/SVG/Icon/SettingFill';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import isSideBarOpenAtom from '@/recoil/layout/isSideBarOpen';
 import Expand from '@/components/@common/SVG/Icon/Expand';
-import SearchFill from '@/components/@common/SVG/Icon/SearchFill';
 import isOpenAlarmAtom from '@/recoil/user/isOpenAlarm/atom';
-
-const navMenus = [
-  {
-    Icon: Home,
-    ActiveIcon: HomeFill,
-    title: '홈',
-    path: ROOT_PATH.ROOT,
-  },
-  {
-    Icon: Search,
-    ActiveIcon: SearchFill,
-    title: '검색',
-    path: SEARCH_PATH.ROOT,
-  },
-  {
-    Icon: Assignment,
-    ActiveIcon: AssignmentFill,
-    title: '게시물',
-    path: BOARD_PATH.ROOT,
-  },
-  {
-    Icon: Profile,
-    ActiveIcon: ProfileFill,
-    title: '마이페이지',
-    path: USER_PATH.PROFILE,
-  },
-  {
-    Icon: Setting,
-    ActiveIcon: SettingFill,
-    title: '설정',
-    path: SETTING_PATH.ROOT,
-  },
-];
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 
 const NavBar = () => {
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
+  const navMenus = [
+    {
+      Icon: Home,
+      ActiveIcon: HomeFill,
+      title: '홈',
+      path: ROOT_PATH.ROOT,
+    },
+    ...(isLoggedIn
+      ? [
+          {
+            Icon: Profile,
+            ActiveIcon: ProfileFill,
+            title: '마이페이지',
+            path: USER_PATH.PROFILE,
+          },
+        ]
+      : []),
+  ];
+
   const [isSideBarOpen, setIsSideBarOpen] = useRecoilState(isSideBarOpenAtom);
 
   const setIsOpenAlarm = useSetRecoilState(isOpenAlarmAtom);

@@ -30,7 +30,7 @@ export async function logout(accessToken: string) {
 }
 
 export async function refresh() {
-  const response = await AuthAxios.post<IRefreshResponse>('/api/auth/refresh');
+  const response = await Axios.post<IRefreshResponse>('/api/auth/refresh');
 
   return response.data;
 }

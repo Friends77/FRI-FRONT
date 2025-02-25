@@ -1,7 +1,7 @@
 import * as Styled from '../SideBarFriendList/SideBarFriendList.styled';
 import SideBarListWrapper from '../SideBarListWrapper';
 import { useCallback, useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import chatRoomListAtom from '@/recoil/chat/roomList';
 import { useFormContext } from 'react-hook-form';
 // import useDebounce from '@/hooks/@common/useDebounce';
@@ -10,6 +10,7 @@ import { CHAT_PATH } from '@/constants/routes';
 import SideBarChatRoomItem from '../SideBarChatRoomItem';
 import { IMyChatItem } from '@/types/chat';
 import { filterKeyword } from '@/utils/search';
+import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
 
 const SideBarChatList = () => {
   const { roomId } = useParams();
@@ -22,6 +23,16 @@ const SideBarChatList = () => {
 
   // debouncedKeyword 안됨
   // const debouncedKeyword = useDebounce(keyword);
+
+  const { data: chatListResponse } = useGetMyChatList();
+
+  const setChatRoomList = useSetRecoilState(chatRoomListAtom);
+
+  useEffect(() => {
+    if (chatListResponse) {
+      setChatRoomList(chatListResponse);
+    }
+  }, [chatListResponse, setChatRoomList]);
 
   const chatRoomList = useRecoilValue(chatRoomListAtom);
 

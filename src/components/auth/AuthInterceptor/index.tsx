@@ -5,7 +5,8 @@ import { useRefresh } from '@/hooks/auth/useRefresh';
 import accessTokenAtom from '@/recoil/auth/accessToken';
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useCookies } from 'react-cookie';
+import { useRecoilState } from 'recoil';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -23,7 +24,9 @@ interface IAuthInterceptorProps {
  *      3) 토큰 재발급 실패 시 로그인 페이지로 이동
  */
 const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
-  const accessToken = useRecoilValue(accessTokenAtom);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+
+  const [cookies, _, removeCookie] = useCookies(['isLoggedIn', 'refreshToken']);
 
   const { mutateAsync: refresh } = useRefresh();
 
@@ -49,14 +52,28 @@ const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
           return Promise.reject(err);
         }
 
+        if (!cookies.isLoggedIn || !cookies.refreshToken) {
+          removeCookie('isLoggedIn');
+          removeCookie('refreshToken');
+
+          // window.location.replace(`${BASE_URL}${AUTH_PATH.LOGIN}`);
+
+          return;
+        }
+
         try {
-          const { accessToken } = await refresh();
+          const { accessToken: newToken } = await refresh();
+          setAccessToken(newToken);
           config.headers.Authorization = `Bearer ${accessToken}`;
 
           return axios(config);
         } catch (_) {
+          setAccessToken(null);
+          removeCookie('isLoggedIn');
+          removeCookie('refreshToken');
+
           alert(AUTH_ERROR_MSG.SESSION_EXPIRED);
-          window.location.href = `${BASE_URL}${AUTH_PATH.LOGIN}`;
+          window.location.replace(`${BASE_URL}${AUTH_PATH.LOGIN}`);
         }
       }
 
