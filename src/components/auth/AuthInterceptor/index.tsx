@@ -56,7 +56,7 @@ const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
           removeCookie('isLoggedIn');
           removeCookie('refreshToken');
 
-          // window.location.replace(`${BASE_URL}${AUTH_PATH.LOGIN}`);
+          window.location.replace(`${BASE_URL}${AUTH_PATH.LOGIN}`);
 
           return;
         }
