@@ -14,7 +14,7 @@ const HomePage = () => {
     <Styled.Wrapper>
       {/*배너 영역 */}
       <Banner
-        roomId={5}
+        roomId={5} // Note(선우): mock data 생성되면 roomId 변경 필요
         title={
           <Styled.BannerTitle>
             <h3>

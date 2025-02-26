@@ -3,14 +3,15 @@
  * @author 선우
  */
 
-import { ReactNode, useCallback } from 'react';
-import * as Styled from './Banner.styled';
-import useGetChatRoomDetail from '@/hooks/chat/useGetChatRoomDetail';
-import { useRecoilValue } from 'recoil';
-import roomDetailAtom from '@/recoil/chat/roomDetail';
+import chatRoomThumbnail from '@/assets/images/chatRoomThumbnail.png';
 import Profiles from '@/assets/images/profiles.png';
-import { CHAT_PATH } from '@/constants/routes';
+import { AUTH_PATH, CHAT_PATH } from '@/constants/routes';
+import { ReactNode, useCallback } from 'react';
 import { useNavigate } from 'react-router';
+import * as Styled from './Banner.styled';
+import { useRecoilValue } from 'recoil';
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
+import { AUTH_ERROR_MSG } from '@/constants/message';
 
 export interface BannerProps {
   roomId: number;
@@ -21,16 +22,23 @@ export interface BannerProps {
 const Banner = ({ roomId, title, subTitle }: BannerProps) => {
   const navigate = useNavigate();
 
-  const chatRoomDetail = useRecoilValue(roomDetailAtom);
+  // const chatRoomDetail = useRecoilValue(roomDetailAtom);
 
-  useGetChatRoomDetail({ roomId });
+  // useGetChatRoomDetail({ roomId });
+
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
   const handleChatRoomClick = useCallback(
     (roomId: number) => {
-      const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());
-      navigate(path);
+      if (!isLoggedIn) {
+        alert(AUTH_ERROR_MSG.LOGIN_REQUIRED);
+        navigate(AUTH_PATH.LOGIN);
+      } else {
+        const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());
+        navigate(path);
+      }
     },
-    [navigate],
+    [isLoggedIn, navigate],
   );
 
   return (
@@ -44,10 +52,11 @@ const Banner = ({ roomId, title, subTitle }: BannerProps) => {
           </Styled.TitleSection>
           <Styled.BottomSection>
             <Styled.ChatRoomInfoSection>
-              <Styled.ChatRoomImage src={chatRoomDetail?.imageUrl} />
+              {/* <Styled.ChatRoomImage src={chatRoomDetail?.imageUrl} /> */}
+              <Styled.ChatRoomImage src={chatRoomThumbnail} />
               <Styled.ChatRoomInfo>
-                {chatRoomDetail?.title}
-                {/* 채팅방 상세 조회 API에 채팅방 참여 유저 프로필 이미지 필드 추가 필요 */}
+                {/* {chatRoomDetail?.title} */}
+                오징어게임 시즌3 존버방
                 <img
                   src={Profiles}
                   style={{
@@ -60,7 +69,7 @@ const Banner = ({ roomId, title, subTitle }: BannerProps) => {
             <Styled.ButtonSection>
               <Styled.Button
                 type="button"
-                onClick={() => handleChatRoomClick(chatRoomDetail!.id)}
+                onClick={() => handleChatRoomClick(roomId)}
               >
                 참여하기
               </Styled.Button>

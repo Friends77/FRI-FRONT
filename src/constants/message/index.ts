@@ -30,6 +30,9 @@ export const AUTH_ERROR_MSG = Object.freeze({
 
   // 세션 만료
   SESSION_EXPIRED: '세션이 만료되었습니다. 다시 로그인해 주세요.',
+
+  // 로그인 요구
+  LOGIN_REQUIRED: '로그인 후 이용 가능합니다.',
 });
 
 export const CHAT_ERROR_MSG = Object.freeze({
