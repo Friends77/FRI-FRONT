@@ -51,7 +51,6 @@ const useAlarmWebSocket = () => {
   };
 
   const handleMessage = (event: MessageEvent) => {
-    console.log('알림 메세지 도착', event.data);
     const message = JSON.parse(event.data);
 
     if (
