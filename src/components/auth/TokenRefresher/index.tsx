@@ -4,8 +4,9 @@ import accessTokenAtom from '@/recoil/auth/accessToken';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 interface ITokenRefresherProps {
   children: React.ReactNode;
@@ -23,25 +24,28 @@ interface ITokenRefresherProps {
 const TokenRefresher = ({ children }: ITokenRefresherProps) => {
   const navigate = useNavigate();
 
-  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInAtom);
 
-  const accessToken = useRecoilValue(accessTokenAtom);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
 
   const [isLoading, setIsLoading] = useState(isLoggedIn && !accessToken);
 
   const { mutateAsync } = useRefresh();
+
+  const [, , removeCookie] = useCookies(['isLoggedIn', 'refreshToken']);
 
   useEffect(() => {
     if (!isLoading) return;
 
     const refresh = async () => {
       try {
-        await mutateAsync();
+        const { accessToken: newToken } = await mutateAsync();
+        setAccessToken(newToken);
       } catch (err) {
-        if (axios.isAxiosError(err)) {
-          if (err.response?.status === 401) {
-            navigate(AUTH_PATH.LOGIN);
-          }
+        if (axios.isAxiosError(err) && err.response?.status === 401) {
+          removeCookie('isLoggedIn');
+          removeCookie('refreshToken');
+          navigate(AUTH_PATH.LOGIN, { replace: true });
         }
         console.log('Refresh Result:', err);
       } finally {
@@ -50,7 +54,14 @@ const TokenRefresher = ({ children }: ITokenRefresherProps) => {
     };
 
     refresh();
-  }, [isLoading, setIsLoading, mutateAsync, navigate]);
+  }, [
+    isLoading,
+    mutateAsync,
+    navigate,
+    removeCookie,
+    setAccessToken,
+    setIsLoggedIn,
+  ]);
 
   if (isLoading) {
     return <div>Loading...😂</div>;

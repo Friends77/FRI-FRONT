@@ -19,7 +19,7 @@ const useAlarmMessageHandler = () => {
     const unsubscribe = subscribe(handleReceivedMessage);
 
     return () => unsubscribe();
-  }, []);
+  }, [roomId]);
 
   const handleReceivedMessage = (data: string) => {
     const message: ISentMessageItem = JSON.parse(data);

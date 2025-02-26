@@ -60,7 +60,7 @@ const useMessageHandler = ({
 
       return () => unsubscribe();
     }
-  }, [myProfile]);
+  }, [myProfile, roomId]);
 
   useGetMemberProfile({ roomId, memberId: newMemberId, setNewMemberId });
 

@@ -1,16 +1,14 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import * as Styled from './SideBar.styled';
 import isSideBarOpenAtom from '@/recoil/layout/isSideBarOpen';
 import SideBarHeader from './SideBarHeader';
 import SideBarSearchInput from './SideBarSearchInput';
 import SideBarChatList from './SideBarChatList';
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import SideBarChatListSkeleton from './SideBarChatListSkeleton';
 import SideBarWithoutAuth from './SideBarWithoutAuth';
 import SideBarFriendList from './SideBarFriendList';
 import { FormProvider, useForm } from 'react-hook-form';
-import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
-import chatRoomListAtom from '@/recoil/chat/roomList';
 import useChatWebSocket from '@/hooks/chat/useChatWebSocket';
 import useChatListMessageHandler from '@/hooks/chat/useChatListMessageHandler';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
@@ -26,16 +24,6 @@ const SideBar = () => {
   useChatListMessageHandler();
 
   const methods = useForm<{ keyword: string }>();
-
-  const { data: chatListResponse } = useGetMyChatList();
-
-  const setChatRoomList = useSetRecoilState(chatRoomListAtom);
-
-  useEffect(() => {
-    if (chatListResponse) {
-      setChatRoomList(chatListResponse);
-    }
-  }, [chatListResponse, setChatRoomList]);
 
   return (
     <Styled.Wrapper $isOpen={isSideBarOpen}>
