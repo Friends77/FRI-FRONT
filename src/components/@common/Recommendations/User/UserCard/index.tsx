@@ -8,6 +8,8 @@ import { IProfileSimpleResponse } from '@/types/user';
 import { useState } from 'react';
 import * as Styled from './UserCard.styled';
 import useFriendRequest from '@/hooks/user/useFriendRequest';
+import { useRecoilValue } from 'recoil';
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 
 export interface IUserCardProps {
   userInfo: IProfileSimpleResponse;
@@ -15,6 +17,8 @@ export interface IUserCardProps {
 
 const UserCard = ({ userInfo }: IUserCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
   const { mutate: addFriend } = useFriendRequest({
     onSuccessHandler: () => {
@@ -44,7 +48,7 @@ const UserCard = ({ userInfo }: IUserCardProps) => {
           </Styled.UserCardInfoSection>
         </Styled.UserCardIntroSection>
       </Styled.UserCardInnerWrapper>
-      {isHovered && (
+      {isHovered && isLoggedIn && (
         <Styled.UserCardButton
           onClick={() => handleAddFriend(userInfo.memberId)}
         >

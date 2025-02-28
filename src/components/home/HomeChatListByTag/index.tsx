@@ -23,6 +23,10 @@ const HomeChatListByTag = () => {
         .map((tag) => tag.id);
 
       setCategoryIds(userSelectedTag);
+    } else {
+      const randomTag = Math.floor(Math.random() * 34) + 1;
+
+      setCategoryIds([randomTag]);
     }
   }, [userInfo]);
 

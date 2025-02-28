@@ -8,8 +8,12 @@ import * as Styled from './home.styled';
 import RecommendedUsers from '@/components/@common/Recommendations/User/RecommendedUsers';
 import HomeFriendListByTag from '@/components/home/HomeFriendListByTag';
 import Banner from '@/components/home/Banner';
+import { useRecoilValue } from 'recoil';
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 
 const HomePage = () => {
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
   return (
     <Styled.Wrapper>
       {/*배너 영역 */}
@@ -33,7 +37,8 @@ const HomePage = () => {
         <Styled.ChatRoomByTagSection>
           <Styled.ChatRoomByTagTitleSection>
             <Styled.ChatRoomByTagTitle>
-              나랑 <Styled.Highlight>취향</Styled.Highlight>이 맞는 사람들을
+              {isLoggedIn ? <>나랑 </> : <>로그인하고 </>}
+              <Styled.Highlight>취향</Styled.Highlight>이 맞는 사람들을
               만나보세요!
             </Styled.ChatRoomByTagTitle>
           </Styled.ChatRoomByTagTitleSection>

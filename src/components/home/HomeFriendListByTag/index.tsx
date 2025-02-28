@@ -25,6 +25,17 @@ const HomeFriendListByTag = () => {
         .map((tag) => tag.id);
 
       setCategoryIds(userSelectedTag);
+    } else {
+      const numbers: number[] = [];
+
+      while (numbers.length < 3) {
+        const randomNum = Math.floor(Math.random() * 34) + 1;
+        if (!numbers.includes(randomNum)) {
+          numbers.push(randomNum);
+        }
+      }
+
+      setCategoryIds(numbers);
     }
   }, [userInfo]);
 
@@ -32,9 +43,12 @@ const HomeFriendListByTag = () => {
     <Styled.FriendListByTagWrapper>
       <Styled.FriendListByTagTitleSection>
         <Styled.FriendListByTagTitle>
-          나랑 <Highlight>취미</Highlight>가 맞는 친구를 추천해줄게요!
+          {userInfo ? <>나랑 </> : <>로그인하면 </>}
+          <Highlight>취미</Highlight>가 맞는 친구를 추천해줄게요!
         </Styled.FriendListByTagTitle>
-        <SubTitle>나와 같은 태그가 포함된 친구를 추천 해 드릴게요 </SubTitle>
+        {userInfo && (
+          <SubTitle>나와 같은 태그가 포함된 친구를 추천 해 드릴게요 </SubTitle>
+        )}
       </Styled.FriendListByTagTitleSection>
       <Styled.FriendListByTagInnerWrapper>
         {categoryIds.map((categoryId, idx) => (

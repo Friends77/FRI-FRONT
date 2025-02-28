@@ -9,16 +9,22 @@ import profileAtom from '@/recoil/user/profile';
 import { useRecoilValue } from 'recoil';
 import UserCard from '../UserCard';
 import * as Styled from './RecommendedUsers.styled';
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 
 const RecommendedUsers = () => {
   // 전역 변수에 저장된 사용자 정보 가져오기
   const userInfo = useRecoilValue(profileAtom);
 
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
   let size = 0;
 
   // 사용자 선택 관심사 태그 갯수에 따라 다르게 렌더링
-  if (userInfo) {
+  if (isLoggedIn && userInfo) {
     size = (userInfo?.interestTag?.length ?? 0) >= 2 ? 9 : 4;
+  } else {
+    // 비로그인 시에는 4명의 친구만 추천
+    size = 4;
   }
 
   const { data, refetch } = useGetUserRecommendations(size);

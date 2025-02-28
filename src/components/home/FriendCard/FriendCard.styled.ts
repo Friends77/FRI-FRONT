@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-export const FriendCardArticle = styled.li`
+export const FriendCardArticle = styled.li<{ $isLoggedIn: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 4px;
-  cursor: pointer;
+  cursor: ${({ $isLoggedIn }) => ($isLoggedIn ? 'pointer' : 'default')};
   width: 86px;
 `;
 
