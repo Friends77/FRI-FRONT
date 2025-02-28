@@ -20,7 +20,7 @@ const RecommendedUsers = () => {
   let size = 0;
 
   // 사용자 선택 관심사 태그 갯수에 따라 다르게 렌더링
-  if (isLoggedIn && userInfo) {
+  if (isLoggedIn || userInfo) {
     size = (userInfo?.interestTag?.length ?? 0) >= 2 ? 9 : 4;
   } else {
     // 비로그인 시에는 4명의 친구만 추천
