@@ -37,7 +37,7 @@ const HomePage = () => {
         <Styled.ChatRoomByTagSection>
           <Styled.ChatRoomByTagTitleSection>
             <Styled.ChatRoomByTagTitle>
-              {isLoggedIn ? <>나랑 </> : <>로그인하고 </>}
+              {isLoggedIn && <>나랑 </>}
               <Styled.Highlight>취향</Styled.Highlight>이 맞는 사람들을
               만나보세요!
             </Styled.ChatRoomByTagTitle>

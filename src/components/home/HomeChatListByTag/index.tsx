@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import 'swiper/swiper-bundle.css';
 import ChatRoomRow from '../ChatRoomRow';
+import { getRandomNumbers } from '@/utils/random';
 
 const HomeChatListByTag = () => {
   const [categoryIds, setCategoryIds] = useState<number[]>([]);
@@ -24,9 +25,7 @@ const HomeChatListByTag = () => {
 
       setCategoryIds(userSelectedTag);
     } else {
-      const randomTag = Math.floor(Math.random() * 34) + 1;
-
-      setCategoryIds([randomTag]);
+      setCategoryIds(getRandomNumbers(1));
     }
   }, [userInfo]);
 
