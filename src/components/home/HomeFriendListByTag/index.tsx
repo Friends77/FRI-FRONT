@@ -10,6 +10,7 @@ import { useRecoilValue } from 'recoil';
 import { SubTitle } from '../ChatRoomRow/ChatRoomRow.styled';
 import FriendsGrid from '../FriendsGrid';
 import * as Styled from './HomeFriendListByTag.styles';
+import { getRandomNumbers } from '@/utils/random';
 
 const HomeFriendListByTag = () => {
   const [categoryIds, setCategoryIds] = useState<number[]>([]);
@@ -25,6 +26,8 @@ const HomeFriendListByTag = () => {
         .map((tag) => tag.id);
 
       setCategoryIds(userSelectedTag);
+    } else {
+      setCategoryIds(getRandomNumbers(3));
     }
   }, [userInfo]);
 
@@ -32,9 +35,12 @@ const HomeFriendListByTag = () => {
     <Styled.FriendListByTagWrapper>
       <Styled.FriendListByTagTitleSection>
         <Styled.FriendListByTagTitle>
-          나랑 <Highlight>취미</Highlight>가 맞는 친구를 추천해줄게요!
+          {userInfo && <>나랑 </>}
+          <Highlight>취미</Highlight>가 맞는 친구를 추천해줄게요!
         </Styled.FriendListByTagTitle>
-        <SubTitle>나와 같은 태그가 포함된 친구를 추천 해 드릴게요 </SubTitle>
+        {userInfo && (
+          <SubTitle>나와 같은 태그가 포함된 친구를 추천해 드릴게요. </SubTitle>
+        )}
       </Styled.FriendListByTagTitleSection>
       <Styled.FriendListByTagInnerWrapper>
         {categoryIds.map((categoryId, idx) => (

@@ -52,7 +52,7 @@ const ChatRoomRow = ({ categoryId }: ChatRoomRowProps) => {
         <Styled.SubTitleSection>
           {tag && <Tag size="large" icon={tag.image} label={tag.name} />}
           <Styled.SubTitle>
-            태그가 포함된 채팅방을 추천해드릴게요
+            태그가 포함된 채팅방을 추천해 드릴게요.
           </Styled.SubTitle>
         </Styled.SubTitleSection>
         <Styled.SwiperSection>
