@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import ProfileDialog from '@/components/@common/Modal/ProfileDialog';
 import { IUserProfile } from '@/types/@common';
 import useGetProfile from '@/hooks/@common/useGetProfile';
+import { useRecoilValue } from 'recoil';
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 
 export interface IFriendCardProps {
   id: number;
@@ -12,6 +14,8 @@ export interface IFriendCardProps {
 }
 
 const FriendCard = ({ id, imageUrl, nickname }: IFriendCardProps) => {
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
   const [isOpenProfile, setIsOpenProfile] = useState(false);
 
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(
@@ -31,8 +35,10 @@ const FriendCard = ({ id, imageUrl, nickname }: IFriendCardProps) => {
   }, [userProfile]);
 
   const handleOpenProfile = (memberId: number) => {
-    setSelectedProfileId(memberId);
-    setIsOpenProfile(true);
+    if (isLoggedIn) {
+      setSelectedProfileId(memberId);
+      setIsOpenProfile(true);
+    }
   };
 
   const handleCloseProfile = () => {
@@ -46,7 +52,10 @@ const FriendCard = ({ id, imageUrl, nickname }: IFriendCardProps) => {
       {isOpenProfile && selectedProfile && (
         <ProfileDialog profile={selectedProfile} onClose={handleCloseProfile} />
       )}
-      <Styled.FriendCardArticle onClick={() => handleOpenProfile(id)}>
+      <Styled.FriendCardArticle
+        onClick={() => handleOpenProfile(id)}
+        $isLoggedIn={!!isLoggedIn}
+      >
         <ProfileImage size={86} src={imageUrl} />
         <Styled.FriendCardSpan>{nickname}</Styled.FriendCardSpan>
       </Styled.FriendCardArticle>

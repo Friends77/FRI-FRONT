@@ -11,6 +11,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { useCallback } from 'react';
 import { CHAT_PATH } from '@/constants/routes';
 import { useNavigate } from 'react-router';
+import { useRecoilValue } from 'recoil';
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
+import { AUTH_ERROR_MSG } from '@/constants/message';
 
 export interface IChatRoomCardProps {
   id: number;
@@ -30,14 +33,21 @@ export interface IChatRoomCardProps {
 const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
   const navigate = useNavigate();
 
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
   // 참여 유저 4명 자르기
   const participantList = [...chatRoom.participantProfileList].slice(0, 4);
 
   // 채팅방으로 이동
   const handleChatRoomClick = useCallback(
     (roomId: number) => {
-      const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());
-      navigate(path);
+      if (!isLoggedIn) {
+        alert(AUTH_ERROR_MSG.LOGIN_REQUIRED);
+        navigate('/login');
+      } else {
+        const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());
+        navigate(path);
+      }
     },
     [navigate],
   );
