@@ -22,16 +22,20 @@ const ChatRoomAlbum = ({
         </Styled.BackButton>
         <Styled.Title>사진</Styled.Title>
       </Styled.Header>
-      <Styled.AlbumContent>
-        {imageMessages.map((path, index) => (
-          <Styled.AlbumImageButton
-            key={`${path}-${index}`}
-            onClick={() => onAlbumImageClick(path)}
-          >
-            <Styled.AlbumImage src={path} alt="사진" />
-          </Styled.AlbumImageButton>
-        ))}
-      </Styled.AlbumContent>
+      {imageMessages.length > 0 ? (
+        <Styled.AlbumContent>
+          {imageMessages.map((path, index) => (
+            <Styled.AlbumImageButton
+              key={`${path}-${index}`}
+              onClick={() => onAlbumImageClick(path)}
+            >
+              <Styled.AlbumImage src={path} alt="사진" />
+            </Styled.AlbumImageButton>
+          ))}
+        </Styled.AlbumContent>
+      ) : (
+        <Styled.EmptyText>사진이 없습니다.</Styled.EmptyText>
+      )}
     </Styled.ChatRoomAlbum>
   );
 };

@@ -8,10 +8,9 @@ import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import userLocationAtom from '@/recoil/auth/userLocation';
 import { SignUpFormDataType } from '@/types/auth';
 import { useMutation } from '@tanstack/react-query';
-import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -21,12 +20,7 @@ const SignUpPage = () => {
   const authToken = useRecoilValue(emailAuthTokenAtom) as string;
 
   // 회원가입 단계를 전역 상태로 관리
-  const [signUpStep, setSignUpStep] = useRecoilState(signUpStepAtom);
-
-  // 회원가입 페이지 이동 시, signUpStep 값을 1로 초기화
-  useEffect(() => {
-    setSignUpStep(1);
-  }, []);
+  const signUpStep = useRecoilValue(signUpStepAtom);
 
   const methods = useForm<SignUpFormDataType>({
     mode: 'onChange',
