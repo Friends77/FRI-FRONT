@@ -10,12 +10,16 @@ import * as Styled from './UserCard.styled';
 import useFriendRequest from '@/hooks/user/useFriendRequest';
 import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
+import { queryClient } from '@/apis/@core/queryClient';
+import { COMMON_KEYS } from '@/constants/@queryKeys';
+import { FriendsStatus } from '@/types/chat';
 
 export interface IUserCardProps {
   userInfo: IProfileSimpleResponse;
+  friendStatusType?: FriendsStatus;
 }
 
-const UserCard = ({ userInfo }: IUserCardProps) => {
+const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
@@ -23,6 +27,10 @@ const UserCard = ({ userInfo }: IUserCardProps) => {
   const { mutate: addFriend } = useFriendRequest({
     onSuccessHandler: () => {
       alert('친구 신청을 보냈어요!');
+      queryClient.invalidateQueries({
+        queryKey: COMMON_KEYS.RECOMMENDED_USERS,
+        refetchType: 'none',
+      });
     },
   });
 
@@ -52,8 +60,13 @@ const UserCard = ({ userInfo }: IUserCardProps) => {
         <Styled.UserCardButton
           onClick={() => handleAddFriend(userInfo.memberId)}
         >
-          <PersonAdd title="친구신청" width="21" height="14" />
-          친구신청
+          {friendStatusType === 'AVAILABLE' ? (
+            <>
+              <PersonAdd title="친구신청" width="21" height="14" /> 친구신청
+            </>
+          ) : (
+            '수락 대기중'
+          )}
         </Styled.UserCardButton>
       )}
     </Styled.UserCardWrapper>

@@ -2,6 +2,7 @@ import AuthAxios from '@/apis/@core/authInstance';
 import Axios from '@/apis/@core/instance';
 import { IUserProfile } from '@/types/@common';
 import { IProfileSimpleResponse } from '@/types/user';
+import { IPrivateRecommendUsers } from './../../types/@common/index';
 
 export const imageUpload = async (formData: FormData) => {
   const response = await AuthAxios.post<string>('/api/user/image', formData);
@@ -18,10 +19,24 @@ export const getUserProfile = async (memberId: number) => {
   return response.data;
 };
 
-// 유저 추천
-export const getUserRecommendations = async (size: number) => {
+// 친구 찾아보기 - 비로그인
+export const getPublicUserRecommendations = async (size: number) => {
   const response = await Axios.get<{ content: IProfileSimpleResponse[] }>(
     `/api/global/recommendation/user`,
+    {
+      params: {
+        size,
+      },
+    },
+  );
+
+  return response.data;
+};
+
+// 친구 찾아보기 - 로그인
+export const getPrivateUserRecommendations = async (size: number) => {
+  const response = await AuthAxios.get<IPrivateRecommendUsers>(
+    `/api/user/recommendation/user`,
     {
       params: {
         size,

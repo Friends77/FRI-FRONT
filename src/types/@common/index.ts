@@ -1,3 +1,6 @@
+import { FriendsStatus } from '../chat';
+import { IProfileSimpleResponse } from '../user';
+
 export interface Options {
   value: string | number;
   label: string | number;
@@ -58,4 +61,11 @@ export interface IUserProfile {
   mbti: MBTI;
   interestTag: IInterestTag[];
   imageUrl: string;
+}
+
+export interface IPrivateRecommendUsers {
+  content: {
+    profileSimpleResponseDto: IProfileSimpleResponse;
+    type: FriendsStatus;
+  }[];
 }
