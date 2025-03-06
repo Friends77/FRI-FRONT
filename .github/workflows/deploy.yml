@@ -1,0 +1,38 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build:prod
+
+      - name: Archive build artifacts
+        run: tar -czvf build.tar.gz ./dist
+
+      - name: Copy build to EC2
+        run: |
+          scp -i ${{ secrets.EC2_SSH_KEY }} build.tar.gz ubuntu@${{ secrets.EC2_HOST }}:/home/ubuntu
+
+      - name: Deploy on EC2
+        run: |
+          ssh -i ${{ secrets.EC2_SSH_KEY }} ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+            cd /home/ubuntu
+            rm -rf /home/ubuntu/FRI-FRONT/dist
+            tar -xzvf build.tar.gz
+            rm build.tar.gz
+            sudo systemctl restart nginx  
+          EOF
