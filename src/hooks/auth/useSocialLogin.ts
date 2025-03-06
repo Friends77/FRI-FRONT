@@ -43,7 +43,7 @@ export const useSocialLogin = () => {
           imageUrl,
         });
         setSignUpStep(AUTH_CONSTANTS.PROFILE_STEP);
-        navigate(AUTH_PATH.SIGN_UP);
+        navigate(`${AUTH_PATH.SIGN_UP}?social=true`);
       }
 
       if (isRegistered && accessToken && refreshTokenExpiration) {

@@ -5,19 +5,24 @@ import BasicInfoForm from '@/components/auth/Form/BasicInfoForm';
 import { AUTH_PATH } from '@/constants/routes';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
+import socialAuthInfoAtom from '@/recoil/auth/socialLogin';
 import userLocationAtom from '@/recoil/auth/userLocation';
 import { SignUpFormDataType } from '@/types/auth';
 import { useMutation } from '@tanstack/react-query';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { useRecoilValue } from 'recoil';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
 
+  const [searchParams] = useSearchParams();
+
   const { latitude, longitude } = useRecoilValue(userLocationAtom);
 
   const authToken = useRecoilValue(emailAuthTokenAtom) as string;
+
+  const socialAuthInfo = useRecoilValue(socialAuthInfoAtom);
 
   // 회원가입 단계를 전역 상태로 관리
   const signUpStep = useRecoilValue(signUpStepAtom);
@@ -53,11 +58,13 @@ const SignUpPage = () => {
   });
 
   const onSubmit: SubmitHandler<SignUpFormDataType> = (data) => {
+    const isSocialSignUp = searchParams.get('social') === 'true';
+
     const { imageUrl, year, month, day, EI, NS, FT, JP, ...formFields } = data;
 
     const requestPayload = {
       ...formFields,
-      authToken,
+      authToken: isSocialSignUp ? socialAuthInfo?.authToken : authToken,
       birth: `${year}-${month}-${day}`,
       mbti: `${EI}${NS}${FT}${JP}`,
       location: {
