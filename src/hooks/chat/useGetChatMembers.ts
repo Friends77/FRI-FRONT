@@ -7,15 +7,16 @@ import { useSetRecoilState } from 'recoil';
 
 interface IUseGetChatMembers {
   roomId: number;
+  isEnter: boolean;
 }
 
-const useGetChatMembers = ({ roomId }: IUseGetChatMembers) => {
+const useGetChatMembers = ({ roomId, isEnter }: IUseGetChatMembers) => {
   const setChatMembers = useSetRecoilState(chatMembersAtom);
 
   const { data: chatMembers } = useQuery({
     queryKey: CHAT_KEYS.CHAT_MEMBER_LIST(roomId),
     queryFn: () => getChatMemberList(roomId),
-    enabled: !!roomId,
+    enabled: !!roomId && isEnter,
   });
 
   useEffect(() => {

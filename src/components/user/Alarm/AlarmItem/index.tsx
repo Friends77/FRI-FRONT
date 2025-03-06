@@ -114,10 +114,14 @@ const AlarmItem = forwardRef<HTMLLIElement, IAlarmItemProps>(
 
             <div>
               <Styled.Content>
-                <Styled.Nickname>{alarm.nickname}</Styled.Nickname>
-                {alarm.type === AlarmType.FRIEND_REQUEST
-                  ? '님이 친구 추가 요청을 보냈어요'
-                  : '에서 나를 초대했어요'}
+                {alarm.type === AlarmType.FRIEND_REQUEST ? (
+                  <>
+                    <Styled.Nickname>{alarm.nickname}</Styled.Nickname>
+                    님이 친구 추가 요청을 보냈어요
+                  </>
+                ) : (
+                  alarm.message
+                )}
               </Styled.Content>
               <Styled.ButtonContainer>
                 <Styled.RejectButton

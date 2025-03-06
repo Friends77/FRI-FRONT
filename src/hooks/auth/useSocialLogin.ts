@@ -43,7 +43,7 @@ export const useSocialLogin = () => {
           imageUrl,
         });
         setSignUpStep(AUTH_CONSTANTS.PROFILE_STEP);
-        navigate(AUTH_PATH.SIGN_UP);
+        navigate(`${AUTH_PATH.SIGN_UP}?social=true`);
       }
 
       if (isRegistered && accessToken && refreshTokenExpiration) {
@@ -68,6 +68,7 @@ export const useSocialLogin = () => {
 
         if (status === 409) {
           alert('해당 계정은 다른 소셜 서비스에 가입되어 있습니다.');
+          navigate(AUTH_PATH.LOGIN);
         }
       }
     },

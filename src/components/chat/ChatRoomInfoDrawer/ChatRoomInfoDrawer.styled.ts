@@ -44,7 +44,10 @@ export const ThumbnailImage = styled.img`
 `;
 
 export const Categories = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
   padding: 24px 20px;
+  gap: 8px;
 `;
 
 export const Album = styled.div`
