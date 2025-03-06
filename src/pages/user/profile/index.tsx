@@ -181,7 +181,7 @@ const ProfilePage = () => {
     onSuccess: () => {
       alert('변경 되었습니다.');
       queryClient.invalidateQueries({
-        queryKey: [USER_KEYS.PROFILE(memberId)],
+        queryKey: USER_KEYS.PROFILE(memberId),
       });
       navigate('../');
     },
