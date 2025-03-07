@@ -49,7 +49,7 @@ jobs:
         run: |
           ssh -i private_key.pem ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
             docker pull ${{ secrets.DOCKER_USERNAME }}/friends77:latest
-            docker stop friends77 || true 
-            docker rm friends77 || true
-            docker run -d -p 80:80 --name friends77 ${{ secrets.DOCKER_USERNAME }}/friends77
+            cd /home/ubuntu/FRI-FRONT
+            docker-compose down || true
+            docker-compose up -d
           EOF
