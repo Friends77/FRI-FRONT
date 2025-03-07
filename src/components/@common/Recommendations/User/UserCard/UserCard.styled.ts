@@ -1,3 +1,4 @@
+import { FriendsStatus } from '@/types/chat';
 import styled from 'styled-components';
 
 export const UserCardWrapper = styled.li`
@@ -55,7 +56,9 @@ export const UserCardDescription = styled.span<{ $isHovered: boolean }>`
   text-overflow: ${({ $isHovered }) => ($isHovered ? 'ellipsis' : '')};
 `;
 
-export const UserCardButton = styled.button`
+export const UserCardButton = styled.button<{
+  $friendState: FriendsStatus | undefined;
+}>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,4 +69,6 @@ export const UserCardButton = styled.button`
   border-radius: 8px;
   padding: 6px 6px 6px 4px;
   gap: 4px;
+  cursor: ${({ $friendState }) =>
+    $friendState === 'REQUESTED' && 'not-allowed'};
 `;

@@ -35,10 +35,11 @@ const RecommendedUsers = () => {
   }, [isLoggedIn, userInfo]);
 
   // 비로그인 시 친구 찾아보기 섹션 데이터
-  const { data: publicRecommendUsers, refetch } = usePublicRecommendations();
+  const { data: publicRecommendUsers } = usePublicRecommendations();
 
   // 로그인 시 친구 찾아보기 섹션 데이터
-  const { data: privateRecommendUsers } = usePrivateRecommendations(size);
+  const { data: privateRecommendUsers, refetch } =
+    usePrivateRecommendations(size);
 
   return (
     <Styled.UsersWrapper>
@@ -49,9 +50,11 @@ const RecommendedUsers = () => {
             인기 있는 친구들의 프로필을 추천받아 보세요.
           </Styled.UsersSubTitle>
         </Styled.UsersTitleSection>
-        <Styled.UsersButtonSection onClick={() => refetch()}>
-          <Restart title="새로고침" width="20" height="22" />
-        </Styled.UsersButtonSection>
+        {isLoggedIn && (
+          <Styled.UsersButtonSection onClick={() => refetch()}>
+            <Restart title="새로고침" width="20" height="22" />
+          </Styled.UsersButtonSection>
+        )}
       </Styled.UsersTopSection>
       <Styled.UsersRecommendSection>
         {isLoggedIn

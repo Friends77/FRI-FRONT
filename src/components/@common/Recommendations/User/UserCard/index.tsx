@@ -22,6 +22,9 @@ export interface IUserCardProps {
 const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  // 친구 상태 관리
+  const [friendState, setFriendState] = useState(friendStatusType);
+
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
   const { mutate: addFriend } = useFriendRequest({
@@ -36,6 +39,8 @@ const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
 
   const handleAddFriend = (friendId: number) => {
     addFriend(friendId);
+
+    setFriendState(FriendsStatus.REQUESTED);
   };
 
   return (
@@ -59,8 +64,10 @@ const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
       {isHovered && isLoggedIn && (
         <Styled.UserCardButton
           onClick={() => handleAddFriend(userInfo.memberId)}
+          disabled={friendState === 'REQUESTED'}
+          $friendState={friendState}
         >
-          {friendStatusType === 'AVAILABLE' ? (
+          {friendState === 'AVAILABLE' ? (
             <>
               <PersonAdd title="친구신청" width="21" height="14" /> 친구신청
             </>
