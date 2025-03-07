@@ -45,6 +45,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
+          echo $TAG  # TAG 값 확인
           docker build -t ${{ secrets.DOCKER_USERNAME }}/friends77:$TAG .
           docker push ${{ secrets.DOCKER_USERNAME }}/friends77:$TAG
           docker tag ${{ secrets.DOCKER_USERNAME }}/friends77:$TAG ${{ secrets.DOCKER_USERNAME }}/friends77:latest
