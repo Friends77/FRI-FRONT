@@ -8,7 +8,6 @@ RUN rm /etc/nginx/conf.d/default.conf
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 # GitHub Actions에서 빌드된 결과물(./dist)을 컨테이너에 복사
-RUN ls -al .
 COPY ./dist /usr/share/nginx/html
 
 EXPOSE 80

@@ -47,6 +47,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
+          ls -al .
           docker build -t ${{ secrets.DOCKER_USERNAME }}/friends77 .
           docker tag ${{ secrets.DOCKER_USERNAME }}/friends77 ${{ secrets.DOCKER_USERNAME }}/friends77:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/friends77:latest
