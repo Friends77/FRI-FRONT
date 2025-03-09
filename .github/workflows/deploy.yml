@@ -14,14 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: |
-          npm run build:prod
-          ls -al ./dist
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -43,12 +35,12 @@ jobs:
 
       - name: Copy docker-compose file to EC2
         run: |
-          scp -i private_key.pem -r docker-compose.yml nginx.conf dist ubuntu@${{ secrets.EC2_HOST }}:~/friends77
+          scp -i private_key.pem docker-compose.yml nginx.conf ubuntu@${{ secrets.EC2_HOST }}:~/friends77
 
       - name: Build and push Docker image
         run: |
           ls -al .
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/friends77 .
+          docker build --build-arg VITE_BASE_URL="https://friends77.com" -t ${{ secrets.DOCKER_USERNAME }}/friends77 .
           docker tag ${{ secrets.DOCKER_USERNAME }}/friends77 ${{ secrets.DOCKER_USERNAME }}/friends77:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/friends77:latest
 
