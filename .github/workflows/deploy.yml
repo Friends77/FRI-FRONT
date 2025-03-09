@@ -41,15 +41,15 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
 
+      - name: Copy docker-compose file to EC2
+        run: |
+          scp -i private_key.pem -r docker-compose.yml nginx.conf dist ubuntu@${{ secrets.EC2_HOST }}:~/friends77
+
       - name: Build and push Docker image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/friends77 .
           docker tag ${{ secrets.DOCKER_USERNAME }}/friends77 ${{ secrets.DOCKER_USERNAME }}/friends77:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/friends77:latest
-
-      - name: Copy docker-compose file to EC2
-        run: |
-          scp -i private_key.pem -r docker-compose.yml nginx.conf dist ubuntu@${{ secrets.EC2_HOST }}:~/friends77
 
       - name: Deploy to EC2
         run: |
