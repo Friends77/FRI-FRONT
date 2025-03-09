@@ -49,7 +49,7 @@ jobs:
 
       - name: Copy docker-compose file to EC2
         run: |
-          scp -i private_key.pem docker-compose.yml ubuntu@${{ secrets.EC2_HOST }}:~/friends77/docker-compose.yml
+          scp -i private_key.pem docker-compose.yml nginx.conf ubuntu@${{ secrets.EC2_HOST }}:~/friends77/docker-compose.yml
 
       - name: Deploy to EC2
         run: |
