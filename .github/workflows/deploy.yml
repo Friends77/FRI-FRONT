@@ -47,11 +47,14 @@ jobs:
           docker tag ${{ secrets.DOCKER_USERNAME }}/friends77 ${{ secrets.DOCKER_USERNAME }}/friends77:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/friends77:latest
 
+      - name: Copy docker-compose file to EC2
+        run: |
+          scp -i private_key.pem docker-compose.yml ubuntu@${{ secrets.EC2_HOST }}:~/friend77/docker-compose.yml
+
       - name: Deploy to EC2
         run: |
           ssh -i private_key.pem ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
-            docker pull ${{ secrets.DOCKER_USERNAME }}/friends77:latest
-            cd /home/ubuntu/FRI-FRONT
+            docker pull ${{ secrets.DOCKER_USERNAME }}/friends77:latest           
             docker-compose down || true
             docker-compose up -d
           EOF
