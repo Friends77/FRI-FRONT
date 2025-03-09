@@ -55,6 +55,7 @@ jobs:
         run: |
           ssh -i private_key.pem ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
             docker pull ${{ secrets.DOCKER_USERNAME }}/friends77:latest           
+            cd /home/ubuntu/friends77
             docker-compose down || true
             docker-compose up -d
           EOF
