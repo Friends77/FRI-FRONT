@@ -17,10 +17,19 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Create .env.production file
+        run: |
+          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env.production
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env.production
+          echo "VITE_GOOGLE_CLIENT_ID=${{ secrets.VITE_GOOGLE_CLIENT_ID }}" >> .env.production
+          echo "VITE_NAVER_CLIENT_ID=${{ secrets.VITE_NAVER_CLIENT_ID }}" >> .env.production
+          echo "VITE_NAVER_CALLBACK_URL=${{ secrets.VITE_NAVER_CALLBACK_URL }}" >> .env.production
+          echo "VITE_GOOGLE_CALLBACK_URL=${{ secrets.VITE_GOOGLE_CALLBACK_URL }}" >> .env.production
+          echo "VITE_WEB_SOCKET_URL=${{ secrets.VITE_WEB_SOCKET_URL }}" >> .env.production
+
       - name: Build project
         run: |
           npm run build:prod
-          ls -al ./dist
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
