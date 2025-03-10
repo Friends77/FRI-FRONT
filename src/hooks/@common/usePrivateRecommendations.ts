@@ -14,7 +14,7 @@ const usePrivateRecommendations = (size: number) => {
   return useQuery({
     queryKey: COMMON_KEYS.RECOMMENDED_USERS,
     queryFn: () => getPrivateUserRecommendations(size),
-    enabled: size !== 0 || !!isLoggedIn,
+    enabled: size !== 0 && !!isLoggedIn,
   });
 };
 

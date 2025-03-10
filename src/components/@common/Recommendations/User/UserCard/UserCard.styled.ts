@@ -63,12 +63,23 @@ export const UserCardButton = styled.button<{
   justify-content: center;
   align-items: center;
   width: 106px;
-  ${({ theme }) => theme.typo.B1_B};
-  color: ${({ theme }) => theme.colors.Blue_50};
-  background-color: ${({ theme }) => theme.colors.Blue_400};
+  ${({ theme, $friendState }) =>
+    $friendState === FriendsStatus.AVAILABLE
+      ? theme.typo.B1_B
+      : theme.typo.B1_R};
+  color: ${({ theme, $friendState }) =>
+    $friendState === FriendsStatus.AVAILABLE
+      ? theme.colors.Blue_50
+      : theme.colors.Gray_800};
+  background-color: ${({ theme, $friendState }) =>
+    $friendState === FriendsStatus.AVAILABLE
+      ? theme.colors.Blue_400
+      : theme.colors.Gray_300};
   border-radius: 8px;
   padding: 6px 6px 6px 4px;
   gap: 4px;
-  cursor: ${({ $friendState }) =>
-    $friendState === 'REQUESTED' && 'not-allowed'};
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
