@@ -1,8 +1,3 @@
-/**
- * 친구 찾아보기 - 유저 카드
- * @author 선우
- */
-
 import PersonAdd from '@/components/@common/SVG/Icon/PersonAdd';
 import { IProfileSimpleResponse } from '@/types/user';
 import { useState } from 'react';
@@ -10,8 +5,6 @@ import * as Styled from './UserCard.styled';
 import useFriendRequest from '@/hooks/user/useFriendRequest';
 import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
-import { queryClient } from '@/apis/@core/queryClient';
-import { COMMON_KEYS } from '@/constants/@queryKeys';
 import { FriendsStatus } from '@/types/chat';
 
 export interface IUserCardProps {
@@ -30,16 +23,11 @@ const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
   const { mutate: addFriend } = useFriendRequest({
     onSuccessHandler: () => {
       alert('친구 신청을 보냈어요!');
-      queryClient.invalidateQueries({
-        queryKey: COMMON_KEYS.RECOMMENDED_USERS,
-        refetchType: 'none',
-      });
     },
   });
 
   const handleAddFriend = (friendId: number) => {
     addFriend(friendId);
-
     setFriendState(FriendsStatus.REQUESTED);
   };
 

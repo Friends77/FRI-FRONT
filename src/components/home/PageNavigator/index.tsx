@@ -1,8 +1,3 @@
-/**
- * 채팅방 리스트 페이지 이동 컴포넌트
- * @author 선우
- */
-
 import ArrowLeft from '@/components/@common/SVG/Icon/ArrowLeft';
 import * as Styled from './PageNavigator.styled';
 import ArrowRight from '@/components/@common/SVG/Icon/ArrowRight';

@@ -1,8 +1,3 @@
-/**
- * 홈페이지
- * @author 선우
- */
-
 import HomeChatListByTag from '@/components/home/HomeChatListByTag';
 import * as Styled from './home.styled';
 import RecommendedUsers from '@/components/@common/Recommendations/User/RecommendedUsers';

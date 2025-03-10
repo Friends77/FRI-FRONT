@@ -1,8 +1,3 @@
-/**
- * 홈페이지: 배너
- * @author 선우
- */
-
 import chatRoomThumbnail from '@/assets/images/chatRoomThumbnail.png';
 import Profiles from '@/assets/images/profiles.png';
 import { AUTH_PATH, CHAT_PATH } from '@/constants/routes';

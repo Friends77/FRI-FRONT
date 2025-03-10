@@ -1,8 +1,3 @@
-/**
- * 친구 찾아보기 섹션
- * @author 선우
- */
-
 import Restart from '@/components/@common/SVG/Icon/Restart';
 import { HOME_CONSTANT } from '@/constants/home';
 import usePublicRecommendations from '@/hooks/@common/usePublicRecommendations';

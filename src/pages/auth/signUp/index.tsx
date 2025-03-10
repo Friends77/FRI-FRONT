@@ -2,19 +2,29 @@ import { signUp } from '@/apis/auth';
 import AdditionalInfoForm from '@/components/auth/Form/AdditionalInfoForm';
 import AuthForm from '@/components/auth/Form/AuthForm';
 import BasicInfoForm from '@/components/auth/Form/BasicInfoForm';
-import { AUTH_PATH } from '@/constants/routes';
+import { AUTH_PATH, ROOT_PATH } from '@/constants/routes';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import socialAuthInfoAtom from '@/recoil/auth/socialLogin';
 import userLocationAtom from '@/recoil/auth/userLocation';
 import { SignUpFormDataType } from '@/types/auth';
 import { useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router';
 import { useRecoilValue } from 'recoil';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(ROOT_PATH.ROOT);
+    }
+  }, [navigate, isLoggedIn]);
 
   const [searchParams] = useSearchParams();
 

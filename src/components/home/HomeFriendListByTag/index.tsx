@@ -1,8 +1,3 @@
-/**
- * 사용자 선택 태그 기반 추천 친구 리스트
- * @author 선우
- */
-
 import { Highlight } from '@/pages/home/home.styled';
 import profileAtom from '@/recoil/user/profile';
 import { useEffect, useState } from 'react';

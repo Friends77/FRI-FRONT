@@ -1,8 +1,3 @@
-/**
- * 사용자 선택 태그 기반 추천 친구 개별 그리드
- * @author 선우
- */
-
 import Tag from '@/components/@common/Tag';
 import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
 import FriendCard from '../FriendCard';

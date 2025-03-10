@@ -1,9 +1,3 @@
-/**
- * ProfilePage: 사용자의 정보를 조회하고 수정할 수 있는 페이지
- * @Author 선우
- */
-
-import { queryClient } from '@/apis/@core/queryClient';
 import { updateProfile } from '@/apis/user';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import Dropdown from '@/components/@common/Dropdown';
@@ -21,7 +15,7 @@ import { Options } from '@/types/@common';
 import { UpdateProfileDataType } from '@/types/user';
 import { getDaysInMonth } from '@/utils/date';
 import { getMemberIdFromToken } from '@/utils/token';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import {
   Controller,
@@ -37,8 +31,11 @@ import { BIRTH_YEAR } from '@/constants/user/year';
 import { GENDER } from '@/constants/user/gender';
 import { EI, FT, JP, NS } from '@/constants/user/mbti';
 import { SelectInstance } from 'react-select';
+import { ROOT_PATH } from '@/constants/routes';
 
 const ProfilePage = () => {
+  const queryClient = useQueryClient();
+
   const navigate = useNavigate();
 
   const daySelectRef = useRef<SelectInstance<{
@@ -183,7 +180,7 @@ const ProfilePage = () => {
       queryClient.invalidateQueries({
         queryKey: USER_KEYS.PROFILE(memberId),
       });
-      navigate('../');
+      navigate(ROOT_PATH.ROOT);
     },
   });
 

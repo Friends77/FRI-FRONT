@@ -1,8 +1,3 @@
-/**
- * AdditionalInfoForm: MBTI, 한 줄 소개, 관심사 입력 폼
- * @Author 선우
- */
-
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import CheckBox from '@/components/@common/Checkbox';
 import Radio from '@/components/@common/Radio';

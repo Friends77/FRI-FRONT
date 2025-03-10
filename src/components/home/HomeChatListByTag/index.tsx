@@ -1,8 +1,3 @@
-/**
- * 사용자 선택 태그 기반 추천 채팅방 리스트
- * @author 선우
- */
-
 import profileAtom from '@/recoil/user/profile';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';

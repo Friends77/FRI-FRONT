@@ -1,8 +1,3 @@
-/**
- * 각 태그별로 렌더링 되는 추천 채팅방 리스트 행
- * @author 선우
- */
-
 import { useChatRoomsByTag } from '@/hooks/home/useChatRoomsByTag';
 import { useEffect, useState } from 'react';
 import { SwiperClass, SwiperSlide } from 'swiper/react';

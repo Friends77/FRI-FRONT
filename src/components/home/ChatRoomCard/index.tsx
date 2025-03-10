@@ -1,8 +1,3 @@
-/**
- * 채팅방 카드 컴포넌트
- * @author 선우
- */
-
 import Tag from '@/components/@common/Tag';
 import * as Styled from './ChatRoomCard.styled';
 import ProfileImage from '@/components/@common/ProfileImage';

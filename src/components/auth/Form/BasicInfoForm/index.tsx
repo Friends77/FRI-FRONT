@@ -1,9 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/**
- * BasicInfoForm: 프로필 사진, 닉네임, 출생년도, 성별 입력 폼
- * @Author 선우
- */
-
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import Dropdown from '@/components/@common/Dropdown';
 import Radio from '@/components/@common/Radio';
