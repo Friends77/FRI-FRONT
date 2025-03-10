@@ -39,8 +39,7 @@ const TokenRefresher = ({ children }: ITokenRefresherProps) => {
 
     const refresh = async () => {
       try {
-        const { accessToken: newToken } = await mutateAsync();
-        setAccessToken(newToken);
+        await mutateAsync();
       } catch (err) {
         if (axios.isAxiosError(err) && err.response?.status === 401) {
           removeCookie('isLoggedIn');

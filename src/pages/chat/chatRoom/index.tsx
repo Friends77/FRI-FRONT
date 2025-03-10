@@ -51,7 +51,7 @@ const ChatRoomPage = () => {
   });
   useEnterChatRoom({ roomId, setIsEnter, lastMsgId });
   useGetChatRoomDetail({ roomId });
-  useGetChatMembers({ roomId });
+  useGetChatMembers({ roomId, isEnter });
 
   const { myMessageContent, setMyMessageContent, handleSendMessage } =
     useMessageHandler({

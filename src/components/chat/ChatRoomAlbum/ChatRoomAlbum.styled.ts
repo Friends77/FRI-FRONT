@@ -54,3 +54,13 @@ export const AlbumImage = styled.img`
   object-fit: cover;
   border-radius: 4px;
 `;
+
+export const EmptyText = styled.p`
+  height: 100%;
+  ${({ theme }) => theme.typo.B1_R};
+  color: ${({ theme }) => theme.colors.Gray_800};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 52px;
+`;

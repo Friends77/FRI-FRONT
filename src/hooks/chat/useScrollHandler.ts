@@ -61,10 +61,6 @@ const useScrollHandler = ({
       ]);
     };
 
-    // 최초입장일 때만
-    // setLastMsgId(null);
-    // setShouldFetchPreviousMessages(true);
-
     // 최초 메세지를 불러오고 스크롤을 조정한다.
     const loadMessagesAndScroll = async () => {
       const messageList = messageListRef.current;

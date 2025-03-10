@@ -1,14 +1,9 @@
 import AuthAxios from '@/apis/@core/authInstance';
-import { AUTH_ERROR_MSG } from '@/constants/message';
-import { AUTH_PATH } from '@/constants/routes';
 import { useRefresh } from '@/hooks/auth/useRefresh';
 import accessTokenAtom from '@/recoil/auth/accessToken';
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
-import { useRecoilState } from 'recoil';
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import { useRecoilValue } from 'recoil';
 
 interface IAuthInterceptorProps {
   children: React.ReactNode;
@@ -24,9 +19,7 @@ interface IAuthInterceptorProps {
  *      3) 토큰 재발급 실패 시 로그인 페이지로 이동
  */
 const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
-
-  const [cookies, _, removeCookie] = useCookies(['isLoggedIn', 'refreshToken']);
+  const accessToken = useRecoilValue(accessTokenAtom);
 
   const { mutateAsync: refresh } = useRefresh();
 
@@ -52,29 +45,10 @@ const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
           return Promise.reject(err);
         }
 
-        if (!cookies.isLoggedIn || !cookies.refreshToken) {
-          removeCookie('isLoggedIn');
-          removeCookie('refreshToken');
+        await refresh();
+        config.headers.Authorization = `Bearer ${accessToken}`;
 
-          window.location.replace(`${BASE_URL}${AUTH_PATH.LOGIN}`);
-
-          return;
-        }
-
-        try {
-          const { accessToken: newToken } = await refresh();
-          setAccessToken(newToken);
-          config.headers.Authorization = `Bearer ${accessToken}`;
-
-          return axios(config);
-        } catch (_) {
-          setAccessToken(null);
-          removeCookie('isLoggedIn');
-          removeCookie('refreshToken');
-
-          alert(AUTH_ERROR_MSG.SESSION_EXPIRED);
-          window.location.replace(`${BASE_URL}${AUTH_PATH.LOGIN}`);
-        }
+        return axios(config);
       }
 
       return Promise.reject(err);
