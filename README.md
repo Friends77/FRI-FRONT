@@ -1,7 +1,7 @@
 ## 프로젝트 소개
 
 <p align="center">
-  <img src="./public/logo.png" alt="프렌즈" width="100"/>
+  <img src="./public/logo.svg" alt="프렌즈" width="100"/>
 </p>
 
 <p>
