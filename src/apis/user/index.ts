@@ -7,18 +7,21 @@ import {
   IGetAlarmListRequest,
 } from '@/types/user';
 
+// 내 프로필 조회
 export const getProfile = async () => {
   const response = await AuthAxios.get<IUserProfile>('/api/user/profile');
 
   return response.data;
 };
 
+// 내 프로필 수정
 export const updateProfile = async (formData: UpdateProfileFormDataType) => {
   const response = await AuthAxios.put('/api/user/profile', formData);
 
   return response.data;
 };
 
+// 친구 목록 조회
 export const getFriendList = async () => {
   const response = await AuthAxios.get<{ content: IProfileSimpleResponse[] }>(
     '/api/user/friendship',

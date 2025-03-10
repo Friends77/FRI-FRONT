@@ -3,7 +3,9 @@ import Axios from '@/apis/@core/instance';
 import { IUserProfile } from '@/types/@common';
 import { IProfileSimpleResponse } from '@/types/user';
 import { IPrivateRecommendUsers } from './../../types/@common/index';
+import { CategoryResponse } from '@/types/auth';
 
+// 이미지 업로드
 export const imageUpload = async (formData: FormData) => {
   const response = await AuthAxios.post<string>('/api/user/image', formData);
 
@@ -15,6 +17,13 @@ export const getUserProfile = async (memberId: number) => {
   const response = await AuthAxios.get<IUserProfile>(
     `/api/global/profile/${memberId}`,
   );
+
+  return response.data;
+};
+
+// 카테고리 조회
+export const fetchCategory = async () => {
+  const response = await Axios.get<CategoryResponse>(`/api/global/category`);
 
   return response.data;
 };

@@ -3,6 +3,11 @@ export type LoginDataType = {
   password: string;
 };
 
+export type VerifyCodeType = {
+  email: string;
+  code: string;
+};
+
 export interface ILoginResponse {
   memberId: number;
   accessToken: string;
@@ -93,3 +98,13 @@ export type CategoryResponse = {
 }[];
 
 export type AvailabilityType = 'email' | 'nickname';
+
+export type ResetPasswordType = {
+  emailAuthToken: string;
+  newPassword: string;
+};
+
+export type checkAvailabilityType = {
+  type: AvailabilityType;
+  value: string;
+};

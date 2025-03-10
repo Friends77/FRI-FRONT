@@ -1,4 +1,4 @@
-import { fetchCategory } from '@/apis/auth';
+import { fetchCategory } from '@/apis/@common';
 import { useQuery } from '@tanstack/react-query';
 
 export const useFetchCategory = () => {
