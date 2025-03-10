@@ -1,3 +1,4 @@
+import { FriendsStatus } from '@/types/chat';
 import styled from 'styled-components';
 
 export const UserCardWrapper = styled.li`
@@ -55,15 +56,30 @@ export const UserCardDescription = styled.span<{ $isHovered: boolean }>`
   text-overflow: ${({ $isHovered }) => ($isHovered ? 'ellipsis' : '')};
 `;
 
-export const UserCardButton = styled.button`
+export const UserCardButton = styled.button<{
+  $friendState: FriendsStatus | undefined;
+}>`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 106px;
-  ${({ theme }) => theme.typo.B1_B};
-  color: ${({ theme }) => theme.colors.Blue_50};
-  background-color: ${({ theme }) => theme.colors.Blue_400};
+  ${({ theme, $friendState }) =>
+    $friendState === FriendsStatus.AVAILABLE
+      ? theme.typo.B1_B
+      : theme.typo.B1_R};
+  color: ${({ theme, $friendState }) =>
+    $friendState === FriendsStatus.AVAILABLE
+      ? theme.colors.Blue_50
+      : theme.colors.Gray_800};
+  background-color: ${({ theme, $friendState }) =>
+    $friendState === FriendsStatus.AVAILABLE
+      ? theme.colors.Blue_400
+      : theme.colors.Gray_300};
   border-radius: 8px;
   padding: 6px 6px 6px 4px;
   gap: 4px;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;

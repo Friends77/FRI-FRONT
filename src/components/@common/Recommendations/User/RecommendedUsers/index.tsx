@@ -4,13 +4,16 @@
  */
 
 import Restart from '@/components/@common/SVG/Icon/Restart';
-import useGetUserRecommendations from '@/hooks/@common/useGetRecommendedUsers';
+import { HOME_CONSTANT } from '@/constants/home';
+import usePublicRecommendations from '@/hooks/@common/usePublicRecommendations';
+import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import profileAtom from '@/recoil/user/profile';
 import { useRecoilValue } from 'recoil';
 import UserCard from '../UserCard';
 import * as Styled from './RecommendedUsers.styled';
-import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
-import { HOME_CONSTANT } from '@/constants/home';
+import usePrivateRecommendations from '@/hooks/@common/usePrivateRecommendations';
+import { IProfileSimpleResponse } from '@/types/user';
+import { useEffect, useState } from 'react';
 
 const RecommendedUsers = () => {
   // 전역 변수에 저장된 사용자 정보 가져오기
@@ -18,20 +21,25 @@ const RecommendedUsers = () => {
 
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
-  let size = 0;
+  const [size, setSize] = useState<number>(
+    HOME_CONSTANT.RECOMMENDATION_SIZE_DEFAULT,
+  );
 
   // 사용자 선택 관심사 태그 갯수에 따라 다르게 렌더링
-  if (isLoggedIn || userInfo) {
-    size =
-      (userInfo?.interestTag?.length ?? 0) >= 2
-        ? HOME_CONSTANT.RECOMMENDATION_SIZE_WITH_MULTIPLE_TAGS
-        : HOME_CONSTANT.RECOMMENDATION_SIZE_DEFAULT;
-  } else {
-    // 비로그인 시에는 4명의 친구만 추천
-    size = HOME_CONSTANT.RECOMMENDATION_SIZE_DEFAULT;
-  }
+  useEffect(() => {
+    if (isLoggedIn || userInfo) {
+      if ((userInfo?.interestTag?.length as number) >= 2) {
+        setSize(HOME_CONSTANT.RECOMMENDATION_SIZE_WITH_MULTIPLE_TAGS);
+      }
+    }
+  }, [isLoggedIn, userInfo]);
 
-  const { data, refetch } = useGetUserRecommendations(size);
+  // 비로그인 시 친구 찾아보기 섹션 데이터
+  const { data: publicRecommendUsers } = usePublicRecommendations();
+
+  // 로그인 시 친구 찾아보기 섹션 데이터
+  const { data: privateRecommendUsers, refetch } =
+    usePrivateRecommendations(size);
 
   return (
     <Styled.UsersWrapper>
@@ -42,15 +50,31 @@ const RecommendedUsers = () => {
             인기 있는 친구들의 프로필을 추천받아 보세요.
           </Styled.UsersSubTitle>
         </Styled.UsersTitleSection>
-        <Styled.UsersButtonSection onClick={() => refetch()}>
-          <Restart title="새로고침" width="20" height="22" />
-        </Styled.UsersButtonSection>
+        {isLoggedIn && (
+          <Styled.UsersButtonSection onClick={() => refetch()}>
+            <Restart title="새로고침" width="20" height="22" />
+          </Styled.UsersButtonSection>
+        )}
       </Styled.UsersTopSection>
       <Styled.UsersRecommendSection>
-        {data &&
-          data.content.map((user) => (
-            <UserCard key={user.memberId} userInfo={user} />
-          ))}
+        {isLoggedIn
+          ? privateRecommendUsers &&
+            privateRecommendUsers.content
+              .filter(
+                (user) =>
+                  user.type === 'AVAILABLE' || user.type === 'REQUESTED',
+              )
+              .map((user) => (
+                <UserCard
+                  key={user.profileSimpleResponseDto.memberId}
+                  userInfo={user.profileSimpleResponseDto}
+                  friendStatusType={user.type}
+                />
+              ))
+          : publicRecommendUsers &&
+            publicRecommendUsers.content.map((user: IProfileSimpleResponse) => (
+              <UserCard key={user.memberId} userInfo={user} />
+            ))}
       </Styled.UsersRecommendSection>
     </Styled.UsersWrapper>
   );
