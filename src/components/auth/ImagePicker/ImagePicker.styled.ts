@@ -1,3 +1,4 @@
+import Camera from '@/components/@common/SVG/Icon/Camera';
 import styled from 'styled-components';
 
 export const ImagePickerWrapper = styled.div`
@@ -21,15 +22,23 @@ export const ImagePickerImagePreview = styled.img`
   cursor: pointer;
 `;
 
-export const ImagePickerAddImageButton = styled.img`
+export const ImagePickerAddImageButton = styled.div`
   position: absolute;
-  cursor: pointer;
-  bottom: 5px;
-  right: 0;
+  right: -6px;
+  bottom: 4px;
   width: 32px;
   height: 32px;
+  background-color: ${({ theme }) => theme.colors.White};
   border: 1px solid ${({ theme }) => theme.colors.Gray_300};
   border-radius: 16px;
+  cursor: pointer;
+`;
+
+export const ImagePickerAddImageIcon = styled(Camera)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const ImagePickerRemoveImageButton = styled.p`

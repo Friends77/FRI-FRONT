@@ -1,4 +1,3 @@
-import camera from '@/assets/images/camera.png';
 import defaultProfileImg from '@/assets/images/defaultProfile.png';
 import { ReactEventHandler, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -84,7 +83,13 @@ const ImagePicker = ({
             onChange={handleImageChange}
             hidden
           />
-          <Styled.ImagePickerAddImageButton src={camera} />
+          <Styled.ImagePickerAddImageButton>
+            <Styled.ImagePickerAddImageIcon
+              title="이미지 선택 아이콘"
+              width="20"
+              height="20"
+            />
+          </Styled.ImagePickerAddImageButton>
         </label>
       </Styled.ImagePickerImageSection>
       {pickedImage && (
