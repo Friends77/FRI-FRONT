@@ -110,7 +110,7 @@ const AdditionalInfoForm = () => {
                         <CheckBox
                           key={category.id}
                           name="interestTag"
-                          text={`${category.image}  ${category.name}`}
+                          label={`${category.image}  ${category.name}`}
                           value={category.id}
                           rules={{
                             required: true,
@@ -132,7 +132,7 @@ const AdditionalInfoForm = () => {
                         <CheckBox
                           key={category.id}
                           name="interestTag"
-                          text={category.name}
+                          label={category.name}
                           value={category.id}
                         />
                       );

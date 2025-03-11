@@ -3,13 +3,17 @@ import * as Styled from './Checkbox.styled';
 
 export interface ICheckBoxProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  text?: string;
+  /** 체크박스와 연결된 라벨 */
+  label: string;
+  /** 체크박스의 고유 id */
   id?: string;
+  /** 체크박스의 이름 (폼 제출 시 key 역할) */
   name: string;
+  /** react-hook-form의 유효성 검사 규칙 */
   rules?: RegisterOptions;
 }
 
-const CheckBox = ({ text, id, name, rules, ...rest }: ICheckBoxProps) => {
+const CheckBox = ({ label, id, name, rules, ...rest }: ICheckBoxProps) => {
   const { register } = useFormContext();
 
   return (
@@ -21,7 +25,7 @@ const CheckBox = ({ text, id, name, rules, ...rest }: ICheckBoxProps) => {
         {...rest}
       />
       <Styled.CheckMark title="체크" width="16" height="16" />
-      {text}
+      {label}
     </Styled.Label>
   );
 };
