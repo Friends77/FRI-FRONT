@@ -29,7 +29,7 @@ const useGetMemberProfile = ({
       setChatMembers((prevList) => [...prevList, enteredUserProfile]);
       setNewMemberId(null);
     }
-  }, [enteredUserProfile]);
+  }, [enteredUserProfile, setChatMembers, setNewMemberId]);
 };
 
 export default useGetMemberProfile;
