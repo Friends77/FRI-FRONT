@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Check from '../SVG/Icon/Check';
+import Check from '../../SVG/Icon/Check';
 
 export const Label = styled.label`
   position: relative;
@@ -11,12 +11,12 @@ export const Label = styled.label`
   cursor: pointer;
 `;
 
-export const CheckBox = styled.input`
+export const Radio = styled.input`
   appearance: none;
-  border: 1.8px solid ${({ theme }) => theme.colors.Gray_700};
-  border-radius: 2px;
-  width: 16px;
-  height: 16px;
+  border: 1px solid ${({ theme }) => theme.colors.Gray_1000};
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
 
   &:checked {
@@ -29,5 +29,5 @@ export const CheckMark = styled(Check)`
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(27%, 44%);
+  transform: translate(38%, 54%);
 `;

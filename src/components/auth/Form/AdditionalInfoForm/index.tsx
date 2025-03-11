@@ -1,6 +1,6 @@
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
-import CheckBox from '@/components/@common/Checkbox';
-import Radio from '@/components/@common/Radio';
+import CheckBox from '@/components/@common/Form/Checkbox';
+import Radio from '@/components/@common/Form/Radio';
 import { EI, FT, JP, NS } from '@/constants/user/mbti';
 import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
 import { useGeoLocation } from '@/hooks/auth/useGeoLocation';
@@ -43,7 +43,7 @@ const AdditionalInfoForm = () => {
                   <Radio
                     key={option.label}
                     name="EI"
-                    text={option.label}
+                    label={option.label}
                     value={option.value}
                   />
                 );
@@ -55,7 +55,7 @@ const AdditionalInfoForm = () => {
                   <Radio
                     key={option.label}
                     name="NS"
-                    text={option.label}
+                    label={option.label}
                     value={option.value}
                   />
                 );
@@ -67,7 +67,7 @@ const AdditionalInfoForm = () => {
                   <Radio
                     key={option.label}
                     name="FT"
-                    text={option.label}
+                    label={option.label}
                     value={option.value}
                   />
                 );
@@ -79,7 +79,7 @@ const AdditionalInfoForm = () => {
                   <Radio
                     key={option.label}
                     name="JP"
-                    text={option.label}
+                    label={option.label}
                     value={option.value}
                   />
                 );

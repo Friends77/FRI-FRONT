@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
-import Dropdown from '@/components/@common/Dropdown';
-import Radio from '@/components/@common/Radio';
+import Dropdown from '@/components/@common/Form/Dropdown';
+import Radio from '@/components/@common/Form/Radio';
 import { AUTH_ERROR_MSG } from '@/constants/message';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
@@ -194,7 +194,7 @@ const BasicInfoForm = () => {
                   }}
                   key={gender.label}
                   name="gender"
-                  text={gender.label}
+                  label={gender.label}
                   value={gender.value}
                 />
               );

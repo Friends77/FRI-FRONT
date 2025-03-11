@@ -1,7 +1,7 @@
 import { updateProfile } from '@/apis/user';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
-import Dropdown from '@/components/@common/Dropdown';
-import Radio from '@/components/@common/Radio';
+import Dropdown from '@/components/@common/Form/Dropdown';
+import Radio from '@/components/@common/Form/Radio';
 import ImagePicker from '@/components/auth/ImagePicker';
 import InputField from '@/components/auth/InputField';
 import { AUTH_ERROR_MSG } from '@/constants/message';
@@ -370,7 +370,7 @@ const ProfilePage = () => {
                       <Radio
                         key={option.label}
                         name="EI"
-                        text={option.label}
+                        label={option.label}
                         value={option.label}
                       />
                     );
@@ -382,7 +382,7 @@ const ProfilePage = () => {
                       <Radio
                         key={option.label}
                         name="NS"
-                        text={option.label}
+                        label={option.label}
                         value={option.label}
                       />
                     );
@@ -394,7 +394,7 @@ const ProfilePage = () => {
                       <Radio
                         key={option.label}
                         name="FT"
-                        text={option.label}
+                        label={option.label}
                         value={option.label}
                       />
                     );
@@ -406,7 +406,7 @@ const ProfilePage = () => {
                       <Radio
                         key={option.label}
                         name="JP"
-                        text={option.label}
+                        label={option.label}
                         value={option.label}
                       />
                     );

@@ -2,7 +2,7 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import * as Styled from './CreateChatRoom.styled';
 import InputField from '@/components/auth/InputField';
 import { CHAT_ERROR_MSG } from '@/constants/message';
-import Dropdown from '@/components/@common/Dropdown';
+import Dropdown from '@/components/@common/Form/Dropdown';
 import { useEffect, useState } from 'react';
 import { Options } from '@/types/@common';
 import { useFetchCategory } from '@/hooks/auth/useFetchCategory';

@@ -6,8 +6,8 @@ import {
   DropdownIndicatorProps,
   MultiValueRemoveProps,
 } from 'react-select';
-import ArrowDown from '../SVG/Icon/ArrowDown';
-import Close from '../SVG/Icon/Close';
+import ArrowDown from '../../SVG/Icon/ArrowDown';
+import Close from '../../SVG/Icon/Close';
 import * as Styled from './Dropdown.styled';
 import { FieldError, useFormContext } from 'react-hook-form';
 import { Options } from '@/types/@common';
