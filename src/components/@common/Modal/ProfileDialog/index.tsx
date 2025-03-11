@@ -6,7 +6,9 @@ import { getInternationalAge } from '@/utils/formatter/time';
 import Tag from '../../Tag';
 
 interface IProfileDialog {
+  /** 사용자 프로필 정보 */
   profile: IUserProfile;
+  /** 다이얼로그 닫기 버튼 클릭 시 실행될 함수 */
   onClose: () => void;
 }
 

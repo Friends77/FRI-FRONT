@@ -3,8 +3,11 @@ import * as Styled from './CustomModal.styled';
 import Close from '../../SVG/Icon/Close';
 
 interface ICustomModal {
+  /** 모달 제목 */
   title: string;
+  /** 모달 닫기 버튼 클릭 시 실행될 함수 */
   onClose: () => void;
+  /** 모달 내부에 렌더링할 콘텐츠 */
   children: React.ReactNode;
 }
 
