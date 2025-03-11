@@ -1,7 +1,7 @@
 import Tag from '@/components/@common/Tag';
 import * as Styled from './ChatRoomCard.styled';
 import ProfileImage from '@/components/@common/ProfileImage';
-import { ParticipantCount } from '@/components/@layout/SideBar/SideBarChatRoomItem/SideBarChatRoomItem.styled';
+import { ParticipantCount } from '@/components/@layout/SideBar/ChatRoomItem/ChatRoomItem.styled';
 import { v4 as uuidv4 } from 'uuid';
 import { useCallback } from 'react';
 import { CHAT_PATH } from '@/constants/routes';

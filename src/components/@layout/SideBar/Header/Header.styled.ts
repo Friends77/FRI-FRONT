@@ -8,14 +8,14 @@ export const Wrapper = styled.section`
   padding: 0 24px;
 `;
 
-export const SideBarButtonContainer = styled.div`
+export const ButtonContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
   gap: 6px;
 `;
 
-export const SideBarButton = styled.button`
+export const Button = styled.button`
   display: flex;
 `;
 

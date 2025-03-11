@@ -1,16 +1,16 @@
 import ProfileImage from '@/components/@common/ProfileImage';
-import * as Styled from './SideBarFriendItem.styled';
+import * as Styled from './FriendItem.styled';
 import { IProfileSimpleResponse } from '@/types/user';
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProfileDialog from '@/components/@common/Modal/ProfileDialog';
 import { IUserProfile } from '@/types/@common';
 import useGetProfile from '@/hooks/@common/useGetProfile';
 
-interface ISideBarFriendItemProps {
+interface IFriendItemProps {
   friend: IProfileSimpleResponse;
 }
 
-const SideBarFriendItem = ({ friend }: ISideBarFriendItemProps) => {
+const FriendItem = ({ friend }: IFriendItemProps) => {
   const { imageUrl, nickname, selfDescription } = friend;
 
   const [isOpenProfile, setIsOpenProfile] = useState(false);
@@ -69,4 +69,4 @@ const SideBarFriendItem = ({ friend }: ISideBarFriendItemProps) => {
   );
 };
 
-export default memo(SideBarFriendItem);
+export default FriendItem;

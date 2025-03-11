@@ -1,6 +1,6 @@
 import HomeChatListByTag from '@/components/home/HomeChatListByTag';
 import * as Styled from './home.styled';
-import RecommendedUsers from '@/components/@common/Recommendations/User/RecommendedUsers';
+import RecommendedUsers from '@/components/home/Recommendations/User/RecommendedUsers';
 import HomeFriendListByTag from '@/components/home/HomeFriendListByTag';
 import Banner from '@/components/home/Banner';
 import { useRecoilValue } from 'recoil';

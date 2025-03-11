@@ -1,21 +1,20 @@
 import { IMyChatItem } from '@/types/chat';
-import * as Styled from './SideBarChatRoomItem.styled';
+import * as Styled from './ChatRoomItem.styled';
 import { formatToHHMM } from '@/utils/formatter/time';
 import { v4 as uuidv4 } from 'uuid';
 import ProfileImage from '@/components/@common/ProfileImage';
-import { memo } from 'react';
 
-interface ISideBarChatRoomItemProps {
+interface IChatRoomItemProps {
   chatRoom: IMyChatItem;
   isSelected: boolean;
   onClick: (roomId: number) => void;
 }
 
-const SideBarChatRoomItem = ({
+const ChatRoomItem = ({
   chatRoom,
   isSelected,
   onClick,
-}: ISideBarChatRoomItemProps) => {
+}: IChatRoomItemProps) => {
   const {
     id,
     imageUrl,
@@ -68,4 +67,4 @@ const SideBarChatRoomItem = ({
   );
 };
 
-export default memo(SideBarChatRoomItem);
+export default ChatRoomItem;

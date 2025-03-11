@@ -1,6 +1,6 @@
-import * as Styled from './SideBarProfileSkeleton.styled';
+import * as Styled from './ProfileSkeleton.styled';
 
-const SideBarProfileSkeleton = () => {
+const ProfileSkeleton = () => {
   return (
     <Styled.SkeletonContent>
       <Styled.SkeletonImg />
@@ -9,4 +9,4 @@ const SideBarProfileSkeleton = () => {
   );
 };
 
-export default SideBarProfileSkeleton;
+export default ProfileSkeleton;

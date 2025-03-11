@@ -1,5 +1,5 @@
 import { useProfile } from '@/hooks/user/useProfile';
-import * as Styled from './SideBarProfile.styled';
+import * as Styled from './Profile.styled';
 import { useSetRecoilState } from 'recoil';
 import profileAtom from '@/recoil/user/profile';
 import { useEffect, useState } from 'react';
@@ -10,7 +10,7 @@ import { useLogout } from '@/hooks/auth/useLogout';
 import { USER_PATH } from '@/constants/routes';
 import { useNavigate } from 'react-router';
 
-const SideBarProfile = () => {
+const Profile = () => {
   const navigate = useNavigate();
 
   const { data } = useProfile();
@@ -66,4 +66,4 @@ const SideBarProfile = () => {
   );
 };
 
-export default SideBarProfile;
+export default Profile;

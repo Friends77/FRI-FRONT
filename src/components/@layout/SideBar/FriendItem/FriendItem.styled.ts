@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { lineClamp } from '../SideBarChatRoomItem/SideBarChatRoomItem.styled';
+import { lineClamp } from '../ChatRoomItem/ChatRoomItem.styled';
 
 export const Wrapper = styled.li`
   display: flex;

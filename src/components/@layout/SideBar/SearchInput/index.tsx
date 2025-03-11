@@ -1,17 +1,14 @@
 import Search from '@/components/@common/SVG/Icon/Search';
-import * as Styled from './SideBarSearchInput.styled';
+import * as Styled from './SearchInput.styled';
 import { useFormContext } from 'react-hook-form';
 import Cancel from '@/components/@common/SVG/Icon/Cancel';
 
-interface ISideBarSearchInput {
+interface ISearchInput {
   className?: string;
   placeholder?: string;
 }
 
-const SideBarSearchInput = ({
-  className,
-  placeholder,
-}: ISideBarSearchInput) => {
+const SearchInput = ({ className, placeholder }: ISearchInput) => {
   const { register, watch, setValue } = useFormContext();
 
   const keyword = watch('keyword');
@@ -44,4 +41,4 @@ const SideBarSearchInput = ({
   );
 };
 
-export default SideBarSearchInput;
+export default SearchInput;

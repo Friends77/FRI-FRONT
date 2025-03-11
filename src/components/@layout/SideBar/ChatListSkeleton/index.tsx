@@ -1,7 +1,7 @@
-import * as Styled from './SideBarChatListSkeleton.styled';
+import * as Styled from './ChatListSkeleton.styled';
 import { v4 as uuidv4 } from 'uuid';
 
-const SideBarChatListSkeleton = () => {
+const ChatListSkeleton = () => {
   return (
     <Styled.SkeletonWrapper>
       <Styled.Header />
@@ -28,4 +28,4 @@ const SideBarChatListSkeleton = () => {
   );
 };
 
-export default SideBarChatListSkeleton;
+export default ChatListSkeleton;

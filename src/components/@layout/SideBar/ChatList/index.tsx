@@ -1,18 +1,17 @@
-import * as Styled from '../SideBarFriendList/SideBarFriendList.styled';
-import SideBarListWrapper from '../SideBarListWrapper';
+import * as Styled from '../FriendList/FriendList.styled';
+import SideBarListWrapper from '../ListWrapper';
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import chatRoomListAtom from '@/recoil/chat/roomList';
 import { useFormContext } from 'react-hook-form';
-// import useDebounce from '@/hooks/@common/useDebounce';
 import { useNavigate, useParams } from 'react-router';
 import { CHAT_PATH } from '@/constants/routes';
-import SideBarChatRoomItem from '../SideBarChatRoomItem';
+import SideBarChatRoomItem from '../ChatRoomItem';
 import { IMyChatItem } from '@/types/chat';
 import { filterKeyword } from '@/utils/search';
 import useGetMyChatList from '@/hooks/chat/useGetMyChatList';
 
-const SideBarChatList = () => {
+const ChatList = () => {
   const { roomId } = useParams();
 
   const navigate = useNavigate();
@@ -20,9 +19,6 @@ const SideBarChatList = () => {
   const { watch } = useFormContext();
 
   const keyword = watch('keyword');
-
-  // debouncedKeyword 안됨
-  // const debouncedKeyword = useDebounce(keyword);
 
   const { data: chatListResponse } = useGetMyChatList();
 
@@ -74,4 +70,4 @@ const SideBarChatList = () => {
   );
 };
 
-export default SideBarChatList;
+export default ChatList;

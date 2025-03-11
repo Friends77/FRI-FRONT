@@ -1,7 +1,7 @@
 import { AUTH_PATH } from '@/constants/routes';
-import * as Styled from './SideBarWithoutAuth.styled';
+import * as Styled from './WithoutAuth.styled';
 
-const SideBarWithoutAuth = () => {
+const WithoutAuth = () => {
   return (
     <Styled.Container>
       <Styled.Text>
@@ -14,4 +14,4 @@ const SideBarWithoutAuth = () => {
   );
 };
 
-export default SideBarWithoutAuth;
+export default WithoutAuth;

@@ -1,19 +1,19 @@
-import * as Styled from './SideBarListWrapper.styled';
+import * as Styled from './ListWrapper.styled';
 import { useState } from 'react';
 
-interface ISideBarContentWrapperProps {
+interface IContentWrapperProps {
   children: React.ReactNode;
   isOpened?: boolean;
   title: string;
   count: number;
 }
 
-const SideBarListWrapper = ({
+const ListWrapper = ({
   children,
   isOpened,
   title,
   count,
-}: ISideBarContentWrapperProps) => {
+}: IContentWrapperProps) => {
   const [isOpen, setIsOpen] = useState(isOpened || false);
 
   const handleIsOpenToggle = () => {
@@ -38,4 +38,4 @@ const SideBarListWrapper = ({
   );
 };
 
-export default SideBarListWrapper;
+export default ListWrapper;

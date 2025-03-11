@@ -1,5 +1,5 @@
 import ProfileImage from '@/components/@common/ProfileImage';
-import SideBarSearchInput from '@/components/@layout/SideBar/SideBarSearchInput';
+import SideBarSearchInput from '@/components/@layout/SideBar/SearchInput';
 import { Link } from 'react-router';
 import styled, { css } from 'styled-components';
 
