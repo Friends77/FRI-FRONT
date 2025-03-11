@@ -44,7 +44,7 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
         navigate(path);
       }
     },
-    [navigate],
+    [isLoggedIn, navigate],
   );
 
   return (

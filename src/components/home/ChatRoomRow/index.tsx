@@ -2,7 +2,7 @@ import { useChatRoomsByTag } from '@/hooks/home/useChatRoomsByTag';
 import { useEffect, useState } from 'react';
 import { SwiperClass, SwiperSlide } from 'swiper/react';
 import ChatRoomCard from '../ChatRoomCard';
-import PageNavigator from '../PageNavigator';
+import PageNavigator from '../../@common/PageNavigator';
 import * as Styled from './ChatRoomRow.styled';
 import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
 import Tag from '@/components/@common/Tag';
@@ -15,10 +15,8 @@ export interface ChatRoomRowProps {
 const ChatRoomRow = ({ categoryId }: ChatRoomRowProps) => {
   const [tag, setTag] = useState<IInterestTag | null>(null);
 
-  // 카테고리 조회
   const { data: tags } = useFetchCategory();
 
-  // 사용자 선택 태그 정보 조회
   useEffect(() => {
     if (tags) {
       const tag = tags.find((tag) => tag.id === categoryId)!;
@@ -26,20 +24,13 @@ const ChatRoomRow = ({ categoryId }: ChatRoomRowProps) => {
     }
   }, [categoryId, tags]);
 
-  // 사용자 선택 태그가 포함된 채팅방 리스트
   const { data: chatRooms } = useChatRoomsByTag(categoryId);
 
-  // swiper 관련 state
   const [swiper, setSwiper] = useState<SwiperClass>();
 
   const [isBeginning, setIsBeginning] = useState(true);
 
   const [isEnd, setIsEnd] = useState(false);
-
-  // 추천 채팅방 없을 때
-  if (!chatRooms) {
-    return <div>추천 채팅방 없음</div>;
-  }
 
   return (
     <Styled.Wrapper>

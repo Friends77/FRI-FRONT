@@ -15,7 +15,6 @@ export interface IUserCardProps {
 const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // 친구 상태 관리
   const [friendState, setFriendState] = useState(friendStatusType);
 
   const isLoggedIn = useRecoilValue(isLoggedInAtom);

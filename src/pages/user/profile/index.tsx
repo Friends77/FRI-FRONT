@@ -5,7 +5,7 @@ import Radio from '@/components/@common/Form/Radio';
 import ImagePicker from '@/components/@common/ImagePicker';
 import InputField from '@/components/@common/Form/InputField';
 import { AUTH_ERROR_MSG } from '@/constants/message';
-import { BIRTH_MONTH } from '@/constants/month';
+import { BIRTH_MONTH } from '@/constants/user/month';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
 import { useFetchCategory } from '@/hooks/auth/useFetchCategory';

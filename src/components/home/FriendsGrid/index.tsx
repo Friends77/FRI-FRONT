@@ -13,10 +13,8 @@ export interface IFriendsGridProps {
 const FriendsGrid = ({ categoryId }: IFriendsGridProps) => {
   const [tag, setTag] = useState<IInterestTag | null>(null);
 
-  // 카테고리 조회
   const { data: tags } = useFetchCategory();
 
-  // 사용자 선택 태그 정보 조회
   useEffect(() => {
     if (tags) {
       const tag = tags.find((tag) => tag.id === categoryId)!;
@@ -26,10 +24,6 @@ const FriendsGrid = ({ categoryId }: IFriendsGridProps) => {
 
   // 사용자 선택 태그 기반 추천 유저 API
   const { data: friends } = useFriendsByTag(categoryId);
-
-  if (!friends) {
-    <div>추천 친구 없음</div>;
-  }
 
   return (
     <Styled.FriendsGridWrapper>

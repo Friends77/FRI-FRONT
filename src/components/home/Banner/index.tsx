@@ -17,10 +17,6 @@ export interface BannerProps {
 const Banner = ({ roomId, title, subTitle }: BannerProps) => {
   const navigate = useNavigate();
 
-  // const chatRoomDetail = useRecoilValue(roomDetailAtom);
-
-  // useGetChatRoomDetail({ roomId });
-
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
   const handleChatRoomClick = useCallback(
@@ -47,10 +43,8 @@ const Banner = ({ roomId, title, subTitle }: BannerProps) => {
           </Styled.TitleSection>
           <Styled.BottomSection>
             <Styled.ChatRoomInfoSection>
-              {/* <Styled.ChatRoomImage src={chatRoomDetail?.imageUrl} /> */}
               <Styled.ChatRoomImage src={chatRoomThumbnail} />
               <Styled.ChatRoomInfo>
-                {/* {chatRoomDetail?.title} */}
                 오징어게임 시즌3 존버방
                 <img
                   src={Profiles}

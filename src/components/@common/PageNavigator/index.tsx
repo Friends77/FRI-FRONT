@@ -4,9 +4,13 @@ import ArrowRight from '@/components/@common/SVG/Icon/ArrowRight';
 import { Theme } from '@/styles/theme';
 
 export interface IpageNavigatorProps {
+  /** 아이콘 색상 (기본값: blue) */
   color?: 'blue' | 'gray';
-  direction: 'prev' | 'next'; // 이동 방향
+  /** 이전(‘prev’) 또는 다음(‘next’) 방향 설정 */
+  direction: 'prev' | 'next';
+  /** 버튼 비활성화 여부 */
   disabled: boolean;
+  /** 버튼 클릭 시 실행되는 함수 */
   onClick: () => void;
 }
 

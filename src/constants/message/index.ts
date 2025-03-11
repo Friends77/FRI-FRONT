@@ -1,4 +1,3 @@
-// 인증 관련 에러 메세지
 export const AUTH_ERROR_MSG = Object.freeze({
   // 이메일
   EMAIL_REQUIRED: '이메일을 입력해주세요.',

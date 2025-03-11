@@ -11,7 +11,6 @@ import { IProfileSimpleResponse } from '@/types/user';
 import { useEffect, useState } from 'react';
 
 const RecommendedUsers = () => {
-  // 전역 변수에 저장된 사용자 정보 가져오기
   const userInfo = useRecoilValue(profileAtom);
 
   const isLoggedIn = useRecoilValue(isLoggedInAtom);

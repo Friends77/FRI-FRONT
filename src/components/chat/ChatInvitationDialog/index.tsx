@@ -61,7 +61,6 @@ const ChatInvitationDialog = ({ title, onClose }: IChatInvitationDialog) => {
       <FormProvider {...methods}>
         <Styled.InvitationDialog>
           <Styled.SearchInput placeholder="친구 이름 검색" />
-          {/* TODO: 서버에서 친구상태 추가되면 수정 */}
           {memberList.length > 0 ? (
             <Styled.FriendList>
               {memberList.map((member) => (
