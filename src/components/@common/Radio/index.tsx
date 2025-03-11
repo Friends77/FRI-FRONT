@@ -21,6 +21,7 @@ const Radio = ({ text, id, name, rules, ...rest }: IRadioProps) => {
           {...register(name, rules)}
           {...rest}
         />
+        <Styled.CheckMark title="체크" width="16" height="16" />
         {text}
       </Styled.Label>
     </>

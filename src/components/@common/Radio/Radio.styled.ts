@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import checkMarkSvg from '@/assets/icons/check-mark.svg';
+import Check from '../SVG/Icon/Check';
 
 export const Label = styled.label`
+  position: relative;
   ${({ theme }) => theme.typo.T2_R}
   color: ${({ theme }) => theme.colors.Gray_900};
   display: flex;
@@ -20,8 +21,13 @@ export const Radio = styled.input`
 
   &:checked {
     border-color: transparent;
-    background-position: 50%;
-    background-image: url(${checkMarkSvg});
     background-color: ${({ theme }) => theme.colors.Blue_500};
   }
+`;
+
+export const CheckMark = styled(Check)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(38%, 54%);
 `;
