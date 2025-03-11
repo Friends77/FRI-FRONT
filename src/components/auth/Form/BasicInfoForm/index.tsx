@@ -9,7 +9,7 @@ import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { getDaysInMonth } from '@/utils/date';
 import { moveToStep } from '@/utils/step/moveSteps';
 import { useRef, useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 import ImagePicker from '../../../@common/ImagePicker';
 import InputField from '../../../@common/Form/InputField';
@@ -35,17 +35,17 @@ const BasicInfoForm = () => {
     formState: { isValid },
   } = useFormContext();
 
+  const nickname = useWatch({ name: 'nickname', control });
+
   // 닉네임 유효성 검사
-  const { mutateAsync: verifyNickname } = useCheckAvailability();
+  const { data: nicknameAvailability } = useCheckAvailability({
+    type: 'nickname',
+    value: nickname,
+  });
 
-  const handleVerifyNicknameValidate = async (value: string) => {
-    const { isValid, message } = await verifyNickname({
-      type: 'nickname',
-      value,
-    });
-
-    if (!isValid) {
-      return message;
+  const handleVerifyNicknameValidate = async () => {
+    if (nicknameAvailability && !nicknameAvailability.isValid) {
+      return nicknameAvailability.message;
     }
 
     return true;

@@ -1,5 +1,5 @@
 import Tag from '@/components/@common/Tag';
-import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
+import useGetCategory from '@/hooks/@common/useGetCategory';
 import FriendCard from '../FriendCard';
 import * as Styled from './FriendsGrid.styled';
 import { useFriendsByTag } from '@/hooks/home/useFriendsByTag';
@@ -13,7 +13,7 @@ export interface IFriendsGridProps {
 const FriendsGrid = ({ categoryId }: IFriendsGridProps) => {
   const [tag, setTag] = useState<IInterestTag | null>(null);
 
-  const { data: tags } = useFetchCategory();
+  const { data: tags } = useGetCategory();
 
   useEffect(() => {
     if (tags) {

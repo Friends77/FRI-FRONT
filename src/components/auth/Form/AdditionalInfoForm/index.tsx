@@ -2,7 +2,7 @@ import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import CheckBox from '@/components/@common/Form/Checkbox';
 import Radio from '@/components/@common/Form/Radio';
 import { EI, FT, JP, NS } from '@/constants/user/mbti';
-import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
+import useGetCategory from '@/hooks/@common/useGetCategory';
 import { useGeoLocation } from '@/hooks/auth/useGeoLocation';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { Theme } from '@/styles/theme';
@@ -24,7 +24,7 @@ const AdditionalInfoForm = () => {
   useGeoLocation(geolocationOptions);
 
   // 관심사 조회
-  const { data: categories } = useFetchCategory();
+  const { data: categories } = useGetCategory();
 
   const {
     formState: { isValid },

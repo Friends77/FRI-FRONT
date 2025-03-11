@@ -8,7 +8,7 @@ import { ALERT_MESSAGE, AUTH_ERROR_MESSAGE } from '@/constants/message';
 import { BIRTH_MONTH } from '@/constants/user/month';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
-import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
+import useGetCategory from '@/hooks/@common/useGetCategory';
 import { useProfile } from '@/hooks/user/useProfile';
 import accessTokenAtom from '@/recoil/auth/accessToken';
 import { Options } from '@/types/@common';
@@ -22,6 +22,7 @@ import {
   FormProvider,
   SubmitHandler,
   useForm,
+  useWatch,
 } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { useRecoilValue } from 'recoil';
@@ -51,10 +52,8 @@ const ProfilePage = () => {
 
   const [selectedTags, setSelectedTags] = useState<Options[]>([]);
 
-  // 닉네임 변경하기 버튼 클릭 여부 상태
   const [hasClickedEdit, setHasClickedEdit] = useState(false);
 
-  // 사용자 정보 조회 및 MBTI 재가공
   const { data: userData } = useProfile();
 
   const birth = userData.birth.split('-');
@@ -68,18 +67,48 @@ const ProfilePage = () => {
   // 사용자의 생년, 생월에 해당하는 일 세팅
   const [days, setDays] = useState(getDaysInMonth(+birth[0], +birth[1]));
 
+  const methods = useForm({
+    mode: 'onChange',
+    defaultValues: {
+      nickname: userData.nickname,
+      imageUrl: userData.imageUrl,
+      selfDescription: userData.selfDescription,
+      year: +birth[0],
+      month: birth[1],
+      day: birth[2],
+      gender: userData.gender,
+      EI: letters[0],
+      NS: letters[1],
+      FT: letters[2],
+      JP: letters[3],
+      tags: selectedTags,
+    },
+  });
+
+  const {
+    control,
+    reset,
+    handleSubmit,
+    getValues,
+    formState: { isValid, isDirty },
+    getFieldState,
+  } = methods;
+
+  const nickname = useWatch({ name: 'nickname', control });
+
   // 닉네임 유효성 검사
-  const { mutateAsync: verifyNickname } = useCheckAvailability();
+  const { data: nicknameAvailability } = useCheckAvailability({
+    type: 'nickname',
+    value: nickname,
+  });
 
   const handleVerifyNicknameValidate = async (value: string) => {
-    const { isValid, message } = await verifyNickname({
-      type: 'nickname',
-      value,
-    });
-
-    // 원래 닉네임과 같으면 유효성 검사 실시하지 않음
-    if (userData.nickname !== value && !isValid) {
-      return message;
+    if (
+      userData.nickname !== value &&
+      nicknameAvailability &&
+      !nicknameAvailability.isValid
+    ) {
+      return nicknameAvailability.message;
     }
 
     return true;
@@ -112,7 +141,7 @@ const ProfilePage = () => {
   };
 
   // 카테고리 조회
-  const { data: categories } = useFetchCategory();
+  const { data: categories } = useGetCategory();
 
   // 전체 카테고리 옵션 세팅
   useEffect(() => {
@@ -144,33 +173,6 @@ const ProfilePage = () => {
       });
     }
   }, [userData]);
-
-  const methods = useForm({
-    mode: 'onChange',
-    defaultValues: {
-      nickname: userData.nickname,
-      imageUrl: userData.imageUrl,
-      selfDescription: userData.selfDescription,
-      year: +birth[0],
-      month: birth[1],
-      day: birth[2],
-      gender: userData.gender,
-      EI: letters[0],
-      NS: letters[1],
-      FT: letters[2],
-      JP: letters[3],
-      tags: selectedTags,
-    },
-  });
-
-  const {
-    control,
-    reset,
-    handleSubmit,
-    getValues,
-    formState: { isValid, isDirty },
-    getFieldState,
-  } = methods;
 
   // 프로필 수정 react-query
   const { mutate } = useMutation({

@@ -1,10 +1,12 @@
-import { fetchCategory } from '@/apis/@common';
+import { getCategory } from '@/apis/@common';
 import { COMMON_KEYS } from '@/constants/@queryKeys';
 import { useQuery } from '@tanstack/react-query';
 
-export const useFetchCategory = () => {
+const useGetCategory = () => {
   return useQuery({
     queryKey: COMMON_KEYS.CATEGORY,
-    queryFn: fetchCategory,
+    queryFn: getCategory,
   });
 };
+
+export default useGetCategory;

@@ -4,7 +4,7 @@ import { SwiperClass, SwiperSlide } from 'swiper/react';
 import ChatRoomCard from '../ChatRoomCard';
 import PageNavigator from '../../@common/PageNavigator';
 import * as Styled from './ChatRoomRow.styled';
-import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
+import useGetCategory from '@/hooks/@common/useGetCategory';
 import Tag from '@/components/@common/Tag';
 import { IInterestTag } from '@/types/@common';
 
@@ -15,7 +15,7 @@ export interface ChatRoomRowProps {
 const ChatRoomRow = ({ categoryId }: ChatRoomRowProps) => {
   const [tag, setTag] = useState<IInterestTag | null>(null);
 
-  const { data: tags } = useFetchCategory();
+  const { data: tags } = useGetCategory();
 
   useEffect(() => {
     if (tags) {

@@ -1,12 +1,12 @@
 import Restart from '@/components/@common/SVG/Icon/Restart';
 import { HOME_CONSTANT } from '@/constants/home';
-import usePublicRecommendations from '@/hooks/@common/usePublicRecommendations';
+import usePublicRecommendations from '@/hooks/home/usePublicRecommendations';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import profileAtom from '@/recoil/user/profile';
 import { useRecoilValue } from 'recoil';
 import UserCard from '../UserCard';
 import * as Styled from './RecommendedUsers.styled';
-import usePrivateRecommendations from '@/hooks/@common/usePrivateRecommendations';
+import usePrivateRecommendations from '@/hooks/home/usePrivateRecommendations';
 import { IProfileSimpleResponse } from '@/types/user';
 import { useEffect, useState } from 'react';
 

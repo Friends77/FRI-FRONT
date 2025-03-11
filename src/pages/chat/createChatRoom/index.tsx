@@ -5,14 +5,14 @@ import { CHAT_ERROR_MSG } from '@/constants/message';
 import Dropdown from '@/components/@common/Form/Dropdown';
 import { useEffect, useState } from 'react';
 import { Options } from '@/types/@common';
-import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
+import useGetCategory from '@/hooks/@common/useGetCategory';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import { ICreateChatRoomForm } from '@/types/chat';
 import { useCreateChatRoom } from '@/hooks/chat/useCreateChatRoom';
 import ImagePicker from '@/components/@common/ImagePicker';
 import defaultThumbnail from '@/assets/images/defaultThumbnail.png';
 const CreateChatRoom = () => {
-  const { data: categories } = useFetchCategory();
+  const { data: categories } = useGetCategory();
 
   const [categoryOptions, setCategoryOptions] = useState<Options[]>([]);
 

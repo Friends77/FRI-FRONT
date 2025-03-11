@@ -9,6 +9,7 @@ export const USER_KEYS = Object.freeze({
   FRIEND_LIST: ['friend-list'],
   UNREAD_ALARM_COUNT: ['unread-alarm-count'],
   ALARM_LIST: ['alarm-list'],
+  CHECK_AVAILABILITY: ['check-availability'],
 });
 
 export const CHAT_KEYS = Object.freeze({

@@ -92,13 +92,14 @@ const AuthForm = () => {
   });
 
   // 이메일 유효성 검사
-  const { mutateAsync: verifyEmail } = useCheckAvailability();
+  const { data: emailAvailability } = useCheckAvailability({
+    type: 'email',
+    value: email,
+  });
 
-  const handleVerifyEmailValidate = async (value: string) => {
-    const { isValid, message } = await verifyEmail({ type: 'email', value });
-
-    if (!isValid) {
-      return message;
+  const handleVerifyEmailValidate = () => {
+    if (emailAvailability && !emailAvailability.isValid) {
+      return emailAvailability.message;
     }
 
     return true;
