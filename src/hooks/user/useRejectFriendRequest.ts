@@ -1,5 +1,6 @@
 import { rejectFriendRequest } from '@/apis/user';
 import { USER_KEYS } from '@/constants/@queryKeys';
+import { ALERT_MESSAGE } from '@/constants/message';
 import alarmListAtom from '@/recoil/user/alarmList';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSetRecoilState } from 'recoil';
@@ -21,7 +22,7 @@ const useRejectFriendRequest = () => {
       );
     },
     onError: () => {
-      alert('친구요청 거절을 실패했습니다.');
+      alert(ALERT_MESSAGE.FRIEND_REQUEST_REJECT_FAILED);
     },
   });
 };

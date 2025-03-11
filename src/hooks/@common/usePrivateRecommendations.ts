@@ -1,7 +1,3 @@
-/**
- * 친구 찾아보기 - 로그인 상태
- */
-
 import { getPrivateUserRecommendations } from '@/apis/@common';
 import { COMMON_KEYS } from '@/constants/@queryKeys';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';

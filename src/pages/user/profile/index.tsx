@@ -4,7 +4,7 @@ import Dropdown from '@/components/@common/Form/Dropdown';
 import Radio from '@/components/@common/Form/Radio';
 import ImagePicker from '@/components/@common/ImagePicker';
 import InputField from '@/components/@common/Form/InputField';
-import { AUTH_ERROR_MSG } from '@/constants/message';
+import { ALERT_MESSAGE, AUTH_ERROR_MESSAGE } from '@/constants/message';
 import { BIRTH_MONTH } from '@/constants/user/month';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
@@ -86,7 +86,7 @@ const ProfilePage = () => {
   };
 
   const handleEditNickname = () => {
-    alert('닉네임이 변경되었습니다! 저장을 완료해주세요.');
+    alert(ALERT_MESSAGE.NICKNAME_CHANGED);
     setHasClickedEdit(true);
   };
 
@@ -176,7 +176,7 @@ const ProfilePage = () => {
   const { mutate } = useMutation({
     mutationFn: updateProfile,
     onSuccess: () => {
-      alert('변경 되었습니다.');
+      alert(ALERT_MESSAGE.CHANGES_SAVED);
       queryClient.invalidateQueries({
         queryKey: USER_KEYS.PROFILE(memberId),
       });
@@ -229,11 +229,11 @@ const ProfilePage = () => {
                   rules={{
                     required: {
                       value: true,
-                      message: AUTH_ERROR_MSG.NICKNAME_REQUIRED,
+                      message: AUTH_ERROR_MESSAGE.NICKNAME_REQUIRED,
                     },
                     pattern: {
                       value: AUTH_PATTERN.NICKNAME,
-                      message: AUTH_ERROR_MSG.NICKNAME_PATTERN,
+                      message: AUTH_ERROR_MESSAGE.NICKNAME_PATTERN,
                     },
                     validate: handleVerifyNicknameValidate,
                   }}
@@ -266,7 +266,7 @@ const ProfilePage = () => {
                 rules={{
                   required: {
                     value: true,
-                    message: AUTH_ERROR_MSG.SELF_DESCRIPTION_REQUIRED,
+                    message: AUTH_ERROR_MESSAGE.SELF_DESCRIPTION_REQUIRED,
                   },
                 }}
               />

@@ -2,6 +2,7 @@ import { signUp } from '@/apis/auth';
 import AdditionalInfoForm from '@/components/auth/Form/AdditionalInfoForm';
 import AuthForm from '@/components/auth/Form/AuthForm';
 import BasicInfoForm from '@/components/auth/Form/BasicInfoForm';
+import { ALERT_MESSAGE } from '@/constants/message';
 import { AUTH_PATH, ROOT_PATH } from '@/constants/routes';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
@@ -59,11 +60,11 @@ const SignUpPage = () => {
   const { mutate } = useMutation({
     mutationFn: signUp,
     onSuccess: () => {
-      alert('회원가입에 성공했어요.');
+      alert(ALERT_MESSAGE.SIGNUP_SUCCESS);
       navigate(AUTH_PATH.LOGIN);
     },
     onError: () => {
-      alert('회원가입에 실패했어요.');
+      alert(ALERT_MESSAGE.SIGNUP_FAILED);
     },
   });
 

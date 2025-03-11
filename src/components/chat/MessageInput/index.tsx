@@ -6,6 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import { imageUpload } from '@/apis/@common';
 import { ISendMyMessageForm, MessageType } from '@/types/chat';
 import { useRef } from 'react';
+import { ALERT_MESSAGE } from '@/constants/message';
 
 interface IMessageInputProps {
   value: string;
@@ -35,7 +36,7 @@ const MessageInput = ({
       }
     },
     onError: () => {
-      alert('이미지 업로드에 실패하였습니다.');
+      alert(ALERT_MESSAGE.IMAGE_UPLOAD_FAILED);
     },
   });
 
@@ -58,7 +59,7 @@ const MessageInput = ({
 
     if (files) {
       if (files.length > 20) {
-        window.alert('최대 20장까지 업로드 가능합니다');
+        window.alert(ALERT_MESSAGE.MAX_IMAGE_LIMIT_EXCEEDED);
 
         return;
       }

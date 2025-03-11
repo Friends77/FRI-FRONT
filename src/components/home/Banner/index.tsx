@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import * as Styled from './Banner.styled';
 import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
-import { AUTH_ERROR_MSG } from '@/constants/message';
+import { ALERT_MESSAGE } from '@/constants/message';
 
 export interface BannerProps {
   roomId: number;
@@ -22,7 +22,7 @@ const Banner = ({ roomId, title, subTitle }: BannerProps) => {
   const handleChatRoomClick = useCallback(
     (roomId: number) => {
       if (!isLoggedIn) {
-        alert(AUTH_ERROR_MSG.LOGIN_REQUIRED);
+        alert(ALERT_MESSAGE.LOGIN_REQUIRED);
         navigate(AUTH_PATH.LOGIN);
       } else {
         const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());

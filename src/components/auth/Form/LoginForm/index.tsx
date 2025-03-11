@@ -1,4 +1,4 @@
-import { AUTH_ERROR_MSG } from '@/constants/message';
+import { AUTH_ERROR_MESSAGE } from '@/constants/message';
 import { useLogin } from '@/hooks/auth/useLogin';
 import { LoginDataType } from '@/types/auth';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -21,7 +21,7 @@ const LoginForm = () => {
     loginErrorHandler: () => {
       setError(
         'password',
-        { message: AUTH_ERROR_MSG.INCORRECT_EMAIL_OR_PASSWORD },
+        { message: AUTH_ERROR_MESSAGE.INCORRECT_EMAIL_OR_PASSWORD },
         { shouldFocus: true },
       );
     },
@@ -40,12 +40,12 @@ const LoginForm = () => {
             label="이메일"
             id="email"
             name="email"
-            placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
+            placeholder={AUTH_ERROR_MESSAGE.EMAIL_REQUIRED}
             rules={{
-              required: AUTH_ERROR_MSG.EMAIL_REQUIRED,
+              required: AUTH_ERROR_MESSAGE.EMAIL_REQUIRED,
               pattern: {
                 value: AUTH_PATTERN.EMAIL,
-                message: AUTH_ERROR_MSG.EMAIL_PATTERN,
+                message: AUTH_ERROR_MESSAGE.EMAIL_PATTERN,
               },
             }}
           />
@@ -54,9 +54,9 @@ const LoginForm = () => {
             label="비밀번호"
             id="password"
             name="password"
-            placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
+            placeholder={AUTH_ERROR_MESSAGE.PASSWORD_REQUIRED}
             rules={{
-              required: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
+              required: AUTH_ERROR_MESSAGE.PASSWORD_REQUIRED,
             }}
           />
         </Styled.InputFields>

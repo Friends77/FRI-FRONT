@@ -3,6 +3,7 @@ import { ReactEventHandler, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import * as Styled from './ImagePicker.styled';
 import { useImageUpload } from '@/hooks/@common/useImageUpload';
+import { ALERT_MESSAGE } from '@/constants/message';
 
 export interface IImagePickerProps {
   /** 폼에서 사용할 필드 이름 */
@@ -34,7 +35,7 @@ const ImagePicker = ({
   const { mutate: imageUpload } = useImageUpload({
     onSuccessHandler: (path) => setValue(name, path, { shouldDirty: true }),
     onErrorHandler: () => {
-      alert('이미지 업로드에 실패하였습니다!');
+      alert(ALERT_MESSAGE.IMAGE_UPLOAD_FAILED);
     },
   });
 

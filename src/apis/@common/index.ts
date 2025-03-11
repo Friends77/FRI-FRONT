@@ -23,7 +23,7 @@ export const getUserProfile = async (memberId: number) => {
 
 // 카테고리 조회
 export const fetchCategory = async () => {
-  const response = await Axios.get<CategoryResponse>(`/api/global/category`);
+  const response = await Axios.get<CategoryResponse>('/api/global/category');
 
   return response.data;
 };

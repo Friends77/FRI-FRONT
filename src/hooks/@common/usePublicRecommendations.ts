@@ -1,7 +1,3 @@
-/**
- * 친구 찾아보기 - 비로그인
- */
-
 import { getPublicUserRecommendations } from '@/apis/@common';
 import { COMMON_KEYS } from '@/constants/@queryKeys';
 import { HOME_CONSTANT } from '@/constants/home';

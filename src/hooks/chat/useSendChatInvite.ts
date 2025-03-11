@@ -1,4 +1,5 @@
 import { inviteChatRoom } from '@/apis/chat';
+import { ALERT_MESSAGE } from '@/constants/message';
 import { useMutation } from '@tanstack/react-query';
 
 interface IUseSendChatInvite {
@@ -12,7 +13,7 @@ const useSendChatInvite = ({ onSuccessHandler }: IUseSendChatInvite) => {
       onSuccessHandler(data);
     },
     onError: () => {
-      alert('친구초대를 실패했습니다.');
+      alert(ALERT_MESSAGE.FRIEND_INVITE_FAILED);
     },
   });
 };

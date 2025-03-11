@@ -6,6 +6,7 @@ import useFriendRequest from '@/hooks/user/useFriendRequest';
 import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import { FriendsStatus } from '@/types/chat';
+import { ALERT_MESSAGE } from '@/constants/message';
 
 export interface IUserCardProps {
   userInfo: IProfileSimpleResponse;
@@ -21,7 +22,7 @@ const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
 
   const { mutate: addFriend } = useFriendRequest({
     onSuccessHandler: () => {
-      alert('친구 신청을 보냈어요!');
+      alert(ALERT_MESSAGE.FRIEND_REQUEST_SENT);
     },
   });
 

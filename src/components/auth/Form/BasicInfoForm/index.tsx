@@ -2,7 +2,7 @@
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import Dropdown from '@/components/@common/Form/Dropdown';
 import Radio from '@/components/@common/Form/Radio';
-import { AUTH_ERROR_MSG } from '@/constants/message';
+import { AUTH_ERROR_MESSAGE } from '@/constants/message';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
@@ -92,11 +92,11 @@ const BasicInfoForm = () => {
           rules={{
             required: {
               value: true,
-              message: AUTH_ERROR_MSG.NICKNAME_REQUIRED,
+              message: AUTH_ERROR_MESSAGE.NICKNAME_REQUIRED,
             },
             pattern: {
               value: AUTH_PATTERN.NICKNAME,
-              message: AUTH_ERROR_MSG.NICKNAME_PATTERN,
+              message: AUTH_ERROR_MESSAGE.NICKNAME_PATTERN,
             },
             validate: handleVerifyNicknameValidate,
           }}

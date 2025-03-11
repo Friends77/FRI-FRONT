@@ -1,4 +1,5 @@
 import { createChatRoom } from '@/apis/chat';
+import { ALERT_MESSAGE } from '@/constants/message';
 import { CHAT_PATH } from '@/constants/routes';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
@@ -12,7 +13,7 @@ export const useCreateChatRoom = () => {
       navigate(CHAT_PATH.CHAT_ROOM.replace(':roomId', `${chatRoomId}`));
     },
     onError: () => {
-      alert('채팅방 생성을 실패했습니다.');
+      alert(ALERT_MESSAGE.CHAT_CREATION_FAILED);
     },
   });
 };

@@ -2,6 +2,7 @@ import { getChatMessages } from '@/apis/chat';
 import { CHAT_CONSTANT } from '@/constants/chat';
 import { useEffect, useState } from 'react';
 import { IGetChatMessagesResponse } from '@/types/chat';
+import { ALERT_MESSAGE } from '@/constants/message';
 
 interface IUseMessageListProps {
   roomId: number;
@@ -30,7 +31,7 @@ const useGetPreviousMessage = ({
 
         setData(response);
       } catch (error) {
-        alert('메세지를 가져오는데 실패했습니다.');
+        alert(ALERT_MESSAGE.MESSAGE_FETCH_FAILED);
       }
     };
 

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { enterChatRoom } from '@/apis/chat';
 import { CHAT_KEYS } from '@/constants/@queryKeys';
+import { ALERT_MESSAGE } from '@/constants/message';
 
 interface IUseMessageListProps {
   roomId: number;
@@ -26,7 +27,7 @@ const useEnterChatRoom = ({
       setIsEnter(true);
     },
     onError: () => {
-      alert('채팅방 입장 실패!');
+      alert(ALERT_MESSAGE.CHAT_ENTRY_FAILED);
     },
   });
 

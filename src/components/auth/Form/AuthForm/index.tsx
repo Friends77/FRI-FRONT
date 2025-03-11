@@ -1,7 +1,7 @@
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import InputField from '@/components/@common/Form/InputField';
 import Timer from '@/components/auth/Timer';
-import { AUTH_ERROR_MSG } from '@/constants/message';
+import { AUTH_ERROR_MESSAGE } from '@/constants/message';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import signUpStepAtom from '@/recoil/auth/signUp/atom';
 import { moveToStep } from '@/utils/step/moveSteps';
@@ -50,7 +50,7 @@ const AuthForm = () => {
     if (confirmPassword && password !== confirmPassword) {
       setError('confirm-password', {
         type: 'manual',
-        message: AUTH_ERROR_MSG.PASSWORD_NOT_MATCH,
+        message: AUTH_ERROR_MESSAGE.PASSWORD_NOT_MATCH,
       });
     } else {
       clearErrors('confirm-password');
@@ -86,7 +86,7 @@ const AuthForm = () => {
     onErrorHandler: () => {
       setError('certno', {
         type: 'manual',
-        message: AUTH_ERROR_MSG.CERTNO_PATTERN,
+        message: AUTH_ERROR_MESSAGE.CERTNO_PATTERN,
       });
     },
   });
@@ -113,7 +113,7 @@ const AuthForm = () => {
 
       return true;
     } else {
-      return AUTH_ERROR_MSG.CERTNO_PATTERN;
+      return AUTH_ERROR_MESSAGE.CERTNO_PATTERN;
     }
   };
 
@@ -128,15 +128,15 @@ const AuthForm = () => {
               label="이메일 인증"
               id="email"
               name="email"
-              placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
+              placeholder={AUTH_ERROR_MESSAGE.EMAIL_REQUIRED}
               rules={{
                 required: {
                   value: true,
-                  message: AUTH_ERROR_MSG.EMAIL_REQUIRED,
+                  message: AUTH_ERROR_MESSAGE.EMAIL_REQUIRED,
                 },
                 pattern: {
                   value: AUTH_PATTERN.EMAIL,
-                  message: AUTH_ERROR_MSG.EMAIL_PATTERN,
+                  message: AUTH_ERROR_MESSAGE.EMAIL_PATTERN,
                 },
                 validate: handleVerifyEmailValidate,
               }}
@@ -160,21 +160,21 @@ const AuthForm = () => {
               <InputField
                 type="text"
                 name="certno"
-                placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
+                placeholder={AUTH_ERROR_MESSAGE.CERTNO_REQUIRED}
                 maxLength={6}
                 disabled={isVerifiedSuccess}
                 rules={{
                   required: {
                     value: true,
-                    message: AUTH_ERROR_MSG.CERTNO_REQUIRED,
+                    message: AUTH_ERROR_MESSAGE.CERTNO_REQUIRED,
                   },
                   minLength: {
                     value: 6,
-                    message: AUTH_ERROR_MSG.CERTNO_REQUIRED,
+                    message: AUTH_ERROR_MESSAGE.CERTNO_REQUIRED,
                   },
                   maxLength: {
                     value: 6,
-                    message: AUTH_ERROR_MSG.CERTNO_REQUIRED,
+                    message: AUTH_ERROR_MESSAGE.CERTNO_REQUIRED,
                   },
                   validate: handleVerifyCodeValidate,
                 }}
@@ -198,23 +198,23 @@ const AuthForm = () => {
           id="password"
           type="password"
           name="password"
-          placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
+          placeholder={AUTH_ERROR_MESSAGE.PASSWORD_REQUIRED}
           rules={{
             required: {
               value: true,
-              message: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
+              message: AUTH_ERROR_MESSAGE.PASSWORD_REQUIRED,
             },
             minLength: {
               value: 8,
-              message: AUTH_ERROR_MSG.PASSWORD_PATTERN_MORE,
+              message: AUTH_ERROR_MESSAGE.PASSWORD_PATTERN_MORE,
             },
             maxLength: {
               value: 20,
-              message: AUTH_ERROR_MSG.PASSWORD_PATTERN_BELOW,
+              message: AUTH_ERROR_MESSAGE.PASSWORD_PATTERN_BELOW,
             },
             pattern: {
               value: AUTH_PATTERN.PASSWORD,
-              message: AUTH_ERROR_MSG.PASSWORD_PATTERN,
+              message: AUTH_ERROR_MESSAGE.PASSWORD_PATTERN,
             },
           }}
           boldLabel={true}
@@ -226,12 +226,12 @@ const AuthForm = () => {
           id="confirm-password"
           type="password"
           name="confirm-password"
-          placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
+          placeholder={AUTH_ERROR_MESSAGE.PASSWORD_REQUIRED}
           rules={{
             required: true,
             validate: (value) => {
               if (value !== password) {
-                return AUTH_ERROR_MSG.PASSWORD_NOT_MATCH;
+                return AUTH_ERROR_MESSAGE.PASSWORD_NOT_MATCH;
               }
             },
           }}

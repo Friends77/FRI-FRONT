@@ -8,7 +8,7 @@ import { CHAT_PATH } from '@/constants/routes';
 import { useNavigate } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
-import { AUTH_ERROR_MSG } from '@/constants/message';
+import { ALERT_MESSAGE } from '@/constants/message';
 
 export interface IChatRoomCardProps {
   id: number;
@@ -37,7 +37,7 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
   const handleChatRoomClick = useCallback(
     (roomId: number) => {
       if (!isLoggedIn) {
-        alert(AUTH_ERROR_MSG.LOGIN_REQUIRED);
+        alert(ALERT_MESSAGE.LOGIN_REQUIRED);
         navigate('/login');
       } else {
         const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());
