@@ -85,6 +85,7 @@ const ResetPasswordForm = () => {
           />
         </Styled.PasswordContent>
         <PrimaryButton
+          type="submit"
           disabled={!!errors.password || password !== confirmPassword}
         >
           확인

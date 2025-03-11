@@ -37,10 +37,10 @@ const ConfirmModal = ({
             <Styled.Description>{description}</Styled.Description>
           </Styled.Content>
           <Styled.ButtonContainer>
-            <Styled.CancelButton onClick={onCancel}>
+            <Styled.CancelButton type="button" onClick={onCancel}>
               {cancelButtonText || '취소'}
             </Styled.CancelButton>
-            <PrimaryButton onClick={onConfirm}>
+            <PrimaryButton type="button" onClick={onConfirm}>
               {confirmButtonText || '확인'}
             </PrimaryButton>
           </Styled.ButtonContainer>

@@ -202,6 +202,7 @@ const BasicInfoForm = () => {
           </Styled.BasicInfoFormRadio>
         </Styled.BasicInfoFormGenderSection>
         <PrimaryButton
+          type="button"
           disabled={!isValid}
           onClick={() => moveToStep('next', setSignUpStep)}
         >

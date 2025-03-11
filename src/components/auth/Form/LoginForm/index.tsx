@@ -5,6 +5,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import InputField from '@/components/auth/InputField';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import * as Styled from './LoginForm.styled';
+import { AUTH_PATTERN } from '@/constants/pattern';
 
 const LoginForm = () => {
   const methods = useForm<LoginDataType>({
@@ -40,13 +41,13 @@ const LoginForm = () => {
             id="email"
             name="email"
             placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
-            // rules={{
-            //   required: AUTH_ERROR_MSG.EMAIL_REQUIRED,
-            //   pattern: {
-            //     value: AUTH_PATTERN.EMAIL,
-            //     message: AUTH_ERROR_MSG.EMAIL_PATTERN,
-            //   },
-            // }}
+            rules={{
+              required: AUTH_ERROR_MSG.EMAIL_REQUIRED,
+              pattern: {
+                value: AUTH_PATTERN.EMAIL,
+                message: AUTH_ERROR_MSG.EMAIL_PATTERN,
+              },
+            }}
           />
           <InputField
             type="password"
@@ -54,12 +55,12 @@ const LoginForm = () => {
             id="password"
             name="password"
             placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
-            // rules={{
-            //   required: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
-            // }}
+            rules={{
+              required: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
+            }}
           />
         </Styled.InputFields>
-        <PrimaryButton>로그인</PrimaryButton>
+        <PrimaryButton type="submit">로그인</PrimaryButton>
       </Styled.LoginForm>
     </FormProvider>
   );

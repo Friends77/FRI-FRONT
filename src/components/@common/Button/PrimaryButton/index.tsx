@@ -4,6 +4,8 @@ export interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** 버튼 너비 */
   width?: string;
+  /** 버튼 타입 */
+  type: 'submit' | 'reset' | 'button';
 }
 
 /**
@@ -16,9 +18,9 @@ export interface IButtonProps
  *      1) 클릭 이벤트 처리: 버튼 클릭 시 특정 작업(이벤트 핸들러 실행)을 수행
  */
 
-const PrimaryButton = ({ children, width, ...rest }: IButtonProps) => {
+const PrimaryButton = ({ children, width, type, ...rest }: IButtonProps) => {
   return (
-    <Styled.Button $width={width} {...rest}>
+    <Styled.Button type={type} $width={width} {...rest}>
       {children}
     </Styled.Button>
   );
