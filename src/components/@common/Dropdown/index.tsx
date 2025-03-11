@@ -12,54 +12,51 @@ import * as Styled from './Dropdown.styled';
 import { FieldError, useFormContext } from 'react-hook-form';
 import { Options } from '@/types/@common';
 
-/**
- *  @Dropdown
- *    @사용목적
- *      1) 다양한 화면에서 재사용 가능한 Dropdown UI 제공
- *    @주요기능
- *      1) 단일 선택 및 다중 선택 지원
- *      2) react-hook-form과의 통합 지원
- */
-
 export interface IDropdownProps {
   /**
-   * 전체 Dropdown 컴포넌트(Label + DropDown 포함)의 가로 길이를 설정
+   * Dropdown 전체 컴포넌트(Label + Dropdown 포함)의 너비
    * CSS 단위(px, %, rem 등)를 포함하여 전달
    * @default "320px"
    */
   width?: string;
 
   /**
-   * Dropdown에 표시할 옵션 배열
+   * Dropdown에 표시될 옵션 목록
    * 각 옵션은 value와 label 속성을 포함하는 객체로 구성
-   * - value: 옵션의 실제 값
-   * - label: 표시될 텍스트
    * @example
    * options={[
-   *    {value: 1, label: 'Option 1'}
-   *    {value: 2, label: 'Option 2'}
+   *    { value: 1, label: 'Option 1' },
+   *    { value: 2, label: 'Option 2' }
    * ]}
    */
   options: Options[];
 
+  /** 선택되지 않은 상태에서 표시할 기본 텍스트 */
   placeholder?: string;
 
   /**
-   * 다중 선택 모드 활성화 여부 설정
+   * 다중 선택 모드 활성화 여부
    * @default false
    */
   isMulti?: boolean;
 
-  /** react-hook-form의 Controller로부터 전달된 현재 값 */
+  /**
+   * react-hook-form의 Controller로부터 전달된 현재 선택된 값
+   * - 단일 선택 모드: `Options`
+   * - 다중 선택 모드: `Options[]`
+   */
   value?: Options | Options[];
 
+  /** 폼에서 사용할 필드 이름 */
   name: string;
 
-  /** react-hook-form의 Controller로부터 전달된 onChange Handler */
+  /** 값이 변경될 때 호출되는 핸들러 */
   onChange?: (value: any) => void;
 
+  /** Dropdown의 라벨 */
   label?: string;
 
+  /** 필수 입력 여부 (라벨 옆에 * 표시) */
   isRequired?: boolean;
 }
 
