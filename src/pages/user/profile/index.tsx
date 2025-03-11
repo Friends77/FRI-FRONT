@@ -2,7 +2,7 @@ import { updateProfile } from '@/apis/user';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import Dropdown from '@/components/@common/Form/Dropdown';
 import Radio from '@/components/@common/Form/Radio';
-import ImagePicker from '@/components/auth/ImagePicker';
+import ImagePicker from '@/components/@common/ImagePicker';
 import InputField from '@/components/auth/InputField';
 import { AUTH_ERROR_MSG } from '@/constants/message';
 import { BIRTH_MONTH } from '@/constants/month';
@@ -212,7 +212,7 @@ const ProfilePage = () => {
             <Styled.ProfilePageImageContainer>
               <ImagePicker
                 name="imageUrl"
-                usage="myPage"
+                usage="private"
                 imageUrl={userData.imageUrl}
               />
             </Styled.ProfilePageImageContainer>

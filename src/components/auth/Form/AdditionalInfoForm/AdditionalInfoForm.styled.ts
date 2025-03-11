@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 
-export const AIFormWrapper = styled.div`
+export const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 120px;
 `;
 
-export const AIFormHeader = styled.section`
+export const FormHeader = styled.section`
   ${({ theme }) => theme.typo.D1_B};
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
-export const AIFormContentSection = styled.section`
+export const FormContentSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,48 +20,48 @@ export const AIFormContentSection = styled.section`
   margin: 66px 0px 120px 0px;
 `;
 
-export const AIFormMBTISection = styled.section`
+export const FormMBTISection = styled.section`
   display: flex;
   flex-direction: column;
   width: 320px;
   gap: 16px;
 `;
 
-export const AIFormMBTIOption = styled.section`
+export const FormMBTIOption = styled.section`
   display: flex;
   justify-content: space-between;
 `;
 
-export const AIFormLabel = styled.label`
+export const FormLabel = styled.label`
   ${({ theme }) => theme.typo.T2_B};
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
-export const AIFormRadio = styled.article`
+export const FormRadio = styled.article`
   display: flex;
   flex-direction: column;
   align-items: left;
   gap: 6px;
 `;
 
-export const AIFormTagSection = styled.section`
+export const FormTagSection = styled.section`
   display: flex;
   flex-direction: column;
   width: 320px;
   gap: 16px;
 `;
 
-export const AIFormButtonSection = styled.section`
+export const FormButtonSection = styled.section`
   display: flex;
   gap: 16px;
 `;
 
-export const AIFormCheckBoxSection = styled.section`
+export const FormCheckBoxSection = styled.section`
   display: flex;
   justify-content: space-between;
 `;
 
-export const AIFormColumnSection = styled.section`
+export const FormColumnSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 12px;

@@ -31,13 +31,13 @@ const AdditionalInfoForm = () => {
   } = useFormContext();
 
   return (
-    <Styled.AIFormWrapper>
-      <Styled.AIFormHeader>프로필 작성</Styled.AIFormHeader>
-      <Styled.AIFormContentSection>
-        <Styled.AIFormMBTISection>
-          <Styled.AIFormLabel>MBTI</Styled.AIFormLabel>
-          <Styled.AIFormMBTIOption>
-            <Styled.AIFormRadio>
+    <Styled.FormWrapper>
+      <Styled.FormHeader>프로필 작성</Styled.FormHeader>
+      <Styled.FormContentSection>
+        <Styled.FormMBTISection>
+          <Styled.FormLabel>MBTI</Styled.FormLabel>
+          <Styled.FormMBTIOption>
+            <Styled.FormRadio>
               {EI.map((option) => {
                 return (
                   <Radio
@@ -48,8 +48,8 @@ const AdditionalInfoForm = () => {
                   />
                 );
               })}
-            </Styled.AIFormRadio>
-            <Styled.AIFormRadio>
+            </Styled.FormRadio>
+            <Styled.FormRadio>
               {NS.map((option) => {
                 return (
                   <Radio
@@ -60,8 +60,8 @@ const AdditionalInfoForm = () => {
                   />
                 );
               })}
-            </Styled.AIFormRadio>
-            <Styled.AIFormRadio>
+            </Styled.FormRadio>
+            <Styled.FormRadio>
               {FT.map((option) => {
                 return (
                   <Radio
@@ -72,8 +72,8 @@ const AdditionalInfoForm = () => {
                   />
                 );
               })}
-            </Styled.AIFormRadio>
-            <Styled.AIFormRadio>
+            </Styled.FormRadio>
+            <Styled.FormRadio>
               {JP.map((option) => {
                 return (
                   <Radio
@@ -84,9 +84,9 @@ const AdditionalInfoForm = () => {
                   />
                 );
               })}
-            </Styled.AIFormRadio>
-          </Styled.AIFormMBTIOption>
-        </Styled.AIFormMBTISection>
+            </Styled.FormRadio>
+          </Styled.FormMBTIOption>
+        </Styled.FormMBTISection>
         <InputField
           label="한 줄 소개"
           name="selfDescription"
@@ -95,12 +95,10 @@ const AdditionalInfoForm = () => {
           boldLabel={true}
           labelColor="Gray_1000"
         />
-        <Styled.AIFormTagSection>
-          <Styled.AIFormLabel>
-            관심사 (1개 이상 선택해주세요)
-          </Styled.AIFormLabel>
-          <Styled.AIFormCheckBoxSection>
-            <Styled.AIFormColumnSection>
+        <Styled.FormTagSection>
+          <Styled.FormLabel>관심사 (1개 이상 선택해주세요)</Styled.FormLabel>
+          <Styled.FormCheckBoxSection>
+            <Styled.FormColumnSection>
               {/* 관심사 영역 */}
               {categories && (
                 <>
@@ -121,8 +119,8 @@ const AdditionalInfoForm = () => {
                   })}
                 </>
               )}
-            </Styled.AIFormColumnSection>
-            <Styled.AIFormColumnSection>
+            </Styled.FormColumnSection>
+            <Styled.FormColumnSection>
               {/* 지역 영역 */}
               {categories && (
                 <>
@@ -140,10 +138,10 @@ const AdditionalInfoForm = () => {
                   })}
                 </>
               )}
-            </Styled.AIFormColumnSection>
-          </Styled.AIFormCheckBoxSection>
-        </Styled.AIFormTagSection>
-        <Styled.AIFormButtonSection>
+            </Styled.FormColumnSection>
+          </Styled.FormCheckBoxSection>
+        </Styled.FormTagSection>
+        <Styled.FormButtonSection>
           <PrimaryButton
             type="button"
             width="160px"
@@ -158,9 +156,9 @@ const AdditionalInfoForm = () => {
           <PrimaryButton type="submit" disabled={!isValid}>
             확인
           </PrimaryButton>
-        </Styled.AIFormButtonSection>
-      </Styled.AIFormContentSection>
-    </Styled.AIFormWrapper>
+        </Styled.FormButtonSection>
+      </Styled.FormContentSection>
+    </Styled.FormWrapper>
   );
 };
 

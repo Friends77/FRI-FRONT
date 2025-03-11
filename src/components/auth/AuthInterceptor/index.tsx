@@ -16,7 +16,6 @@ interface IAuthInterceptorProps {
  *  @주요기능
  *      1) API 요청 헤더에 토큰 추가
  *      2) 401에러가 뜨는 경우 토큰 재발급(refresh) 요청
- *      3) 토큰 재발급 실패 시 로그인 페이지로 이동
  */
 const AuthInterceptor = ({ children }: IAuthInterceptorProps) => {
   const accessToken = useRecoilValue(accessTokenAtom);

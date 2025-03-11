@@ -5,9 +5,13 @@ import * as Styled from './ImagePicker.styled';
 import { useImageUpload } from '@/hooks/@common/useImageUpload';
 
 export interface IImagePickerProps {
+  /** 폼에서 사용할 필드 이름 */
   name: string;
-  usage: 'signUp' | 'myPage'; // usage: 사용처(회원가입, 마이페이지)
+  /** 이미지 용도 ('public': 비로그인, 'private': 로그인) */
+  usage: 'public' | 'private';
+  /** 기본 이미지 URL */
   imageUrl?: string;
+  /** 기본 프로필 이미지 URL */
   defaultImageUrl?: string;
 }
 
@@ -53,11 +57,9 @@ const ImagePicker = ({
 
       fileReader.readAsDataURL(file);
 
-      if (usage === 'signUp') {
-        // 회원가입인 경우
+      if (usage === 'public') {
         setValue(name, file);
       } else {
-        // 프로필 수정인 경우
         const formData = new FormData();
         formData.append('image', file);
 

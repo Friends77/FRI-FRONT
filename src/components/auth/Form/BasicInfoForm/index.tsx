@@ -11,7 +11,7 @@ import { moveToStep } from '@/utils/step/moveSteps';
 import { useRef, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
-import ImagePicker from '../../ImagePicker';
+import ImagePicker from '../../../@common/ImagePicker';
 import InputField from '../../InputField';
 import * as Styled from './BasicInfoForm.styled';
 import { BIRTH_MONTH } from '@/constants/user/month';
@@ -80,7 +80,7 @@ const BasicInfoForm = () => {
       <Styled.BasicInfoFormHeader>프로필 작성</Styled.BasicInfoFormHeader>
       <Styled.BasicInfoFormContentSection>
         <Styled.BasicInfoFormImagePickerSection>
-          <ImagePicker name="imageUrl" usage="signUp" />
+          <ImagePicker name="imageUrl" usage="public" />
         </Styled.BasicInfoFormImagePickerSection>
         <InputField
           label="닉네임"

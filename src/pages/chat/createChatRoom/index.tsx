@@ -9,7 +9,7 @@ import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import { ICreateChatRoomForm } from '@/types/chat';
 import { useCreateChatRoom } from '@/hooks/chat/useCreateChatRoom';
-import ImagePicker from '@/components/auth/ImagePicker';
+import ImagePicker from '@/components/@common/ImagePicker';
 import defaultThumbnail from '@/assets/images/defaultThumbnail.png';
 const CreateChatRoom = () => {
   const { data: categories } = useFetchCategory();
@@ -54,7 +54,7 @@ const CreateChatRoom = () => {
             <Styled.ThumbnailItem>
               <ImagePicker
                 name="backgroundImage"
-                usage="signUp"
+                usage="public"
                 defaultImageUrl={defaultThumbnail}
               />
             </Styled.ThumbnailItem>
