@@ -9,7 +9,7 @@ import { Theme } from '@/styles/theme';
 import { moveToStep } from '@/utils/step/moveSteps';
 import { useFormContext } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
-import InputField from '../../InputField';
+import InputField from '../../../@common/Form/InputField';
 import * as Styled from './AdditionalInfoForm.styled';
 
 const geolocationOptions = {
@@ -88,6 +88,7 @@ const AdditionalInfoForm = () => {
           </Styled.FormMBTIOption>
         </Styled.FormMBTISection>
         <InputField
+          type="text"
           label="한 줄 소개"
           name="selfDescription"
           placeholder="한 줄 소개를 적어주세요"

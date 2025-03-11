@@ -4,20 +4,27 @@ import Cancel from '@/components/@common/SVG/Icon/Cancel';
 
 export interface IInputFieldProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  /** label의 색상을 지정하기 위함 (default: Gray_800) */
-  labelColor?: string;
-  /** label의 typo 타입을 지정하기 위함 (true: T2_B, false: B1_B) */
-  boldLabel?: boolean;
-  /** input 요소가 필수값인지 확인하기 위함 */
-  isRequired?: boolean;
-  id?: string;
+  /** 입력값의 타입을 지정 (default: text) */
+  type: 'text' | 'password' | 'email' | 'tel' | 'number' | 'search' | 'url';
+  /** 입력란의 이름 (폼에서 필드 이름으로 사용) */
   name: string;
+  /** 입력란의 레이블 텍스트 */
+  label?: string;
+  /** 레이블의 색상을 지정하기 위한 색상 (default: Gray_800) */
+  labelColor?: string;
+  /** 레이블의 글씨 두께를 지정 (true: T2_B, false: B1_B) */
+  boldLabel?: boolean;
+  /** 입력란이 필수 값인지 확인 (기본값: false) */
+  isRequired?: boolean;
+  /** 입력란의 고유 id */
+  id?: string;
+  /** 입력 필드에 적용할 검증 규칙 */
   rules?: RegisterOptions;
-  /** 입력란 너비 */
+  /** 입력란 너비 (기본값: 100%) */
   width?: string;
+  /** 입력란 비활성화 여부 */
   disabled?: boolean;
-  /** 에러 메세지를 위치를 absolute/relative 로 결정하기 위함 */
+  /** 에러 메시지의 위치를 설정 (absolute 또는 relative) */
   isErrorMsgRelative?: boolean;
 }
 

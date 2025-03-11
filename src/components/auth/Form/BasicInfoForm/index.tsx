@@ -12,7 +12,7 @@ import { useRef, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 import ImagePicker from '../../../@common/ImagePicker';
-import InputField from '../../InputField';
+import InputField from '../../../@common/Form/InputField';
 import * as Styled from './BasicInfoForm.styled';
 import { BIRTH_MONTH } from '@/constants/user/month';
 import { GENDER } from '@/constants/user/gender';
@@ -83,6 +83,7 @@ const BasicInfoForm = () => {
           <ImagePicker name="imageUrl" usage="public" />
         </Styled.BasicInfoFormImagePickerSection>
         <InputField
+          type="text"
           label="닉네임"
           labelColor="Gray_1000"
           boldLabel={true}

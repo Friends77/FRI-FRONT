@@ -2,7 +2,7 @@ import { AUTH_ERROR_MSG } from '@/constants/message';
 import { useLogin } from '@/hooks/auth/useLogin';
 import { LoginDataType } from '@/types/auth';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import InputField from '@/components/auth/InputField';
+import InputField from '@/components/@common/Form/InputField';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import * as Styled from './LoginForm.styled';
 import { AUTH_PATTERN } from '@/constants/pattern';

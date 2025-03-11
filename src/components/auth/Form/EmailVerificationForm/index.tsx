@@ -7,7 +7,7 @@ import { AUTH_PATTERN } from '@/constants/pattern';
 import { useVerifyCode } from '@/hooks/auth/useVerifyCode';
 import { useSendCodeToEmail } from '@/hooks/auth/useSendCodeToEmail';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
-import InputField from '@/components/auth/InputField';
+import InputField from '@/components/@common/Form/InputField';
 import Timer from '@/components/auth/Timer';
 import * as Styled from './EmailVerificationForm.styled';
 

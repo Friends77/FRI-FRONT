@@ -1,6 +1,6 @@
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import * as Styled from './CreateChatRoom.styled';
-import InputField from '@/components/auth/InputField';
+import InputField from '@/components/@common/Form/InputField';
 import { CHAT_ERROR_MSG } from '@/constants/message';
 import Dropdown from '@/components/@common/Form/Dropdown';
 import { useEffect, useState } from 'react';
@@ -63,6 +63,7 @@ const CreateChatRoom = () => {
                 채팅방 이름 <Styled.RequiredTag>*</Styled.RequiredTag>
               </Styled.Label>
               <InputField
+                type="text"
                 isRequired={true}
                 name="title"
                 width="100%"
@@ -81,6 +82,7 @@ const CreateChatRoom = () => {
                 채팅방 소개 <Styled.RequiredTag>*</Styled.RequiredTag>
               </Styled.Label>
               <InputField
+                type="text"
                 isRequired={true}
                 name="description"
                 width="100%"

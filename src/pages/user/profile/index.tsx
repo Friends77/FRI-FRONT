@@ -3,7 +3,7 @@ import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import Dropdown from '@/components/@common/Form/Dropdown';
 import Radio from '@/components/@common/Form/Radio';
 import ImagePicker from '@/components/@common/ImagePicker';
-import InputField from '@/components/auth/InputField';
+import InputField from '@/components/@common/Form/InputField';
 import { AUTH_ERROR_MSG } from '@/constants/message';
 import { BIRTH_MONTH } from '@/constants/month';
 import { AUTH_PATTERN } from '@/constants/pattern';
@@ -220,6 +220,7 @@ const ProfilePage = () => {
               <Styled.ProfilePageLabel>닉네임</Styled.ProfilePageLabel>
               <Styled.NickNameSection>
                 <InputField
+                  type="text"
                   isRequired={true}
                   name="nickname"
                   width="774px"
@@ -256,6 +257,7 @@ const ProfilePage = () => {
                 한 줄 소개&nbsp;
               </Styled.ProfilePageLabel>
               <InputField
+                type="text"
                 isRequired={true}
                 name="selfDescription"
                 width="892px"
