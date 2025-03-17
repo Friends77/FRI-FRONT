@@ -10,7 +10,10 @@
 
 ## 🔑 주요 기능
 
-- 추후 작성
+- 사용자의 관심사에 맞는 사람들을 추천해드립니다.
+- 관심사를 기반으로 유사한 사람들을 찾아 친구 요청을 보낼 수 있습니다.
+- 실시간 알림 기능으로 친구 요청 및 채팅방 초대를 즉시 확인할 수 있습니다.
+- 비슷한 관심사를 가진 사람들과 실시간으로 채팅을 나눌 수 있습니다.
 
 ## 🛠️ 기술 스택
 
@@ -26,23 +29,23 @@
 ## 👥 컨트리뷰터
 
 <ul style="display: flex; gap: 10px; padding:0">
-  <li style="list-style: none;">
+  <li style="list-style: none">
     <a href="https://github.com/iamkjw77" style="display:flex;align-items: center;gap:10px">
-      <img src="https://avatars.githubusercontent.com/u/45993668?v=4" width="30" style="border-radius: 50%;" alt="Contributor 1"/>
+      <img src="https://avatars.githubusercontent.com/u/45993668?v=4" width="30" style="border-radius: 50%" alt="Contributor 1"/>
       <p style="padding:0; margin:0">지원</p>
     </a>
   </li>
 
-  <li style="list-style: none;">
+  <li style="list-style: none">
     <a href="https://github.com/itsmesunky" style="display:flex;align-items: center;gap:10px">
-      <img src="https://avatars.githubusercontent.com/u/99164690?v=4" width="30" style="border-radius: 50%;" alt="Contributor 1"/>
+      <img src="https://avatars.githubusercontent.com/u/99164690?v=4" width="30" style="border-radius: 50%" alt="Contributor 1"/>
       <p style="padding:0; margin:0">선우</p>
     </a>
   </li>
 
-  <li style="list-style: none;">
+  <li style="list-style: none">
     <a href="https://github.com/GangHub1970" style="display:flex;align-items: center;gap:10px">
-      <img src="https://avatars.githubusercontent.com/u/104193739?v=4" width="30" style="border-radius: 50%;" alt="Contributor 1"/>
+      <img src="https://avatars.githubusercontent.com/u/104193739?v=4" width="30" style="border-radius: 50%" alt="Contributor 1"/>
       <p style="padding:0; margin:0">윤강</p>
     </a>
   </li>
