@@ -1,9 +1,10 @@
 import { checkAvailability } from '@/apis/auth';
 import { USER_KEYS } from '@/constants/@queryKeys';
+import { AvailabilityType } from '@/types/auth';
 import { useQuery } from '@tanstack/react-query';
 
 interface IUseCheckAvailability {
-  type: 'email' | 'nickname';
+  type: AvailabilityType;
   value: string;
 }
 

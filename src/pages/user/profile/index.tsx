@@ -20,6 +20,7 @@ import { BIRTH_MONTH } from '@/constants/user/month';
 import { getDaysInMonth } from '@/utils/date';
 import useUpdateProfile from '@/hooks/user/useUpdateProfile';
 import { IUpdateProfileForm, IUpdateProfileFormRequest } from '@/types/user';
+import { AvailabilityType } from '@/types/auth';
 
 const ProfilePage = () => {
   const { data: myProfile } = useGetMyProfile();
@@ -46,7 +47,7 @@ const ProfilePage = () => {
 
   // 닉네임 유효성 검사
   const { data: nicknameAvailability } = useCheckAvailability({
-    type: 'nickname',
+    type: AvailabilityType.nickname,
     value: nickname,
   });
 

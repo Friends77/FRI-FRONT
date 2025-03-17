@@ -1,3 +1,5 @@
+import { CategoryType, Gender, ILocation } from '../@common';
+
 export type LoginDataType = {
   email: string;
   password: string;
@@ -29,15 +31,12 @@ export interface SignUpDataType {
   password: string;
   nickname: string;
   birth: string;
-  gender: 'MAN' | 'WOMAN';
+  gender: Gender;
   selfDescription: string;
   mbti: string;
   interestTag: number[];
   imageUrl: string;
-  location: {
-    latitude: number;
-    longitude: number;
-  };
+  location: ILocation;
 }
 
 export interface SignUpFormDataType extends SignUpDataType {
@@ -52,9 +51,14 @@ export interface SignUpFormDataType extends SignUpDataType {
   JP: string;
 }
 
+export enum SocialType {
+  GOOGLE = 'GOOGLE',
+  NAVER = 'NAVER',
+}
+
 export type SocialLoginTokenType = {
   code: string;
-  provider: 'GOOGLE' | 'NAVER';
+  provider: SocialType;
 };
 
 export interface ISocialLoginResponse {
@@ -93,11 +97,14 @@ export type CheckAvailabilityResponse = {
 export type CategoryResponse = {
   id: number;
   name: string;
-  type: 'SUBJECT' | 'REGION';
+  type: CategoryType;
   image: string | null;
 }[];
 
-export type AvailabilityType = 'email' | 'nickname';
+export enum AvailabilityType {
+  email = 'email',
+  nickname = 'nickname',
+}
 
 export type ResetPasswordType = {
   emailAuthToken: string;

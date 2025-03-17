@@ -9,17 +9,13 @@ import { useNavigate } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import { ALERT_MESSAGE } from '@/constants/message';
+import { IInterestTag } from '@/types/@common';
 
 export interface IChatRoomCardProps {
   id: number;
   title: string;
   imageUrl: string;
-  categoryIdList: {
-    id: number;
-    name: string;
-    type: 'SUBJECT' | 'REGION';
-    image: string;
-  }[];
+  categoryIdList: IInterestTag[];
   participantCount: number;
   participantProfileList: string[];
   description: string;

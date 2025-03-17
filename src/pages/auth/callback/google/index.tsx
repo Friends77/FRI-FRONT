@@ -1,4 +1,5 @@
 import { useSocialLogin } from '@/hooks/auth/useSocialLogin';
+import { SocialType } from '@/types/auth';
 
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
@@ -14,7 +15,7 @@ const GoogleLoginCallback = () => {
     const code = searchParams.get('code');
 
     if (code) {
-      sendSocialToken({ code, provider: 'GOOGLE' });
+      sendSocialToken({ code, provider: SocialType.GOOGLE });
     }
   }, [location.search, sendSocialToken]);
 

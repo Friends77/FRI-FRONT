@@ -15,6 +15,7 @@ import { useSendCodeToEmail } from '@/hooks/auth/useSendCodeToEmail';
 import { useVerifyCode } from '@/hooks/auth/useVerifyCode';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
 import * as Styled from './AuthForm.styled';
+import { AvailabilityType } from '@/types/auth';
 
 const AuthForm = () => {
   const setEmailAuthToken = useSetRecoilState(emailAuthTokenAtom);
@@ -93,7 +94,7 @@ const AuthForm = () => {
 
   // 이메일 유효성 검사
   const { data: emailAvailability } = useCheckAvailability({
-    type: 'email',
+    type: AvailabilityType.email,
     value: email,
   });
 

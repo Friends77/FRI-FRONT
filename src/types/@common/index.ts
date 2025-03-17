@@ -1,5 +1,14 @@
 import { FriendsStatus } from '../chat';
-import { Gender } from '../user';
+
+export enum Gender {
+  MAN = 'MAN',
+  WOMAN = 'WOMAN',
+}
+
+export enum CategoryType {
+  SUBJECT = 'SUBJECT',
+  REGION = 'REGION',
+}
 
 export interface Options {
   value: string | number;
@@ -17,7 +26,7 @@ export interface IPaginationResponse {
 export interface IInterestTag {
   id: number;
   name: string;
-  type: 'SUBJECT' | 'REGION';
+  type: CategoryType;
   image: string | null;
 }
 

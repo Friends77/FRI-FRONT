@@ -8,6 +8,7 @@ import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import signUpStepAtom from '@/recoil/auth/signUpStep/atom';
 import socialAuthInfoAtom from '@/recoil/auth/socialLogin';
 import userLocationAtom from '@/recoil/auth/userLocation';
+import { Gender } from '@/types/@common';
 import { SignUpFormDataType } from '@/types/auth';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -43,7 +44,7 @@ const SignUpPage = () => {
       password: '',
       'confirm-password': '',
       nickname: '',
-      gender: 'MAN',
+      gender: Gender.MAN,
       EI: 'E',
       NS: 'N',
       FT: 'F',

@@ -17,6 +17,7 @@ import { BIRTH_MONTH } from '@/constants/user/month';
 import { GENDER } from '@/constants/user/gender';
 import { BIRTH_YEAR } from '@/constants/user/year';
 import { Options } from '@/types/@common';
+import { AvailabilityType } from '@/types/auth';
 
 const BasicInfoForm = () => {
   const setSignUpStep = useSetRecoilState(signUpStepAtom);
@@ -32,7 +33,7 @@ const BasicInfoForm = () => {
 
   // 닉네임 유효성 검사
   const { data: nicknameAvailability } = useCheckAvailability({
-    type: 'nickname',
+    type: AvailabilityType.nickname,
     value: nickname,
   });
 

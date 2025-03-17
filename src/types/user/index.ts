@@ -1,15 +1,11 @@
 import {
+  Gender,
   IInterestTag,
   ILocation,
   IPaginationParams,
   IPaginationResponse,
   MBTI,
 } from '../@common';
-
-export enum Gender {
-  MAN = 'MAN',
-  WOMAN = 'WOMAN',
-}
 
 export interface IProfileResponse {
   memberId: number;
