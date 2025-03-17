@@ -6,6 +6,7 @@ export const COMMON_KEYS = Object.freeze({
 });
 
 export const USER_KEYS = Object.freeze({
+  MY_PROFILE: ['my-profile'],
   PROFILE: (id: number) => ['profile', id],
   FRIEND_LIST: ['friend-list'],
   UNREAD_ALARM_COUNT: ['unread-alarm-count'],

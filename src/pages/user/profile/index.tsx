@@ -1,97 +1,45 @@
-import { updateProfile } from '@/apis/user';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import Dropdown from '@/components/@common/Form/Dropdown';
 import Radio from '@/components/@common/Form/Radio';
 import ImagePicker from '@/components/@common/ImagePicker';
 import InputField from '@/components/@common/Form/InputField';
 import { ALERT_MESSAGE, AUTH_ERROR_MESSAGE } from '@/constants/message';
-import { BIRTH_MONTH } from '@/constants/user/month';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
 import useGetCategory from '@/hooks/@common/useGetCategory';
-import { useProfile } from '@/hooks/user/useProfile';
-import accessTokenAtom from '@/recoil/auth/accessToken';
 import { Options } from '@/types/@common';
-import { UpdateProfileDataType } from '@/types/user';
-import { getDaysInMonth } from '@/utils/date';
-import { getMemberIdFromToken } from '@/utils/token';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
-import {
-  Controller,
-  FormProvider,
-  SubmitHandler,
-  useForm,
-  useWatch,
-} from 'react-hook-form';
-import { useNavigate } from 'react-router';
-import { useRecoilValue } from 'recoil';
+import { useEffect, useState } from 'react';
+import { Controller, FormProvider, useForm, useWatch } from 'react-hook-form';
 import * as Styled from './ProfilePage.styled';
-import { USER_KEYS } from '@/constants/@queryKeys';
 import { BIRTH_YEAR } from '@/constants/user/year';
 import { GENDER } from '@/constants/user/gender';
 import { EI, FT, JP, NS } from '@/constants/user/mbti';
-import { SelectInstance } from 'react-select';
-import { ROOT_PATH } from '@/constants/routes';
+import useGetMyProfile from '@/hooks/user/useGetMyProfile';
+import { transformTags } from '@/constants/user/tag';
+import { BIRTH_MONTH } from '@/constants/user/month';
+import { getDaysInMonth } from '@/utils/date';
+import useUpdateProfile from '@/hooks/user/useUpdateProfile';
+import { IUpdateProfileForm, IUpdateProfileFormRequest } from '@/types/user';
 
 const ProfilePage = () => {
-  const queryClient = useQueryClient();
+  const { data: myProfile } = useGetMyProfile();
 
-  const navigate = useNavigate();
+  const { data: categories } = useGetCategory();
 
-  const daySelectRef = useRef<SelectInstance<{
-    value: string;
-    label: string;
-  }> | null>(null);
+  const { mutate: updateProfile } = useUpdateProfile();
 
-  const accessToken = useRecoilValue(accessTokenAtom);
-
-  const memberId = getMemberIdFromToken(accessToken);
-
-  const [categoryOptions, setCategoryOptions] = useState<Options[]>([]);
-
-  const [selectedTags, setSelectedTags] = useState<Options[]>([]);
-
-  const [hasClickedEdit, setHasClickedEdit] = useState(false);
-
-  const { data: userData } = useProfile();
-
-  const birth = userData.birth.split('-');
-
-  const letters = userData.mbti.split('');
-
-  const [prevYear, setPrevYear] = useState(+birth[0]);
-
-  const [prevMonth, setPrevMonth] = useState(+birth[1]);
-
-  // 사용자의 생년, 생월에 해당하는 일 세팅
-  const [days, setDays] = useState(getDaysInMonth(+birth[0], +birth[1]));
-
-  const methods = useForm({
+  const methods = useForm<IUpdateProfileForm>({
     mode: 'onChange',
-    defaultValues: {
-      nickname: userData.nickname,
-      imageUrl: userData.imageUrl,
-      selfDescription: userData.selfDescription,
-      year: +birth[0],
-      month: birth[1],
-      day: birth[2],
-      gender: userData.gender,
-      EI: letters[0],
-      NS: letters[1],
-      FT: letters[2],
-      JP: letters[3],
-      tags: selectedTags,
-    },
   });
 
   const {
     control,
     reset,
-    handleSubmit,
     getValues,
+    setValue,
     formState: { isValid, isDirty },
     getFieldState,
+    handleSubmit,
   } = methods;
 
   const nickname = useWatch({ name: 'nickname', control });
@@ -102,9 +50,53 @@ const ProfilePage = () => {
     value: nickname,
   });
 
+  const [categoryOptions, setCategoryOptions] = useState<Options[]>([]);
+
+  const [hasClickedEdit, setHasClickedEdit] = useState(false);
+
+  // 사용자의 생년, 생월에 해당하는 일 세팅
+  const [dayOptions, setDayOptions] = useState<Options[]>([
+    {
+      value: '',
+      label: '',
+    },
+  ]);
+
+  // 전체 카테고리 옵션 세팅
+  useEffect(() => {
+    if (categories) {
+      setCategoryOptions(transformTags(categories));
+    }
+  }, [categories]);
+
+  useEffect(() => {
+    if (myProfile) {
+      const [year, month, day] = myProfile.birth.split('-');
+
+      const [EI, NS, FT, JP] = myProfile.mbti.split('');
+
+      reset({
+        nickname: myProfile.nickname,
+        imageUrl: myProfile.imageUrl,
+        selfDescription: myProfile.selfDescription,
+        year,
+        month,
+        day,
+        gender: myProfile.gender,
+        EI,
+        NS,
+        FT,
+        JP,
+        tags: transformTags(myProfile.interestTag),
+      });
+
+      setDayOptions(getDaysInMonth(+year, +month));
+    }
+  }, [myProfile, reset]);
+
   const handleVerifyNicknameValidate = async (value: string) => {
     if (
-      userData.nickname !== value &&
+      myProfile?.nickname !== value &&
       nicknameAvailability &&
       !nicknameAvailability.isValid
     ) {
@@ -119,90 +111,24 @@ const ProfilePage = () => {
     setHasClickedEdit(true);
   };
 
-  const handleSelectBirthYM = () => {
-    // 사용자가 선택한 출생년도
-    const year = getValues('year');
-
-    // 사용자가 선택한 생월
-    const month = getValues('month');
-
-    // 출생년도나 생월의 값이 변경되면 생일의 값을 초기화
-    if (prevYear !== +year || prevMonth !== +month) {
-      if (daySelectRef.current) {
-        daySelectRef.current.clearValue();
-      }
-    }
-
-    setPrevYear(+year);
-    setPrevMonth(+month);
-
-    // 날짜 select에 날짜 세팅
-    setDays(getDaysInMonth(year, +month));
+  const handleBirthMonthChange = (month: string) => {
+    setDayOptions(getDaysInMonth(+getValues('year'), +month));
+    setValue('day', '');
   };
 
-  // 카테고리 조회
-  const { data: categories } = useGetCategory();
+  const onSubmit = (data: IUpdateProfileForm) => {
+    const { year, month, day, EI, NS, FT, JP, tags, ...rest } = data;
 
-  // 전체 카테고리 옵션 세팅
-  useEffect(() => {
-    if (categories) {
-      const options = categories.map((category) => ({
-        value: category.id,
-        label:
-          category.type === 'SUBJECT'
-            ? `${category.image} ${category.name}`
-            : `${category.name}`,
-      }));
-      setCategoryOptions(options);
-    }
-  }, [categories]);
+    console.log(year, month, day);
 
-  // 사용자가 선택한 카테고리 옵션 세팅
-  useEffect(() => {
-    if (userData) {
-      const userSelectedTags = userData.interestTag.map((tag) => ({
-        value: tag.id,
-        label:
-          tag.type === 'SUBJECT' ? `${tag.image} ${tag.name}` : `${tag.name}`,
-      }));
-      setSelectedTags(userSelectedTags);
-
-      reset({
-        ...methods.getValues(),
-        tags: userSelectedTags,
-      });
-    }
-  }, [userData]);
-
-  // 프로필 수정 react-query
-  const { mutate } = useMutation({
-    mutationFn: updateProfile,
-    onSuccess: () => {
-      alert(ALERT_MESSAGE.CHANGES_SAVED);
-      queryClient.invalidateQueries({
-        queryKey: USER_KEYS.PROFILE(memberId),
-      });
-      navigate(ROOT_PATH.ROOT);
-    },
-  });
-
-  const onSubmit: SubmitHandler<UpdateProfileDataType> = (data) => {
-    const { year, month, day, EI, FT, JP, NS, tags, ...filteredData } = data;
-
-    const selectedTags = tags?.map((option) => option.value);
-
-    const formData = {
-      ...filteredData,
+    const requestPayload: IUpdateProfileFormRequest = {
+      ...rest,
       birth: `${year}-${month}-${day}`,
       mbti: `${EI}${NS}${FT}${JP}`,
-      interestTag: selectedTags,
-      location: {
-        latitude: userData.location.latitude,
-        longitude: userData.location.longitude,
-      },
+      interestTag: tags?.map((option) => option.value),
     };
 
-    mutate(formData);
+    updateProfile(requestPayload);
   };
 
   return (
@@ -215,7 +141,7 @@ const ProfilePage = () => {
               <ImagePicker
                 name="imageUrl"
                 usage="private"
-                imageUrl={userData.imageUrl}
+                imageUrl={myProfile?.imageUrl}
               />
             </Styled.ProfilePageImageContainer>
             <Styled.ProfilePageInputContainer>
@@ -289,11 +215,10 @@ const ProfilePage = () => {
                       options={BIRTH_YEAR}
                       placeholder="출생년도를 선택해주세요"
                       value={BIRTH_YEAR.find(
-                        (year) => year.value === field.value,
+                        (year) => year.label === field.value,
                       )}
                       onChange={(e) => {
                         field.onChange(e.value);
-                        handleSelectBirthYM();
                       }}
                     />
                   )}
@@ -313,7 +238,7 @@ const ProfilePage = () => {
                       )}
                       onChange={(e) => {
                         field.onChange(e.value);
-                        handleSelectBirthYM();
+                        handleBirthMonthChange(e.value);
                       }}
                     />
                   )}
@@ -327,17 +252,18 @@ const ProfilePage = () => {
                       message: '일자를 선택해주세요',
                     },
                   }}
-                  render={({ field: { onChange, value } }) => (
+                  render={({ field }) => (
                     <Dropdown
                       width="217px"
                       name="day"
-                      options={days}
+                      options={dayOptions}
                       placeholder="일"
-                      ref={daySelectRef}
-                      value={days.find((day) => day.value === value)}
-                      onChange={(...args) =>
-                        onChange(args[0] ? args[0].value : null)
-                      }
+                      value={dayOptions.find(
+                        (day) => day.value === field.value,
+                      )}
+                      onChange={(e) => {
+                        field.onChange(e.value);
+                      }}
                     />
                   )}
                 />

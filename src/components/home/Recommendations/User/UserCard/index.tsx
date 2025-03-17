@@ -1,5 +1,5 @@
 import PersonAdd from '@/components/@common/SVG/Icon/PersonAdd';
-import { IProfileSimpleResponse } from '@/types/user';
+import { ISimpleUserProfile } from '@/types/user';
 import { useState } from 'react';
 import * as Styled from './UserCard.styled';
 import useFriendRequest from '@/hooks/user/useFriendRequest';
@@ -9,7 +9,7 @@ import { FriendsStatus } from '@/types/chat';
 import { ALERT_MESSAGE } from '@/constants/message';
 
 export interface IUserCardProps {
-  userInfo: IProfileSimpleResponse;
+  userInfo: ISimpleUserProfile;
   friendStatusType?: FriendsStatus;
 }
 

@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import UserCard from '../UserCard';
 import * as Styled from './RecommendedUsers.styled';
 import usePrivateRecommendations from '@/hooks/home/usePrivateRecommendations';
-import { IProfileSimpleResponse } from '@/types/user';
+import { ISimpleUserProfile } from '@/types/user';
 import { useEffect, useState } from 'react';
 
 const RecommendedUsers = () => {
@@ -66,7 +66,7 @@ const RecommendedUsers = () => {
                 />
               ))
           : publicRecommendUsers &&
-            publicRecommendUsers.content.map((user: IProfileSimpleResponse) => (
+            publicRecommendUsers.content.map((user: ISimpleUserProfile) => (
               <UserCard key={user.memberId} userInfo={user} />
             ))}
       </Styled.UsersRecommendSection>

@@ -17,7 +17,7 @@ const LoginForm = () => {
 
   const { handleSubmit, setError } = methods;
 
-  const { mutate } = useLogin({
+  const { mutate: login } = useLogin({
     loginErrorHandler: () => {
       setError(
         'password',
@@ -28,7 +28,7 @@ const LoginForm = () => {
   });
 
   const onSubmit: SubmitHandler<LoginDataType> = (data) => {
-    mutate(data);
+    login(data);
   };
 
   return (

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { enterChatRoom } from '@/apis/chat';
+import { enterChatRoom as enterChatRoomRequest } from '@/apis/chat';
 import { CHAT_KEYS } from '@/constants/@queryKeys';
 import { ALERT_MESSAGE } from '@/constants/message';
 
@@ -17,8 +17,8 @@ const useEnterChatRoom = ({
 }: IUseMessageListProps) => {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
-    mutationFn: () => enterChatRoom(roomId),
+  const { mutate: enterChatRoom } = useMutation({
+    mutationFn: () => enterChatRoomRequest(roomId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: CHAT_KEYS.CHAT_LIST,
@@ -33,7 +33,7 @@ const useEnterChatRoom = ({
 
   useEffect(() => {
     if (!lastMsgId) {
-      mutate();
+      enterChatRoom();
     }
   }, [lastMsgId]);
 };

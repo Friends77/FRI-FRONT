@@ -1,21 +1,21 @@
-import { useProfile } from '@/hooks/user/useProfile';
 import * as Styled from './Profile.styled';
-import { useSetRecoilState } from 'recoil';
-import profileAtom from '@/recoil/user/profile';
-import { useEffect, useState } from 'react';
+// import { useSetRecoilState } from 'recoil';
+// import profileAtom from '@/recoil/user/profile';
+import { useState } from 'react';
 import ProfileImage from '@/components/@common/ProfileImage';
 import Person from '@/components/@common/SVG/Icon/Person';
 import Logout from '@/components/@common/SVG/Icon/Logout';
 import { useLogout } from '@/hooks/auth/useLogout';
 import { USER_PATH } from '@/constants/routes';
 import { useNavigate } from 'react-router';
+import useGetMyProfile from '@/hooks/user/useGetMyProfile';
 
 const Profile = () => {
   const navigate = useNavigate();
 
-  const { data } = useProfile();
+  const { data: myProfile } = useGetMyProfile();
 
-  const setProfile = useSetRecoilState(profileAtom);
+  // const setProfile = useSetRecoilState(profileAtom);
 
   const [isOpenMyMenu, setIsOpenMyMenu] = useState(false);
 
@@ -33,12 +33,6 @@ const Profile = () => {
   const handleLogout = () => {
     logout();
   };
-
-  useEffect(() => {
-    if (data) {
-      setProfile(data);
-    }
-  }, [data, setProfile]);
 
   return (
     <>
@@ -59,8 +53,8 @@ const Profile = () => {
         </Styled.MyMenu>
       )}
       <Styled.ProfileContent type="button" onClick={handleToggleMyMenu}>
-        <ProfileImage src={data.imageUrl} alt="profile image" size={52} />
-        <Styled.Nickname>{data.nickname}</Styled.Nickname>
+        <ProfileImage src={myProfile?.imageUrl} alt="profile image" size={52} />
+        <Styled.Nickname>{myProfile?.nickname}</Styled.Nickname>
       </Styled.ProfileContent>
     </>
   );

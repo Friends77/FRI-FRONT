@@ -30,10 +30,10 @@ const ResetPasswordForm = () => {
 
   const confirmPassword = watch('confirm-password');
 
-  const { mutate } = useResetPassword();
+  const { mutate: resetPassword } = useResetPassword();
 
   const onSubmit: SubmitHandler<ResetPasswordDataType> = (data) => {
-    mutate({
+    resetPassword({
       emailAuthToken,
       newPassword: data.password,
     });

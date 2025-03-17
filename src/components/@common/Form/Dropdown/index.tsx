@@ -45,7 +45,7 @@ export interface IDropdownProps {
    * - 단일 선택 모드: `Options`
    * - 다중 선택 모드: `Options[]`
    */
-  value?: Options | Options[];
+  value?: Options | Options[] | null;
 
   /** 폼에서 사용할 필드 이름 */
   name: string;
@@ -124,7 +124,7 @@ const Dropdown = forwardRef<any, IDropdownProps>(
           placeholder={placeholder}
           isSearchable={isMulti ? true : false}
           isMulti={isMulti}
-          value={value}
+          value={value ?? undefined}
           $isError={!!error}
           onChange={onChange}
           components={{

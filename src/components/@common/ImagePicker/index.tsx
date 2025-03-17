@@ -1,5 +1,5 @@
 import defaultProfileImg from '@/assets/images/defaultProfile.png';
-import { ReactEventHandler, useState } from 'react';
+import { ReactEventHandler, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import * as Styled from './ImagePicker.styled';
 import { useImageUpload } from '@/hooks/@common/useImageUpload';
@@ -27,6 +27,12 @@ const ImagePicker = ({
   const [pickedImage, setPickedImage] = useState<string | null>(
     imageUrl || null,
   );
+
+  useEffect(() => {
+    if (imageUrl) {
+      setPickedImage(imageUrl);
+    }
+  }, [imageUrl]);
 
   const handleImgError: ReactEventHandler<HTMLImageElement> = () => {
     setPickedImage(null);

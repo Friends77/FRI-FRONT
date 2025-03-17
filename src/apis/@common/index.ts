@@ -1,7 +1,7 @@
 import AuthAxios from '@/apis/@core/authInstance';
 import Axios from '@/apis/@core/instance';
 import { IUserProfile } from '@/types/@common';
-import { IProfileSimpleResponse } from '@/types/user';
+import { ISimpleUserProfile } from '@/types/user';
 import { IPrivateRecommendUsers } from './../../types/@common/index';
 import { CategoryResponse } from '@/types/auth';
 
@@ -30,7 +30,7 @@ export const getCategory = async () => {
 
 // 친구 찾아보기 - 비로그인
 export const getPublicUserRecommendations = async (size: number) => {
-  const response = await Axios.get<{ content: IProfileSimpleResponse[] }>(
+  const response = await Axios.get<{ content: ISimpleUserProfile[] }>(
     `/api/global/recommendation/user`,
     {
       params: {

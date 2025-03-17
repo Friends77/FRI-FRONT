@@ -4,7 +4,7 @@ import ListWrapper from '../ListWrapper';
 import FriendItem from '../FriendItem';
 import { useFormContext } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { IProfileSimpleResponse } from '@/types/user';
+import { ISimpleUserProfile } from '@/types/user';
 import { filterKeyword } from '@/utils/search';
 
 const FriendList = () => {
@@ -12,7 +12,7 @@ const FriendList = () => {
 
   const keyword = watch('keyword');
 
-  const [friendList, setFriendList] = useState<IProfileSimpleResponse[]>([]);
+  const [friendList, setFriendList] = useState<ISimpleUserProfile[]>([]);
 
   const { data } = useGetMyFriendList();
 
@@ -28,7 +28,7 @@ const FriendList = () => {
         content: data.content,
       });
 
-      setFriendList(filteredList as IProfileSimpleResponse[]);
+      setFriendList(filteredList as ISimpleUserProfile[]);
     }
   }, [data.content, keyword]);
 

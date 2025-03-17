@@ -1,13 +1,13 @@
 import ProfileImage from '@/components/@common/ProfileImage';
 import * as Styled from './FriendItem.styled';
-import { IProfileSimpleResponse } from '@/types/user';
+import { ISimpleUserProfile } from '@/types/user';
 import { useEffect, useState } from 'react';
 import ProfileDialog from '@/components/@common/Modal/ProfileDialog';
 import { IUserProfile } from '@/types/@common';
 import useGetProfile from '@/hooks/@common/useGetProfile';
 
 interface IFriendItemProps {
-  friend: IProfileSimpleResponse;
+  friend: ISimpleUserProfile;
 }
 
 const FriendItem = ({ friend }: IFriendItemProps) => {

@@ -11,9 +11,8 @@ const HomePage = () => {
 
   return (
     <Styled.Wrapper>
-      {/*배너 영역 */}
       <Banner
-        roomId={5} // Note(선우): mock data 생성되면 roomId 변경 필요
+        roomId={5}
         title={
           <Styled.BannerTitle>
             <h3>
@@ -42,7 +41,7 @@ const HomePage = () => {
         {/* 친구 찾아보기 영역 */}
         <RecommendedUsers />
       </Styled.RecommendedContent>
-      {/*사용자 선택 태그 기반 추천 친구 영역 */}
+      {/* 사용자 선택 태그 기반 추천 친구 영역 */}
       <HomeFriendListByTag />
     </Styled.Wrapper>
   );
