@@ -1,4 +1,5 @@
 import { sendFriendRequest } from '@/apis/user';
+import { ALERT_MESSAGE } from '@/constants/message';
 import { useMutation } from '@tanstack/react-query';
 
 interface IUseFriendRequest {
@@ -12,7 +13,7 @@ const useFriendRequest = ({ onSuccessHandler }: IUseFriendRequest) => {
       onSuccessHandler();
     },
     onError: () => {
-      alert('친구요청을 실패했습니다.');
+      alert(ALERT_MESSAGE.FRIEND_REQUEST_FAILED);
     },
   });
 };

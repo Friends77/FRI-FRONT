@@ -1,9 +1,9 @@
 import { IMyChatItem } from '@/types/chat';
-import { IProfileSimpleResponse } from '@/types/user';
+import { ISimpleUserProfile } from '@/types/user';
 
 interface IFilterKeyword {
   type: 'chat' | 'user';
-  content: IMyChatItem[] | IProfileSimpleResponse[];
+  content: IMyChatItem[] | ISimpleUserProfile[];
   keyword: string;
 }
 
@@ -56,7 +56,7 @@ export const filterKeyword = ({ type, content, keyword }: IFilterKeyword) => {
     const text =
       type === 'chat'
         ? (item as IMyChatItem).title
-        : (item as IProfileSimpleResponse).nickname;
+        : (item as ISimpleUserProfile).nickname;
 
     const { lowerText, chosungText } = getSearchableText(text);
 

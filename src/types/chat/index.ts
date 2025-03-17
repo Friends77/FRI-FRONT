@@ -4,7 +4,7 @@ import {
   IPaginationResponse,
   Options,
 } from '../@common';
-import { IProfileSimpleResponse } from '../user';
+import { ISimpleUserProfile } from '../user';
 
 export interface ICreateChatRoomRequest {
   title: string;
@@ -161,7 +161,7 @@ export interface IInviteChatForm {
 }
 
 export interface IMemberToInviteResponse {
-  content: IProfileSimpleResponse[];
+  content: ISimpleUserProfile[];
 }
 
 export interface IGetFriendsToInviteRequest {
@@ -174,6 +174,6 @@ export enum FriendsInvitationStatus {
   INVITED = 'INVITED',
 }
 
-export interface IMemberWithStatus extends IProfileSimpleResponse {
+export interface IMemberWithStatus extends ISimpleUserProfile {
   status: FriendsInvitationStatus;
 }

@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router';
 import { useSetRecoilState } from 'recoil';
 
 interface UseLoginParams {
-  /** 로그인 중 발생한 에러처리를 위한 함수 */
   loginErrorHandler: () => void;
 }
 

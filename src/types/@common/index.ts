@@ -1,5 +1,14 @@
 import { FriendsStatus } from '../chat';
-import { IProfileSimpleResponse } from '../user';
+
+export enum Gender {
+  MAN = 'MAN',
+  WOMAN = 'WOMAN',
+}
+
+export enum CategoryType {
+  SUBJECT = 'SUBJECT',
+  REGION = 'REGION',
+}
 
 export interface Options {
   value: string | number;
@@ -17,18 +26,13 @@ export interface IPaginationResponse {
 export interface IInterestTag {
   id: number;
   name: string;
-  type: string;
+  type: CategoryType;
   image: string | null;
 }
 
 export interface ILocation {
   latitude: number;
   longitude: number;
-}
-
-export enum Gender {
-  MAN = 'MAN',
-  WOMAN = 'WOMAN',
 }
 
 export enum MBTI {
@@ -50,6 +54,13 @@ export enum MBTI {
   ESTJ = 'ESTJ',
 }
 
+export interface MBTIType {
+  EI: string;
+  NS: string;
+  FT: string;
+  JP: string;
+}
+
 export interface IUserProfile {
   memberId: number;
   nickname: string;
@@ -65,7 +76,7 @@ export interface IUserProfile {
 
 export interface IPrivateRecommendUsers {
   content: {
-    profileSimpleResponseDto: IProfileSimpleResponse;
+    profileSimpleResponseDto: IUserProfile;
     type: FriendsStatus;
   }[];
 }

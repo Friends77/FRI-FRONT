@@ -1,5 +1,6 @@
 import { acceptChatRoomInvite } from '@/apis/chat';
 import { CHAT_KEYS } from '@/constants/@queryKeys';
+import { ALERT_MESSAGE } from '@/constants/message';
 import alarmListAtom from '@/recoil/user/alarmList';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSetRecoilState } from 'recoil';
@@ -29,7 +30,7 @@ const useAcceptChatRoomInvitation = ({
       onSuccessHandler();
     },
     onError: () => {
-      alert('채팅방 초대 수락을 실패했습니다.');
+      alert(ALERT_MESSAGE.CHAT_INVITE_FAILED);
     },
   });
 };

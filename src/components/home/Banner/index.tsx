@@ -1,8 +1,3 @@
-/**
- * 홈페이지: 배너
- * @author 선우
- */
-
 import chatRoomThumbnail from '@/assets/images/chatRoomThumbnail.png';
 import Profiles from '@/assets/images/profiles.png';
 import { AUTH_PATH, CHAT_PATH } from '@/constants/routes';
@@ -11,7 +6,7 @@ import { useNavigate } from 'react-router';
 import * as Styled from './Banner.styled';
 import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
-import { AUTH_ERROR_MSG } from '@/constants/message';
+import { ALERT_MESSAGE } from '@/constants/message';
 
 export interface BannerProps {
   roomId: number;
@@ -22,16 +17,12 @@ export interface BannerProps {
 const Banner = ({ roomId, title, subTitle }: BannerProps) => {
   const navigate = useNavigate();
 
-  // const chatRoomDetail = useRecoilValue(roomDetailAtom);
-
-  // useGetChatRoomDetail({ roomId });
-
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
   const handleChatRoomClick = useCallback(
     (roomId: number) => {
       if (!isLoggedIn) {
-        alert(AUTH_ERROR_MSG.LOGIN_REQUIRED);
+        alert(ALERT_MESSAGE.LOGIN_REQUIRED);
         navigate(AUTH_PATH.LOGIN);
       } else {
         const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());
@@ -52,10 +43,8 @@ const Banner = ({ roomId, title, subTitle }: BannerProps) => {
           </Styled.TitleSection>
           <Styled.BottomSection>
             <Styled.ChatRoomInfoSection>
-              {/* <Styled.ChatRoomImage src={chatRoomDetail?.imageUrl} /> */}
               <Styled.ChatRoomImage src={chatRoomThumbnail} />
               <Styled.ChatRoomInfo>
-                {/* {chatRoomDetail?.title} */}
                 오징어게임 시즌3 존버방
                 <img
                   src={Profiles}

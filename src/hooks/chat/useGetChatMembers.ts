@@ -23,7 +23,7 @@ const useGetChatMembers = ({ roomId, isEnter }: IUseGetChatMembers) => {
     if (chatMembers) {
       setChatMembers(chatMembers);
     }
-  }, [chatMembers]);
+  }, [chatMembers, setChatMembers]);
 };
 
 export default useGetChatMembers;

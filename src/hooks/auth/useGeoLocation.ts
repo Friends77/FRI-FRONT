@@ -1,5 +1,5 @@
 import userLocationAtom from '@/recoil/auth/userLocation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 interface UseGeoLocationParams {
@@ -14,17 +14,20 @@ export const useGeoLocation = (options = {}) => {
 
   const [error, setError] = useState('');
 
-  const handleSuccess = (pos: GeolocationPosition) => {
-    const { latitude, longitude } = pos.coords;
+  const handleSuccess = useCallback(
+    (pos: GeolocationPosition) => {
+      const { latitude, longitude } = pos.coords;
 
-    setLocation({
-      latitude,
-      longitude,
-    });
-  };
+      setLocation({
+        latitude,
+        longitude,
+      });
+    },
+    [setLocation],
+  );
 
-  const handleError = (err: GeolocationPositionError) => {
-    setError(err.message);
+  const handleError = (error: GeolocationPositionError) => {
+    setError(error.message);
   };
 
   useEffect(() => {
@@ -37,7 +40,7 @@ export const useGeoLocation = (options = {}) => {
     }
 
     geolocation.getCurrentPosition(handleSuccess, handleError, options);
-  }, [options]);
+  }, [handleSuccess, options]);
 
   return { location, error };
 };

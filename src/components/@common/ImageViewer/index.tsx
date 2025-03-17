@@ -8,12 +8,16 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { useEffect, useRef, useState } from 'react';
 import useLockBodyScroll from '@/hooks/@common/useLockBodyScroll';
-import PageNavigator from '@/components/home/PageNavigator';
+import PageNavigator from '@/components/@common/PageNavigator';
 
 interface IImageViewer {
+  /** 표시할 이미지 목록 (이미지 경로 배열) */
   imageList: string[];
+  /** 이미지의 대체 텍스트 */
   alt: string;
+  /** 모달을 닫을 때 실행할 함수 */
   onClose: () => void;
+  /** 초기 선택된 이미지의 인덱스 */
   selectedImageIndex: number;
 }
 

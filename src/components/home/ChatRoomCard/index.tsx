@@ -1,30 +1,21 @@
-/**
- * 채팅방 카드 컴포넌트
- * @author 선우
- */
-
 import Tag from '@/components/@common/Tag';
 import * as Styled from './ChatRoomCard.styled';
 import ProfileImage from '@/components/@common/ProfileImage';
-import { ParticipantCount } from '@/components/@layout/SideBar/SideBarChatRoomItem/SideBarChatRoomItem.styled';
+import { ParticipantCount } from '@/components/@layout/SideBar/ChatRoomItem/ChatRoomItem.styled';
 import { v4 as uuidv4 } from 'uuid';
 import { useCallback } from 'react';
 import { CHAT_PATH } from '@/constants/routes';
 import { useNavigate } from 'react-router';
 import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
-import { AUTH_ERROR_MSG } from '@/constants/message';
+import { ALERT_MESSAGE } from '@/constants/message';
+import { IInterestTag } from '@/types/@common';
 
 export interface IChatRoomCardProps {
   id: number;
   title: string;
   imageUrl: string;
-  categoryIdList: {
-    id: number;
-    name: string;
-    type: 'SUBJECT' | 'REGION';
-    image: string;
-  }[];
+  categoryIdList: IInterestTag[];
   participantCount: number;
   participantProfileList: string[];
   description: string;
@@ -42,14 +33,14 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
   const handleChatRoomClick = useCallback(
     (roomId: number) => {
       if (!isLoggedIn) {
-        alert(AUTH_ERROR_MSG.LOGIN_REQUIRED);
+        alert(ALERT_MESSAGE.LOGIN_REQUIRED);
         navigate('/login');
       } else {
         const path = CHAT_PATH.CHAT_ROOM.replace(':roomId', roomId.toString());
         navigate(path);
       }
     },
-    [navigate],
+    [isLoggedIn, navigate],
   );
 
   return (

@@ -1,9 +1,10 @@
 import { sendSocialLoginToken } from '@/apis/auth';
 import { AUTH_CONSTANTS } from '@/constants/auth';
+import { ALERT_MESSAGE } from '@/constants/message';
 import { AUTH_PATH, ROOT_PATH } from '@/constants/routes';
 import accessTokenAtom from '@/recoil/auth/accessToken';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
-import signUpStepAtom from '@/recoil/auth/signUp/atom';
+import signUpStepAtom from '@/recoil/auth/signUpStep/atom';
 import socialAuthInfoAtom from '@/recoil/auth/socialLogin';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
@@ -62,12 +63,12 @@ export const useSocialLogin = () => {
         const { status } = error;
 
         if (status === 401) {
-          alert('다시 로그인해 주세요.');
+          alert(ALERT_MESSAGE.PLEASE_RELOGIN);
           navigate(AUTH_PATH.LOGIN);
         }
 
         if (status === 409) {
-          alert('해당 계정은 다른 소셜 서비스에 가입되어 있습니다.');
+          alert(ALERT_MESSAGE.ACCOUNT_ALREADY_REGISTERED);
           navigate(AUTH_PATH.LOGIN);
         }
       }

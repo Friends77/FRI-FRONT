@@ -40,13 +40,13 @@ const TokenRefresher = ({ children }: ITokenRefresherProps) => {
     const refresh = async () => {
       try {
         await mutateAsync();
-      } catch (err) {
-        if (axios.isAxiosError(err) && err.response?.status === 401) {
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
           removeCookie('isLoggedIn');
           removeCookie('refreshToken');
           navigate(AUTH_PATH.LOGIN, { replace: true });
         }
-        console.log('Refresh Result:', err);
+        console.log('Refresh Result:', error);
       } finally {
         setIsLoading(false);
       }

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Button = styled.button<{ $width?: string }>`
   ${({ theme }) => theme.typo.B2_B};
-  padding: 16.5px;
+  padding: 16px;
   width: ${({ $width }) => $width || '102px'};
   color: ${({ theme }) => theme.colors.White};
   background-color: ${({ theme }) => theme.colors.Blue_500};

@@ -2,12 +2,12 @@ import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
-import { AUTH_ERROR_MSG } from '@/constants/message';
+import { AUTH_ERROR_MESSAGE } from '@/constants/message';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useVerifyCode } from '@/hooks/auth/useVerifyCode';
 import { useSendCodeToEmail } from '@/hooks/auth/useSendCodeToEmail';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
-import InputField from '@/components/auth/InputField';
+import InputField from '@/components/@common/Form/InputField';
 import Timer from '@/components/auth/Timer';
 import * as Styled from './EmailVerificationForm.styled';
 
@@ -75,7 +75,7 @@ const EmailVerificationForm = ({
     onErrorHandler: () => {
       setError('certno', {
         type: 'manual',
-        message: AUTH_ERROR_MSG.CERTNO_PATTERN,
+        message: AUTH_ERROR_MESSAGE.CERTNO_PATTERN,
       });
     },
   });
@@ -88,7 +88,7 @@ const EmailVerificationForm = ({
 
         return true;
       } catch (_) {
-        return AUTH_ERROR_MSG.CERTNO_PATTERN;
+        return AUTH_ERROR_MESSAGE.CERTNO_PATTERN;
       }
     }
   };
@@ -105,16 +105,16 @@ const EmailVerificationForm = ({
             name="email"
             width="210px"
             disabled={isCodeSended}
-            placeholder={AUTH_ERROR_MSG.EMAIL_REQUIRED}
+            placeholder={AUTH_ERROR_MESSAGE.EMAIL_REQUIRED}
             isErrorMsgRelative
             rules={{
               required: {
                 value: true,
-                message: AUTH_ERROR_MSG.EMAIL_REQUIRED,
+                message: AUTH_ERROR_MESSAGE.EMAIL_REQUIRED,
               },
               pattern: {
                 value: AUTH_PATTERN.EMAIL,
-                message: AUTH_ERROR_MSG.EMAIL_PATTERN,
+                message: AUTH_ERROR_MESSAGE.EMAIL_PATTERN,
               },
             }}
           />
@@ -132,17 +132,17 @@ const EmailVerificationForm = ({
           <InputField
             type="text"
             name="certno"
-            placeholder={AUTH_ERROR_MSG.CERTNO_REQUIRED}
+            placeholder={AUTH_ERROR_MESSAGE.CERTNO_REQUIRED}
             maxLength={6}
             disabled={isCodeVerified || !isCodeSended}
             rules={{
               required: {
                 value: true,
-                message: AUTH_ERROR_MSG.CERTNO_REQUIRED,
+                message: AUTH_ERROR_MESSAGE.CERTNO_REQUIRED,
               },
               minLength: {
                 value: 6,
-                message: AUTH_ERROR_MSG.CERTNO_PATTERN,
+                message: AUTH_ERROR_MESSAGE.CERTNO_PATTERN,
               },
               validate: handleVerifyCodeValidate,
             }}

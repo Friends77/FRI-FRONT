@@ -3,7 +3,7 @@ import alarmListAtom from '@/recoil/user/alarmList';
 import { AlarmType } from '@/types/user';
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { useGetSecondaryToken } from '../chat/useGetSecondaryToken';
+import { useGetSecondaryToken } from '../@common/useGetSecondaryToken';
 import hasAlarmAtom from '@/recoil/user/hasAlarm';
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;

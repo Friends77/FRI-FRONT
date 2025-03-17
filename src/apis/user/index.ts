@@ -1,26 +1,29 @@
 import AuthAxios from '@/apis/@core/authInstance';
 import { IUserProfile } from '@/types/@common';
 import {
-  UpdateProfileFormDataType,
-  IProfileSimpleResponse,
+  IUpdateProfileFormRequest,
+  ISimpleUserProfile,
   IGetAlarmListResponse,
   IGetAlarmListRequest,
 } from '@/types/user';
 
+// 내 프로필 조회
 export const getProfile = async () => {
   const response = await AuthAxios.get<IUserProfile>('/api/user/profile');
 
   return response.data;
 };
 
-export const updateProfile = async (formData: UpdateProfileFormDataType) => {
+// 내 프로필 수정
+export const updateProfile = async (formData: IUpdateProfileFormRequest) => {
   const response = await AuthAxios.put('/api/user/profile', formData);
 
   return response.data;
 };
 
+// 친구 목록 조회
 export const getFriendList = async () => {
-  const response = await AuthAxios.get<{ content: IProfileSimpleResponse[] }>(
+  const response = await AuthAxios.get<{ content: ISimpleUserProfile[] }>(
     '/api/user/friendship',
   );
 

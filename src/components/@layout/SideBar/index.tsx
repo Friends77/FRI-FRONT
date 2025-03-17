@@ -1,13 +1,13 @@
 import { useRecoilValue } from 'recoil';
 import * as Styled from './SideBar.styled';
 import isSideBarOpenAtom from '@/recoil/layout/isSideBarOpen';
-import SideBarHeader from './SideBarHeader';
-import SideBarSearchInput from './SideBarSearchInput';
-import SideBarChatList from './SideBarChatList';
+import Header from './Header';
+import SearchInput from './SearchInput';
+import ChatList from './ChatList';
 import { Suspense } from 'react';
-import SideBarChatListSkeleton from './SideBarChatListSkeleton';
-import SideBarWithoutAuth from './SideBarWithoutAuth';
-import SideBarFriendList from './SideBarFriendList';
+import ChatListSkeleton from './ChatListSkeleton';
+import WithoutAuth from './WithoutAuth';
+import FriendList from './FriendList';
 import { FormProvider, useForm } from 'react-hook-form';
 import useChatWebSocket from '@/hooks/chat/useChatWebSocket';
 import useChatListMessageHandler from '@/hooks/chat/useChatListMessageHandler';
@@ -29,19 +29,19 @@ const SideBar = () => {
     <Styled.Wrapper $isOpen={isSideBarOpen}>
       {isLoggedIn ? (
         <>
-          <SideBarHeader />
+          <Header />
           <FormProvider {...methods}>
-            <SideBarSearchInput />
+            <SearchInput />
             <Styled.Container>
-              <Suspense fallback={<SideBarChatListSkeleton />}>
-                <SideBarFriendList />
-                <SideBarChatList />
+              <Suspense fallback={<ChatListSkeleton />}>
+                <FriendList />
+                <ChatList />
               </Suspense>
             </Styled.Container>
           </FormProvider>
         </>
       ) : (
-        <SideBarWithoutAuth />
+        <WithoutAuth />
       )}
     </Styled.Wrapper>
   );

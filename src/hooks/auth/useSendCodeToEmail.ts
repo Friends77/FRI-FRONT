@@ -1,5 +1,6 @@
-import { sendVerifyEmail } from "@/apis/auth";
-import { useMutation } from "@tanstack/react-query";
+import { sendVerifyEmail } from '@/apis/auth';
+import { ALERT_MESSAGE } from '@/constants/message';
+import { useMutation } from '@tanstack/react-query';
 
 interface UseSendCodeToEmailParams {
   onSuccessHandler: () => void;
@@ -13,11 +14,11 @@ export const useSendCodeToEmail = ({
   return useMutation({
     mutationFn: sendVerifyEmail,
     onSuccess: () => {
-      alert("메일을 보냈어요! 메일함을 확인해주세요.");
+      alert(ALERT_MESSAGE.EMAIL_SENT);
       onSuccessHandler();
     },
     onError: () => {
-      alert("이메일 발송에 실패했어요.");
+      alert(ALERT_MESSAGE.EMAIL_SEND_FAILED);
       onErrorHandler();
     },
   });

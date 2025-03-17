@@ -1,18 +1,18 @@
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import * as Styled from './CreateChatRoom.styled';
-import InputField from '@/components/auth/InputField';
+import InputField from '@/components/@common/Form/InputField';
 import { CHAT_ERROR_MSG } from '@/constants/message';
-import Dropdown from '@/components/@common/Dropdown';
+import Dropdown from '@/components/@common/Form/Dropdown';
 import { useEffect, useState } from 'react';
 import { Options } from '@/types/@common';
-import { useFetchCategory } from '@/hooks/auth/useFetchCategory';
+import useGetCategory from '@/hooks/@common/useGetCategory';
 import PrimaryButton from '@/components/@common/Button/PrimaryButton';
 import { ICreateChatRoomForm } from '@/types/chat';
 import { useCreateChatRoom } from '@/hooks/chat/useCreateChatRoom';
-import ImagePicker from '@/components/auth/ImagePicker';
+import ImagePicker from '@/components/@common/ImagePicker';
 import defaultThumbnail from '@/assets/images/defaultThumbnail.png';
 const CreateChatRoom = () => {
-  const { data: categories } = useFetchCategory();
+  const { data: categories } = useGetCategory();
 
   const [categoryOptions, setCategoryOptions] = useState<Options[]>([]);
 
@@ -54,7 +54,7 @@ const CreateChatRoom = () => {
             <Styled.ThumbnailItem>
               <ImagePicker
                 name="backgroundImage"
-                usage="signUp"
+                usage="public"
                 defaultImageUrl={defaultThumbnail}
               />
             </Styled.ThumbnailItem>
@@ -63,6 +63,7 @@ const CreateChatRoom = () => {
                 채팅방 이름 <Styled.RequiredTag>*</Styled.RequiredTag>
               </Styled.Label>
               <InputField
+                type="text"
                 isRequired={true}
                 name="title"
                 width="100%"
@@ -81,6 +82,7 @@ const CreateChatRoom = () => {
                 채팅방 소개 <Styled.RequiredTag>*</Styled.RequiredTag>
               </Styled.Label>
               <InputField
+                type="text"
                 isRequired={true}
                 name="description"
                 width="100%"

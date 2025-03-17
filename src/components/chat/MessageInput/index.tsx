@@ -2,10 +2,10 @@ import PhotoMessage from '@/components/@common/SVG/Icon/PhotoMessage';
 import * as Styled from './MessageInput.styled';
 import SendMessage from '@/components/@common/SVG/Icon/SendMessage';
 import { Theme } from '@/styles/theme';
-import { useMutation } from '@tanstack/react-query';
-import { imageUpload } from '@/apis/@common';
 import { ISendMyMessageForm, MessageType } from '@/types/chat';
 import { useRef } from 'react';
+import { ALERT_MESSAGE } from '@/constants/message';
+import { useImageUpload } from '@/hooks/@common/useImageUpload';
 
 interface IMessageInputProps {
   value: string;
@@ -22,21 +22,24 @@ const MessageInput = ({
 
   const imageMessageCount = useRef<number>(0);
 
-  const { mutate: uploadImage } = useMutation({
-    mutationFn: imageUpload,
-    onSuccess: (path) => {
-      imagePathList.current = [...imagePathList.current, path];
+  const handleImageUploadSuccess = (path: string) => {
+    imagePathList.current = [...imagePathList.current, path];
 
-      if (imageMessageCount.current === imagePathList.current.length) {
-        onSendMessage({
-          messageType: MessageType.IMAGE,
-          imagePath: imagePathList.current.join(','),
-        });
-      }
-    },
-    onError: () => {
-      alert('이미지 업로드에 실패하였습니다.');
-    },
+    if (imageMessageCount.current === imagePathList.current.length) {
+      onSendMessage({
+        messageType: MessageType.IMAGE,
+        imagePath: imagePathList.current.join(','),
+      });
+    }
+  };
+
+  const handleImageUploadError = () => {
+    alert(ALERT_MESSAGE.IMAGE_UPLOAD_FAILED);
+  };
+
+  const { mutate: uploadImage } = useImageUpload({
+    onSuccessHandler: (path) => handleImageUploadSuccess(path),
+    onErrorHandler: handleImageUploadError,
   });
 
   const handleMyMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -58,7 +61,7 @@ const MessageInput = ({
 
     if (files) {
       if (files.length > 20) {
-        window.alert('최대 20장까지 업로드 가능합니다');
+        window.alert(ALERT_MESSAGE.MAX_IMAGE_LIMIT_EXCEEDED);
 
         return;
       }

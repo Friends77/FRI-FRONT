@@ -1,6 +1,6 @@
-import { AUTH_ERROR_MSG } from '@/constants/message';
+import { AUTH_ERROR_MESSAGE } from '@/constants/message';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import InputField from '@/components/auth/InputField';
+import InputField from '@/components/@common/Form/InputField';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useRecoilValue } from 'recoil';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
@@ -30,10 +30,10 @@ const ResetPasswordForm = () => {
 
   const confirmPassword = watch('confirm-password');
 
-  const { mutate } = useResetPassword();
+  const { mutate: resetPassword } = useResetPassword();
 
   const onSubmit: SubmitHandler<ResetPasswordDataType> = (data) => {
-    mutate({
+    resetPassword({
       emailAuthToken,
       newPassword: data.password,
     });
@@ -48,23 +48,23 @@ const ResetPasswordForm = () => {
             id="password"
             type="password"
             name="password"
-            placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
+            placeholder={AUTH_ERROR_MESSAGE.PASSWORD_REQUIRED}
             rules={{
               required: {
                 value: true,
-                message: AUTH_ERROR_MSG.PASSWORD_REQUIRED,
+                message: AUTH_ERROR_MESSAGE.PASSWORD_REQUIRED,
               },
               minLength: {
                 value: 8,
-                message: AUTH_ERROR_MSG.PASSWORD_PATTERN_MORE,
+                message: AUTH_ERROR_MESSAGE.PASSWORD_PATTERN_MORE,
               },
               maxLength: {
                 value: 20,
-                message: AUTH_ERROR_MSG.PASSWORD_PATTERN_BELOW,
+                message: AUTH_ERROR_MESSAGE.PASSWORD_PATTERN_BELOW,
               },
               pattern: {
                 value: AUTH_PATTERN.PASSWORD,
-                message: AUTH_ERROR_MSG.PASSWORD_PATTERN,
+                message: AUTH_ERROR_MESSAGE.PASSWORD_PATTERN,
               },
             }}
           />
@@ -73,18 +73,19 @@ const ResetPasswordForm = () => {
             id="confirm-password"
             type="password"
             name="confirm-password"
-            placeholder={AUTH_ERROR_MSG.PASSWORD_REQUIRED}
+            placeholder={AUTH_ERROR_MESSAGE.PASSWORD_REQUIRED}
             rules={{
               required: true,
               validate: (value) => {
                 if (value !== password) {
-                  return AUTH_ERROR_MSG.PASSWORD_NOT_MATCH;
+                  return AUTH_ERROR_MESSAGE.PASSWORD_NOT_MATCH;
                 }
               },
             }}
           />
         </Styled.PasswordContent>
         <PrimaryButton
+          type="submit"
           disabled={!!errors.password || password !== confirmPassword}
         >
           확인

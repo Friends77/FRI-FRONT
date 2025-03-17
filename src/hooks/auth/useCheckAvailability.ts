@@ -1,8 +1,20 @@
 import { checkAvailability } from '@/apis/auth';
-import { useMutation } from '@tanstack/react-query';
+import { USER_KEYS } from '@/constants/@queryKeys';
+import { AvailabilityType } from '@/types/auth';
+import { useQuery } from '@tanstack/react-query';
 
-export const useCheckAvailability = () => {
-  return useMutation({
-    mutationFn: checkAvailability,
+interface IUseCheckAvailability {
+  type: AvailabilityType;
+  value: string;
+}
+
+export const useCheckAvailability = ({
+  type,
+  value,
+}: IUseCheckAvailability) => {
+  return useQuery({
+    queryKey: [USER_KEYS.CHECK_AVAILABILITY, type, value],
+    queryFn: () => checkAvailability({ type, value }),
+    enabled: !!value,
   });
 };

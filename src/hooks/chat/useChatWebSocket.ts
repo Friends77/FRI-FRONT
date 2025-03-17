@@ -3,7 +3,7 @@ import useMessageSubscription from './useMessageSubscription';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import sendMessageHandlerAtom from '@/recoil/chat/sendMessageHandler';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
-import { useGetSecondaryToken } from './useGetSecondaryToken';
+import { useGetSecondaryToken } from '../@common/useGetSecondaryToken';
 import chatSocketConnectedAtom from '@/recoil/chat/socketConnected';
 
 const websocketURL = import.meta.env.VITE_WEB_SOCKET_URL;

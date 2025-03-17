@@ -17,7 +17,7 @@ const ResetPasswordPage = () => {
       case 2:
         return <ResetPasswordForm />;
       default:
-        return; // TO-DO: 에러 페이지 추가
+        return <EmailVerificationForm onNextStepClick={handleNextStepClick} />;
     }
   };
 

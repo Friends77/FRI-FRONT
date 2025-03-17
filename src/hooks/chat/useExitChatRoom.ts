@@ -3,6 +3,7 @@ import { ROOT_PATH } from '@/constants/routes';
 import { useNavigate } from 'react-router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { CHAT_KEYS } from '@/constants/@queryKeys';
+import { ALERT_MESSAGE } from '@/constants/message';
 
 const useExitChatRoom = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const useExitChatRoom = () => {
       navigate(ROOT_PATH.ROOT);
     },
     onError: () => {
-      alert('채팅방 나가기를 실패했습니다.');
+      alert(ALERT_MESSAGE.CHAT_EXIT_FAILED);
     },
   });
 };
