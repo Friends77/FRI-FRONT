@@ -5,7 +5,7 @@ import { ROOT_PATH } from '@/constants/routes';
 import useSignUp from '@/hooks/auth/useSignUp';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
-import signUpStepAtom from '@/recoil/auth/signUp/atom';
+import signUpStepAtom from '@/recoil/auth/signUpStep/atom';
 import socialAuthInfoAtom from '@/recoil/auth/socialLogin';
 import userLocationAtom from '@/recoil/auth/userLocation';
 import { SignUpFormDataType } from '@/types/auth';

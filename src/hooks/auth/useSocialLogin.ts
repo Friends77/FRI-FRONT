@@ -4,7 +4,7 @@ import { ALERT_MESSAGE } from '@/constants/message';
 import { AUTH_PATH, ROOT_PATH } from '@/constants/routes';
 import accessTokenAtom from '@/recoil/auth/accessToken';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
-import signUpStepAtom from '@/recoil/auth/signUp/atom';
+import signUpStepAtom from '@/recoil/auth/signUpStep/atom';
 import socialAuthInfoAtom from '@/recoil/auth/socialLogin';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';

@@ -1,7 +1,7 @@
 import * as Styled from './Profile.styled';
-// import { useSetRecoilState } from 'recoil';
-// import profileAtom from '@/recoil/user/profile';
-import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import profileAtom from '@/recoil/user/profile';
+import { useEffect, useState } from 'react';
 import ProfileImage from '@/components/@common/ProfileImage';
 import Person from '@/components/@common/SVG/Icon/Person';
 import Logout from '@/components/@common/SVG/Icon/Logout';
@@ -15,7 +15,7 @@ const Profile = () => {
 
   const { data: myProfile } = useGetMyProfile();
 
-  // const setProfile = useSetRecoilState(profileAtom);
+  const setProfile = useSetRecoilState(profileAtom);
 
   const [isOpenMyMenu, setIsOpenMyMenu] = useState(false);
 
@@ -33,6 +33,12 @@ const Profile = () => {
   const handleLogout = () => {
     logout();
   };
+
+  useEffect(() => {
+    if (myProfile) {
+      setProfile(myProfile);
+    }
+  }, [myProfile, setProfile]);
 
   return (
     <>

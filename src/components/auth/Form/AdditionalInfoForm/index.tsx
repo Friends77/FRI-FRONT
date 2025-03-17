@@ -4,7 +4,7 @@ import Radio from '@/components/@common/Form/Radio';
 import { EI, FT, JP, NS } from '@/constants/user/mbti';
 import useGetCategory from '@/hooks/@common/useGetCategory';
 import { useGeoLocation } from '@/hooks/auth/useGeoLocation';
-import signUpStepAtom from '@/recoil/auth/signUp/atom';
+import signUpStepAtom from '@/recoil/auth/signUpStep/atom';
 import { Theme } from '@/styles/theme';
 import { moveToStep } from '@/utils/step/moveSteps';
 import { useFormContext } from 'react-hook-form';

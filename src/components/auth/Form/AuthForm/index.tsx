@@ -3,7 +3,7 @@ import InputField from '@/components/@common/Form/InputField';
 import Timer from '@/components/auth/Timer';
 import { AUTH_ERROR_MESSAGE } from '@/constants/message';
 import { AUTH_PATTERN } from '@/constants/pattern';
-import signUpStepAtom from '@/recoil/auth/signUp/atom';
+import signUpStepAtom from '@/recoil/auth/signUpStep/atom';
 import { moveToStep } from '@/utils/step/moveSteps';
 import { useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';

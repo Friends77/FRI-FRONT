@@ -4,7 +4,7 @@ import Radio from '@/components/@common/Form/Radio';
 import { AUTH_ERROR_MESSAGE } from '@/constants/message';
 import { AUTH_PATTERN } from '@/constants/pattern';
 import { useCheckAvailability } from '@/hooks/auth/useCheckAvailability';
-import signUpStepAtom from '@/recoil/auth/signUp/atom';
+import signUpStepAtom from '@/recoil/auth/signUpStep/atom';
 import { getDaysInMonth } from '@/utils/date';
 import { moveToStep } from '@/utils/step/moveSteps';
 import { useState } from 'react';
