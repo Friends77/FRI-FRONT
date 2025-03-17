@@ -1,6 +1,7 @@
 import AdditionalInfoForm from '@/components/auth/Form/AdditionalInfoForm';
 import AuthForm from '@/components/auth/Form/AuthForm';
 import BasicInfoForm from '@/components/auth/Form/BasicInfoForm';
+import { AUTH_CONSTANTS } from '@/constants/auth';
 import { ROOT_PATH } from '@/constants/routes';
 import useSignUp from '@/hooks/auth/useSignUp';
 import emailAuthTokenAtom from '@/recoil/auth/emailAuthToken';
@@ -13,7 +14,7 @@ import { SignUpFormDataType } from '@/types/auth';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -28,13 +29,21 @@ const SignUpPage = () => {
 
   const [searchParams] = useSearchParams();
 
+  const isSocialSignUp = searchParams.get('social') === 'true';
+
+  const [signUpStep, setSignUpStep] = useRecoilState(signUpStepAtom);
+
+  useEffect(() => {
+    if (!isSocialSignUp) {
+      setSignUpStep(AUTH_CONSTANTS.SIGN_UP_STEP);
+    }
+  }, [isSocialSignUp, setSignUpStep]);
+
   const { latitude, longitude } = useRecoilValue(userLocationAtom);
 
   const authToken = useRecoilValue(emailAuthTokenAtom) as string;
 
   const socialAuthInfo = useRecoilValue(socialAuthInfoAtom);
-
-  const signUpStep = useRecoilValue(signUpStepAtom);
 
   const methods = useForm<SignUpFormDataType>({
     mode: 'onChange',
@@ -57,8 +66,6 @@ const SignUpPage = () => {
   const { mutate: signUp } = useSignUp();
 
   const onSubmit: SubmitHandler<SignUpFormDataType> = (data) => {
-    const isSocialSignUp = searchParams.get('social') === 'true';
-
     const { imageUrl, year, month, day, EI, NS, FT, JP, ...formFields } = data;
 
     const requestPayload = {
