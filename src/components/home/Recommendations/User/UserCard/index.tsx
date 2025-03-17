@@ -1,3 +1,4 @@
+import defaultProfileImg from '@/assets/images/defaultProfile.png';
 import PersonAdd from '@/components/@common/SVG/Icon/PersonAdd';
 import { ISimpleUserProfile } from '@/types/user';
 import { useState } from 'react';
@@ -14,6 +15,8 @@ export interface IUserCardProps {
 }
 
 const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
+  const [imageSrc, setImageSrc] = useState(userInfo.imageUrl);
+
   const [isHovered, setIsHovered] = useState(false);
 
   const [friendState, setFriendState] = useState(friendStatusType);
@@ -31,6 +34,10 @@ const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
     setFriendState(FriendsStatus.REQUESTED);
   };
 
+  const handleImageError = () => {
+    setImageSrc(defaultProfileImg); // 이미지 로드 실패 시 fallback 이미지로 설정
+  };
+
   return (
     <Styled.UserCardWrapper
       onMouseOver={() => setIsHovered(true)}
@@ -38,7 +45,11 @@ const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
     >
       <Styled.UserCardInnerWrapper $isHovered={isHovered}>
         <Styled.UserCardIntroSection $isHovered={isHovered}>
-          <Styled.UserCardImage src={userInfo.imageUrl} />
+          <Styled.UserCardImage
+            alt="프로필 이미지"
+            src={imageSrc}
+            onError={handleImageError}
+          />
           <Styled.UserCardInfoSection $isHovered={isHovered}>
             <Styled.UserCardNickname>
               {userInfo.nickname}
