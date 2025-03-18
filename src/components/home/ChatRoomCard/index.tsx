@@ -10,6 +10,7 @@ import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import { ALERT_MESSAGE } from '@/constants/message';
 import { IInterestTag } from '@/types/@common';
+import { HOME_CONSTANT } from '@/constants/home';
 
 export interface IChatRoomCardProps {
   id: number;
@@ -74,10 +75,15 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
               />
             </Styled.ParticipantItem>
           ))}
-          {chatRoom.participantCount > 4 && (
-            <Styled.ParticipantItem $index={4}>
+          {chatRoom.participantCount > HOME_CONSTANT.CHAT_PARTICIPANT_COUNT && (
+            <Styled.ParticipantItem
+              $index={HOME_CONSTANT.CHAT_PARTICIPANT_COUNT}
+            >
               <ParticipantCount>
-                <span>{chatRoom.participantCount - 4}</span>
+                <span>
+                  {chatRoom.participantCount -
+                    HOME_CONSTANT.CHAT_PARTICIPANT_COUNT}
+                </span>
               </ParticipantCount>
             </Styled.ParticipantItem>
           )}
