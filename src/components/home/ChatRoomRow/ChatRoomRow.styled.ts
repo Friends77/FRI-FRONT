@@ -21,7 +21,7 @@ export const SubTitleSection = styled.section`
 `;
 
 export const SubTitle = styled.h3`
-  ${({ theme }) => theme.typo.T2_R};
+  ${({ theme }) => theme.typo.B1_R};
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 

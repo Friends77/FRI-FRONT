@@ -7,9 +7,11 @@ export const Wrapper = styled.div`
   padding: 32px 60px;
 `;
 
-export const BannerTitle = styled.article`
+export const BannerTitle = styled.h3`
   ${({ theme }) => theme.typo.H1_B};
   color: ${({ theme }) => theme.colors.Gray_100};
+  line-height: 30px;
+  margin-bottom: 10px;
 `;
 
 export const RecommendedContent = styled.section`

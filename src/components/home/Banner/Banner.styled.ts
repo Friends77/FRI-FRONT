@@ -88,4 +88,5 @@ export const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.Blue_500};
   color: ${({ theme }) => theme.colors.Gray_100};
   ${({ theme }) => theme.typo.B2_B};
+  margin-top: 10px;
 `;

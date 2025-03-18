@@ -11,8 +11,10 @@ export const Wrapper = styled.li<ITag>`
   background-color: ${({ theme }) => theme.colors.Gray_100};
   color: ${({ theme }) => theme.colors.Gray_800};
   gap: 4px;
-  padding: 4px 8px;
+  padding: 4px 6px;
 
-  ${({ theme, $size }) =>
-    $size === 'small' ? theme.typo.Label_R : theme.typo.T2_R};
+  span {
+    ${({ theme, $size }) =>
+      $size === 'small' ? theme.typo.Label_R : theme.typo.B2_R};
+  }
 `;
