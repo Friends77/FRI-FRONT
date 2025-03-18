@@ -1,0 +1,4 @@
+export const COMMON_CONSTANT = Object.freeze({
+  CHAT_MAX_PARTICIPANT_COUNT: 4,
+  CHAT_MAX_READ_COUNT: 99,
+});
