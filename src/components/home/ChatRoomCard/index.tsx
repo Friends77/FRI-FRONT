@@ -64,7 +64,7 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
             );
           })}
         </Styled.ChatRoomTagSection>
-        <Styled.ChatRoomPariticipantList>
+        <Styled.ChatRoomParticipantList>
           {participantList.map((imageUrl, idx) => (
             <Styled.ParticipantItem key={uuidv4()} $index={idx}>
               <ProfileImage
@@ -81,7 +81,7 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
               </ParticipantCount>
             </Styled.ParticipantItem>
           )}
-        </Styled.ChatRoomPariticipantList>
+        </Styled.ChatRoomParticipantList>
       </Styled.ChatRoomInfoContainer>
     </Styled.Wrapper>
   );

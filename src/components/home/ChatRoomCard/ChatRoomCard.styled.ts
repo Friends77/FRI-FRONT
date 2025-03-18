@@ -45,7 +45,7 @@ export const ChatRoomTagSection = styled.ul`
   width: 100%;
 `;
 
-export const ChatRoomPariticipantList = styled.ul`
+export const ChatRoomParticipantList = styled.ul`
   display: flex;
 `;
 
