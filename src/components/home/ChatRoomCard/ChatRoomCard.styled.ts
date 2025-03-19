@@ -4,7 +4,7 @@ export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   width: 280px;
-  height: 360px;
+  /* height: 360px; */
   border-radius: 16px;
   padding: 8px;
   gap: 7px;
@@ -47,15 +47,10 @@ export const ChatRoomTagSection = styled.ul`
 
 export const ChatRoomParticipantList = styled.ul`
   display: flex;
+  padding-left: 10px;
 `;
 
 export const ParticipantItem = styled.li<{ $index?: number }>`
-  margin-left: 8px;
-  position: absolute;
-  left: ${({ $index }) => $index && `${15 * $index}px`};
-  width: 24px;
-  height: 24px;
-  border: 1px solid ${({ theme }) => theme.colors.Gray_100};
-  border-radius: 999px;
-  background-color: ${({ theme }) => theme.colors.Gray_300};
+  display: flex;
+  margin-left: -10px;
 `;

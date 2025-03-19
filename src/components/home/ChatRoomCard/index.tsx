@@ -28,7 +28,10 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
   // 참여 유저 4명 자르기
-  const participantList = [...chatRoom.participantProfileList].slice(0, 4);
+  const participantList = [...chatRoom.participantProfileList].slice(
+    0,
+    COMMON_CONSTANT.CHAT_MAX_PARTICIPANT_COUNT,
+  );
 
   // 채팅방으로 이동
   const handleChatRoomClick = useCallback(

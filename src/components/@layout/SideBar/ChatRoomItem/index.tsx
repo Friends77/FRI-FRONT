@@ -62,11 +62,9 @@ const ChatRoomItem = ({
         </Styled.ParticipantList>
         {!!unreadMessageCount && (
           <Styled.UnreadCountContainer>
-            <span>
-              {unreadMessageCount > COMMON_CONSTANT.CHAT_MAX_READ_COUNT
-                ? `+${COMMON_CONSTANT.CHAT_MAX_READ_COUNT}`
-                : unreadMessageCount}
-            </span>
+            {unreadMessageCount > COMMON_CONSTANT.CHAT_MAX_READ_COUNT
+              ? `+${COMMON_CONSTANT.CHAT_MAX_READ_COUNT}`
+              : unreadMessageCount}
           </Styled.UnreadCountContainer>
         )}
       </Styled.ChatRoomInfo>
