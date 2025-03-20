@@ -22,8 +22,18 @@ export const RecommendedContent = styled.section`
   align-items: flex-start;
 `;
 
+export const RecommendedContentWithMargin = styled.section`
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+`;
+
 export const ChatRoomByTagSection = styled.section`
   width: 100%;
+  margin-top: 16px;
 `;
 
 export const ChatRoomByTagTitleSection = styled.section`
