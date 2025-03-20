@@ -9,11 +9,14 @@ import * as Styled from './RecommendedUsers.styled';
 import usePrivateRecommendations from '@/hooks/home/usePrivateRecommendations';
 import { ISimpleUserProfile } from '@/types/user';
 import { useEffect, useState } from 'react';
+import useGetTagLength from '@/hooks/home/useGetTagLength';
 
 const RecommendedUsers = () => {
   const userInfo = useRecoilValue(profileAtom);
 
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
+  const myTagLength = useGetTagLength();
 
   const [size, setSize] = useState<number>(
     HOME_CONSTANT.RECOMMENDATION_SIZE_DEFAULT,
@@ -36,7 +39,14 @@ const RecommendedUsers = () => {
     usePrivateRecommendations(size);
 
   return (
-    <Styled.UsersWrapper>
+    <Styled.UsersWrapper
+      $type={
+        myTagLength <
+        HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT
+          ? 'row'
+          : 'column'
+      }
+    >
       <Styled.UsersTopSection>
         <Styled.UsersTitleSection>
           <Styled.UsersTitle>친구 찾아보기</Styled.UsersTitle>
@@ -57,6 +67,13 @@ const RecommendedUsers = () => {
               .filter(
                 (user) =>
                   user.type === 'AVAILABLE' || user.type === 'REQUESTED',
+              )
+              .slice(
+                0,
+                myTagLength <
+                  HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT
+                  ? 4
+                  : undefined,
               )
               .map((user) => (
                 <UserCard

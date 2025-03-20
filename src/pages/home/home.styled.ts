@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 28px;
   padding: 32px 60px;
 `;
 
@@ -23,7 +23,7 @@ export const RecommendedContent = styled.section`
 `;
 
 export const ChatRoomByTagSection = styled.section`
-  width: 865px;
+  width: 100%;
 `;
 
 export const ChatRoomByTagTitleSection = styled.section`

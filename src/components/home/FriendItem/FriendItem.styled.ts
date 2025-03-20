@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const FriendCardArticle = styled.li<{ $isLoggedIn: boolean }>`
+export const FriendItemArticle = styled.li<{ $isLoggedIn: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,7 +10,7 @@ export const FriendCardArticle = styled.li<{ $isLoggedIn: boolean }>`
   width: 86px;
 `;
 
-export const FriendCardSpan = styled.span`
+export const FriendItemSpan = styled.span`
   display: block;
   width: 100%;
   text-align: center;

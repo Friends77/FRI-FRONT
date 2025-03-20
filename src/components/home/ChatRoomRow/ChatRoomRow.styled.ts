@@ -4,7 +4,7 @@ import { Swiper } from 'swiper/react';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   margin-bottom: 32px;
 `;
 
@@ -31,11 +31,10 @@ export const SwiperSection = styled.section`
   gap: 8px;
 `;
 
-export const ChatRoomSection = styled.section`
-  display: flex;
-`;
-
 export const StyledSwiper = styled(Swiper)`
   width: 100%;
-  height: 100%;
+
+  .swiper-slide {
+    width: 280px;
+  }
 `;

@@ -1,5 +1,3 @@
-import defaultProfileImg from '@/assets/images/defaultProfile.png';
-import PersonAdd from '@/components/@common/SVG/Icon/PersonAdd';
 import { ISimpleUserProfile } from '@/types/user';
 import { useState } from 'react';
 import * as Styled from './UserCard.styled';
@@ -8,6 +6,10 @@ import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import { FriendsStatus } from '@/types/chat';
 import { ALERT_MESSAGE } from '@/constants/message';
+import ProfileImage from '@/components/@common/ProfileImage';
+import AddFriend from '@/components/@common/SVG/Icon/AddFriend';
+import useGetTagLength from '@/hooks/home/useGetTagLength';
+import { HOME_CONSTANT } from '@/constants/home';
 
 export interface IUserCardProps {
   userInfo: ISimpleUserProfile;
@@ -15,13 +17,13 @@ export interface IUserCardProps {
 }
 
 const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
-  const [imageSrc, setImageSrc] = useState(userInfo.imageUrl);
-
   const [isHovered, setIsHovered] = useState(false);
 
   const [friendState, setFriendState] = useState(friendStatusType);
 
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
+  const myTagLength = useGetTagLength();
 
   const { mutate: addFriend } = useFriendRequest({
     onSuccessHandler: () => {
@@ -34,22 +36,20 @@ const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
     setFriendState(FriendsStatus.REQUESTED);
   };
 
-  const handleImageError = () => {
-    setImageSrc(defaultProfileImg); // 이미지 로드 실패 시 fallback 이미지로 설정
-  };
-
   return (
     <Styled.UserCardWrapper
+      $type={
+        myTagLength <
+        HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT
+          ? 'row'
+          : 'column'
+      }
       onMouseOver={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <Styled.UserCardInnerWrapper $isHovered={isHovered}>
         <Styled.UserCardIntroSection $isHovered={isHovered}>
-          <Styled.UserCardImage
-            alt="프로필 이미지"
-            src={imageSrc}
-            onError={handleImageError}
-          />
+          <ProfileImage src={userInfo.imageUrl} size={60} />
           <Styled.UserCardInfoSection $isHovered={isHovered}>
             <Styled.UserCardNickname>
               {userInfo.nickname}
@@ -60,21 +60,24 @@ const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
           </Styled.UserCardInfoSection>
         </Styled.UserCardIntroSection>
       </Styled.UserCardInnerWrapper>
-      {isHovered && isLoggedIn && (
-        <Styled.UserCardButton
-          onClick={() => handleAddFriend(userInfo.memberId)}
-          disabled={friendState === 'REQUESTED'}
-          $friendState={friendState}
-        >
-          {friendState === 'AVAILABLE' ? (
-            <>
-              <PersonAdd title="친구신청" width="21" height="14" /> 친구신청
-            </>
-          ) : (
-            '수락 대기중'
-          )}
-        </Styled.UserCardButton>
-      )}
+      {isHovered &&
+        isLoggedIn &&
+        (friendState === FriendsStatus.AVAILABLE ||
+          friendState === FriendsStatus.REQUESTED) && (
+          <Styled.MemberFriendStatus
+            onClick={() => handleAddFriend(userInfo.memberId)}
+            disabled={friendState === FriendsStatus.REQUESTED}
+            $friendStatus={friendState}
+          >
+            {friendState === FriendsStatus.AVAILABLE && (
+              <>
+                <AddFriend title="친구 신청" width="24" height="24" />
+                친구신청
+              </>
+            )}
+            {friendState === FriendsStatus.REQUESTED && '수락 대기중'}
+          </Styled.MemberFriendStatus>
+        )}
     </Styled.UserCardWrapper>
   );
 };

@@ -8,10 +8,13 @@ export const Wrapper = styled.section`
   gap: 7px;
   background-color: ${({ theme }) => theme.colors.Gray_200};
   cursor: pointer;
+  width: 280px;
+  height: 327px;
 `;
 
 export const ChatRoomThumbnail = styled.img`
   width: 100%;
+  max-width: 264px;
   max-height: 184px;
   border-radius: 10px;
   margin-bottom: 6px;

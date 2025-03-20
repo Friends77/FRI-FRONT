@@ -1,11 +1,20 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const UsersWrapper = styled.div`
+interface IUsersWrapper {
+  $type: 'row' | 'column';
+}
+
+export const UsersWrapper = styled.div<IUsersWrapper>`
   display: flex;
   flex-direction: column;
-  width: 424px;
   gap: 16px;
   overflow-x: hidden;
+
+  ${({ $type }) =>
+    $type === 'row' &&
+    css`
+      width: 390px;
+    `}
 `;
 
 export const UsersTopSection = styled.div`
@@ -35,6 +44,6 @@ export const UsersButtonSection = styled.section`
 
 export const UsersRecommendSection = styled.ul`
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;

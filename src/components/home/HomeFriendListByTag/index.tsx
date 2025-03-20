@@ -3,9 +3,10 @@ import profileAtom from '@/recoil/user/profile';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { SubTitle } from '../ChatRoomRow/ChatRoomRow.styled';
-import FriendsGrid from '../FriendsGrid';
+import FriendsCard from '../FriendsCard';
 import * as Styled from './HomeFriendListByTag.styles';
 import { getRandomNumbers } from '@/utils/random';
+import { HOME_CONSTANT } from '@/constants/home';
 
 const HomeFriendListByTag = () => {
   const [categoryIds, setCategoryIds] = useState<number[]>([]);
@@ -16,12 +17,16 @@ const HomeFriendListByTag = () => {
   useEffect(() => {
     if (userInfo) {
       const userSelectedTag = userInfo.interestTag
-        .slice(0, 3)
+        .slice(0, HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT)
         .map((tag) => tag.id);
 
       setCategoryIds(userSelectedTag);
     } else {
-      setCategoryIds(getRandomNumbers(3));
+      setCategoryIds(
+        getRandomNumbers(
+          HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT,
+        ),
+      );
     }
   }, [userInfo]);
 
@@ -38,7 +43,7 @@ const HomeFriendListByTag = () => {
       </Styled.FriendListByTagTitleSection>
       <Styled.FriendListByTagInnerWrapper>
         {categoryIds.map((categoryId, idx) => (
-          <FriendsGrid key={idx} categoryId={categoryId} />
+          <FriendsCard key={idx} categoryId={categoryId} />
         ))}
       </Styled.FriendListByTagInnerWrapper>
     </Styled.FriendListByTagWrapper>

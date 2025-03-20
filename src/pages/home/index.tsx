@@ -5,9 +5,13 @@ import HomeFriendListByTag from '@/components/home/HomeFriendListByTag';
 import Banner from '@/components/home/Banner';
 import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
+import { HOME_CONSTANT } from '@/constants/home';
+import useGetTagLength from '@/hooks/home/useGetTagLength';
 
 const HomePage = () => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
+  const myTagLength = useGetTagLength();
 
   return (
     <Styled.Wrapper>
@@ -36,11 +40,20 @@ const HomePage = () => {
           </Styled.ChatRoomByTagTitleSection>
           <HomeChatListByTag />
         </Styled.ChatRoomByTagSection>
-        {/* 친구 찾아보기 영역 */}
-        <RecommendedUsers />
       </Styled.RecommendedContent>
-      {/* 사용자 선택 태그 기반 추천 친구 영역 */}
-      <HomeFriendListByTag />
+      <Styled.RecommendedContent>
+        {/* 사용자 선택 태그 기반 추천 친구 영역 */}
+        <HomeFriendListByTag />
+        {/* 친구 찾아보기 영역 */}
+        {myTagLength <
+          HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT && (
+          <RecommendedUsers />
+        )}
+      </Styled.RecommendedContent>
+      {myTagLength >=
+        HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT && (
+        <RecommendedUsers />
+      )}
     </Styled.Wrapper>
   );
 };

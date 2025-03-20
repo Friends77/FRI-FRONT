@@ -1,16 +1,17 @@
 import Tag from '@/components/@common/Tag';
 import useGetCategory from '@/hooks/@common/useGetCategory';
-import FriendCard from '../FriendCard';
-import * as Styled from './FriendsGrid.styled';
+import FriendCard from '../FriendItem';
+import * as Styled from './FriendsCard.styled';
 import { useFriendsByTag } from '@/hooks/home/useFriendsByTag';
 import { useEffect, useState } from 'react';
 import { IInterestTag } from '@/types/@common';
+import { HOME_CONSTANT } from '@/constants/home';
 
-export interface IFriendsGridProps {
+export interface IFriendsCardProps {
   categoryId: number;
 }
 
-const FriendsGrid = ({ categoryId }: IFriendsGridProps) => {
+const FriendsCard = ({ categoryId }: IFriendsCardProps) => {
   const [tag, setTag] = useState<IInterestTag | null>(null);
 
   const { data: tags } = useGetCategory();
@@ -26,20 +27,22 @@ const FriendsGrid = ({ categoryId }: IFriendsGridProps) => {
   const { data: friends } = useFriendsByTag(categoryId);
 
   return (
-    <Styled.FriendsGridWrapper>
+    <Styled.FriendsCardWrapper>
       <ul>{tag && <Tag size="large" icon={tag?.image} label={tag?.name} />}</ul>
-      <Styled.FriendsGrid>
-        {friends?.content.map((friend) => (
-          <FriendCard
-            key={friend.id}
-            id={friend.id}
-            imageUrl={friend.imageUrl}
-            nickname={friend.nickname}
-          />
-        ))}
-      </Styled.FriendsGrid>
-    </Styled.FriendsGridWrapper>
+      <Styled.FriendsCard>
+        {friends?.content
+          .slice(0, HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_LIMIT)
+          .map((friend) => (
+            <FriendCard
+              key={friend.id}
+              id={friend.id}
+              imageUrl={friend.imageUrl}
+              nickname={friend.nickname}
+            />
+          ))}
+      </Styled.FriendsCard>
+    </Styled.FriendsCardWrapper>
   );
 };
 
-export default FriendsGrid;
+export default FriendsCard;

@@ -54,29 +54,28 @@ const ChatRoomRow = ({ categoryId }: ChatRoomRowProps) => {
           />
         </Styled.SwiperSection>
       </Styled.TitleNSwiperSection>
-      <Styled.ChatRoomSection>
-        <Styled.StyledSwiper
-          slidesPerView={3}
-          spaceBetween={20}
-          pagination={{
-            clickable: true,
-          }}
-          onSlideChange={(e) => {
-            setIsBeginning(e.isBeginning);
-            setIsEnd(e.isEnd);
-          }}
-          onSwiper={(e) => {
-            setSwiper(e);
-          }}
-        >
-          {chatRooms &&
-            chatRooms.content.map((chatRoom) => (
-              <SwiperSlide key={chatRoom.id}>
-                <ChatRoomCard {...chatRoom} />
-              </SwiperSlide>
-            ))}
-        </Styled.StyledSwiper>
-      </Styled.ChatRoomSection>
+
+      <Styled.StyledSwiper
+        slidesPerView="auto"
+        spaceBetween={20}
+        pagination={{
+          clickable: true,
+        }}
+        onSlideChange={(e) => {
+          setIsBeginning(e.isBeginning);
+          setIsEnd(e.isEnd);
+        }}
+        onSwiper={(e) => {
+          setSwiper(e);
+        }}
+      >
+        {chatRooms &&
+          chatRooms.content.map((chatRoom) => (
+            <SwiperSlide key={chatRoom.id}>
+              <ChatRoomCard {...chatRoom} />
+            </SwiperSlide>
+          ))}
+      </Styled.StyledSwiper>
     </Styled.Wrapper>
   );
 };
