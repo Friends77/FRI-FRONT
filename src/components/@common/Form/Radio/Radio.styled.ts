@@ -29,5 +29,5 @@ export const CheckMark = styled(Check)`
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(38%, 54%);
+  transform: translate(37%, 29%);
 `;
