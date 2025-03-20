@@ -49,9 +49,7 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
 
   return (
     <Styled.Wrapper onClick={() => handleChatRoomClick(chatRoom.id)}>
-      <Styled.ImageContainer>
-        <Styled.ChatRoomThumbnail src={chatRoom.imageUrl} />
-      </Styled.ImageContainer>
+      <Styled.ChatRoomThumbnail src={chatRoom.imageUrl} />
       <Styled.ChatRoomInfoContainer>
         <Styled.ChatRoomTitle>{chatRoom.title}</Styled.ChatRoomTitle>
         <Styled.ChatRoomSubtitle>

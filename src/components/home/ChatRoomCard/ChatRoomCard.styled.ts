@@ -3,8 +3,6 @@ import styled from 'styled-components';
 export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  width: 280px;
-  /* height: 360px; */
   border-radius: 16px;
   padding: 8px;
   gap: 7px;
@@ -12,15 +10,11 @@ export const Wrapper = styled.section`
   cursor: pointer;
 `;
 
-export const ImageContainer = styled.article`
-  width: 100%;
-  height: 184px;
-`;
-
 export const ChatRoomThumbnail = styled.img`
   width: 100%;
-  height: 100%;
+  max-height: 184px;
   border-radius: 10px;
+  margin-bottom: 6px;
 `;
 
 export const ChatRoomInfoContainer = styled.section`
