@@ -8,24 +8,24 @@ export const Wrapper = styled.div`
   margin-bottom: 32px;
 `;
 
-export const TitleNSwiperSection = styled.section`
+export const TitleNSwiperSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-export const SubTitleSection = styled.section`
+export const SubTitleSection = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
 `;
 
-export const SubTitle = styled.h3`
+export const SubTitle = styled.p`
   ${({ theme }) => theme.typo.B1_R};
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
-export const SwiperSection = styled.section`
+export const SwiperSection = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 8px;

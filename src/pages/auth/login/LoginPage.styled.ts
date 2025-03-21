@@ -10,7 +10,7 @@ export const Main = styled.main`
   width: 440px;
 `;
 
-export const LoginHeader = styled.h1`
+export const LoginHeader = styled.h3`
   ${({ theme }) => theme.typo.D1_B}
   margin-bottom: 64px;
   color: ${({ theme }) => theme.colors.Gray_1000};

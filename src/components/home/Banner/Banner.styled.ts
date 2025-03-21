@@ -1,7 +1,7 @@
 import Banner from '@/assets/images/banner.png';
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.section`
   display: flex;
   width: 100%;
   border-radius: 16px;
@@ -17,7 +17,7 @@ export const InnerContainer = styled.div`
   gap: 16px;
 `;
 
-export const Badge = styled.article`
+export const Badge = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,13 +31,13 @@ export const Badge = styled.article`
   color: ${({ theme }) => theme.colors.Alter_error};
 `;
 
-export const ContentSection = styled.section`
+export const ContentSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
 `;
 
-export const TitleSection = styled.section`
+export const TitleSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -48,13 +48,13 @@ export const SubTitle = styled.p`
   color: ${({ theme }) => theme.colors.Gray_600};
 `;
 
-export const BottomSection = styled.section`
+export const BottomSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
 `;
 
-export const ChatRoomInfoSection = styled.section`
+export const ChatRoomInfoSection = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
@@ -66,14 +66,14 @@ export const ChatRoomImage = styled.img`
   border-radius: 26px;
 `;
 
-export const ChatRoomInfo = styled.section`
+export const ChatRoomInfo = styled.div`
   display: flex;
   flex-direction: column;
   color: ${({ theme }) => theme.colors.White};
   ${({ theme }) => theme.typo.B1_R};
 `;
 
-export const ButtonSection = styled.section`
+export const ButtonSection = styled.div`
   display: flex;
   gap: 8px;
 `;

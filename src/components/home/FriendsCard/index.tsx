@@ -28,7 +28,7 @@ const FriendsCard = ({ categoryId }: IFriendsCardProps) => {
 
   return (
     <Styled.FriendsCardWrapper>
-      <ul>{tag && <Tag size="large" icon={tag?.image} label={tag?.name} />}</ul>
+      {tag && <Tag size="large" icon={tag?.image} label={tag?.name} />}
       <Styled.FriendsCard>
         {friends?.content
           .slice(0, HOME_CONSTANT.FRIEND_RECO_WITH_INTEREST)

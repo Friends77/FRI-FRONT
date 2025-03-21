@@ -4,7 +4,7 @@ interface IUsersWrapper {
   $type: 'row' | 'column';
 }
 
-export const UsersWrapper = styled.div<IUsersWrapper>`
+export const UsersWrapper = styled.section<IUsersWrapper>`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -24,7 +24,7 @@ export const UsersTopSection = styled.div`
   color: ${({ theme }) => theme.typo.Gray_1000};
 `;
 
-export const UsersTitleSection = styled.section`
+export const UsersTitleSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -34,11 +34,11 @@ export const UsersTitle = styled.h3`
   ${({ theme }) => theme.typo.D2_B};
 `;
 
-export const UsersSubTitle = styled.h5`
+export const UsersSubTitle = styled.p`
   ${({ theme }) => theme.typo.T2_R};
 `;
 
-export const UsersButtonSection = styled.section`
+export const UsersButtonSection = styled.button`
   cursor: pointer;
 `;
 

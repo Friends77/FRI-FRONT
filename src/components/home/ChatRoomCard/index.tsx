@@ -61,11 +61,9 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
             .slice(0, HOME_CONSTANT.MAX_CHAT_TAGS)
             .map((category) => {
               return (
-                <Tag
-                  key={category.id}
-                  icon={category.image}
-                  label={category.name}
-                />
+                <li key={category.id}>
+                  <Tag icon={category.image} label={category.name} />
+                </li>
               );
             })}
         </Styled.ChatRoomTagSection>

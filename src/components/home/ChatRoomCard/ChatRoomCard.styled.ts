@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.section`
+export const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
   border-radius: 16px;
@@ -20,7 +20,7 @@ export const ChatRoomThumbnail = styled.img`
   margin-bottom: 6px;
 `;
 
-export const ChatRoomInfoContainer = styled.section`
+export const ChatRoomInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -31,7 +31,7 @@ export const ChatRoomTitle = styled.h3`
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
-export const ChatRoomSubtitle = styled.h5`
+export const ChatRoomSubtitle = styled.p`
   ${({ theme }) => theme.typo.B1_R};
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;

@@ -35,7 +35,7 @@ export const UserCardInnerWrapper = styled.div<{ $isHovered: boolean }>`
 `;
 
 // 프로필 이미지 + 닉네임 + 한줄소개
-export const UserCardIntroSection = styled.section<{ $isHovered: boolean }>`
+export const UserCardIntroSection = styled.div<{ $isHovered: boolean }>`
   display: flex;
   align-items: center;
 
@@ -43,7 +43,7 @@ export const UserCardIntroSection = styled.section<{ $isHovered: boolean }>`
 `;
 
 // 닉네임 + 한줄소개
-export const UserCardInfoSection = styled.section<{ $isHovered: boolean }>`
+export const UserCardInfoSection = styled.div<{ $isHovered: boolean }>`
   display: inline-flex;
   flex-direction: column;
   gap: 2px;

@@ -9,7 +9,7 @@ export const Main = styled.main`
   width: 440px;
 `;
 
-export const Header = styled.h1`
+export const Header = styled.h3`
   ${({ theme }) => theme.typo.D1_B}
   margin-bottom: 64px;
   color: ${({ theme }) => theme.colors.Gray_1000};

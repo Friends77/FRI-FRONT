@@ -22,7 +22,7 @@ export const RecommendedContent = styled.section`
   align-items: flex-start;
 `;
 
-export const RecommendedContentWithMargin = styled.section`
+export const RecommendedContentWithMargin = styled.div`
   display: flex;
   width: 100%;
   gap: 20px;
@@ -31,16 +31,16 @@ export const RecommendedContentWithMargin = styled.section`
   margin-bottom: 28px;
 `;
 
-export const ChatRoomByTagSection = styled.section`
+export const ChatRoomByTagSection = styled.div`
   width: 100%;
   margin-top: 16px;
 `;
 
-export const ChatRoomByTagTitleSection = styled.section`
+export const ChatRoomByTagTitleSection = styled.div`
   margin-bottom: 8px;
 `;
 
-export const ChatRoomByTagTitle = styled.h1`
+export const ChatRoomByTagTitle = styled.h3`
   ${({ theme }) => theme.typo.D2_B};
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;

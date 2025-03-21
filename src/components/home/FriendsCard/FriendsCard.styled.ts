@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const FriendsCardWrapper = styled.section`
+export const FriendsCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;

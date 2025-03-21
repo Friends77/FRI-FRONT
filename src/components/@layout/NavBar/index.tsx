@@ -47,9 +47,11 @@ const NavBar = () => {
 
   return (
     <Styled.Wrapper>
-      <Link to={ROOT_PATH.ROOT}>
-        <Logo title="logo" width="48px" height="48px" />
-      </Link>
+      <h1>
+        <Link to={ROOT_PATH.ROOT}>
+          <Logo title="친구하자" width="48px" height="48px" />
+        </Link>
+      </h1>
       <Styled.NavMenuList>
         {navMenus.map(({ Icon, ActiveIcon, title, path }) => (
           <Styled.NavMenu key={uuidv4()}>

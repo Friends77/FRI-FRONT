@@ -6,36 +6,36 @@ export const AuthFormWrapper = styled.div`
   align-items: center;
 `;
 
-export const AuthFormHeader = styled.h1`
+export const AuthFormHeader = styled.h3`
   margin-top: 120px;
   ${({ theme }) => theme.typo.D1_B}
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
-export const AuthFormContentSection = styled.section`
+export const AuthFormContentSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 40px;
   margin-top: 66px;
 `;
 
-export const AuthFormEmailSection = styled.section`
+export const AuthFormEmailSection = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const AuthFormCertNoInputSection = styled.section`
+export const AuthFormCertNoInputSection = styled.div`
   position: relative;
 `;
 
-export const AuthFormInputWithBtn = styled.section`
+export const AuthFormInputWithBtn = styled.div`
   display: flex;
   position: relative;
   align-items: flex-end;
   justify-content: space-between;
 `;
 
-export const AuthFormButtonContainer = styled.section`
+export const AuthFormButtonContainer = styled.div`
   position: absolute;
   top: 46px;
   right: 0;

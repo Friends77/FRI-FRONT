@@ -52,7 +52,7 @@ const RecommendedUsers = () => {
           </Styled.UsersSubTitle>
         </Styled.UsersTitleSection>
         {isLoggedIn && (
-          <Styled.UsersButtonSection onClick={() => refetch()}>
+          <Styled.UsersButtonSection type="button" onClick={() => refetch()}>
             <Restart title="새로고침" width="20" height="22" />
           </Styled.UsersButtonSection>
         )}
@@ -74,13 +74,13 @@ const RecommendedUsers = () => {
               .map((user) => (
                 <UserCard
                   key={user.profileSimpleResponseDto.memberId}
-                  myProfile={user.profileSimpleResponseDto}
+                  profile={user.profileSimpleResponseDto}
                   friendStatusType={user.type}
                 />
               ))
           : publicRecommendUsers &&
             publicRecommendUsers.content.map((user: ISimpleUserProfile) => (
-              <UserCard key={user.memberId} myProfile={user} />
+              <UserCard key={user.memberId} profile={user} />
             ))}
       </Styled.UsersRecommendSection>
     </Styled.UsersWrapper>

@@ -16,7 +16,7 @@ export const Title = styled.div<{ $isOpen: boolean }>`
     !$isOpen && `border-bottom: 1px solid ${theme.colors.Gray_300}`};
 `;
 
-export const Text = styled.p<{ $isOpen: boolean }>`
+export const Text = styled.div<{ $isOpen: boolean }>`
   ${({ theme, $isOpen }) => ($isOpen ? theme.typo.B1_B : theme.typo.B1_R)};
   color: ${({ theme, $isOpen }) =>
     $isOpen ? theme.colors.Gray_800 : theme.colors.Gray_600};
