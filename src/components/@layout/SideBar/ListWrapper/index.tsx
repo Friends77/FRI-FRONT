@@ -21,7 +21,7 @@ const ListWrapper = ({
   };
 
   return (
-    <Styled.Wrapper $isOpen={isOpen}>
+    <>
       <Styled.Title $isOpen={isOpen}>
         <Styled.Text $isOpen={isOpen}>{`${title} ${count}`}</Styled.Text>
         <Styled.MoreBtn onClick={handleIsOpenToggle}>
@@ -34,7 +34,7 @@ const ListWrapper = ({
         </Styled.MoreBtn>
       </Styled.Title>
       {isOpen && <Styled.List>{children}</Styled.List>}
-    </Styled.Wrapper>
+    </>
   );
 };
 

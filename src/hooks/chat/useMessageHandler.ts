@@ -163,9 +163,17 @@ const useMessageHandler = ({
             messageListRef.current;
 
           const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
+
           if (scrollPercentage < 0.95) {
             setPreviewMessage(message);
             setIsShowPreviewMessage(true);
+          } else {
+            setTimeout(() => {
+              messageListRef.current?.scrollTo(
+                0,
+                messageListRef.current.scrollHeight,
+              );
+            }, 0);
           }
         }
       }

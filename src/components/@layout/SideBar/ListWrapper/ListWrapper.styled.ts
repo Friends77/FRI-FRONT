@@ -1,10 +1,6 @@
 import ArrowDown from '@/components/@common/SVG/Icon/ArrowDown';
 import styled from 'styled-components';
 
-export const Wrapper = styled.section<{ $isOpen: boolean }>`
-  margin-bottom: ${({ $isOpen }) => $isOpen && '32px'};
-`;
-
 export const Title = styled.div<{ $isOpen: boolean }>`
   display: flex;
   justify-content: space-between;
