@@ -11,6 +11,7 @@ import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import { ALERT_MESSAGE } from '@/constants/message';
 import { IInterestTag } from '@/types/@common';
 import { COMMON_CONSTANT } from '@/constants/@common';
+import { HOME_CONSTANT } from '@/constants/home';
 
 export interface IChatRoomCardProps {
   id: number;
@@ -56,15 +57,17 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
           {chatRoom.description}
         </Styled.ChatRoomSubtitle>
         <Styled.ChatRoomTagSection>
-          {chatRoom.categoryIdList.slice(0, 3).map((category) => {
-            return (
-              <Tag
-                key={category.id}
-                icon={category.image}
-                label={category.name}
-              />
-            );
-          })}
+          {chatRoom.categoryIdList
+            .slice(0, HOME_CONSTANT.MAX_CHAT_TAGS)
+            .map((category) => {
+              return (
+                <Tag
+                  key={category.id}
+                  icon={category.image}
+                  label={category.name}
+                />
+              );
+            })}
         </Styled.ChatRoomTagSection>
         <Styled.ChatRoomParticipantList>
           {participantList.map((imageUrl, idx) => (

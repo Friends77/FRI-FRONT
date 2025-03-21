@@ -27,7 +27,10 @@ const ChatRoomItem = ({
     participantProfileList,
   } = chatRoom;
 
-  const participantList = [...participantProfileList].slice(0, 4);
+  const participantList = [...participantProfileList].slice(
+    0,
+    COMMON_CONSTANT.CHAT_MAX_PARTICIPANT_COUNT,
+  );
 
   return (
     <Styled.Wrapper onClick={() => onClick(id)} $isSelected={isSelected}>

@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import 'swiper/swiper-bundle.css';
 import ChatRoomRow from '../ChatRoomRow';
 import { getRandomNumbers } from '@/utils/random';
+import { HOME_CONSTANT } from '@/constants/home';
 
 const HomeChatListByTag = () => {
   const [categoryIds, setCategoryIds] = useState<number[]>([]);
@@ -14,7 +15,7 @@ const HomeChatListByTag = () => {
   useEffect(() => {
     if (myProfile) {
       const userSelectedTag = myProfile.interestTag
-        .slice(0, 2)
+        .slice(0, HOME_CONSTANT.MAX_RECO_TAGS)
         .map((tag) => tag.id);
 
       setCategoryIds(userSelectedTag);
