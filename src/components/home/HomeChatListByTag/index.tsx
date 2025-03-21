@@ -8,12 +8,12 @@ import { getRandomNumbers } from '@/utils/random';
 const HomeChatListByTag = () => {
   const [categoryIds, setCategoryIds] = useState<number[]>([]);
 
-  const userInfo = useRecoilValue(profileAtom);
+  const myProfile = useRecoilValue(profileAtom);
 
   // 사용자가 선택한 관심사 배열 원소 중, 2개만 추출
   useEffect(() => {
-    if (userInfo) {
-      const userSelectedTag = userInfo.interestTag
+    if (myProfile) {
+      const userSelectedTag = myProfile.interestTag
         .slice(0, 2)
         .map((tag) => tag.id);
 
@@ -21,7 +21,7 @@ const HomeChatListByTag = () => {
     } else {
       setCategoryIds(getRandomNumbers(1));
     }
-  }, [userInfo]);
+  }, [myProfile]);
 
   return (
     <>

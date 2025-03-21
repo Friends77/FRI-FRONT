@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import useGetTagLength from '@/hooks/home/useGetTagLength';
 
 const RecommendedUsers = () => {
-  const userInfo = useRecoilValue(profileAtom);
+  const myProfile = useRecoilValue(profileAtom);
 
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
@@ -22,12 +22,12 @@ const RecommendedUsers = () => {
 
   // 사용자 선택 관심사 태그 갯수에 따라 다르게 렌더링
   useEffect(() => {
-    if (isLoggedIn || userInfo) {
-      if ((userInfo?.interestTag?.length as number) >= 2) {
+    if (isLoggedIn || myProfile) {
+      if ((myProfile?.interestTag?.length as number) >= 2) {
         setSize(HOME_CONSTANT.RECO_SIZE_MULTI_TAG);
       }
     }
-  }, [isLoggedIn, userInfo]);
+  }, [isLoggedIn, myProfile]);
 
   // 비로그인 시 친구 찾아보기 섹션 데이터
   const { data: publicRecommendUsers } = usePublicRecommendations();
@@ -68,19 +68,19 @@ const RecommendedUsers = () => {
               .slice(
                 0,
                 myTagLength < HOME_CONSTANT.FRIEND_RECO_WITH_INTEREST_CARD
-                  ? 4
+                  ? HOME_CONSTANT.FRIEND_LIMIT_FEW_INTERESTS
                   : undefined,
               )
               .map((user) => (
                 <UserCard
                   key={user.profileSimpleResponseDto.memberId}
-                  userInfo={user.profileSimpleResponseDto}
+                  myProfile={user.profileSimpleResponseDto}
                   friendStatusType={user.type}
                 />
               ))
           : publicRecommendUsers &&
             publicRecommendUsers.content.map((user: ISimpleUserProfile) => (
-              <UserCard key={user.memberId} userInfo={user} />
+              <UserCard key={user.memberId} myProfile={user} />
             ))}
       </Styled.UsersRecommendSection>
     </Styled.UsersWrapper>

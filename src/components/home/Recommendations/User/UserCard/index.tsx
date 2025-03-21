@@ -12,11 +12,11 @@ import useGetTagLength from '@/hooks/home/useGetTagLength';
 import { HOME_CONSTANT } from '@/constants/home';
 
 export interface IUserCardProps {
-  userInfo: ISimpleUserProfile;
+  myProfile: ISimpleUserProfile;
   friendStatusType?: FriendsStatus;
 }
 
-const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
+const UserCard = ({ myProfile, friendStatusType }: IUserCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const [friendState, setFriendState] = useState(friendStatusType);
@@ -48,13 +48,13 @@ const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
     >
       <Styled.UserCardInnerWrapper $isHovered={isHovered}>
         <Styled.UserCardIntroSection $isHovered={isHovered}>
-          <ProfileImage src={userInfo.imageUrl} size={60} />
+          <ProfileImage src={myProfile.imageUrl} size={60} />
           <Styled.UserCardInfoSection $isHovered={isHovered}>
             <Styled.UserCardNickname>
-              {userInfo.nickname}
+              {myProfile.nickname}
             </Styled.UserCardNickname>
             <Styled.UserCardDescription $isHovered={isHovered}>
-              {userInfo.selfDescription}
+              {myProfile.selfDescription}
             </Styled.UserCardDescription>
           </Styled.UserCardInfoSection>
         </Styled.UserCardIntroSection>
@@ -64,7 +64,7 @@ const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
         (friendState === FriendsStatus.AVAILABLE ||
           friendState === FriendsStatus.REQUESTED) && (
           <Styled.MemberFriendStatus
-            onClick={() => handleAddFriend(userInfo.memberId)}
+            onClick={() => handleAddFriend(myProfile.memberId)}
             disabled={friendState === FriendsStatus.REQUESTED}
             $friendStatus={friendState}
           >
