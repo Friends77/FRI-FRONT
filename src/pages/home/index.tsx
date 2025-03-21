@@ -45,13 +45,11 @@ const HomePage = () => {
         {/* 사용자 선택 태그 기반 추천 친구 영역 */}
         <HomeFriendListByTag />
         {/* 친구 찾아보기 영역 */}
-        {myTagLength <
-          HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT && (
+        {myTagLength < HOME_CONSTANT.FRIEND_RECO_WITH_INTEREST_CARD && (
           <RecommendedUsers />
         )}
       </Styled.RecommendedContentWithMargin>
-      {myTagLength >=
-        HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT && (
+      {myTagLength >= HOME_CONSTANT.FRIEND_RECO_WITH_INTEREST_CARD && (
         <RecommendedUsers />
       )}
     </Styled.Wrapper>

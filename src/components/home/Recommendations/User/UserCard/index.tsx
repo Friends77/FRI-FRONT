@@ -39,8 +39,7 @@ const UserCard = ({ userInfo, friendStatusType }: IUserCardProps) => {
   return (
     <Styled.UserCardWrapper
       $type={
-        myTagLength <
-        HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT
+        myTagLength < HOME_CONSTANT.FRIEND_RECO_WITH_INTEREST_CARD
           ? 'row'
           : 'column'
       }

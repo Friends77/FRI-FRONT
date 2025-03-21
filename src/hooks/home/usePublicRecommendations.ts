@@ -11,7 +11,7 @@ const usePublicRecommendations = () => {
   return useQuery({
     queryKey: COMMON_KEYS.RECOMMENDED_USERS,
     queryFn: () =>
-      getPublicUserRecommendations(HOME_CONSTANT.RECOMMENDATION_SIZE_DEFAULT),
+      getPublicUserRecommendations(HOME_CONSTANT.RECO_SIZE_DEFAULT),
     enabled: !isLoggedIn,
   });
 };

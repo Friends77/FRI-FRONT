@@ -31,7 +31,7 @@ const FriendsCard = ({ categoryId }: IFriendsCardProps) => {
       <ul>{tag && <Tag size="large" icon={tag?.image} label={tag?.name} />}</ul>
       <Styled.FriendsCard>
         {friends?.content
-          .slice(0, HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_LIMIT)
+          .slice(0, HOME_CONSTANT.FRIEND_RECO_WITH_INTEREST)
           .map((friend) => (
             <FriendCard
               key={friend.id}

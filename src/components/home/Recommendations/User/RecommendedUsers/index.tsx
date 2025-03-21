@@ -18,15 +18,13 @@ const RecommendedUsers = () => {
 
   const myTagLength = useGetTagLength();
 
-  const [size, setSize] = useState<number>(
-    HOME_CONSTANT.RECOMMENDATION_SIZE_DEFAULT,
-  );
+  const [size, setSize] = useState<number>(HOME_CONSTANT.RECO_SIZE_DEFAULT);
 
   // 사용자 선택 관심사 태그 갯수에 따라 다르게 렌더링
   useEffect(() => {
     if (isLoggedIn || userInfo) {
       if ((userInfo?.interestTag?.length as number) >= 2) {
-        setSize(HOME_CONSTANT.RECOMMENDATION_SIZE_WITH_MULTIPLE_TAGS);
+        setSize(HOME_CONSTANT.RECO_SIZE_MULTI_TAG);
       }
     }
   }, [isLoggedIn, userInfo]);
@@ -41,8 +39,7 @@ const RecommendedUsers = () => {
   return (
     <Styled.UsersWrapper
       $type={
-        myTagLength <
-        HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT
+        myTagLength < HOME_CONSTANT.FRIEND_RECO_WITH_INTEREST_CARD
           ? 'row'
           : 'column'
       }
@@ -70,8 +67,7 @@ const RecommendedUsers = () => {
               )
               .slice(
                 0,
-                myTagLength <
-                  HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT
+                myTagLength < HOME_CONSTANT.FRIEND_RECO_WITH_INTEREST_CARD
                   ? 4
                   : undefined,
               )

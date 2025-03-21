@@ -7,7 +7,7 @@ const useGetTagLength = () => {
   const myProfile = useRecoilValue(profileAtom);
 
   const [myTagLength, setMyTagLength] = useState<number>(
-    HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT,
+    HOME_CONSTANT.FRIEND_RECO_WITH_INTEREST_CARD,
   );
 
   useEffect(() => {

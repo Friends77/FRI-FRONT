@@ -17,15 +17,13 @@ const HomeFriendListByTag = () => {
   useEffect(() => {
     if (userInfo) {
       const userSelectedTag = userInfo.interestTag
-        .slice(0, HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT)
+        .slice(0, HOME_CONSTANT.FRIEND_RECO_WITH_INTEREST_CARD)
         .map((tag) => tag.id);
 
       setCategoryIds(userSelectedTag);
     } else {
       setCategoryIds(
-        getRandomNumbers(
-          HOME_CONSTANT.FRIEND_RECOMMENDATION_WITH_INTEREST_CARD_LIMIT,
-        ),
+        getRandomNumbers(HOME_CONSTANT.FRIEND_RECO_WITH_INTEREST_CARD),
       );
     }
   }, [userInfo]);
