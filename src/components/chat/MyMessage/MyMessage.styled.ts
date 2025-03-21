@@ -18,7 +18,7 @@ export const MessageContent = styled.p`
   ${({ theme }) => theme.typo.B1_R};
   background-color: ${({ theme }) => theme.colors.Blue_500};
   color: ${({ theme }) => theme.colors.White};
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: 12px 0 12px 12px;
   word-break: break-word;
 `;

@@ -28,7 +28,7 @@ export const ChatRoomInfoDrawerContainer = styled.aside<IChatRoomInfoDrawerProps
 `;
 
 export const CloseButtonContainer = styled.div`
-  padding: 24px;
+  padding: 16px 24px;
   display: flex;
   justify-content: flex-end;
 `;
@@ -59,7 +59,7 @@ export const AlbumHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   ${({ theme }) => theme.typo.T2_R}
-  padding: 8px 12px;
+  padding: 12px;
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
@@ -99,7 +99,7 @@ export const MembersHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   ${({ theme }) => theme.typo.T2_R}
-  padding: 8px 12px;
+  padding: 12px;
 `;
 
 export const MemberTitle = styled.div`
@@ -119,9 +119,8 @@ export const InvitationButton = styled.button`
 `;
 
 export const MembersContent = styled.ul`
-  padding: 16px 0;
   overflow-y: auto;
-  max-height: 330px;
+  max-height: 230px;
 `;
 
 export const Member = styled.li`

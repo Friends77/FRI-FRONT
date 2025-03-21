@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const MessageInputFormContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.White};
-  padding: 16px 20px 40px;
+  padding: 16px 20px 30px;
 `;
 
 export const MessageInputForm = styled.form`
