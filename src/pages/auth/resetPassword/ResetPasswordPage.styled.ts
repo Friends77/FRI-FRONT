@@ -5,8 +5,11 @@ export const Main = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 120px auto;
+  margin: auto;
   width: 440px;
+  height: 100vh;
+  overflow: hidden;
+  padding-bottom: 110px;
 `;
 
 export const Header = styled.h3`

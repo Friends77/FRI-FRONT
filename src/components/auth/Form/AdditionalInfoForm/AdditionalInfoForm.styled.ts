@@ -4,7 +4,7 @@ export const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 120px;
+  margin-top: 500px;
 `;
 
 export const FormHeader = styled.div`
@@ -40,7 +40,6 @@ export const FormLabel = styled.label`
 export const FormRadio = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: left;
   gap: 6px;
 `;
 
@@ -54,6 +53,7 @@ export const FormTagSection = styled.div`
 export const FormButtonSection = styled.div`
   display: flex;
   gap: 16px;
+  margin-top: 30px;
 `;
 
 export const FormCheckBoxSection = styled.div`

@@ -4,8 +4,6 @@ export const BasicInfoFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 120px;
-  margin-bottom: 120px;
 `;
 
 export const BasicInfoFormHeader = styled.div`
@@ -14,11 +12,7 @@ export const BasicInfoFormHeader = styled.div`
 `;
 
 export const BasicInfoFormContentSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  gap: 40px;
-  margin-top: 66px;
+  margin-top: 40px;
 `;
 
 export const BasicInfoFormImagePickerSection = styled.div`
@@ -31,6 +25,7 @@ export const BasicInfoFormBirthSection = styled.div`
   flex-direction: column;
   position: relative;
   gap: 16px;
+  margin-top: 20px;
 `;
 
 export const BasicInfoFormBirthYearSection = styled.div`
@@ -57,6 +52,8 @@ export const BasicInfoFormGenderSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-top: 30px;
+  margin-bottom: 40px;
 `;
 
 export const BasicInfoFormRadio = styled.div`

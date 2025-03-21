@@ -1,24 +1,23 @@
 import SecondaryButton from '@/components/@common/Button/SecondaryButton';
 import styled from 'styled-components';
 
+export const ProfileContainer = styled.div`
+  margin-top: 50px;
+  padding: 0 60px;
+`;
+
 export const ProfilePageHeader = styled.h3`
   display: flex;
   justify-content: center;
-  margin-top: 120px;
   ${({ theme }) => theme.typo.D1_B};
   color: ${({ theme }) => theme.colors.Gray_1000};
-`;
-
-export const ProfilePageStyledForm = styled.form`
-  display: flex;
-  justify-content: center;
 `;
 
 export const ProfilePageContentSection = styled.div`
   display: flex;
   flex-direction: column;
   margin: 58px 0px 120px 0px;
-  gap: 48px;
+  gap: 40px;
 `;
 
 export const ProfilePageImageContainer = styled.div`
@@ -34,7 +33,7 @@ export const ProfilePageInputContainer = styled.div`
 `;
 
 export const ProfilePageLabel = styled.label<{ $isRequired?: boolean }>`
-  ${({ theme }) => theme.typo.T2_R};
+  ${({ theme }) => theme.typo.T2_B};
   color: ${({ theme }) => theme.colors.Gray_1000};
 
   &::after {
@@ -69,12 +68,11 @@ export const ProfilePageMBTIOption = styled.div`
 export const ProfilePageRadio = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: left;
   gap: 6px;
 `;
 
 export const ProfilePageButtonSection = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 245px;
+  margin: 20px 0 40px;
 `;

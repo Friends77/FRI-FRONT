@@ -1,3 +1,4 @@
+import * as Styled from './SignUp.styled';
 import AdditionalInfoForm from '@/components/auth/Form/AdditionalInfoForm';
 import AuthForm from '@/components/auth/Form/AuthForm';
 import BasicInfoForm from '@/components/auth/Form/BasicInfoForm';
@@ -100,11 +101,11 @@ const SignUpPage = () => {
   };
 
   return (
-    <>
+    <Styled.SignUpContainer>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>{renderPage()}</form>
       </FormProvider>
-    </>
+    </Styled.SignUpContainer>
   );
 };
 

@@ -7,12 +7,13 @@ export const SendCodeContent = styled.div`
 
 export const SendCodeBtn = styled(SecondaryButton)`
   position: absolute;
-  top: 46px;
+  top: 40px;
   right: 0;
 `;
 
 export const CodeContent = styled.div`
   position: relative;
+  margin-top: 8px;
 `;
 
 export const Time = styled.div<{

@@ -7,7 +7,6 @@ export const AuthFormWrapper = styled.div`
 `;
 
 export const AuthFormHeader = styled.h3`
-  margin-top: 120px;
   ${({ theme }) => theme.typo.D1_B}
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
@@ -37,7 +36,7 @@ export const AuthFormInputWithBtn = styled.div`
 
 export const AuthFormButtonContainer = styled.div`
   position: absolute;
-  top: 46px;
+  top: 40px;
   right: 0;
 `;
 
