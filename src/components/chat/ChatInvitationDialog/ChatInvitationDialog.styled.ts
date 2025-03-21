@@ -25,15 +25,19 @@ export const EmptyFriendList = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  height: 300px;
+  height: 320px;
   gap: 4px;
   padding-bottom: 48px;
 `;
 
 export const FindFriendButton = styled(Link)`
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   ${({ theme }) => theme.typo.B1_R};
   color: ${({ theme }) => theme.colors.Blue_500};
-  padding: 5px 12px;
+  padding: 6px 12px;
   display: flex;
   gap: 4px;
   border: 1px solid ${({ theme }) => theme.colors.Blue_500};

@@ -7,14 +7,15 @@ interface IOtherMessageItemProps {
 
 export const OtherMessageItem = styled.li<IOtherMessageItemProps>`
   display: flex;
-  flex-direction: column;
+  gap: 6px;
   padding: ${({ $isSameTime, $isSameSender }) =>
     $isSameTime && $isSameSender ? '8px 24px 0' : '16px 24px 0'};
 `;
 
 export const SenderProfile = styled.div`
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 export const ProfileButton = styled.button`
@@ -28,14 +29,13 @@ export const SenderNickname = styled.div`
 export const MessageContainer = styled.div`
   display: flex;
   align-items: flex-end;
-  margin-left: 46px;
 `;
 
 export const MessageContent = styled.p`
   ${({ theme }) => theme.typo.B1_R};
   max-width: 80%;
   background-color: ${({ theme }) => theme.colors.Gray_300};
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: 0 12px 12px 12px;
   word-break: break-word;
 `;

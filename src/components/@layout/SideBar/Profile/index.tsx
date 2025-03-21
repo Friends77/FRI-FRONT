@@ -58,10 +58,16 @@ const Profile = () => {
           </Styled.Logout>
         </Styled.MyMenu>
       )}
-      <Styled.ProfileContent type="button" onClick={handleToggleMyMenu}>
-        <ProfileImage src={myProfile?.imageUrl} alt="profile image" size={52} />
-        <Styled.Nickname>{myProfile?.nickname}</Styled.Nickname>
-      </Styled.ProfileContent>
+      {myProfile && (
+        <Styled.ProfileContent type="button" onClick={handleToggleMyMenu}>
+          <ProfileImage
+            src={myProfile.imageUrl}
+            alt="profile image"
+            size={52}
+          />
+          <Styled.Nickname>{myProfile.nickname}</Styled.Nickname>
+        </Styled.ProfileContent>
+      )}
     </>
   );
 };

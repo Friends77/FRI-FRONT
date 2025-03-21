@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SocialLoginFormHeader = styled.h3`
+export const SocialLoginFormHeader = styled.div`
   display: flex;
   align-items: center;
   width: 100%;

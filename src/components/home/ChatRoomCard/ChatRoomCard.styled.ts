@@ -1,29 +1,26 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.section`
+export const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
-  width: 280px;
-  height: 360px;
   border-radius: 16px;
   padding: 8px;
   gap: 7px;
   background-color: ${({ theme }) => theme.colors.Gray_200};
   cursor: pointer;
-`;
-
-export const ImageContainer = styled.article`
-  width: 100%;
-  height: 184px;
+  width: 280px;
+  height: 327px;
 `;
 
 export const ChatRoomThumbnail = styled.img`
   width: 100%;
-  height: 100%;
+  max-width: 264px;
+  max-height: 184px;
   border-radius: 10px;
+  margin-bottom: 6px;
 `;
 
-export const ChatRoomInfoContainer = styled.section`
+export const ChatRoomInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -34,7 +31,7 @@ export const ChatRoomTitle = styled.h3`
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
 
-export const ChatRoomSubtitle = styled.h5`
+export const ChatRoomSubtitle = styled.p`
   ${({ theme }) => theme.typo.B1_R};
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;
@@ -45,17 +42,12 @@ export const ChatRoomTagSection = styled.ul`
   width: 100%;
 `;
 
-export const ChatRoomPariticipantList = styled.ul`
+export const ChatRoomParticipantList = styled.ul`
   display: flex;
+  padding-left: 10px;
 `;
 
 export const ParticipantItem = styled.li<{ $index?: number }>`
-  margin-left: 8px;
-  position: absolute;
-  left: ${({ $index }) => $index && `${15 * $index}px`};
-  width: 24px;
-  height: 24px;
-  border: 1px solid ${({ theme }) => theme.colors.Gray_100};
-  border-radius: 999px;
-  background-color: ${({ theme }) => theme.colors.Gray_300};
+  display: flex;
+  margin-left: -10px;
 `;

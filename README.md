@@ -17,39 +17,45 @@
 
 ## 🛠️ 기술 스택
 
-<p align="center">
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" alt="Styled Components" />
-  <img src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=React_Query&logoColor=white" alt="React Query" />
-  <img src="https://img.shields.io/badge/Recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white" alt="Recoil" />
-  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
-</p>
+<img width="80%" src="./public/stack.png"/>
 
 ## 👥 컨트리뷰터
 
-<ul style="display: flex; gap: 10px; padding:0">
-  <li style="list-style: none">
-    <a href="https://github.com/iamkjw77" style="display:flex;align-items: center;gap:10px">
-      <img src="https://avatars.githubusercontent.com/u/45993668?v=4" width="30" style="border-radius: 50%" alt="Contributor 1"/>
-      <p style="padding:0; margin:0">지원</p>
-    </a>
-  </li>
-
-  <li style="list-style: none">
-    <a href="https://github.com/itsmesunky" style="display:flex;align-items: center;gap:10px">
-      <img src="https://avatars.githubusercontent.com/u/99164690?v=4" width="30" style="border-radius: 50%" alt="Contributor 1"/>
-      <p style="padding:0; margin:0">선우</p>
-    </a>
-  </li>
-
-  <li style="list-style: none">
-    <a href="https://github.com/GangHub1970" style="display:flex;align-items: center;gap:10px">
-      <img src="https://avatars.githubusercontent.com/u/104193739?v=4" width="30" style="border-radius: 50%" alt="Contributor 1"/>
-      <p style="padding:0; margin:0">윤강</p>
-    </a>
-  </li>
-</ul>
+<table align="center">
+  <tr>
+    <td align="center">Frontend</td>
+    <td align="center">Frontend</td>
+    <td align="center">Frontend</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/iamkjw77">
+        <img src="https://avatars.githubusercontent.com/u/45993668?v=4" width="150" style="max-width: 100%;">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/itsmesunky">
+        <img src="https://avatars.githubusercontent.com/u/99164690?v=4" width="150" style="max-width: 100%;">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/GangHub1970">
+        <img src="https://avatars.githubusercontent.com/u/104193739?v=4" width="150" style="max-width: 100%;">
+      </a>
+    </td>
+  <tr>
+  <tr>
+    <td align="center">
+      🍓<a href="https://github.com/iamkjw77">지원</a>
+    </td>
+    <td align="center">
+      🫐 <a href="https://github.com/itsmesunky">선우</a>
+    </td>
+    <td align="center">
+      🥑 <a href="https://github.com/GangHub1970">윤강</a>
+    </td>
+  </tr>
+</table>
 
 ## 🚀 시작하기
 

@@ -10,6 +10,8 @@ import { useRecoilValue } from 'recoil';
 import isLoggedInAtom from '@/recoil/auth/isLoggedIn';
 import { ALERT_MESSAGE } from '@/constants/message';
 import { IInterestTag } from '@/types/@common';
+import { COMMON_CONSTANT } from '@/constants/@common';
+import { HOME_CONSTANT } from '@/constants/home';
 
 export interface IChatRoomCardProps {
   id: number;
@@ -27,7 +29,10 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
   const isLoggedIn = useRecoilValue(isLoggedInAtom);
 
   // 참여 유저 4명 자르기
-  const participantList = [...chatRoom.participantProfileList].slice(0, 4);
+  const participantList = [...chatRoom.participantProfileList].slice(
+    0,
+    COMMON_CONSTANT.CHAT_MAX_PARTICIPANT_COUNT,
+  );
 
   // 채팅방으로 이동
   const handleChatRoomClick = useCallback(
@@ -45,26 +50,24 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
 
   return (
     <Styled.Wrapper onClick={() => handleChatRoomClick(chatRoom.id)}>
-      <Styled.ImageContainer>
-        <Styled.ChatRoomThumbnail src={chatRoom.imageUrl} />
-      </Styled.ImageContainer>
+      <Styled.ChatRoomThumbnail src={chatRoom.imageUrl} />
       <Styled.ChatRoomInfoContainer>
         <Styled.ChatRoomTitle>{chatRoom.title}</Styled.ChatRoomTitle>
         <Styled.ChatRoomSubtitle>
           {chatRoom.description}
         </Styled.ChatRoomSubtitle>
         <Styled.ChatRoomTagSection>
-          {chatRoom.categoryIdList.slice(0, 3).map((category) => {
-            return (
-              <Tag
-                key={category.id}
-                icon={category.image}
-                label={category.name}
-              />
-            );
-          })}
+          {chatRoom.categoryIdList
+            .slice(0, HOME_CONSTANT.MAX_CHAT_TAGS)
+            .map((category) => {
+              return (
+                <li key={category.id}>
+                  <Tag icon={category.image} label={category.name} />
+                </li>
+              );
+            })}
         </Styled.ChatRoomTagSection>
-        <Styled.ChatRoomPariticipantList>
+        <Styled.ChatRoomParticipantList>
           {participantList.map((imageUrl, idx) => (
             <Styled.ParticipantItem key={uuidv4()} $index={idx}>
               <ProfileImage
@@ -74,14 +77,18 @@ const ChatRoomCard = (chatRoom: IChatRoomCardProps) => {
               />
             </Styled.ParticipantItem>
           ))}
-          {chatRoom.participantCount > 4 && (
-            <Styled.ParticipantItem $index={4}>
+          {chatRoom.participantCount >
+            COMMON_CONSTANT.CHAT_MAX_PARTICIPANT_COUNT && (
+            <Styled.ParticipantItem
+              $index={COMMON_CONSTANT.CHAT_MAX_PARTICIPANT_COUNT}
+            >
               <ParticipantCount>
-                <span>{chatRoom.participantCount - 4}</span>
+                {chatRoom.participantCount -
+                  COMMON_CONSTANT.CHAT_MAX_PARTICIPANT_COUNT}
               </ParticipantCount>
             </Styled.ParticipantItem>
           )}
-        </Styled.ChatRoomPariticipantList>
+        </Styled.ChatRoomParticipantList>
       </Styled.ChatRoomInfoContainer>
     </Styled.Wrapper>
   );

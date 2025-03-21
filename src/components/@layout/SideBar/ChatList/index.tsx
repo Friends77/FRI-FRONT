@@ -63,6 +63,9 @@ const ChatList = () => {
             onClick={handleChatRoomClick}
           />
         ))}
+      {!keyword && filteredChatList.length === 0 && (
+        <Styled.EmptyText>채팅방에 참가해보세요!</Styled.EmptyText>
+      )}
       {keyword && filteredChatList.length === 0 && (
         <Styled.EmptyText>검색 결과가 없습니다.</Styled.EmptyText>
       )}

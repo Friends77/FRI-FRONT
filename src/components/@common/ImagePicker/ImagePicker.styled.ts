@@ -10,7 +10,7 @@ export const ImagePickerWrapper = styled.div`
   gap: 8px;
 `;
 
-export const ImagePickerImageSection = styled.section`
+export const ImagePickerImageSection = styled.div`
   position: relative;
 `;
 

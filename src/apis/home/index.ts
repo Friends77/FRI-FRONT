@@ -23,7 +23,7 @@ export const getFriendsByTag = async (id: number) => {
     {
       params: {
         categoryIds: id,
-        size: HOME_CONSTANT.FRIEND_RECOMMENDATION_LIMIT,
+        size: HOME_CONSTANT.FRIEND_RECO_LIMIT,
       },
     },
   );

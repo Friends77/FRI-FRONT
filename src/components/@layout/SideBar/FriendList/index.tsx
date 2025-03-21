@@ -38,6 +38,9 @@ const FriendList = () => {
         friendList.map((friend) => (
           <FriendItem key={friend.memberId} friend={friend} />
         ))}
+      {!keyword && friendList.length === 0 && (
+        <Styled.EmptyText>친구를 추가해보세요!</Styled.EmptyText>
+      )}
       {keyword && friendList.length === 0 && (
         <Styled.EmptyText>검색 결과가 없습니다.</Styled.EmptyText>
       )}

@@ -3,13 +3,15 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 28px;
   padding: 32px 60px;
 `;
 
-export const BannerTitle = styled.article`
+export const BannerTitle = styled.h3`
   ${({ theme }) => theme.typo.H1_B};
   color: ${({ theme }) => theme.colors.Gray_100};
+  line-height: 30px;
+  margin-bottom: 10px;
 `;
 
 export const RecommendedContent = styled.section`
@@ -20,15 +22,25 @@ export const RecommendedContent = styled.section`
   align-items: flex-start;
 `;
 
-export const ChatRoomByTagSection = styled.section`
-  width: 865px;
+export const RecommendedContentWithMargin = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
 `;
 
-export const ChatRoomByTagTitleSection = styled.section`
+export const ChatRoomByTagSection = styled.div`
+  width: 100%;
+  margin-top: 16px;
+`;
+
+export const ChatRoomByTagTitleSection = styled.div`
   margin-bottom: 8px;
 `;
 
-export const ChatRoomByTagTitle = styled.h1`
+export const ChatRoomByTagTitle = styled.h3`
   ${({ theme }) => theme.typo.D2_B};
   color: ${({ theme }) => theme.colors.Gray_1000};
 `;

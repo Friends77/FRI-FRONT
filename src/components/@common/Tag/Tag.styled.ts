@@ -4,15 +4,22 @@ export interface ITag {
   $size: 'small' | 'large';
 }
 
-export const Wrapper = styled.li<ITag>`
+export const Wrapper = styled.span<ITag>`
   display: inline-flex;
+  align-items: center;
+  gap: 4px;
   outline: 1px solid ${({ theme }) => theme.colors.Gray_300};
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.Gray_100};
   color: ${({ theme }) => theme.colors.Gray_800};
-  gap: 4px;
-  padding: 4px 8px;
+  padding: 4px 6px;
+  max-width: fit-content;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
-  ${({ theme, $size }) =>
-    $size === 'small' ? theme.typo.Label_R : theme.typo.T2_R};
+  span {
+    ${({ theme, $size }) =>
+      $size === 'small' ? theme.typo.Label_R : theme.typo.B2_R};
+  }
 `;

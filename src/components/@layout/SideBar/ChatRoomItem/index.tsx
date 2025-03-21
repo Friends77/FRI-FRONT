@@ -3,6 +3,7 @@ import * as Styled from './ChatRoomItem.styled';
 import { formatToHHMM } from '@/utils/formatter/time';
 import { v4 as uuidv4 } from 'uuid';
 import ProfileImage from '@/components/@common/ProfileImage';
+import { COMMON_CONSTANT } from '@/constants/@common';
 
 interface IChatRoomItemProps {
   chatRoom: IMyChatItem;
@@ -26,7 +27,10 @@ const ChatRoomItem = ({
     participantProfileList,
   } = chatRoom;
 
-  const participantList = [...participantProfileList].slice(0, 4);
+  const participantList = [...participantProfileList].slice(
+    0,
+    COMMON_CONSTANT.CHAT_MAX_PARTICIPANT_COUNT,
+  );
 
   return (
     <Styled.Wrapper onClick={() => onClick(id)} $isSelected={isSelected}>
@@ -49,17 +53,21 @@ const ChatRoomItem = ({
               />
             </Styled.ParticipantItem>
           ))}
-          {participantCount > 4 && (
-            <Styled.ParticipantItem $index={4}>
+          {participantCount > COMMON_CONSTANT.CHAT_MAX_PARTICIPANT_COUNT && (
+            <Styled.ParticipantItem
+              $index={COMMON_CONSTANT.CHAT_MAX_PARTICIPANT_COUNT}
+            >
               <Styled.ParticipantCount>
-                <span>{participantCount - 4}</span>
+                {participantCount - COMMON_CONSTANT.CHAT_MAX_PARTICIPANT_COUNT}
               </Styled.ParticipantCount>
             </Styled.ParticipantItem>
           )}
         </Styled.ParticipantList>
         {!!unreadMessageCount && (
           <Styled.UnreadCountContainer>
-            <span>{unreadMessageCount > 99 ? '+99' : unreadMessageCount}</span>
+            {unreadMessageCount > COMMON_CONSTANT.CHAT_MAX_READ_COUNT
+              ? `+${COMMON_CONSTANT.CHAT_MAX_READ_COUNT}`
+              : unreadMessageCount}
           </Styled.UnreadCountContainer>
         )}
       </Styled.ChatRoomInfo>

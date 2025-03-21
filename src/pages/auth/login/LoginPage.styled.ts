@@ -6,11 +6,13 @@ export const Main = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 120px auto;
+  margin: auto;
   width: 440px;
+  height: 100vh;
+  overflow: hidden;
 `;
 
-export const LoginHeader = styled.h1`
+export const LoginHeader = styled.h3`
   ${({ theme }) => theme.typo.D1_B}
   margin-bottom: 64px;
   color: ${({ theme }) => theme.colors.Gray_1000};

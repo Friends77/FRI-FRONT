@@ -18,7 +18,7 @@ export const ChatRoomAlbum = styled.div<IChatRoomAlbumProps>`
 `;
 
 export const Header = styled.div`
-  padding: 11px 16px;
+  padding: 16px;
   display: flex;
   align-items: center;
 `;

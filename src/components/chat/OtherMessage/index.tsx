@@ -75,6 +75,64 @@ const OtherMessage = ({
         $isSameSender={isSameSender}
       >
         {senderProfile && (
+          <Styled.ProfileButton
+            type="button"
+            onClick={() => handleOpenProfile(senderProfile.id)}
+          >
+            <ProfileImage
+              size={36}
+              src={senderProfile.profileImageUrl}
+              alt="프로필 이미지"
+            />
+          </Styled.ProfileButton>
+        )}
+
+        <Styled.SenderProfile>
+          {senderProfile && (
+            <Styled.SenderNickname>
+              {senderProfile.nickname}
+            </Styled.SenderNickname>
+          )}
+          <Styled.MessageContainer>
+            {message.type === MessageType.TEXT && (
+              <Styled.MessageContent>{message.content}</Styled.MessageContent>
+            )}
+            {message.type === MessageType.IMAGE && (
+              <Styled.ImageMessageContainer>
+                {message.content
+                  .split(',')
+                  .slice(0, CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES)
+                  .map((path, index) => (
+                    <Styled.ImageMessageButton
+                      key={path}
+                      type="button"
+                      onClick={() => handleImageMessageClick(index)}
+                    >
+                      <Styled.ImageMessageContent
+                        key={path}
+                        src={path}
+                        alt="이미지 메세지"
+                      />
+                    </Styled.ImageMessageButton>
+                  ))}
+                {message.content.split(',').length >
+                  CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES && (
+                  <Styled.DimmedImage>{`+${
+                    message.content.split(',').length -
+                    CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES
+                  }`}</Styled.DimmedImage>
+                )}
+              </Styled.ImageMessageContainer>
+            )}
+            {isShowSendTime && (
+              <Styled.SendTime>
+                {format((message as ISentMessageItem).createdAt, 'h:mma')}
+              </Styled.SendTime>
+            )}
+          </Styled.MessageContainer>
+        </Styled.SenderProfile>
+
+        {/* </Styled.ProfileButton>
           <Styled.SenderProfile>
             <Styled.ProfileButton
               type="button"
@@ -89,45 +147,7 @@ const OtherMessage = ({
             <Styled.SenderNickname>
               {senderProfile.nickname}
             </Styled.SenderNickname>
-          </Styled.SenderProfile>
-        )}
-        <Styled.MessageContainer>
-          {message.type === MessageType.TEXT && (
-            <Styled.MessageContent>{message.content}</Styled.MessageContent>
-          )}
-          {message.type === MessageType.IMAGE && (
-            <Styled.ImageMessageContainer>
-              {message.content
-                .split(',')
-                .slice(0, CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES)
-                .map((path, index) => (
-                  <Styled.ImageMessageButton
-                    key={path}
-                    type="button"
-                    onClick={() => handleImageMessageClick(index)}
-                  >
-                    <Styled.ImageMessageContent
-                      key={path}
-                      src={path}
-                      alt="이미지 메세지"
-                    />
-                  </Styled.ImageMessageButton>
-                ))}
-              {message.content.split(',').length >
-                CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES && (
-                <Styled.DimmedImage>{`+${
-                  message.content.split(',').length -
-                  CHAT_CONSTANT.MAX_VISIBLE_IMAGE_MESSAGES
-                }`}</Styled.DimmedImage>
-              )}
-            </Styled.ImageMessageContainer>
-          )}
-          {isShowSendTime && (
-            <Styled.SendTime>
-              {format((message as ISentMessageItem).createdAt, 'h:mma')}
-            </Styled.SendTime>
-          )}
-        </Styled.MessageContainer>
+          </Styled.SenderProfile> */}
       </Styled.OtherMessageItem>
     </>
   );

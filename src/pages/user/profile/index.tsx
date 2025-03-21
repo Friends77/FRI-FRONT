@@ -120,8 +120,6 @@ const ProfilePage = () => {
   const onSubmit = (data: IUpdateProfileForm) => {
     const { year, month, day, EI, NS, FT, JP, tags, ...rest } = data;
 
-    console.log(year, month, day);
-
     const requestPayload: IUpdateProfileFormRequest = {
       ...rest,
       birth: `${year}-${month}-${day}`,
@@ -133,10 +131,10 @@ const ProfilePage = () => {
   };
 
   return (
-    <>
+    <Styled.ProfileContainer>
       <Styled.ProfilePageHeader>마이페이지</Styled.ProfilePageHeader>
       <FormProvider {...methods}>
-        <Styled.ProfilePageStyledForm onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Styled.ProfilePageContentSection>
             <Styled.ProfilePageImageContainer>
               <ImagePicker
@@ -189,7 +187,7 @@ const ProfilePage = () => {
                 type="text"
                 isRequired={true}
                 name="selfDescription"
-                width="892px"
+                width="100%"
                 placeholder="한 줄 소개를 입력해주세요."
                 isErrorMsgRelative={true}
                 rules={{
@@ -280,7 +278,7 @@ const ProfilePage = () => {
                 render={({ field }) => (
                   <Dropdown
                     {...field}
-                    width="892px"
+                    width="100%"
                     name="gender"
                     options={GENDER}
                     placeholder="성별을 선택해주세요"
@@ -355,7 +353,7 @@ const ProfilePage = () => {
                 render={({ field }) => (
                   <Dropdown
                     {...field}
-                    width="892px"
+                    width="100%"
                     name="tags"
                     options={categoryOptions}
                     isMulti={true}
@@ -380,9 +378,9 @@ const ProfilePage = () => {
               </PrimaryButton>
             </Styled.ProfilePageButtonSection>
           </Styled.ProfilePageContentSection>
-        </Styled.ProfilePageStyledForm>
+        </form>
       </FormProvider>
-    </>
+    </Styled.ProfileContainer>
   );
 };
 
