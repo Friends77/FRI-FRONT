@@ -16,7 +16,7 @@ const HomePage = () => {
   return (
     <Styled.Wrapper>
       <Banner
-        roomId={5}
+        roomId={16}
         title={
           <Styled.BannerTitle>
             화제의 기대작!

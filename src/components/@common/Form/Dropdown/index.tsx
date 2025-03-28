@@ -77,7 +77,7 @@ const DropdownIndicator = (props: DropdownIndicatorProps) => {
 const ClearIndicator = (props: ClearIndicatorProps) => {
   return (
     <components.ClearIndicator {...props}>
-      <Close title="선택 항목 초기화" width="12px" height="12px" />
+      <Close title="선택 항목 초기화" width="20px" height="20px" />
     </components.ClearIndicator>
   );
 };
@@ -85,7 +85,7 @@ const ClearIndicator = (props: ClearIndicatorProps) => {
 const MultiValueRemove = (props: MultiValueRemoveProps) => {
   return (
     <components.MultiValueRemove {...props}>
-      <Close title="선택 항목 삭제" width="10px" height="10px" />
+      <Close title="선택 항목 삭제" width="20px" height="20px" />
     </components.MultiValueRemove>
   );
 };
