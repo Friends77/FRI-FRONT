@@ -15,6 +15,7 @@ export const Wrapper = styled.article`
 export const ChatRoomThumbnail = styled.img`
   width: 100%;
   height: 184px;
+  min-height: 184px;
   border-radius: 10px;
   margin-bottom: 6px;
   object-fit: cover;
