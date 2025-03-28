@@ -1,3 +1,4 @@
+import { lineClamp } from '@/components/@layout/SideBar/ChatRoomItem/ChatRoomItem.styled';
 import styled from 'styled-components';
 
 export const Wrapper = styled.article`
@@ -35,6 +36,7 @@ export const ChatRoomTitle = styled.h3`
 export const ChatRoomSubtitle = styled.p`
   ${({ theme }) => theme.typo.B1_R};
   color: ${({ theme }) => theme.colors.Gray_1000};
+  ${lineClamp(1)}
 `;
 
 export const ChatRoomTagSection = styled.ul`
