@@ -11,13 +11,12 @@ export const ProfilePageHeader = styled.h3`
   justify-content: center;
   ${({ theme }) => theme.typo.D1_B};
   color: ${({ theme }) => theme.colors.Gray_1000};
+  margin-bottom: 40px;
 `;
 
 export const ProfilePageContentSection = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 58px 0px 120px 0px;
-  gap: 40px;
 `;
 
 export const ProfilePageImageContainer = styled.div`
@@ -30,6 +29,15 @@ export const ProfilePageInputContainer = styled.div`
   flex-direction: column;
   position: relative;
   gap: 16px;
+  margin-top: 8px;
+`;
+
+export const ProfilePageInputWithMargin = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 16px;
+  margin-top: 40px;
 `;
 
 export const ProfilePageLabel = styled.label<{ $isRequired?: boolean }>`
@@ -74,5 +82,5 @@ export const ProfilePageRadio = styled.div`
 export const ProfilePageButtonSection = styled.div`
   display: flex;
   justify-content: center;
-  margin: 20px 0 40px;
+  margin: 40px 0;
 `;

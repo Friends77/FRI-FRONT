@@ -143,7 +143,7 @@ const ProfilePage = () => {
                 imageUrl={myProfile?.imageUrl}
               />
             </Styled.ProfilePageImageContainer>
-            <Styled.ProfilePageInputContainer>
+            <Styled.ProfilePageInputWithMargin>
               <Styled.ProfilePageLabel>닉네임</Styled.ProfilePageLabel>
               <Styled.NickNameSection>
                 <InputField
@@ -178,7 +178,7 @@ const ProfilePage = () => {
                   변경하기
                 </Styled.UpdateNickNameBtn>
               </Styled.NickNameSection>
-            </Styled.ProfilePageInputContainer>
+            </Styled.ProfilePageInputWithMargin>
             <Styled.ProfilePageInputContainer>
               <Styled.ProfilePageLabel $isRequired={true}>
                 한 줄 소개&nbsp;
@@ -268,7 +268,7 @@ const ProfilePage = () => {
                 />
               </Styled.ProfilePageBirthSection>
             </Styled.ProfilePageInputContainer>
-            <Styled.ProfilePageInputContainer>
+            <Styled.ProfilePageInputWithMargin>
               <Styled.ProfilePageLabel $isRequired={false}>
                 성별
               </Styled.ProfilePageLabel>
@@ -289,8 +289,8 @@ const ProfilePage = () => {
                   />
                 )}
               />
-            </Styled.ProfilePageInputContainer>
-            <Styled.ProfilePageInputContainer>
+            </Styled.ProfilePageInputWithMargin>
+            <Styled.ProfilePageInputWithMargin>
               <Styled.ProfilePageLabel>MBTI</Styled.ProfilePageLabel>
               <Styled.ProfilePageMBTIOption>
                 <Styled.ProfilePageRadio>
@@ -342,8 +342,8 @@ const ProfilePage = () => {
                   })}
                 </Styled.ProfilePageRadio>
               </Styled.ProfilePageMBTIOption>
-            </Styled.ProfilePageInputContainer>
-            <Styled.ProfilePageInputContainer>
+            </Styled.ProfilePageInputWithMargin>
+            <Styled.ProfilePageInputWithMargin>
               <Styled.ProfilePageLabel>
                 관심사 (1개 이상 선택해주세요)
               </Styled.ProfilePageLabel>
@@ -364,7 +364,7 @@ const ProfilePage = () => {
                   />
                 )}
               />
-            </Styled.ProfilePageInputContainer>
+            </Styled.ProfilePageInputWithMargin>
             <Styled.ProfilePageButtonSection>
               <PrimaryButton
                 type="submit"
