@@ -30,6 +30,7 @@ export const TitleAndTime = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: end;
+  margin-bottom: 4px;
 `;
 
 export const lineClamp = (count: number) => css`
