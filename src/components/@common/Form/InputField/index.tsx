@@ -84,11 +84,10 @@ const InputField = ({
             <Cancel title="취소" width="20" height="20" />
           </Styled.CancelBtn>
         )}
-        {error && (
-          <Styled.ErrorMsg $isErrorMsgRelative={isErrorMsgRelative}>
-            {error.message}
-          </Styled.ErrorMsg>
-        )}
+
+        <Styled.ErrorMsg $isErrorMsgRelative={isErrorMsgRelative}>
+          {error && error.message}
+        </Styled.ErrorMsg>
       </Styled.InputContainer>
     </Styled.Wrapper>
   );
