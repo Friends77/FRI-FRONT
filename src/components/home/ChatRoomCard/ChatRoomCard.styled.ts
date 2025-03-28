@@ -14,10 +14,10 @@ export const Wrapper = styled.article`
 
 export const ChatRoomThumbnail = styled.img`
   width: 100%;
-  max-width: 264px;
-  max-height: 184px;
+  height: 184px;
   border-radius: 10px;
   margin-bottom: 6px;
+  object-fit: cover;
 `;
 
 export const ChatRoomInfoContainer = styled.div`

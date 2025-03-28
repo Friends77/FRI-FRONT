@@ -73,6 +73,7 @@ export const CancelBtn = styled.button`
 `;
 
 export const ErrorMsg = styled.p<{ $isErrorMsgRelative?: boolean }>`
+  min-height: 18px;
   ${({ theme }) => theme.typo.B2_R};
   position: ${({ $isErrorMsgRelative }) => !$isErrorMsgRelative && 'absolute'};
   transform: translateY(11px);

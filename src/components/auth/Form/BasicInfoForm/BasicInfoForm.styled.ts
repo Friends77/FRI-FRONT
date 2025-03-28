@@ -25,7 +25,7 @@ export const BasicInfoFormBirthSection = styled.div`
   flex-direction: column;
   position: relative;
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 8px;
 `;
 
 export const BasicInfoFormBirthYearSection = styled.div`

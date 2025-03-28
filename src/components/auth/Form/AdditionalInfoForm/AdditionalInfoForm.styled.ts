@@ -16,7 +16,7 @@ export const FormContentSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
   margin: 66px 0px 120px 0px;
 `;
 
@@ -25,6 +25,7 @@ export const FormMBTISection = styled.div`
   flex-direction: column;
   width: 320px;
   gap: 16px;
+  margin-bottom: 20px;
 `;
 
 export const FormMBTIOption = styled.div`
