@@ -150,7 +150,7 @@ const ProfilePage = () => {
                   type="text"
                   isRequired={true}
                   name="nickname"
-                  width="774px"
+                  width="100%"
                   placeholder="닉네임을 입력해주세요"
                   isErrorMsgRelative={true}
                   rules={{
@@ -209,7 +209,7 @@ const ProfilePage = () => {
                   render={({ field }) => (
                     <Dropdown
                       {...field}
-                      width="442px"
+                      width="200px"
                       name="year"
                       options={BIRTH_YEAR}
                       placeholder="출생년도를 선택해주세요"
@@ -228,7 +228,7 @@ const ProfilePage = () => {
                   render={({ field }) => (
                     <Dropdown
                       {...field}
-                      width="217px"
+                      width="150px"
                       name="month"
                       options={BIRTH_MONTH}
                       placeholder="월"
@@ -253,7 +253,7 @@ const ProfilePage = () => {
                   }}
                   render={({ field }) => (
                     <Dropdown
-                      width="217px"
+                      width="150px"
                       name="day"
                       options={dayOptions}
                       placeholder="일"

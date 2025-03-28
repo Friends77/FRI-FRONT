@@ -27,7 +27,7 @@ export const Description = styled.p`
 
 export const InfoTable = styled.div`
   background-color: ${({ theme }) => theme.colors.Gray_100};
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   padding: 8px 0;
   display: flex;
   flex-direction: column;
@@ -56,5 +56,5 @@ export const InfoValue = styled.span`
 export const TagContainer = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 `;
