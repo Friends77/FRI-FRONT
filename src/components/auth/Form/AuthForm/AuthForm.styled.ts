@@ -14,7 +14,7 @@ export const AuthFormHeader = styled.h3`
 export const AuthFormContentSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 16px;
   margin-top: 66px;
 `;
 
