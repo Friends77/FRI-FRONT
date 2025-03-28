@@ -47,12 +47,12 @@ export const UserCardInfoSection = styled.div<{ $isHovered: boolean }>`
   display: inline-flex;
   flex-direction: column;
   gap: 2px;
+  margin-left: 16px;
 `;
 
 export const UserCardNickname = styled.span`
   ${({ theme }) => theme.typo.B1_B};
   color: ${({ theme }) => theme.colors.Gray_1000};
-  margin-left: 16px;
 `;
 
 export const UserCardDescription = styled.span<{ $isHovered: boolean }>`
