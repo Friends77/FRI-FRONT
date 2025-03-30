@@ -32,6 +32,7 @@ export const UsersTitleSection = styled.div`
 
 export const UsersTitle = styled.h3`
   ${({ theme }) => theme.typo.D2_B};
+  margin-bottom: 4px;
 `;
 
 export const UsersSubTitle = styled.p`

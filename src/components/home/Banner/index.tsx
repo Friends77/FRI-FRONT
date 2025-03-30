@@ -45,7 +45,7 @@ const Banner = ({ roomId, title, subTitle }: BannerProps) => {
             <Styled.ChatRoomInfoSection>
               <Styled.ChatRoomImage src={chatRoomThumbnail} />
               <Styled.ChatRoomInfo>
-                오징어게임 시즌3 존버방
+                [넷플릭스] 오징어 게임 시청자 모임
                 <img
                   src={Profiles}
                   style={{
