@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 export const BannerTitle = styled.h3`
   ${({ theme }) => theme.typo.H1_B};
   color: ${({ theme }) => theme.colors.Gray_100};
-  line-height: 30px;
+  line-height: 32px;
   margin-bottom: 10px;
 `;
 

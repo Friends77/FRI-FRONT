@@ -69,6 +69,7 @@ export const ChatRoomImage = styled.img`
 export const ChatRoomInfo = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 4px;
   color: ${({ theme }) => theme.colors.White};
   ${({ theme }) => theme.typo.B1_R};
 `;

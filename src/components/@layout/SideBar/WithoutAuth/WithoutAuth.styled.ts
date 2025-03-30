@@ -13,6 +13,7 @@ export const Container = styled.section`
 
 export const Text = styled.p`
   ${({ theme }) => theme.typo.T2_R};
+  line-height: 28px;
 `;
 
 export const LoginBtn = styled(Link)`

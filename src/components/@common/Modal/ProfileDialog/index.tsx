@@ -1,5 +1,5 @@
 import * as Styled from './ProfileDialog.styled';
-import { IUserProfile } from '@/types/@common';
+import { Gender, IUserProfile } from '@/types/@common';
 import CustomModal from '../CustomModal';
 import ProfileImage from '../../ProfileImage';
 import { getInternationalAge } from '@/utils/formatter/time';
@@ -44,7 +44,9 @@ const ProfileDialog = ({ profile, onClose }: IProfileDialog) => {
           </Styled.InfoRow>
           <Styled.InfoRow>
             <Styled.InfoValue>{getInternationalAge(birth)}세</Styled.InfoValue>
-            <Styled.InfoValue>{gender}</Styled.InfoValue>
+            <Styled.InfoValue>
+              {gender === Gender.MAN ? '남성' : '여성'}
+            </Styled.InfoValue>
             <Styled.InfoValue>{mbti || '-'}</Styled.InfoValue>
           </Styled.InfoRow>
         </Styled.InfoTable>
