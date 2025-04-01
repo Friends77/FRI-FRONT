@@ -26,7 +26,7 @@ const AlarmPopover = () => {
     });
 
     setHasNext(alarmListResponse.hasNext);
-  }, [alarmListResponse, lastAlarmId]);
+  }, [alarmListResponse, lastAlarmId, setAlarmList]);
 
   useEffect(() => {
     if (!observerRef.current || !hasNext) return;
