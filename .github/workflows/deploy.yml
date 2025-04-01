@@ -1,0 +1,68 @@
+name: Deploy Frontend with Docker
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create .env.production file
+        run: |
+          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env.production
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env.production
+          echo "VITE_GOOGLE_CLIENT_ID=${{ secrets.VITE_GOOGLE_CLIENT_ID }}" >> .env.production
+          echo "VITE_NAVER_CLIENT_ID=${{ secrets.VITE_NAVER_CLIENT_ID }}" >> .env.production
+          echo "VITE_NAVER_CALLBACK_URL=${{ secrets.VITE_NAVER_CALLBACK_URL }}" >> .env.production
+          echo "VITE_GOOGLE_CALLBACK_URL=${{ secrets.VITE_GOOGLE_CALLBACK_URL }}" >> .env.production
+          echo "VITE_WEB_SOCKET_URL=${{ secrets.VITE_WEB_SOCKET_URL }}" >> .env.production
+
+      - name: Build project
+        run: |
+          npm run build:prod
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Add EC2 host to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Save SSH key to file
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+
+      - name: Copy docker-compose file to EC2
+        run: |
+          scp -i private_key.pem -r docker-compose.yml nginx.conf dist ubuntu@${{ secrets.EC2_HOST }}:~/friends77
+
+      - name: Build and push Docker image
+        run: |
+          ls -al .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/friends77 .
+          docker tag ${{ secrets.DOCKER_USERNAME }}/friends77 ${{ secrets.DOCKER_USERNAME }}/friends77:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/friends77:latest
+
+      - name: Deploy to EC2
+        run: |
+          ssh -i private_key.pem ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+            docker pull ${{ secrets.DOCKER_USERNAME }}/friends77:latest           
+            cd /home/ubuntu/friends77
+            docker-compose down || true
+            docker-compose up -d
+          EOF

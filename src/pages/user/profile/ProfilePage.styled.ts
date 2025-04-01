@@ -1,0 +1,86 @@
+import SecondaryButton from '@/components/@common/Button/SecondaryButton';
+import styled from 'styled-components';
+
+export const ProfileContainer = styled.div`
+  margin-top: 50px;
+  padding: 0 60px;
+`;
+
+export const ProfilePageHeader = styled.h3`
+  display: flex;
+  justify-content: center;
+  ${({ theme }) => theme.typo.D1_B};
+  color: ${({ theme }) => theme.colors.Gray_1000};
+  margin-bottom: 40px;
+`;
+
+export const ProfilePageContentSection = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ProfilePageImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const ProfilePageInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 16px;
+  margin-top: 8px;
+`;
+
+export const ProfilePageInputWithMargin = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 16px;
+  margin-top: 40px;
+`;
+
+export const ProfilePageLabel = styled.label<{ $isRequired?: boolean }>`
+  ${({ theme }) => theme.typo.T2_B};
+  color: ${({ theme }) => theme.colors.Gray_1000};
+
+  &::after {
+    display: ${({ $isRequired }) => ($isRequired ? 'inline' : 'none')};
+    content: '*';
+    position: absolute;
+    color: ${({ theme }) => theme.colors.Alter_error};
+  }
+`;
+
+export const ProfilePageBirthSection = styled.div`
+  display: flex;
+  gap: 8px;
+`;
+
+export const NickNameSection = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 16px;
+`;
+
+export const UpdateNickNameBtn = styled(SecondaryButton)`
+  height: 53px;
+  cursor: pointer;
+`;
+
+export const ProfilePageMBTIOption = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ProfilePageRadio = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+`;
+
+export const ProfilePageButtonSection = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+`;

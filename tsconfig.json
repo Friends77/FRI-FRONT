@@ -1,7 +1,23 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "target": "ESNext", // 최신 ECMAScript 버전을 대상으로 합니다.
+    "module": "ESNext", // ES 모듈을 사용합니다.
+    "moduleResolution": "Node", // Node.js 방식으로 모듈을 해석합니다.
+    "strict": true, // 모든 strict 타입 체크 옵션을 활성화합니다.
+    "jsx": "preserve", // JSX를 변환하지 않고 그대로 유지합니다. (React 사용 시).
+    "sourceMap": true, // 소스맵을 생성합니다.
+    "resolveJsonModule": true, // JSON 파일을 모듈로 해석합니다.
+    "esModuleInterop": true, // CommonJS 모듈과의 상호 운용성을 활성화합니다.
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // 사용할 라이브러리를 정의합니다.
+    "skipLibCheck": true, // 라이브러리 타입 체크를 건너뜁니다.
+    "forceConsistentCasingInFileNames": true, // 파일명의 대소문자를 일관되게 유지합니다.
+    "allowImportingTsExtensions": true, // .ts 확장자를 포함한 import를 허용합니다.
+    "noEmit": true, // TypeScript가 컴파일 결과물을 생성하지 않도록 합니다.
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"], // src 디렉토리의 파일을 포함합니다.
+  "exclude": ["node_modules"] // node_modules 디렉토리를 제외합니다.
 }

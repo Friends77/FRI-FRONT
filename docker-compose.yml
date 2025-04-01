@@ -1,0 +1,10 @@
+version: '3' # Docker Compose 파일의 버전 지정
+services:
+  nginx: # Nginx 서비스 정의
+    image: iamkjw77/friends77:latest # 사용할 Docker 이미지 (Docker Hub에서 가져옴)
+    volumes:
+      - /etc/letsencrypt/live:/etc/letsencrypt/live # SSL 인증서 실시간 적용 (Let's Encrypt)
+      - /etc/letsencrypt/archive:/etc/letsencrypt/archive # 인증서 백업 파일 유지
+    ports:
+      - 80:80 # HTTP 포트 매핑
+      - 443:443 # HTTPS 포트 매핑 (SSL 사용 시 필요)
