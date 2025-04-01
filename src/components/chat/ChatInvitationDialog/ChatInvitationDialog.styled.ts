@@ -18,6 +18,18 @@ export const SearchInput = styled(SideBarSearchInput)`
   padding: 0 24px;
 `;
 
+export const LoadingMessage = styled.p`
+  ${({ theme }) => theme.typo.B1_R};
+  color: ${({ theme }) => theme.colors.Gray_700};
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 320px;
+  gap: 4px;
+  padding-bottom: 48px;
+`;
+
 export const EmptyFriendList = styled.div`
   ${({ theme }) => theme.typo.B1_R};
   color: ${({ theme }) => theme.colors.Gray_700};
